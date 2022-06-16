@@ -1,0 +1,11 @@
+dependencies {
+    api project(":nft-convention")
+    api libs.gs_httprouter
+    api libs.gs_router
+    api libs.gs_cache
+    api libs.gs_mongodb
+    api libs.gs_scheduler
+    api libs.gs_oss
+    implementation libs.starter_web
+
+}

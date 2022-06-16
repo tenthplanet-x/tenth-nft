@@ -1,0 +1,195 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter'}
+        maven { url 'https://maven.aliyun.com/repository/jcenter'}
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.18'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.6.3")
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.6.3'
+    id 'maven-publish'
+    id 'application'
+    id 'java-library'
+}
+ext {
+    if (!project.hasProperty("env")) {
+        println 'use defailt env: fat'
+        env = "fat"
+    }
+    println "env:${project['env']}"
+
+    versions = [
+        springboot: '2.1.6.RELEASE',
+        commons: '0.4.0_003-SNAPSHOT',
+        gs: '0.11.0_20220616_001-SNAPSHOT',
+        operation: '0.3.0_20220228_007-SNAPSHOT',
+    ]
+    libs = [
+            starter: 'org.springframework.boot:spring-boot-starter',
+            starter_web:'org.springframework.boot:spring-boot-starter-web',
+            starter_test:'org.springframework.boot:spring-boot-starter-test',
+            starter_logging: 'org.springframework.boot:spring-boot-starter-logging',
+            starter_actuator: 'org.springframework.boot:spring-boot-starter-actuator',
+            starter_mongo: 'org.springframework.boot:spring-boot-starter-data-mongodb',
+            starter_redis: 'org.springframework.boot:spring-boot-starter-data-redis',
+
+            tpulse_commons_utils: "com.tpulse:commons-utils:${versions.commons}",
+            tpulse_commons_sms: "com.tpulse:commons-sms:${versions.commons}",            
+            tpulse_commons_validation: "com.tpulse:commons-validation:${versions.commons}",
+            tpulse_commons_biz: "com.tpulse:commons-biz:${versions.commons}",
+
+            zookeeper: 'org.apache.zookeeper:zookeeper:3.4.13',
+            guava: 'com.google.guava:guava:20.0',            
+            protobuf: 'com.google.protobuf:protobuf-java:3.19.4',
+            protobuf_java_format: 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4',
+            commons_io : "commons-io:commons-io:2.6",
+            commons_beanutils: "commons-beanutils:commons-beanutils:1.9.3",
+            commons_codec: "commons-codec:commons-codec:1.10",
+            commons_collections : "commons-collections:commons-collections:3.2.2",
+            fluent: 'org.apache.httpcomponents:fluent-hc:4.5.9',
+            pinyin4j: 'com.belerweb:pinyin4j:2.5.0',
+            amf_serializer: 'com.exadel.flamingo.flex:amf-serializer:1.5.0',
+            lombok_1_18_2: 'org.projectlombok:lombok:1.18.2',
+            joda: 'joda-time:joda-time:2.10.5',
+            junit: 'junit:junit:4.13.2',
+
+            gs_im: "com.tpulse.gs:gs-entrance:${versions.gs}",
+            gs_config: "com.tpulse.gs:gs-config:${versions.gs}",
+            gs_convention: "com.tpulse.gs:gs-convention:${versions.gs}",
+            gs_id: "com.tpulse.gs:gs-id:${versions.gs}",
+            gs_stage: "com.tpulse.gs:gs-stage:${versions.gs}",
+            gs_stageplayer: "com.tpulse.gs:gs-stageplayer:${versions.gs}",
+            netty: 'io.netty:netty-all:4.1.36.Final',
+            gs_router: "com.tpulse.gs:gs-router:${versions.gs}",
+            gs_client: "com.tpulse.gs:gs-client:${versions.gs}",
+            gs_mongodb: "com.tpulse.gs:gs-mongodb:${versions.gs}",
+            gs_gamefactor: "com.tpulse.gs:gs-gamefactor:${versions.gs}",
+            gs_cache: "com.tpulse.gs:gs-cache:${versions.gs}",
+            gs_engine: "com.tpulse.gs:gs-gamefactor:${versions.gs}",
+            gs_httprouter: "com.tpulse.gs:gs-httprouter:${versions.gs}",
+            gs_scheduler: "com.tpulse.gs:gs-scheduler:${versions.gs}",
+            gs_convention_routes: "com.tpulse.gs:gs-convention-routes:${versions.gs}",
+            gs_oss: "com.tpulse.gs:gs-oss:${versions.gs}",
+
+            operation_security_client: "com.tpulse:operation-security-client:${versions.operation}"
+    ]
+}
+
+allprojects{
+    sourceCompatibility = 1.8
+    group 'com.tpulse.row'
+    version "${versions.row}"
+
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter'}
+        maven { url 'https://maven.aliyun.com/repository/jcenter'}
+
+        maven {
+            credentials {
+                username 'KUTC2W'
+                password 'KU8WOY5nqP'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/103554-release-NnhysS/'
+        }
+        maven {
+            credentials {
+                username 'KUTC2W'
+                password 'KU8WOY5nqP'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/103554-snapshot-I6EHa6/'
+        }
+    }
+}
+
+subprojects{
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java-library'
+
+    jar {
+        enabled = true
+    }
+
+    bootJar {
+        archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
+    }
+
+    dependencies {
+        implementation libs.starter_logging
+        testImplementation libs.junit
+        testImplementation libs.starter_test
+    }
+
+    java {
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+        }
+        repositories {
+            maven {
+                def releasesRepoUrl = 'https://repo.rdc.aliyun.com/repository/103554-release-NnhysS/'
+                def snapshotsRepoUrl = 'https://repo.rdc.aliyun.com/repository/103554-snapshot-I6EHa6/'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                credentials {
+                    username = 'KUTC2W'
+                    password = 'KU8WOY5nqP'
+                }
+            }
+        }
+
+
+    }
+
+    tasks {
+        withType(Copy) {
+            filesMatching("**/*.proto") {
+                duplicatesStrategy = DuplicatesStrategy.INCLUDE
+            }
+        }
+    }
+
+    //protobuf
+    apply plugin: 'com.google.protobuf'
+    sourceSets {
+        main {
+            proto {
+                srcDir 'src/main/proto'
+                include '**/*.proto'
+            }
+        }
+    }
+    protobuf {
+        generatedFilesBaseDir = "$projectDir/src/"
+        protoc {
+            artifact = 'com.google.protobuf:protoc:3.19.4'
+        }
+    }
+
+
+
+}
+
+
+
+

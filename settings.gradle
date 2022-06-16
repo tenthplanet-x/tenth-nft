@@ -1,0 +1,7 @@
+rootProject.name = 'tenth-nft'
+
+include 'nft-crawler'
+include 'nft-convention'
+include 'nft-orm'
+include 'nft-standalone-app'
+
