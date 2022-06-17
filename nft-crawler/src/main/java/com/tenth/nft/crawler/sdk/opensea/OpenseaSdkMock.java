@@ -15,8 +15,8 @@ import java.util.List;
  * @author shijie
  * @createdAt 2022/6/14 14:22
  */
-@Service
-@Primary
+//@Service
+//@Primary
 public class OpenseaSdkMock extends OpenseaSdk {
 
     @Override
