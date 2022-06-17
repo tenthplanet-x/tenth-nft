@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author ChiShiJie
  * @createdAt 2022/6/14 11:18 上午
  */
-@Document("tpulse.nft_bot")
+@Document("tenth.nft_bot")
 public class NftBot {
 
     @Id

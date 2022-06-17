@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author ChiShiJie
  * @createdAt 2022/6/14 11:21
  */
-@Document("tpulse.nft_collection")
+@Document("tenth.nft_collection")
 public class NftCollection {
 
     @Id
@@ -36,6 +36,8 @@ public class NftCollection {
     private Float floorPrice;
 
     private Integer totalSupply;
+
+    private Long categoryId;
 
     public Long getId() {
         return id;
@@ -131,5 +133,13 @@ public class NftCollection {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

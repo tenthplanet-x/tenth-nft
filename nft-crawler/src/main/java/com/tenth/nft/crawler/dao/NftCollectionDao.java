@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author gs-orm-generator
- * @createdAt 2022/06/14 14:50
+ * @createdAt 2022/06/17 15:22
  */
 @Component
 public class NftCollectionDao extends SimpleDao<NftCollection> {

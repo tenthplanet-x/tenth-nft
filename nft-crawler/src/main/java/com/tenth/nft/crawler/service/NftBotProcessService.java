@@ -145,7 +145,7 @@ public class NftBotProcessService {
             nftCollectionDao.update(
                     NftCollectionQuery.newBuilder().contractAddress(bot.getContractAddress()).build(),
                     NftCollectionUpdate.newBuilder()
-                            .setVolume(statsDTO.getTotalVolume())
+                            .setTotalVolume(statsDTO.getTotalVolume())
                             .setFloorPrice(statsDTO.getFloorPrice())
                             .setTotalSupply(statsDTO.getTotalSupply())
                             .build()

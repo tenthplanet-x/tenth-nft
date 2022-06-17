@@ -2,12 +2,9 @@ package com.tenth.nft.crawler.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.crawler.dao.NftCollectionDao;
-import com.tenth.nft.crawler.dao.NftItemDao;
 import com.tenth.nft.crawler.dao.expression.NftCollectionQuery;
 import com.tenth.nft.crawler.dao.expression.NftCollectionUpdate;
-import com.tenth.nft.crawler.dao.expression.NftItemQuery;
 import com.tenth.nft.crawler.dto.NftCollectionDTO;
-import com.tenth.nft.crawler.dto.NftItemDTO;
 import com.tenth.nft.crawler.entity.NftCollection;
 import com.tenth.nft.crawler.vo.NftCollectionCreateRequest;
 import com.tenth.nft.crawler.vo.NftCollectionDeleteRequest;
@@ -18,18 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author gs-orm-generator
- * @createdAt 2022/06/14 14:50
+ * @createdAt 2022/06/17 15:22
  */
 @Service
 public class NftCollectionService {
 
     @Autowired
     private NftCollectionDao nftCollectionDao;
-    @Autowired
-    private NftItemDao nftItemDao;
 
     public Page<NftCollectionDTO> list(NftCollectionListRequest request) {
 
@@ -42,6 +40,8 @@ public class NftCollectionService {
 
         Page<NftCollectionDTO> dataPage = nftCollectionDao.findPage(
                 NftCollectionQuery.newBuilder()
+                        .categoryId(request.getCategoryId())
+                        .nameRegex(request.getName())
                         .setPage(request.getPage())
                         .setPageSize(request.getPageSize())
                         .setSortField(sortField)
@@ -49,18 +49,6 @@ public class NftCollectionService {
                         .build(),
                 NftCollectionDTO.class
         );
-
-        if(!dataPage.getData().isEmpty()){
-            dataPage.getData().forEach(collection -> {
-                List<NftItemDTO> items = nftItemDao.find(NftItemQuery.newBuilder()
-                        .contractAddress(collection.getContractAddress())
-                        .setLimit(3)
-                        .setReverse(true)
-                        .setSortField("tokenNo")
-                        .build(), NftItemDTO.class);
-                collection.setItems(items);
-            });
-        }
 
         return dataPage;
     }
@@ -71,9 +59,15 @@ public class NftCollectionService {
         nftCollection.setCreatedAt(System.currentTimeMillis());
         nftCollection.setUpdatedAt(System.currentTimeMillis());
         nftCollection.setName(request.getName());
+        nftCollection.setDesc(request.getDesc());
+        nftCollection.setContractAddress(request.getContractAddress());
         nftCollection.setLogoImage(request.getLogoImage());
         nftCollection.setFeaturedImage(request.getFeaturedImage());
         nftCollection.setBannerImage(request.getBannerImage());
+        nftCollection.setTotalVolume(request.getTotalVolume());
+        nftCollection.setFloorPrice(request.getFloorPrice());
+        nftCollection.setTotalSupply(request.getTotalSupply());
+        nftCollection.setCategoryId(request.getCategoryId());
         nftCollectionDao.insert(nftCollection);
 
     }
@@ -84,9 +78,15 @@ public class NftCollectionService {
                 NftCollectionQuery.newBuilder().id(request.getId()).build(),
                 NftCollectionUpdate.newBuilder()
                                 .setName(request.getName())
+                                .setDesc(request.getDesc())
+                                .setContractAddress(request.getContractAddress())
                                 .setLogoImage(request.getLogoImage())
                                 .setFeaturedImage(request.getFeaturedImage())
                                 .setBannerImage(request.getBannerImage())
+                                .setTotalVolume(request.getTotalVolume())
+                                .setFloorPrice(request.getFloorPrice())
+                                .setTotalSupply(request.getTotalSupply())
+                                .setCategoryId(request.getCategoryId())
                         .build()
         );
     }

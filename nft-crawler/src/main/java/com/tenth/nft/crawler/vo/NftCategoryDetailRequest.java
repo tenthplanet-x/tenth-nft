@@ -5,10 +5,10 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author gs-orm-generator
- * @createdAt 2022/06/17 15:22
+ * @createdAt 2022/06/17 15:00
  */
 @Valid
-public class NftCollectionDeleteRequest {
+public class NftCategoryDetailRequest {
 
     @NotNull
     private Long id;

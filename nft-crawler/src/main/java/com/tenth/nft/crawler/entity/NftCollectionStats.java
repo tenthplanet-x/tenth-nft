@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author shijie
  * @createdAt 2022/6/15 14:00
  */
-@Document("tpulse.nft_collection_stats")
+@Document("tenth.nft_collection_stats")
 @CompoundIndexes(@CompoundIndex(def = "{'contractAddress': 1, 'date': 1}"))
 public class NftCollectionStats {
 

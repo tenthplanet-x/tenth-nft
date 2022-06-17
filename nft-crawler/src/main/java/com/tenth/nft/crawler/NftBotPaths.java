@@ -11,5 +11,6 @@ public class NftBotPaths {
     public static final String NFTBOT_EDIT = "/ops/nftbot/edit";
     public static final String NFTBOT_DELETE = "/ops/nftbot/delete";
     public static final String NFTBOT_DETAIL = "/ops/nftbot/detail";
+    public static final String NFTBOT_TOGGLEOFFLINE = "ops/nftbot/toggleoffline";
 
 }

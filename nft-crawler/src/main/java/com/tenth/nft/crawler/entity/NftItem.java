@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("tpulse.nft_item")
+@Document("tenth.nft_item")
 @CompoundIndexes(@CompoundIndex(def = "{'contractAddress': 1, 'tokenNo': 1}"))
 public class NftItem {
 

@@ -31,7 +31,7 @@ ext {
     versions = [
         springboot: '2.1.6.RELEASE',
         commons: '0.4.0_003-SNAPSHOT',
-        gs: '0.11.0_20220616_001-SNAPSHOT',
+        gs: '0.11.0_20220617_003-SNAPSHOT',
         operation: '0.3.0_20220228_007-SNAPSHOT',
     ]
     libs = [

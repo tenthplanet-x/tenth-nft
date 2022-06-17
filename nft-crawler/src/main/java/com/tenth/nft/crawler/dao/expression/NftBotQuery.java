@@ -4,6 +4,8 @@ import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
 import com.tpulse.gs.convention.dao.defination.QueryOpt;
 
+import java.util.List;
+
 /**
  * @author gs-orm-generator
  * @createdAt 2022/06/14 14:39
@@ -14,6 +16,8 @@ public class NftBotQuery extends SimplePageQuery {
     private Long id;
     @SimpleQueryParam
     private Boolean offline;
+    @SimpleQueryParam(name = "_id", opt = QueryOpt.IN)
+    private List<Long> idIn;
 
     public Long getId() {
         return id;
@@ -21,6 +25,10 @@ public class NftBotQuery extends SimplePageQuery {
 
     public Boolean getOffline() {
         return offline;
+    }
+
+    public List<Long> getIdIn() {
+        return idIn;
     }
 
     public static Builder newBuilder() {
@@ -43,6 +51,11 @@ public class NftBotQuery extends SimplePageQuery {
 
         public Builder offline(Boolean offline) {
             query.offline = offline;
+            return this;
+        }
+
+        public Builder idIn(List<Long> ids) {
+            query.idIn = ids;
             return this;
         }
     }
