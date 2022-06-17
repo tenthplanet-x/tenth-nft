@@ -1,11 +1,11 @@
 package com.tenth.nft.crawler.service;
 
 import com.google.common.base.Strings;
-import com.tenth.nft.crawler.dao.NftCategoryDao;
-import com.tenth.nft.crawler.dao.expression.NftCategoryQuery;
-import com.tenth.nft.crawler.dao.expression.NftCategoryUpdate;
+import com.tenth.nft.orm.dao.NftCategoryDao;
+import com.tenth.nft.orm.dao.expression.NftCategoryQuery;
+import com.tenth.nft.orm.dao.expression.NftCategoryUpdate;
 import com.tenth.nft.crawler.dto.NftCategoryDTO;
-import com.tenth.nft.crawler.entity.NftCategory;
+import com.tenth.nft.orm.entity.NftCategory;
 import com.tenth.nft.crawler.vo.NftCategoryCreateRequest;
 import com.tenth.nft.crawler.vo.NftCategoryDeleteRequest;
 import com.tenth.nft.crawler.vo.NftCategoryEditRequest;
@@ -13,11 +13,6 @@ import com.tenth.nft.crawler.vo.NftCategoryListRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author gs-orm-generator

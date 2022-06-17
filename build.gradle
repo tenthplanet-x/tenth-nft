@@ -80,6 +80,7 @@ ext {
             gs_scheduler: "com.tpulse.gs:gs-scheduler:${versions.gs}",
             gs_convention_routes: "com.tpulse.gs:gs-convention-routes:${versions.gs}",
             gs_oss: "com.tpulse.gs:gs-oss:${versions.gs}",
+            gs_lucenedb: "com.tpulse.gs:gs-lucenedb:${versions.gs}",
 
             operation_security_client: "com.tpulse:operation-security-client:${versions.operation}"
     ]

@@ -1,8 +1,7 @@
-package com.tenth.nft.crawler.dao.expression;
+package com.tenth.nft.orm.dao.expression;
 
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
-import com.tpulse.gs.convention.dao.defination.QueryOpt;
 
 /**
  * @author gs-orm-generator

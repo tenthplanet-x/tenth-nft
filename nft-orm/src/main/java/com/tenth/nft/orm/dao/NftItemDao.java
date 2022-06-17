@@ -1,6 +1,6 @@
-package com.tenth.nft.crawler.dao;
+package com.tenth.nft.orm.dao;
 
-import com.tenth.nft.crawler.entity.NftItem;
+import com.tenth.nft.orm.entity.NftItem;
 import com.tpulse.gs.convention.dao.SimpleDao;
 import org.springframework.stereotype.Component;
 

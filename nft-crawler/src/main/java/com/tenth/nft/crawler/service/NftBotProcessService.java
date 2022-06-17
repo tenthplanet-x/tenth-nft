@@ -4,13 +4,17 @@ import com.tenth.nft.convention.TenthOssKeys;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.crawler.NftCrawlerProperties;
 import com.tenth.nft.crawler.dao.NftBotDao;
-import com.tenth.nft.crawler.dao.NftCollectionDao;
+import com.tenth.nft.orm.dao.NftCollectionNoCacheDao;
 import com.tenth.nft.crawler.dao.NftCollectionStatsDao;
-import com.tenth.nft.crawler.dao.NftItemDao;
+import com.tenth.nft.orm.dao.NftItemDao;
 import com.tenth.nft.crawler.dao.expression.*;
 import com.tenth.nft.crawler.entity.NftBot;
-import com.tenth.nft.crawler.entity.NftCollection;
-import com.tenth.nft.crawler.entity.NftItem;
+import com.tenth.nft.orm.dao.expression.NftCollectionQuery;
+import com.tenth.nft.orm.dao.expression.NftCollectionUpdate;
+import com.tenth.nft.orm.dao.expression.NftItemQuery;
+import com.tenth.nft.orm.dao.expression.NftItemUpdate;
+import com.tenth.nft.orm.entity.NftCollection;
+import com.tenth.nft.orm.entity.NftItem;
 import com.tenth.nft.crawler.sdk.alchemy.AlchemySdk;
 import com.tenth.nft.crawler.sdk.alchemy.dto.AlchemyNftDTO;
 import com.tenth.nft.crawler.sdk.opensea.OpenseaSdk;
@@ -47,7 +51,7 @@ public class NftBotProcessService {
     @Autowired
     private OpenseaSdk openseaSdk;
     @Autowired
-    private NftCollectionDao nftCollectionDao;
+    private NftCollectionNoCacheDao nftCollectionDao;
     @Autowired
     private NftItemDao nftItemDao;
     @Autowired

@@ -1,6 +1,7 @@
 dependencies {
 
     implementation project(":nft-crawler")
+    implementation project(":nft-search")
     implementation libs.starter_web
 
 }

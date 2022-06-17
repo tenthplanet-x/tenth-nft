@@ -1,5 +1,6 @@
-package com.tenth.nft.crawler.entity;
+package com.tenth.nft.orm.entity;
 
+import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import com.tpulse.gs.convention.dao.annotation.columns.SimpleColumnTypeText;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @createdAt 2022/6/14 11:21
  */
 @Document("tenth.nft_collection")
+@SimpleCache(cacheField = "_id")
 public class NftCollection {
 
     @Id

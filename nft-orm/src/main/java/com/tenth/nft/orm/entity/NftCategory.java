@@ -1,4 +1,4 @@
-package com.tenth.nft.crawler.entity;
+package com.tenth.nft.orm.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

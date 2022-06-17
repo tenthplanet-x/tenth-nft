@@ -1,8 +1,7 @@
-package com.tenth.nft.crawler.dao.expression;
+package com.tenth.nft.orm.dao.expression;
 
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
-import com.tpulse.gs.convention.dao.defination.WriteOpt;
 
 /**
  * @author gs-orm-generator

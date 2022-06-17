@@ -1,11 +1,11 @@
 package com.tenth.nft.crawler.service;
 
 import com.google.common.base.Strings;
-import com.tenth.nft.crawler.dao.NftCollectionDao;
-import com.tenth.nft.crawler.dao.expression.NftCollectionQuery;
-import com.tenth.nft.crawler.dao.expression.NftCollectionUpdate;
+import com.tenth.nft.orm.dao.NftCollectionNoCacheDao;
+import com.tenth.nft.orm.dao.expression.NftCollectionQuery;
+import com.tenth.nft.orm.dao.expression.NftCollectionUpdate;
 import com.tenth.nft.crawler.dto.NftCollectionDTO;
-import com.tenth.nft.crawler.entity.NftCollection;
+import com.tenth.nft.orm.entity.NftCollection;
 import com.tenth.nft.crawler.vo.NftCollectionCreateRequest;
 import com.tenth.nft.crawler.vo.NftCollectionDeleteRequest;
 import com.tenth.nft.crawler.vo.NftCollectionEditRequest;
@@ -13,11 +13,6 @@ import com.tenth.nft.crawler.vo.NftCollectionListRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author gs-orm-generator
@@ -27,7 +22,7 @@ import java.util.stream.Collectors;
 public class NftCollectionService {
 
     @Autowired
-    private NftCollectionDao nftCollectionDao;
+    private NftCollectionNoCacheDao nftCollectionDao;
 
     public Page<NftCollectionDTO> list(NftCollectionListRequest request) {
 
