@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author gs-orm-generator
- * @createdAt 2022/06/14 14:50
+ * @createdAt 2022/06/17 15:22
  */
 @Valid
 public class NftCollectionDetailRequest {

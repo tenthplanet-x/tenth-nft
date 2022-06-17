@@ -2,15 +2,22 @@ package com.tenth.nft.crawler.dao.expression;
 
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
+import com.tpulse.gs.convention.dao.defination.WriteOpt;
 
 /**
  * @author gs-orm-generator
- * @createdAt 2022/06/14 14:50
+ * @createdAt 2022/06/17 15:22
  */
 public class NftCollectionUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
     private String name;
+
+    @SimpleWriteParam
+    private String desc;
+
+    @SimpleWriteParam
+    private String contractAddress;
 
     @SimpleWriteParam
     private String logoImage;
@@ -22,19 +29,21 @@ public class NftCollectionUpdate extends SimpleUpdate {
     private String bannerImage;
 
     @SimpleWriteParam
-    private Long createdAt;
+    private Float totalVolume;
+
+    @SimpleWriteParam
+    private Float floorPrice;
+
+    @SimpleWriteParam
+    private Integer totalSupply;
+
+    @SimpleWriteParam
+    private Long categoryId;
 
     @SimpleWriteParam
     private Long updatedAt = System.currentTimeMillis();
-
     @SimpleWriteParam
-    private Float totalVolume;
-    @SimpleWriteParam
-    private Float floorPrice;
-    @SimpleWriteParam
-    private Integer totalSupply;
-    @SimpleWriteParam
-    private String desc;
+    private Long createdAt;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -42,6 +51,14 @@ public class NftCollectionUpdate extends SimpleUpdate {
 
     public String getName(){
         return name;
+    }
+
+    public String getDesc(){
+        return desc;
+    }
+
+    public String getContractAddress(){
+        return contractAddress;
     }
 
     public String getLogoImage(){
@@ -56,24 +73,24 @@ public class NftCollectionUpdate extends SimpleUpdate {
         return bannerImage;
     }
 
-    public Long getCreatedAt() {
-        return createdAt;
-    }
-
-    public Float getTotalVolume() {
+    public Float getTotalVolume(){
         return totalVolume;
     }
 
-    public Float getFloorPrice() {
+    public Float getFloorPrice(){
         return floorPrice;
     }
 
-    public Integer getTotalSupply() {
+    public Integer getTotalSupply(){
         return totalSupply;
     }
 
-    public String getDesc() {
-        return desc;
+    public Long getCategoryId(){
+        return categoryId;
+    }
+
+    public Long getCreatedAt() {
+        return createdAt;
     }
 
     public static Builder newBuilder(){
@@ -86,6 +103,16 @@ public class NftCollectionUpdate extends SimpleUpdate {
 
         public Builder setName(String name){
             update.name = name;
+            return this;
+        }
+
+        public Builder setDesc(String desc){
+            update.desc = desc;
+            return this;
+        }
+
+        public Builder setContractAddress(String contractAddress){
+            update.contractAddress = contractAddress;
             return this;
         }
 
@@ -104,8 +131,23 @@ public class NftCollectionUpdate extends SimpleUpdate {
             return this;
         }
 
-        public Builder setCreatedAtOnInsert(Long createdAt) {
-            update.createdAt = createdAt;
+        public Builder setTotalVolume(Float totalVolume){
+            update.totalVolume = totalVolume;
+            return this;
+        }
+
+        public Builder setFloorPrice(Float floorPrice){
+            update.floorPrice = floorPrice;
+            return this;
+        }
+
+        public Builder setTotalSupply(Integer totalSupply){
+            update.totalSupply = totalSupply;
+            return this;
+        }
+
+        public Builder setCategoryId(Long categoryId){
+            update.categoryId = categoryId;
             return this;
         }
 
@@ -113,26 +155,10 @@ public class NftCollectionUpdate extends SimpleUpdate {
             return update;
         }
 
-        public Builder setVolume(Float totalVolume) {
-            update.totalVolume = totalVolume;
+        public Builder setCreatedAtOnInsert(Long time) {
+            update.createdAt = time;
             return this;
         }
-
-        public Builder setFloorPrice(Float floorPrice) {
-            update.floorPrice = floorPrice;
-            return this;
-        }
-
-        public Builder setTotalSupply(Integer totalSupply) {
-            update.totalSupply = totalSupply;
-            return this;
-        }
-
-        public Builder setDesc(String desc) {
-            update.desc = desc;
-            return this;
-        }
-
     }
 
 }

@@ -6,10 +6,7 @@ import com.tenth.nft.crawler.dao.expression.NftBotQuery;
 import com.tenth.nft.crawler.dao.expression.NftBotUpdate;
 import com.tenth.nft.crawler.dto.NftBotDTO;
 import com.tenth.nft.crawler.entity.NftBot;
-import com.tenth.nft.crawler.vo.NftBotCreateRequest;
-import com.tenth.nft.crawler.vo.NftBotDeleteRequest;
-import com.tenth.nft.crawler.vo.NftBotEditRequest;
-import com.tenth.nft.crawler.vo.NftBotListRequest;
+import com.tenth.nft.crawler.vo.*;
 import com.tpulse.gs.convention.dao.dto.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,5 +83,12 @@ public class NftBotService {
                 .build(), NftBotDTO.class);
 
         return dto;
+    }
+
+    public void toggleOffline(NftBotToggleOfflineRequest request) {
+        nftBotDao.update(
+                NftBotQuery.newBuilder().idIn(request.getIds()).build(),
+                NftBotUpdate.newBuilder().setOffline(request.getOffline()).build()
+        );
     }
 }

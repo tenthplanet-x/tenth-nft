@@ -27,6 +27,9 @@ public class NftBotDTO implements SimpleResponse {
     @SimpleField
     private String marketplaceId;
 
+    @SimpleField
+    private Boolean offline;
+
     public Long getId() {
         return id;
     }
@@ -73,5 +76,13 @@ public class NftBotDTO implements SimpleResponse {
 
     public void setMarketplaceId(String marketplaceId) {
         this.marketplaceId = marketplaceId;
+    }
+
+    public Boolean getOffline() {
+        return offline;
+    }
+
+    public void setOffline(Boolean offline) {
+        this.offline = offline;
     }
 }

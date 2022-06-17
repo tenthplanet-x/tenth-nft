@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author gs-orm-generator
- * @createdAt 2022/06/14 14:50
+ * @createdAt 2022/06/17 15:22
  */
 @Valid
 public class NftCollectionEditRequest {
@@ -15,11 +15,23 @@ public class NftCollectionEditRequest {
 
     private String name;
 
+    private String desc;
+
+    private String contractAddress;
+
     private String logoImage;
 
     private String featuredImage;
 
     private String bannerImage;
+
+    private Float totalVolume;
+
+    private Float floorPrice;
+
+    private Integer totalSupply;
+
+    private Long categoryId;
 
     public Long getId() {
         return id;
@@ -27,6 +39,14 @@ public class NftCollectionEditRequest {
 
     public String getName(){
         return name;
+    }
+
+    public String getDesc(){
+        return desc;
+    }
+
+    public String getContractAddress(){
+        return contractAddress;
     }
 
     public String getLogoImage(){
@@ -41,12 +61,36 @@ public class NftCollectionEditRequest {
         return bannerImage;
     }
 
+    public Float getTotalVolume(){
+        return totalVolume;
+    }
+
+    public Float getFloorPrice(){
+        return floorPrice;
+    }
+
+    public Integer getTotalSupply(){
+        return totalSupply;
+    }
+
+    public Long getCategoryId(){
+        return categoryId;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public void setDesc(String desc){
+        this.desc = desc;
+    }
+
+    public void setContractAddress(String contractAddress){
+        this.contractAddress = contractAddress;
     }
 
     public void setLogoImage(String logoImage){
@@ -59,5 +103,21 @@ public class NftCollectionEditRequest {
 
     public void setBannerImage(String bannerImage){
         this.bannerImage = bannerImage;
+    }
+
+    public void setTotalVolume(Float totalVolume){
+        this.totalVolume = totalVolume;
+    }
+
+    public void setFloorPrice(Float floorPrice){
+        this.floorPrice = floorPrice;
+    }
+
+    public void setTotalSupply(Integer totalSupply){
+        this.totalSupply = totalSupply;
+    }
+
+    public void setCategoryId(Long categoryId){
+        this.categoryId = categoryId;
     }
 }
