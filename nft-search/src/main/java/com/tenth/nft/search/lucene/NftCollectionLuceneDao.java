@@ -11,6 +11,7 @@ import org.apache.lucene.document.*;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queries.function.FunctionScoreQuery;
 import org.apache.lucene.search.*;
+import org.apache.lucene.util.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,5 +126,21 @@ public class NftCollectionLuceneDao extends LuceneDao {
 
         return document;
 
+    }
+
+
+    public void rebuild(NftCollection collection) {
+        try{
+            luceneDatasource.write((indexWriter) -> {
+
+                Query query = new TermQuery(new Term("id", String.valueOf(collection.getId())));
+                long deletes = indexWriter.deleteDocuments(query);
+
+                Document document = toDocument(collection);
+                indexWriter.addDocument(document);
+            });
+        }catch (Exception e){
+            LOGGER.error("", e);
+        }
     }
 }

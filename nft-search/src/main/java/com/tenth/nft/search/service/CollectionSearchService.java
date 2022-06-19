@@ -49,6 +49,30 @@ public class CollectionSearchService {
         return new Page<>();
     }
 
+    /**
+     * 1. Make the current cache of the collection invalidate
+     * 2. Reuild lucene indexes of the collection
+     * @param collectionId
+     */
+    public void rebuild(Long collectionId){
+
+        nftCollectionCacheDao.clearCache(collectionId);
+
+        NftCollection nftCollection = nftCollectionCacheDao.findOne(NftCollectionQuery.newBuilder().id(collectionId).build());
+        nftCollectionLuceneDao.rebuild(nftCollection);
+    }
+
+    /**
+     * 1. Make current cache of items expired
+     * @param collectionId
+     */
+    public void rebuildItems(Long collectionId){
+
+        NftCollection collection = nftCollectionCacheDao.findOne(NftCollectionQuery.newBuilder().id(collectionId).build());
+        nftItemCacheDao.clearCache(collection.getContractAddress());
+
+    }
+
     private CollectionSearchDTO convertToDTO(NftCollection nftCollection) {
 
         CollectionSearchDTO dto = new CollectionSearchDTO();

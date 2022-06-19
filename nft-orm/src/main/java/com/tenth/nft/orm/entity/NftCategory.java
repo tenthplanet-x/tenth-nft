@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.entity;
 
+import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,10 +8,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author shijie
  */
 @Document("tenth.nft_category")
+@SimpleCache(cacheField = "version")
 public class NftCategory {
+
+    public static final Integer VERSION = 1;
 
     @Id
     private Long id;
+
+    //const, used for cache
+    private Integer version = 0;
 
     private String name;
 
@@ -58,5 +65,13 @@ public class NftCategory {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

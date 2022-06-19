@@ -53,6 +53,7 @@ public class NftCategoryService {
         nftCategory.setUpdatedAt(System.currentTimeMillis());
         nftCategory.setName(request.getName());
         nftCategory.setOrder(request.getOrder());
+        nftCategory.setVersion(NftCategory.VERSION);
         nftCategoryDao.insert(nftCategory);
 
     }
