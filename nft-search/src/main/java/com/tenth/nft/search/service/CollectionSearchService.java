@@ -88,6 +88,7 @@ public class CollectionSearchService {
                 .build()
         ).stream().map(this::convertToDTO).collect(Collectors.toList());
         dto.setItems(items);
+        dto.setTotalVolume(nftCollection.getTotalVolume());
 
         return dto;
     }

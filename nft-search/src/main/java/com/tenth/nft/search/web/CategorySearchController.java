@@ -24,6 +24,6 @@ public class CategorySearchController {
 
         List<CategorySearchDTO> categories = categorySearchService.getAll();
 
-        return Response.successBuilder().build();
+        return Response.successBuilder().data(categories).build();
     }
 }

@@ -1,5 +1,6 @@
 package com.tenth.nft.search.service;
 
+import com.tenth.nft.orm.NftCategoryVersions;
 import com.tenth.nft.orm.dao.NftCategoryDao;
 import com.tenth.nft.orm.dao.expression.NftCategoryQuery;
 import com.tenth.nft.orm.entity.NftCategory;
@@ -21,6 +22,7 @@ public class CategorySearchService {
     public List<CategorySearchDTO> getAll() {
 
         return nftCategoryDao.find(NftCategoryQuery.newBuilder()
+                .setVersion(NftCategoryVersions.VERSION)
                 .setSortField("order")
                 .setReverse(false)
                 .build(),
@@ -32,6 +34,6 @@ public class CategorySearchService {
      * 缓存重构
      */
     public void rebuildCache(){
-        nftCategoryDao.clearCache(NftCategory.VERSION);
+        nftCategoryDao.clearCache(NftCategoryVersions.VERSION);
     }
 }

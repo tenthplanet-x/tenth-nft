@@ -11,8 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @SimpleCache(cacheField = "version")
 public class NftCategory {
 
-    public static final Integer VERSION = 1;
-
     @Id
     private Long id;
 

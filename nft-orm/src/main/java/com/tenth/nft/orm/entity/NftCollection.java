@@ -33,11 +33,11 @@ public class NftCollection {
 
     private Long updatedAt;
 
-    private Float totalVolume;
+    private Float totalVolume = 0f;
 
-    private Float floorPrice;
+    private Float floorPrice = 0f;
 
-    private Integer totalSupply;
+    private Integer totalSupply = 0;
 
     private Long categoryId;
 

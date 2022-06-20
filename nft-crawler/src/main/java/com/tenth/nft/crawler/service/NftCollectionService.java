@@ -1,6 +1,7 @@
 package com.tenth.nft.crawler.service;
 
 import com.google.common.base.Strings;
+import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.orm.dao.NftCollectionNoCacheDao;
 import com.tenth.nft.orm.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.dao.expression.NftCollectionUpdate;
@@ -10,7 +11,9 @@ import com.tenth.nft.crawler.vo.NftCollectionCreateRequest;
 import com.tenth.nft.crawler.vo.NftCollectionDeleteRequest;
 import com.tenth.nft.crawler.vo.NftCollectionEditRequest;
 import com.tenth.nft.crawler.vo.NftCollectionListRequest;
+import com.tenth.nft.protobuf.Search;
 import com.tpulse.gs.convention.dao.dto.Page;
+import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,8 @@ public class NftCollectionService {
 
     @Autowired
     private NftCollectionNoCacheDao nftCollectionDao;
+    @Autowired
+    private RouteClient routeClient;
 
     public Page<NftCollectionDTO> list(NftCollectionListRequest request) {
 
@@ -84,7 +89,10 @@ public class NftCollectionService {
                                 .setCategoryId(request.getCategoryId())
                         .build()
         );
+
+        rebuildCache(request.getId());
     }
+
 
     public void delete(NftCollectionDeleteRequest request) {
         nftCollectionDao.remove(NftCollectionQuery.newBuilder().id(request.getId()).build());
@@ -97,5 +105,14 @@ public class NftCollectionService {
                 .build(), NftCollectionDTO.class);
 
         return dto;
+    }
+
+    private void rebuildCache(Long id) {
+        routeClient.send(
+                Search.NFT_COLLECTION_REBUILD_IC.newBuilder()
+                        .setCollectionId(id)
+                        .build(),
+                CollectionRebuildRouteRequest.class
+        );
     }
 }

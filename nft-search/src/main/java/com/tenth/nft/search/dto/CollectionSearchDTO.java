@@ -17,6 +17,8 @@ public class CollectionSearchDTO {
 
     private List<ItemSearchDTO> items;
 
+    private Float totalVolume;
+
     public String getName() {
         return name;
     }
@@ -55,5 +57,13 @@ public class CollectionSearchDTO {
 
     public void setItems(List<ItemSearchDTO> items) {
         this.items = items;
+    }
+
+    public Float getTotalVolume() {
+        return totalVolume;
+    }
+
+    public void setTotalVolume(Float totalVolume) {
+        this.totalVolume = totalVolume;
     }
 }

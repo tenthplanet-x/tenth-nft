@@ -1,3 +1,24 @@
 dependencies{
     api libs.gs_convention
+    api libs.gs_router
+    compileOnly libs.starter_web
+}
+
+
+
+//protobuf
+apply plugin: 'com.google.protobuf'
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/proto'
+            include '**/*.proto'
+        }
+    }
+}
+protobuf {
+    generatedFilesBaseDir = "$projectDir/src/"
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.19.4'
+    }
 }

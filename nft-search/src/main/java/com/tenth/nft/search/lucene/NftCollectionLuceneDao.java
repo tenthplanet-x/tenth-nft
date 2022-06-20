@@ -70,7 +70,7 @@ public class NftCollectionLuceneDao extends LuceneDao {
                     }
 
                     int total = request.getPage() * request.getPageSize();
-                    Sort sort = new Sort(new SortField("totalVolume", SortField.Type.DOUBLE, true));
+                    Sort sort = new Sort(new SortField("totalVolume", SortField.Type.FLOAT, true));
                     TopFieldDocs docs = indexSearcher.search(builder.build(), total, sort);
                     int skips = (request.getPage() - 1) * request.getPageSize();
                     List<Long> ids = Arrays.stream(docs.scoreDocs).skip(skips).limit(request.getPageSize()).map(doc -> {
@@ -121,8 +121,10 @@ public class NftCollectionLuceneDao extends LuceneDao {
 
         document.add(new StringField("id", String.valueOf(collection.getId()), Field.Store.YES));
         document.add(new NumericDocValuesField("categoryNull", 0));
-        document.add(new NumericDocValuesField("categoryId", collection.getCategoryId()));
-        document.add(new DoubleDocValuesField("totalVolume", collection.getTotalVolume()));
+        if(null != collection.getCategoryId()){
+            document.add(new NumericDocValuesField("categoryId", collection.getCategoryId()));
+        }
+        document.add(new FloatDocValuesField("totalVolume", collection.getTotalVolume()));
 
         return document;
 

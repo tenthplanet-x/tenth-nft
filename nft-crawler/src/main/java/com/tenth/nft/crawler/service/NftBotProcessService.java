@@ -1,9 +1,12 @@
 package com.tenth.nft.crawler.service;
 
 import com.tenth.nft.convention.TenthOssKeys;
+import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
+import com.tenth.nft.convention.routes.ItemsRebuildRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.crawler.NftCrawlerProperties;
 import com.tenth.nft.crawler.dao.NftBotDao;
+import com.tenth.nft.crawler.entity.NftCollectionStats;
 import com.tenth.nft.orm.dao.NftCollectionNoCacheDao;
 import com.tenth.nft.crawler.dao.NftCollectionStatsDao;
 import com.tenth.nft.orm.dao.NftItemDao;
@@ -20,11 +23,13 @@ import com.tenth.nft.crawler.sdk.alchemy.dto.AlchemyNftDTO;
 import com.tenth.nft.crawler.sdk.opensea.OpenseaSdk;
 import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionDTO;
 import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionStats;
+import com.tenth.nft.protobuf.Search;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.oss.qiniu.QiniuImageUrls;
 import com.tpulse.gs.oss.qiniu.service.QiniuOSSService;
 import com.tpulse.gs.oss.vo.OSSUploadMetadata;
+import com.tpulse.gs.router.client.RouteClient;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
@@ -62,6 +67,8 @@ public class NftBotProcessService {
     private NftCrawlerProperties nftCrawlerProperties;
     @Autowired
     private NftCollectionStatsDao nftCollectionStatsDao;
+    @Autowired
+    private RouteClient routeClient;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NftBotProcessService.class);
 
@@ -145,29 +152,40 @@ public class NftBotProcessService {
         if(null != opeanseaConstractDTO.getStats()){
 
             OpenseaCollectionStats statsDTO = opeanseaConstractDTO.getStats();
-
-            nftCollectionDao.update(
-                    NftCollectionQuery.newBuilder().contractAddress(bot.getContractAddress()).build(),
-                    NftCollectionUpdate.newBuilder()
-                            .setTotalVolume(statsDTO.getTotalVolume())
-                            .setFloorPrice(statsDTO.getFloorPrice())
-                            .setTotalSupply(statsDTO.getTotalSupply())
-                            .build()
-            );
-
             String date = DateTime.now().toString("yyyy-MM-dd");
-            nftCollectionStatsDao.findAndModify(
-                    NftCollectionStatsQuery.newBuilder().contractAddress(bot.getContractAddress()).date(date).build(),
-                    NftCollectionStatsUpdate.newBuilder()
-                            .setOneDayVolume(statsDTO.getOneDayVolume())
-                            .setSevenDayVolume(statsDTO.getSevenDayVolume())
-                            .setThirtyDayVolume(statsDTO.getThirtyDayVolume())
-                            .setTotalSupply(statsDTO.getTotalSupply())
-                            .setTotalVolume(statsDTO.getTotalVolume())
-                            .setCreatedAtOnInsert()
-                            .build(),
-                    UpdateOptions.options().upsert(true)
-            );
+            NftCollectionStats exist = nftCollectionStatsDao.findOne(NftCollectionStatsQuery.newBuilder().contractAddress(bot.getContractAddress()).date(date).build());
+            if(null == exist){
+
+                nftCollectionDao.update(
+                        NftCollectionQuery.newBuilder().contractAddress(bot.getContractAddress()).build(),
+                        NftCollectionUpdate.newBuilder()
+                                .setTotalVolume(statsDTO.getTotalVolume())
+                                .setFloorPrice(statsDTO.getFloorPrice())
+                                .setTotalSupply(statsDTO.getTotalSupply())
+                                .build()
+                );
+
+                nftCollectionStatsDao.findAndModify(
+                        NftCollectionStatsQuery.newBuilder().contractAddress(bot.getContractAddress()).date(date).build(),
+                        NftCollectionStatsUpdate.newBuilder()
+                                .setOneDayVolume(statsDTO.getOneDayVolume())
+                                .setSevenDayVolume(statsDTO.getSevenDayVolume())
+                                .setThirtyDayVolume(statsDTO.getThirtyDayVolume())
+                                .setTotalSupply(statsDTO.getTotalSupply())
+                                .setTotalVolume(statsDTO.getTotalVolume())
+                                .setCreatedAtOnInsert()
+                                .build(),
+                        UpdateOptions.options().upsert(true)
+                );
+
+                //rebuild cache
+                routeClient.send(
+                        Search.NFT_COLLECTION_REBUILD_IC.newBuilder()
+                                .setCollectionId(nftCollection.getId())
+                                .build(),
+                        CollectionRebuildRouteRequest.class
+                );
+            }
         }
 
 
@@ -195,7 +213,6 @@ public class NftBotProcessService {
                 String previewUrl = url;
                 String rawUrl = url;
                 String thumbnailUrl = url;
-                //
                 try{
                     String key = TenthOssKeys.join(TenthOssKeys.nft, DigestUtils.md5Hex(url));
                     url = qiniuOSSService.upload(key, new URL(url).openStream(), new OSSUploadMetadata()).getUrl();
@@ -220,6 +237,14 @@ public class NftBotProcessService {
                 );
 
             });
+
+            //rebuid cache
+            routeClient.send(
+                    Search.NFT_ITEM_REBUILD_IC.newBuilder()
+                            .setCollectionId(nftCollection.getId())
+                            .build(),
+                    ItemsRebuildRouteRequest.class
+            );
         }
     }
 

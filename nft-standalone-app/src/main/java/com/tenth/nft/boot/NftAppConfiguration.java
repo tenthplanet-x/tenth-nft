@@ -1,5 +1,6 @@
 package com.tenth.nft.boot;
 
+import com.tenth.nft.convention.NftConventionConfiguration;
 import com.tenth.nft.crawler.NftCrawlerConfiguration;
 import com.tenth.nft.search.NftSearchConfiguration;
 import com.tpulse.gs.GsRoutesConfiguration;
@@ -24,7 +25,8 @@ import org.springframework.context.annotation.Import;
         LocalRouteClientConfiguration.class,
         GsConventionConfiguration.class,
         GsRoutesConfiguration.class,
-        NftSearchConfiguration.class
+        NftSearchConfiguration.class,
+        NftConventionConfiguration.class
 })
 public class NftAppConfiguration {
 
