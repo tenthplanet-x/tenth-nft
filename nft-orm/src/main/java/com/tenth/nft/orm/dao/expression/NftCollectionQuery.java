@@ -1,10 +1,10 @@
-package com.tenth.nft.crawler.dao.expression;
+package com.tenth.nft.orm.dao.expression;
 
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
 import com.tpulse.gs.convention.dao.defination.QueryOpt;
 
-import javax.swing.*;
+import java.util.List;
 
 /**
  * @author gs-orm-generator
@@ -20,6 +20,8 @@ public class NftCollectionQuery extends SimplePageQuery {
     private Long categoryId;
     @SimpleQueryParam(name = "name", opt = QueryOpt.REGEX)
     private String nameRegex;
+    @SimpleQueryParam(name = "_id", opt = QueryOpt.IN)
+    private List<Long> ids;
 
     public Long getId() {
         return id;
@@ -35,6 +37,10 @@ public class NftCollectionQuery extends SimplePageQuery {
 
     public String getNameRegex() {
         return nameRegex;
+    }
+
+    public List<Long> getIds() {
+        return ids;
     }
 
     public static Builder newBuilder() {
@@ -67,6 +73,11 @@ public class NftCollectionQuery extends SimplePageQuery {
 
         public Builder nameRegex(String nameRegex) {
             query.nameRegex = nameRegex;
+            return this;
+        }
+
+        public Builder idIn(List<Long> ids) {
+            query.ids = ids;
             return this;
         }
     }

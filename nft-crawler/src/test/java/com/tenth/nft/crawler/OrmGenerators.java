@@ -1,7 +1,6 @@
 package com.tenth.nft.crawler;
 
-import com.tenth.nft.crawler.entity.NftCategory;
-import com.tenth.nft.crawler.entity.NftCollection;
+import com.tenth.nft.orm.entity.NftCollection;
 import com.tpulse.gs.convention.dao.generate.OrmGenerator;
 import org.junit.Test;
 

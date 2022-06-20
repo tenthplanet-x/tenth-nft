@@ -1,11 +1,11 @@
 package com.tenth.nft.crawler.service;
 
 import com.google.common.base.Strings;
-import com.tenth.nft.crawler.dao.NftItemDao;
-import com.tenth.nft.crawler.dao.expression.NftItemQuery;
-import com.tenth.nft.crawler.dao.expression.NftItemUpdate;
+import com.tenth.nft.orm.dao.NftItemDao;
+import com.tenth.nft.orm.dao.expression.NftItemQuery;
+import com.tenth.nft.orm.dao.expression.NftItemUpdate;
 import com.tenth.nft.crawler.dto.NftItemDTO;
-import com.tenth.nft.crawler.entity.NftItem;
+import com.tenth.nft.orm.entity.NftItem;
 import com.tenth.nft.crawler.vo.NftItemCreateRequest;
 import com.tenth.nft.crawler.vo.NftItemDeleteRequest;
 import com.tenth.nft.crawler.vo.NftItemEditRequest;

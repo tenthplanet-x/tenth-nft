@@ -31,7 +31,7 @@ ext {
     versions = [
         springboot: '2.1.6.RELEASE',
         commons: '0.4.0_003-SNAPSHOT',
-        gs: '0.11.0_20220617_003-SNAPSHOT',
+        gs: '0.11.0_20220619_001-SNAPSHOT',
         operation: '0.3.0_20220228_007-SNAPSHOT',
     ]
     libs = [
@@ -80,6 +80,7 @@ ext {
             gs_scheduler: "com.tpulse.gs:gs-scheduler:${versions.gs}",
             gs_convention_routes: "com.tpulse.gs:gs-convention-routes:${versions.gs}",
             gs_oss: "com.tpulse.gs:gs-oss:${versions.gs}",
+            gs_lucenedb: "com.tpulse.gs:gs-lucenedb:${versions.gs}",
 
             operation_security_client: "com.tpulse:operation-security-client:${versions.operation}"
     ]

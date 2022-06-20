@@ -1,8 +1,8 @@
-package com.tenth.nft.crawler.dao.expression;
+package com.tenth.nft.orm.dao.expression;
 
+import com.tpulse.commons.biz.dto.Page;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
-import com.tpulse.gs.convention.dao.defination.QueryOpt;
 
 /**
  * @author gs-orm-generator
@@ -12,9 +12,15 @@ public class NftCategoryQuery extends SimplePageQuery {
 
     @SimpleQueryParam(name = "_id")
     private Long id;
+    @SimpleQueryParam
+    private Integer version;
 
     public Long getId() {
         return id;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 
     public static Builder newBuilder() {
@@ -35,6 +41,10 @@ public class NftCategoryQuery extends SimplePageQuery {
             return this;
         }
 
+        public Builder setVersion(Integer version) {
+            query.version = version;
+            return this;
+        }
     }
 
 }

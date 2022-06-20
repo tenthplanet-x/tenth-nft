@@ -1,5 +1,6 @@
-package com.tenth.nft.crawler.entity;
+package com.tenth.nft.orm.entity;
 
+import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -8,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("tenth.nft_item")
 @CompoundIndexes(@CompoundIndex(def = "{'contractAddress': 1, 'tokenNo': 1}"))
+@SimpleCache(cacheField = "contractAddress")
 public class NftItem {
 
     @Id
