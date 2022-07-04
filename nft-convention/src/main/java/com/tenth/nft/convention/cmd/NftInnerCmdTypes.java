@@ -1,7 +1,7 @@
 package com.tenth.nft.convention.cmd;
 
 import com.google.protobuf.Message;
-import com.tenth.nft.protobuf.Search;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.cmd.CmdGroup;
 import com.tpulse.gs.convention.cmd.CmdType;
 
@@ -10,9 +10,9 @@ import com.tpulse.gs.convention.cmd.CmdType;
  */
 public enum NftInnerCmdTypes implements CmdType {
 
-    NFT_CATEGORY_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CATEGORY_REBUILD_IC, Search.NFT_CATEGORY_REBUILD_IC.newBuilder(), false),
-    NFT_COLLECTION_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_COLLECTION_REBUILD_IC, Search.NFT_COLLECTION_REBUILD_IC.newBuilder(), false),
-    NFT_ITEM_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_ITEM_REBUILD_IC, Search.NFT_ITEM_REBUILD_IC.newBuilder(), false),
+    NFT_CATEGORY_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_CATEGORY_REBUILD_IC, NftSearch.EXTERNAL_NFT_CATEGORY_REBUILD_IC.newBuilder(), false),
+    NFT_COLLECTION_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_COLLECTION_REBUILD_IC, NftSearch.EXTERNAL_NFT_COLLECTION_REBUILD_IC.newBuilder(), false),
+    NFT_ITEM_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_ITEM_REBUILD_IC, NftSearch.EXTERNAL_NFT_ITEM_REBUILD_IC.newBuilder(), false),
 
     ;
 
@@ -44,7 +44,7 @@ public enum NftInnerCmdTypes implements CmdType {
         try {
             return builder.clone().clear().mergeFrom(body).build();
         }catch (Exception e){
-            throw new RuntimeException(String.format("cmdType: %s 解析异常", this), e);
+            throw new RuntimeException(String.format("cmdType: %s parse exception", this), e);
         }
     }
 

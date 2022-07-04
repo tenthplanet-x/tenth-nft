@@ -1,7 +1,7 @@
 package com.tenth.nft.crawler.service;
 
 import com.google.common.base.Strings;
-import com.tenth.nft.convention.routes.CategoryRebuildRouteRequest;
+import com.tenth.nft.convention.routes.ExternalCategoryRebuildRouteRequest;
 import com.tenth.nft.crawler.dto.ExternalNftCategoryDTO;
 import com.tenth.nft.crawler.vo.ExternalNftCategoryCreateRequest;
 import com.tenth.nft.crawler.vo.ExternalNftCategoryDeleteRequest;
@@ -12,7 +12,7 @@ import com.tenth.nft.orm.external.dao.NftCategoryNoCacheDao;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryQuery;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tenth.nft.orm.external.entity.ExternalNftCategory;
-import com.tenth.nft.protobuf.Search;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,10 +93,10 @@ public class ExternalNftCategoryService {
 
     private void rebuildCache() {
         routeClient.send(
-                Search.NFT_CATEGORY_REBUILD_IC.newBuilder()
+                NftSearch.EXTERNAL_NFT_CATEGORY_REBUILD_IC.newBuilder()
                         .setVersion(ExternalNftCategoryVersions.VERSION)
                         .build(),
-                CategoryRebuildRouteRequest.class
+                ExternalCategoryRebuildRouteRequest.class
         );
     }
 }

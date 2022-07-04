@@ -1,9 +1,9 @@
 package com.tenth.nft.search.route;
 
-import com.tenth.nft.convention.routes.CategoryRebuildRouteRequest;
-import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
-import com.tenth.nft.convention.routes.ItemsRebuildRouteRequest;
-import com.tenth.nft.protobuf.Search;
+import com.tenth.nft.convention.routes.ExternalCategoryRebuildRouteRequest;
+import com.tenth.nft.convention.routes.ExternalCollectionRebuildRouteRequest;
+import com.tenth.nft.convention.routes.ExternalItemsRebuildRouteRequest;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.service.CategorySearchService;
 import com.tenth.nft.search.service.CollectionSearchService;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
@@ -24,18 +24,18 @@ public class SearchRebuildRouteController {
     @Autowired
     private CollectionSearchService collectionSearchService;
 
-    @RouteRequestMapping(CategoryRebuildRouteRequest.class)
-    public void categoryRebuild(Search.NFT_CATEGORY_REBUILD_IC request){
+    @RouteRequestMapping(ExternalCategoryRebuildRouteRequest.class)
+    public void categoryRebuild(NftSearch.EXTERNAL_NFT_CATEGORY_REBUILD_IC request){
         categorySearchService.rebuildCache();
     }
 
-    @RouteRequestMapping(CollectionRebuildRouteRequest.class)
-    public void collectionRebuild(Search.NFT_COLLECTION_REBUILD_IC request){
+    @RouteRequestMapping(ExternalCollectionRebuildRouteRequest.class)
+    public void collectionRebuild(NftSearch.EXTERNAL_NFT_COLLECTION_REBUILD_IC request){
         collectionSearchService.rebuild(request.getCollectionId());
     }
 
-    @RouteRequestMapping(ItemsRebuildRouteRequest.class)
-    public void itemsRebuild(Search.NFT_ITEM_REBUILD_IC request){
+    @RouteRequestMapping(ExternalItemsRebuildRouteRequest.class)
+    public void itemsRebuild(NftSearch.EXTERNAL_NFT_ITEM_REBUILD_IC request){
         collectionSearchService.rebuildItems(request.getCollectionId());
     }
 

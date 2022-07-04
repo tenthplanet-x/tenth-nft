@@ -33,6 +33,7 @@ ext {
         commons: '0.4.0_003-SNAPSHOT',
         gs: '0.11.0_20220619_001-SNAPSHOT',
         operation: '0.3.0_20220228_007-SNAPSHOT',
+        tpulse: '0.0.20220704_001-SNAPSHOT'
     ]
     libs = [
             starter: 'org.springframework.boot:spring-boot-starter',
@@ -82,7 +83,9 @@ ext {
             gs_oss: "com.tpulse.gs:gs-oss:${versions.gs}",
             gs_lucenedb: "com.tpulse.gs:gs-lucenedb:${versions.gs}",
 
-            operation_security_client: "com.tpulse:operation-security-client:${versions.operation}"
+            operation_security_client: "com.tpulse:operation-security-client:${versions.operation}",
+
+            tpulse_convention: "com.tpulse.tpulse:tpulse-convention:${versions.tpulse}"
     ]
 }
 

@@ -1,29 +1,32 @@
 package com.tenth.nft.crawler.service;
 
 import com.tenth.nft.convention.TenthOssKeys;
-import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
-import com.tenth.nft.convention.routes.ItemsRebuildRouteRequest;
+import com.tenth.nft.convention.routes.ExternalCollectionRebuildRouteRequest;
+import com.tenth.nft.convention.routes.ExternalItemsRebuildRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.crawler.ExternalNftCrawlerProperties;
 import com.tenth.nft.crawler.dao.ExternalNftBotDao;
+import com.tenth.nft.crawler.dao.ExternalNftCollectionStatsDao;
+import com.tenth.nft.crawler.dao.expression.ExternalNftBotQuery;
+import com.tenth.nft.crawler.dao.expression.ExternalNftBotUpdate;
+import com.tenth.nft.crawler.dao.expression.ExternalNftCollectionStatsQuery;
+import com.tenth.nft.crawler.dao.expression.ExternalNftCollectionStatsUpdate;
 import com.tenth.nft.crawler.entity.ExternalNftBot;
 import com.tenth.nft.crawler.entity.ExternalNftCollectionStats;
+import com.tenth.nft.crawler.sdk.alchemy.AlchemySdk;
+import com.tenth.nft.crawler.sdk.alchemy.dto.AlchemyNftDTO;
+import com.tenth.nft.crawler.sdk.opensea.OpenseaSdk;
+import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionDTO;
+import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionStats;
 import com.tenth.nft.orm.external.dao.NftCollectionNoCacheDao;
-import com.tenth.nft.crawler.dao.ExternalNftCollectionStatsDao;
 import com.tenth.nft.orm.external.dao.NftItemDao;
-import com.tenth.nft.crawler.dao.expression.*;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCollectionQuery;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCollectionUpdate;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftItemQuery;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftItemUpdate;
 import com.tenth.nft.orm.external.entity.ExternalNftAssets;
 import com.tenth.nft.orm.external.entity.ExternalNftCollection;
-import com.tenth.nft.crawler.sdk.alchemy.AlchemySdk;
-import com.tenth.nft.crawler.sdk.alchemy.dto.AlchemyNftDTO;
-import com.tenth.nft.crawler.sdk.opensea.OpenseaSdk;
-import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionDTO;
-import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionStats;
-import com.tenth.nft.protobuf.Search;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.oss.qiniu.QiniuImageUrls;
@@ -180,10 +183,10 @@ public class ExternalNftBotProcessService {
 
                 //rebuild cache
                 routeClient.send(
-                        Search.NFT_COLLECTION_REBUILD_IC.newBuilder()
+                        NftSearch.EXTERNAL_NFT_COLLECTION_REBUILD_IC.newBuilder()
                                 .setCollectionId(nftCollection.getId())
                                 .build(),
-                        CollectionRebuildRouteRequest.class
+                        ExternalCollectionRebuildRouteRequest.class
                 );
             }
         }
@@ -240,10 +243,10 @@ public class ExternalNftBotProcessService {
 
             //rebuid cache
             routeClient.send(
-                    Search.NFT_ITEM_REBUILD_IC.newBuilder()
+                    NftSearch.EXTERNAL_NFT_ITEM_REBUILD_IC.newBuilder()
                             .setCollectionId(nftCollection.getId())
                             .build(),
-                    ItemsRebuildRouteRequest.class
+                    ExternalItemsRebuildRouteRequest.class
             );
         }
     }

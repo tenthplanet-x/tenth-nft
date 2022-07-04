@@ -1,17 +1,17 @@
 package com.tenth.nft.crawler.service;
 
 import com.google.common.base.Strings;
-import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
+import com.tenth.nft.convention.routes.ExternalCollectionRebuildRouteRequest;
 import com.tenth.nft.crawler.dto.ExternalNftCollectionDTO;
+import com.tenth.nft.crawler.vo.ExternalNftCollectionCreateRequest;
 import com.tenth.nft.crawler.vo.ExternalNftCollectionDeleteRequest;
+import com.tenth.nft.crawler.vo.ExternalNftCollectionEditRequest;
+import com.tenth.nft.crawler.vo.ExternalNftCollectionListRequest;
 import com.tenth.nft.orm.external.dao.NftCollectionNoCacheDao;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCollectionQuery;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCollectionUpdate;
 import com.tenth.nft.orm.external.entity.ExternalNftCollection;
-import com.tenth.nft.crawler.vo.ExternalNftCollectionCreateRequest;
-import com.tenth.nft.crawler.vo.ExternalNftCollectionEditRequest;
-import com.tenth.nft.crawler.vo.ExternalNftCollectionListRequest;
-import com.tenth.nft.protobuf.Search;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,10 +109,10 @@ public class ExternalNftCollectionService {
 
     private void rebuildCache(Long id) {
         routeClient.send(
-                Search.NFT_COLLECTION_REBUILD_IC.newBuilder()
+                NftSearch.EXTERNAL_NFT_COLLECTION_REBUILD_IC.newBuilder()
                         .setCollectionId(id)
                         .build(),
-                CollectionRebuildRouteRequest.class
+                ExternalCollectionRebuildRouteRequest.class
         );
     }
 }

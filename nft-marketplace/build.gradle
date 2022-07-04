@@ -1,19 +1,14 @@
-plugins {
-    id 'java'
-}
-
-group 'com.tpulse.row'
-version 'null'
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-}
 
-test {
-    useJUnitPlatform()
+    api project(":nft-convention")
+    api project(":nft-orm")
+    api libs.tpulse_convention
+
+    api libs.gs_httprouter
+    api libs.gs_router
+    api libs.gs_mongodb
+    api libs.gs_oss
+    api libs.starter_web
+
+
 }
