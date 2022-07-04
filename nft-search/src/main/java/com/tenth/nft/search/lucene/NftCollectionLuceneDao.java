@@ -1,20 +1,17 @@
 package com.tenth.nft.search.lucene;
 
 import com.tenth.nft.orm.dao.NftCollectionNoCacheDao;
-import com.tenth.nft.orm.dao.expression.NftCollectionQuery;
-import com.tenth.nft.orm.entity.NftCollection;
+import com.tenth.nft.orm.dao.expression.ExternalNftCollectionQuery;
+import com.tenth.nft.orm.entity.ExternalNftCollection;
 import com.tenth.nft.search.dto.SearchCollectionListRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.lucenedb.dao.LuceneDao;
 import com.tpulse.gs.lucenedb.datasource.LuceneDatasource;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queries.function.FunctionScoreQuery;
 import org.apache.lucene.search.*;
-import org.apache.lucene.util.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -22,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.DoubleConsumer;
 import java.util.stream.Collectors;
 
 /**
@@ -40,7 +36,7 @@ public class NftCollectionLuceneDao extends LuceneDao {
     public NftCollectionLuceneDao(LucenedbProperties properties, NftCollectionNoCacheDao nftCollectionNoCacheDao) {
         super(properties.getDir(), true, true);
         this.nftCollectionNoCacheDao = nftCollectionNoCacheDao;
-        luceneDatasource = create(NftCollection.class);
+        luceneDatasource = create(ExternalNftCollection.class);
     }
 
     /**
@@ -99,14 +95,14 @@ public class NftCollectionLuceneDao extends LuceneDao {
         int page = 1;
         do {
 
-            Page<NftCollection> dataPage = nftCollectionNoCacheDao.findPage(NftCollectionQuery.newBuilder().setPage(page).setPageSize(100).build());
+            Page<ExternalNftCollection> dataPage = nftCollectionNoCacheDao.findPage(ExternalNftCollectionQuery.newBuilder().setPage(page).setPageSize(100).build());
             if(dataPage.getData().isEmpty()){
                 empty = true;
                 continue;
             }
 
             luceneDatasource.write(indexWriter -> {
-                for(NftCollection collection: dataPage.getData()){
+                for(ExternalNftCollection collection: dataPage.getData()){
                     Document document = toDocument(collection);
                     indexWriter.addDocument(document);
                 }
@@ -116,7 +112,7 @@ public class NftCollectionLuceneDao extends LuceneDao {
 
     }
 
-    private Document toDocument(NftCollection collection) {
+    private Document toDocument(ExternalNftCollection collection) {
         Document document = new Document();
 
         document.add(new StringField("id", String.valueOf(collection.getId()), Field.Store.YES));
@@ -131,7 +127,7 @@ public class NftCollectionLuceneDao extends LuceneDao {
     }
 
 
-    public void rebuild(NftCollection collection) {
+    public void rebuild(ExternalNftCollection collection) {
         try{
             luceneDatasource.write((indexWriter) -> {
 

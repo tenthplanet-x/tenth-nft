@@ -1,6 +1,6 @@
 package com.tenth.nft.orm.dao;
 
-import com.tenth.nft.orm.entity.NftItem;
+import com.tenth.nft.orm.entity.ExternalNftAssets;
 import com.tpulse.gs.convention.dao.SimpleDao;
 import org.springframework.stereotype.Component;
 
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
  * @createdAt 2022/06/14 14:50
  */
 @Component
-public class NftItemDao extends SimpleDao<NftItem> {
+public class NftItemDao extends SimpleDao<ExternalNftAssets> {
 
     public NftItemDao() {
-        super(NftItem.class);
+        super(ExternalNftAssets.class);
     }
 }

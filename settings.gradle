@@ -5,4 +5,5 @@ include 'nft-convention'
 include 'nft-orm'
 include 'nft-standalone-app'
 include 'nft-search'
+include 'nft-marketplace'
 

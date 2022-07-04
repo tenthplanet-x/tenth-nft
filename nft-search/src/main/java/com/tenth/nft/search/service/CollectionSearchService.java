@@ -1,12 +1,11 @@
 package com.tenth.nft.search.service;
 
-import com.tenth.nft.orm.dao.NftCategoryDao;
 import com.tenth.nft.orm.dao.NftCollectionCacheDao;
 import com.tenth.nft.orm.dao.NftItemCacheDao;
-import com.tenth.nft.orm.dao.expression.NftCollectionQuery;
-import com.tenth.nft.orm.dao.expression.NftItemQuery;
-import com.tenth.nft.orm.entity.NftCollection;
-import com.tenth.nft.orm.entity.NftItem;
+import com.tenth.nft.orm.dao.expression.ExternalNftCollectionQuery;
+import com.tenth.nft.orm.dao.expression.ExternalNftItemQuery;
+import com.tenth.nft.orm.entity.ExternalNftAssets;
+import com.tenth.nft.orm.entity.ExternalNftCollection;
 import com.tenth.nft.search.dto.CollectionSearchDTO;
 import com.tenth.nft.search.dto.ItemSearchDTO;
 import com.tenth.nft.search.dto.SearchCollectionListRequest;
@@ -35,9 +34,9 @@ public class CollectionSearchService {
 
         List<Long> page = nftCollectionLuceneDao.list(request);
         if(!page.isEmpty()){
-            List<NftCollection> collections = page.stream().map(id -> {
+            List<ExternalNftCollection> collections = page.stream().map(id -> {
                 return nftCollectionCacheDao.findOne(
-                        NftCollectionQuery.newBuilder().id(id).build()
+                        ExternalNftCollectionQuery.newBuilder().id(id).build()
                 );
             }).collect(Collectors.toList());
             return new Page<>(
@@ -58,7 +57,7 @@ public class CollectionSearchService {
 
         nftCollectionCacheDao.clearCache(collectionId);
 
-        NftCollection nftCollection = nftCollectionCacheDao.findOne(NftCollectionQuery.newBuilder().id(collectionId).build());
+        ExternalNftCollection nftCollection = nftCollectionCacheDao.findOne(ExternalNftCollectionQuery.newBuilder().id(collectionId).build());
         nftCollectionLuceneDao.rebuild(nftCollection);
     }
 
@@ -68,12 +67,12 @@ public class CollectionSearchService {
      */
     public void rebuildItems(Long collectionId){
 
-        NftCollection collection = nftCollectionCacheDao.findOne(NftCollectionQuery.newBuilder().id(collectionId).build());
+        ExternalNftCollection collection = nftCollectionCacheDao.findOne(ExternalNftCollectionQuery.newBuilder().id(collectionId).build());
         nftItemCacheDao.clearCache(collection.getContractAddress());
 
     }
 
-    private CollectionSearchDTO convertToDTO(NftCollection nftCollection) {
+    private CollectionSearchDTO convertToDTO(ExternalNftCollection nftCollection) {
 
         CollectionSearchDTO dto = new CollectionSearchDTO();
         dto.setId(nftCollection.getId());
@@ -81,7 +80,7 @@ public class CollectionSearchService {
         dto.setLogoImage(nftCollection.getLogoImage());
         dto.setFeaturedImage(nftCollection.getFeaturedImage());
         dto.setBannerImage(nftCollection.getBannerImage());
-        List<ItemSearchDTO> items = nftItemCacheDao.find(NftItemQuery.newBuilder()
+        List<ItemSearchDTO> items = nftItemCacheDao.find(ExternalNftItemQuery.newBuilder()
                 .contractAddress(nftCollection.getContractAddress())
                         .setLimit(3)
                         .setSortField("tokenNo")
@@ -94,7 +93,7 @@ public class CollectionSearchService {
         return dto;
     }
 
-    private ItemSearchDTO convertToDTO(NftItem item){
+    private ItemSearchDTO convertToDTO(ExternalNftAssets item){
         ItemSearchDTO dto = new ItemSearchDTO();
         dto.setName(item.getName());
         dto.setUrl(item.getPreviewUrl());

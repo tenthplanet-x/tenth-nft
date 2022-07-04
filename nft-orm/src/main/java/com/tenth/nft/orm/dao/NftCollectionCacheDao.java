@@ -1,29 +1,27 @@
 package com.tenth.nft.orm.dao;
 
-import com.tenth.nft.orm.entity.NftCategory;
-import com.tenth.nft.orm.entity.NftCollection;
+import com.tenth.nft.orm.entity.ExternalNftCategory;
+import com.tenth.nft.orm.entity.ExternalNftCollection;
 import com.tpulse.gs.convention.dao.IDaoOperator;
 import com.tpulse.gs.convention.dao.SimpleDao;
 import com.tpulse.gs.convention.dao.cache.CachebaleDaoOperatorV2;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 /**
  * @author gs-orm-generator
  * @createdAt 2022/06/17 15:22
  */
 @Component
-public class NftCollectionCacheDao extends SimpleDao<NftCollection> {
+public class NftCollectionCacheDao extends SimpleDao<ExternalNftCollection> {
 
     public NftCollectionCacheDao() {
-        super(NftCollection.class);
+        super(ExternalNftCollection.class);
     }
 
     public void clearCache(Long collectionId) {
-        IDaoOperator<NftCategory> daoOperator = getDaoOperator();
+        IDaoOperator<ExternalNftCategory> daoOperator = getDaoOperator();
         if(daoOperator instanceof CachebaleDaoOperatorV2){
-            ((CachebaleDaoOperatorV2<NftCategory>) daoOperator).clearCache(collectionId);
+            ((CachebaleDaoOperatorV2<ExternalNftCategory>) daoOperator).clearCache(collectionId);
         }
     }
 }
