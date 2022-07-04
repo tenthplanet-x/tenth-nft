@@ -1,6 +1,6 @@
 package com.tenth.nft.marketplace.vo;
 
-import com.tenth.nft.marketplace.entity.NftAssetsType;
+import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

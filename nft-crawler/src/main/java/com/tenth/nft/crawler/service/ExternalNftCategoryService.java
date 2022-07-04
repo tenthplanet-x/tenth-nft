@@ -8,7 +8,7 @@ import com.tenth.nft.crawler.vo.ExternalNftCategoryDeleteRequest;
 import com.tenth.nft.crawler.vo.ExternalNftCategoryEditRequest;
 import com.tenth.nft.crawler.vo.ExternalNftCategoryListRequest;
 import com.tenth.nft.orm.external.ExternalNftCategoryVersions;
-import com.tenth.nft.orm.external.dao.NftCategoryNoCacheDao;
+import com.tenth.nft.orm.external.dao.ExternalNftCategoryNoCacheDao;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryQuery;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tenth.nft.orm.external.entity.ExternalNftCategory;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 public class ExternalNftCategoryService {
 
     @Autowired
-    private NftCategoryNoCacheDao nftCategoryDao;
+    private ExternalNftCategoryNoCacheDao nftCategoryDao;
     @Autowired
     private RouteClient routeClient;
 

@@ -1,10 +1,9 @@
 dependencies{
     api libs.gs_convention
     api libs.gs_router
+    implementation libs.tpulse_convention
     compileOnly libs.starter_web
 }
-
-
 
 //protobuf
 apply plugin: 'com.google.protobuf'

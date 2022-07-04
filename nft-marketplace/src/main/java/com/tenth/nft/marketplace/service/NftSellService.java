@@ -2,11 +2,11 @@ package com.tenth.nft.marketplace.service;
 
 import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.TpulseErrorCodes;
-import com.tenth.nft.marketplace.dao.NftSellNoCacheDao;
-import com.tenth.nft.marketplace.dao.expression.NftSellQuery;
-import com.tenth.nft.marketplace.dao.expression.NftSellUpdate;
+import com.tenth.nft.orm.marketplace.dao.NftSellNoCacheDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftSellQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftSellUpdate;
 import com.tenth.nft.marketplace.dto.NftSellDTO;
-import com.tenth.nft.marketplace.entity.NftSell;
+import com.tenth.nft.orm.marketplace.entity.NftSell;
 import com.tenth.nft.marketplace.vo.NftSellCreateRequest;
 import com.tenth.nft.marketplace.vo.NftSellDeleteRequest;
 import com.tenth.nft.marketplace.vo.NftSellEditRequest;

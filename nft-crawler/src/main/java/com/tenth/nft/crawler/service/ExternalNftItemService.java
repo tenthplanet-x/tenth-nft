@@ -2,7 +2,7 @@ package com.tenth.nft.crawler.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.crawler.vo.ExternalNftItemCreateRequest;
-import com.tenth.nft.orm.external.dao.NftItemDao;
+import com.tenth.nft.orm.external.dao.ExternalNftItemDao;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftItemQuery;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftItemUpdate;
 import com.tenth.nft.crawler.dto.ExternalNftItemDTO;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class ExternalNftItemService {
 
     @Autowired
-    private NftItemDao nftItemDao;
+    private ExternalNftItemDao nftItemDao;
 
     public Page<ExternalNftItemDTO> list(ExternalNftItemListRequest request) {
 

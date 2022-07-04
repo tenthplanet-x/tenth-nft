@@ -45,3 +45,5 @@ row-convention/src/main/java/com/tpulse/row/convention/protobuf/
 /row-convention/src/main/java/com/tpulse/row/convention/protobuf/
 application.yaml
 logback-spring.xml
+application-ops.yaml
+application-ops-csj.yaml

@@ -7,11 +7,11 @@ import com.ruixi.tpulse.convention.protobuf.NftSearch;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.nft.CollectionRebuildRouteRequest;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
-import com.tenth.nft.marketplace.dao.NftCollectionNoCacheDao;
-import com.tenth.nft.marketplace.dao.expression.NftCollectionQuery;
-import com.tenth.nft.marketplace.dao.expression.NftCollectionUpdate;
+import com.tenth.nft.orm.marketplace.dao.NftCollectionNoCacheDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionUpdate;
 import com.tenth.nft.marketplace.dto.NftCollectionDTO;
-import com.tenth.nft.marketplace.entity.NftCollection;
+import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.marketplace.vo.*;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
@@ -112,7 +112,7 @@ public class NftCollectionService {
         nftCollection.setBlockchain(request.getBlockchain());
         nftCollection = nftCollectionDao.insert(nftCollection);
 
-        rebuildCache(nftCollection.getId());
+        //rebuildCache(nftCollection.getId());
 
         NftCollectionDetailRequest detailRequest = new NftCollectionDetailRequest();
         detailRequest.setId(nftCollection.getId());
@@ -134,7 +134,7 @@ public class NftCollectionService {
                         .setBlockchain(request.getBlockchain())
                         .build()
         );
-        rebuildCache(request.getId());
+        //rebuildCache(request.getId());
     }
 
     public void delete(NftCollectionDeleteRequest request) {

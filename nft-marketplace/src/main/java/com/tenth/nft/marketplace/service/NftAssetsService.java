@@ -2,11 +2,11 @@ package com.tenth.nft.marketplace.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
-import com.tenth.nft.marketplace.dao.NftAssetsNoCacheDao;
-import com.tenth.nft.marketplace.dao.expression.NftAssetsQuery;
-import com.tenth.nft.marketplace.dao.expression.NftAssetsUpdate;
+import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsUpdate;
 import com.tenth.nft.marketplace.dto.NftAssetsDTO;
-import com.tenth.nft.marketplace.entity.NftAssets;
+import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.marketplace.vo.*;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
@@ -89,7 +89,7 @@ public class NftAssetsService {
         long count = nftAssetsDao.count(NftAssetsQuery.newBuilder().setCollectionId(request.getCollectionId()).build());
         nftCollectionService.updateItems(request.getCollectionId(), count);
 
-        rebuildCache(nftAssets.getId());
+//        rebuildCache(nftAssets.getId());
 
         NftAssetsDetailRequest detailRequest = new NftAssetsDetailRequest();
         detailRequest.setId(nftAssets.getId());
@@ -113,7 +113,7 @@ public class NftAssetsService {
                         .build()
         );
 
-        rebuildCache(request.getId());
+//        rebuildCache(request.getId());
     }
 
     public void delete(NftAssetsDeleteRequest request) {

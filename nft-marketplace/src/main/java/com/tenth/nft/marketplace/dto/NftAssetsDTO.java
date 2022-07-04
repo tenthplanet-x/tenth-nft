@@ -1,6 +1,6 @@
 package com.tenth.nft.marketplace.dto;
 
-import com.tenth.nft.marketplace.entity.NftAssetsType;
+import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 

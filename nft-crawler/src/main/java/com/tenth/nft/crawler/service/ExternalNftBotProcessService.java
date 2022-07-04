@@ -18,8 +18,8 @@ import com.tenth.nft.crawler.sdk.alchemy.dto.AlchemyNftDTO;
 import com.tenth.nft.crawler.sdk.opensea.OpenseaSdk;
 import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionDTO;
 import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionStats;
-import com.tenth.nft.orm.external.dao.NftCollectionNoCacheDao;
-import com.tenth.nft.orm.external.dao.NftItemDao;
+import com.tenth.nft.orm.external.dao.ExternalNftCollectionNoCacheDao;
+import com.tenth.nft.orm.external.dao.ExternalNftItemDao;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCollectionQuery;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCollectionUpdate;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftItemQuery;
@@ -59,9 +59,9 @@ public class ExternalNftBotProcessService {
     @Autowired
     private OpenseaSdk openseaSdk;
     @Autowired
-    private NftCollectionNoCacheDao nftCollectionDao;
+    private ExternalNftCollectionNoCacheDao nftCollectionDao;
     @Autowired
-    private NftItemDao nftItemDao;
+    private ExternalNftItemDao nftItemDao;
     @Autowired
     private AlchemySdk alchemySdk;
     @Autowired

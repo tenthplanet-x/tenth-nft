@@ -4,6 +4,7 @@ import com.tenth.nft.convention.cmd.NftInnerCmds;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.router.requestmapping.AbsRouteRequest;
 import com.tpulse.gs.router.requestmapping.Router;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 /**
