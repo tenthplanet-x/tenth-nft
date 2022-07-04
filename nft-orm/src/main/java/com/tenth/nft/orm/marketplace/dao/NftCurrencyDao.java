@@ -17,10 +17,10 @@ public class NftCurrencyDao extends SimpleDao<NftCurrency> {
         super(NftCurrency.class);
     }
 
-    public void clearCache(String blockchain) {
+    public void clearCache(Integer version) {
         IDaoOperator<NftCurrency> daoOperator = getDaoOperator();
         if(daoOperator instanceof CachebaleDaoOperatorV2){
-            ((CachebaleDaoOperatorV2<NftCurrency>) daoOperator).clearCache(blockchain);
+            ((CachebaleDaoOperatorV2<NftCurrency>) daoOperator).clearCache(version);
         }
     }
 }

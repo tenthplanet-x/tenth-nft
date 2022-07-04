@@ -62,7 +62,7 @@ public class NftCategoryOpsService {
         nftCategory.setVersion(NftCategoryVersions.VERSION);
         nftCategory = nftCategoryDao.insert(nftCategory);
 
-//        rebuildCache();
+        rebuildCache();
     }
 
     public void edit(NftCategoryEditRequest request) {
@@ -75,7 +75,7 @@ public class NftCategoryOpsService {
                         .build()
         );
 
-//        rebuildCache();
+        rebuildCache();
     }
 
     public void delete(NftCategoryDeleteRequest request) {

@@ -1,17 +1,18 @@
 package com.tenth.nft.operation.service;
 
 import com.google.common.base.Strings;
-import com.ruixi.tpulse.convention.protobuf.NftSearch;
-import com.ruixi.tpulse.convention.routes.nft.CurrencyRebuildRouteRequest;
-import com.tenth.nft.orm.marketplace.dao.NftCurrencyNoCacheDao;
-import com.tenth.nft.orm.marketplace.dao.expression.NftCurrencyQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftCurrencyUpdate;
+import com.tenth.nft.convention.routes.CurrencyRebuildRouteRequest;
 import com.tenth.nft.operation.dto.NftCurrencyDTO;
-import com.tenth.nft.orm.marketplace.entity.NftCurrency;
 import com.tenth.nft.operation.vo.NftCurrencyCreateRequest;
 import com.tenth.nft.operation.vo.NftCurrencyDeleteRequest;
 import com.tenth.nft.operation.vo.NftCurrencyEditRequest;
 import com.tenth.nft.operation.vo.NftCurrencyListRequest;
+import com.tenth.nft.orm.external.NftCurrencyVersions;
+import com.tenth.nft.orm.marketplace.dao.NftCurrencyNoCacheDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftCurrencyQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftCurrencyUpdate;
+import com.tenth.nft.orm.marketplace.entity.NftCurrency;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,7 @@ public class NftCurrencyService {
     public void create(NftCurrencyCreateRequest request) {
 
         NftCurrency nftCurrency = new NftCurrency();
+        nftCurrency.setVersion(NftCurrencyVersions.VERSION);
         nftCurrency.setCreatedAt(System.currentTimeMillis());
         nftCurrency.setUpdatedAt(System.currentTimeMillis());
         nftCurrency.setBlockchain(request.getBlockchain());
@@ -63,7 +65,7 @@ public class NftCurrencyService {
         nftCurrency.setOrder(request.getOrder());
         nftCurrencyDao.insert(nftCurrency);
 
-//        rebuildCache(request.getBlockchain());
+        rebuildCache(request.getBlockchain());
 
     }
 
@@ -80,7 +82,7 @@ public class NftCurrencyService {
                         .build()
         );
 
-//        rebuildCache(request.getBlockchain());
+        rebuildCache(request.getBlockchain());
     }
 
     public void delete(NftCurrencyDeleteRequest request) {

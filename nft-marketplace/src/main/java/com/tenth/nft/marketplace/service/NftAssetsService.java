@@ -89,7 +89,7 @@ public class NftAssetsService {
         long count = nftAssetsDao.count(NftAssetsQuery.newBuilder().setCollectionId(request.getCollectionId()).build());
         nftCollectionService.updateItems(request.getCollectionId(), count);
 
-//        rebuildCache(nftAssets.getId());
+        rebuildCache(nftAssets.getId());
 
         NftAssetsDetailRequest detailRequest = new NftAssetsDetailRequest();
         detailRequest.setId(nftAssets.getId());
@@ -113,7 +113,7 @@ public class NftAssetsService {
                         .build()
         );
 
-//        rebuildCache(request.getId());
+        rebuildCache(request.getId());
     }
 
     public void delete(NftAssetsDeleteRequest request) {

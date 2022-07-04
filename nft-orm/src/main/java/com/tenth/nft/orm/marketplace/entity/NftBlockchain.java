@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * @author shijie
  */
-@Document("tpilse.nft_blockchain")
+@Document("tpulse.nft_blockchain")
 @SimpleCache(cacheField = "version")
 public class NftBlockchain {
 

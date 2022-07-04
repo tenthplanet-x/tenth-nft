@@ -1,6 +1,8 @@
 package com.tenth.nft.convention.cmd;
 
 import com.google.protobuf.Message;
+import com.ruixi.tpulse.convention.TpulseCmdGroup;
+import com.ruixi.tpulse.convention.TpulseInnerCmds;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.cmd.CmdGroup;
 import com.tpulse.gs.convention.cmd.CmdType;
@@ -10,10 +12,15 @@ import com.tpulse.gs.convention.cmd.CmdType;
  */
 public enum NftInnerCmdTypes implements CmdType {
 
-    NFT_CATEGORY_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_CATEGORY_REBUILD_IC, NftSearch.EXTERNAL_NFT_CATEGORY_REBUILD_IC.newBuilder(), false),
-    NFT_COLLECTION_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_COLLECTION_REBUILD_IC, NftSearch.EXTERNAL_NFT_COLLECTION_REBUILD_IC.newBuilder(), false),
-    NFT_ITEM_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_ITEM_REBUILD_IC, NftSearch.EXTERNAL_NFT_ITEM_REBUILD_IC.newBuilder(), false),
+    EXTERNAL_NFT_CATEGORY_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_CATEGORY_REBUILD_IC, NftSearch.EXTERNAL_NFT_CATEGORY_REBUILD_IC.newBuilder(), false),
+    EXTERNAL_NFT_COLLECTION_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_COLLECTION_REBUILD_IC, NftSearch.EXTERNAL_NFT_COLLECTION_REBUILD_IC.newBuilder(), false),
+    EXTERNAL_NFT_ITEM_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.EXTERNAL_NFT_ITEM_REBUILD_IC, NftSearch.EXTERNAL_NFT_ITEM_REBUILD_IC.newBuilder(), false),
 
+    NFT_CATEGORY_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CATEGORY_REBUILD_IC, NftSearch.NFT_CATEGORY_REBUILD_IC.newBuilder()),
+    NFT_COLLECTION_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_COLLECTION_REBUILD_IC, com.ruixi.tpulse.convention.protobuf.NftSearch.NFT_COLLECTION_REBUILD_IC.newBuilder()),
+    NFT_ITEM_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_ASSETS_REBUILD_IC, com.ruixi.tpulse.convention.protobuf.NftSearch.NFT_ASSETS_REBUILD_IC.newBuilder()),
+    NFT_BLOCKCHAIN_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_BLOCKCHAIN_REBUILD_IC, com.ruixi.tpulse.convention.protobuf.NftSearch.NFT_BLOCKCHAIN_REBUILD_IC.newBuilder()),
+    NFT_CURRENCY_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_REBUILD_IC, com.ruixi.tpulse.convention.protobuf.NftSearch.NFT_CURRENCY_REBUILD_IC.newBuilder()),
     ;
 
 
@@ -26,6 +33,10 @@ public enum NftInnerCmdTypes implements CmdType {
         this.cmd = cmd;
         this.builder = builder;
         this.debugCmd = debugCmd;
+    }
+
+    NftInnerCmdTypes(CmdGroup group, int cmd, Message.Builder builder) {
+        this(group, cmd, builder, false);
 
     }
 

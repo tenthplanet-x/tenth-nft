@@ -1,5 +1,7 @@
 package com.tenth.nft.orm.marketplace.entity;
 
+import com.tenth.nft.orm.external.NftCurrencyVersions;
+import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -7,11 +9,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * @author shijie
  */
-@Document("tpilse.nft_currency")
+@Document("tpulse.nft_currency")
+@SimpleCache(cacheField = "version")
 public class NftCurrency {
 
     @Id
     private Long id;
+
+    private Integer version = NftCurrencyVersions.VERSION;
 
     @Indexed
     private String blockchain;
@@ -90,5 +95,13 @@ public class NftCurrency {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

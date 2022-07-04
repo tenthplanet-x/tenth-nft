@@ -64,7 +64,7 @@ public class NftBlockchainService {
         nftBlockchain.setOrder(request.getOrder());
         nftBlockchainDao.insert(nftBlockchain);
 
-//        rebuildCache();
+        rebuildCache();
 
     }
 
@@ -80,7 +80,7 @@ public class NftBlockchainService {
                         .build()
         );
 
-//        rebuildCache();
+        rebuildCache();
     }
 
     public void delete(NftBlockchainDeleteRequest request) {
