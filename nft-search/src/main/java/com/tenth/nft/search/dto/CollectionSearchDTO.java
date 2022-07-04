@@ -7,6 +7,8 @@ import java.util.List;
  */
 public class CollectionSearchDTO {
 
+    private Long id;
+
     private String name;
 
     private String logoImage;
@@ -65,5 +67,13 @@ public class CollectionSearchDTO {
 
     public void setTotalVolume(Float totalVolume) {
         this.totalVolume = totalVolume;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -76,6 +76,7 @@ public class CollectionSearchService {
     private CollectionSearchDTO convertToDTO(NftCollection nftCollection) {
 
         CollectionSearchDTO dto = new CollectionSearchDTO();
+        dto.setId(nftCollection.getId());
         dto.setName(nftCollection.getName());
         dto.setLogoImage(nftCollection.getLogoImage());
         dto.setFeaturedImage(nftCollection.getFeaturedImage());
