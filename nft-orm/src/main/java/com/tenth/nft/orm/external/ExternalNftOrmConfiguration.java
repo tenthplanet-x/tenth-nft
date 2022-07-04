@@ -1,4 +1,4 @@
-package com.tenth.nft.orm;
+package com.tenth.nft.orm.external;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

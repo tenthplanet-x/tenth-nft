@@ -1,4 +1,4 @@
-package com.tenth.nft.orm.dao.expression;
+package com.tenth.nft.orm.external.dao.expression;
 
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;

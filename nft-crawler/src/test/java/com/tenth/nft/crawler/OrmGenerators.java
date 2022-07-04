@@ -1,6 +1,6 @@
 package com.tenth.nft.crawler;
 
-import com.tenth.nft.orm.entity.ExternalNftCollection;
+import com.tenth.nft.orm.external.entity.ExternalNftCollection;
 import com.tpulse.gs.convention.dao.generate.OrmGenerator;
 import org.junit.Test;
 

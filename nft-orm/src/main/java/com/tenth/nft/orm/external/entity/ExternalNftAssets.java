@@ -1,4 +1,4 @@
-package com.tenth.nft.orm.entity;
+package com.tenth.nft.orm.external.entity;
 
 import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import org.springframework.data.annotation.Id;

@@ -1,6 +1,6 @@
-package com.tenth.nft.orm.dao;
+package com.tenth.nft.orm.external.dao;
 
-import com.tenth.nft.orm.entity.ExternalNftCategory;
+import com.tenth.nft.orm.external.entity.ExternalNftCategory;
 import com.tpulse.gs.convention.dao.IDaoOperator;
 import com.tpulse.gs.convention.dao.SimpleDao;
 import com.tpulse.gs.convention.dao.cache.CachebaleDaoOperatorV2;

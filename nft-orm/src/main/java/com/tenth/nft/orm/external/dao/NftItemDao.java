@@ -1,6 +1,6 @@
-package com.tenth.nft.orm.dao;
+package com.tenth.nft.orm.external.dao;
 
-import com.tenth.nft.orm.entity.ExternalNftAssets;
+import com.tenth.nft.orm.external.entity.ExternalNftAssets;
 import com.tpulse.gs.convention.dao.SimpleDao;
 import org.springframework.stereotype.Component;
 

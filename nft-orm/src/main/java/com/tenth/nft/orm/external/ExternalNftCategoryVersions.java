@@ -1,4 +1,4 @@
-package com.tenth.nft.orm;
+package com.tenth.nft.orm.external;
 
 /**
  * @author shijie

@@ -1,8 +1,8 @@
 package com.tenth.nft.search.lucene;
 
-import com.tenth.nft.orm.dao.NftCollectionNoCacheDao;
-import com.tenth.nft.orm.dao.expression.ExternalNftCollectionQuery;
-import com.tenth.nft.orm.entity.ExternalNftCollection;
+import com.tenth.nft.orm.external.dao.NftCollectionNoCacheDao;
+import com.tenth.nft.orm.external.dao.expression.ExternalNftCollectionQuery;
+import com.tenth.nft.orm.external.entity.ExternalNftCollection;
 import com.tenth.nft.search.dto.SearchCollectionListRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.lucenedb.dao.LuceneDao;

@@ -1,6 +1,6 @@
 package com.tenth.nft.search;
 
-import com.tenth.nft.orm.ExternalNftOrmConfiguration;
+import com.tenth.nft.orm.external.ExternalNftOrmConfiguration;
 import com.tenth.nft.search.lucene.LucenedbProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

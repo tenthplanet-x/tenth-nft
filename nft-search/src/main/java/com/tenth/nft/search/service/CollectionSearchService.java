@@ -1,11 +1,11 @@
 package com.tenth.nft.search.service;
 
-import com.tenth.nft.orm.dao.NftCollectionCacheDao;
-import com.tenth.nft.orm.dao.NftItemCacheDao;
-import com.tenth.nft.orm.dao.expression.ExternalNftCollectionQuery;
-import com.tenth.nft.orm.dao.expression.ExternalNftItemQuery;
-import com.tenth.nft.orm.entity.ExternalNftAssets;
-import com.tenth.nft.orm.entity.ExternalNftCollection;
+import com.tenth.nft.orm.external.dao.NftCollectionCacheDao;
+import com.tenth.nft.orm.external.dao.NftItemCacheDao;
+import com.tenth.nft.orm.external.dao.expression.ExternalNftCollectionQuery;
+import com.tenth.nft.orm.external.dao.expression.ExternalNftItemQuery;
+import com.tenth.nft.orm.external.entity.ExternalNftAssets;
+import com.tenth.nft.orm.external.entity.ExternalNftCollection;
 import com.tenth.nft.search.dto.CollectionSearchDTO;
 import com.tenth.nft.search.dto.ItemSearchDTO;
 import com.tenth.nft.search.dto.SearchCollectionListRequest;

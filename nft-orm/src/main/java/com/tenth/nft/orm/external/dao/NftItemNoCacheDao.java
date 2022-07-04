@@ -1,6 +1,6 @@
-package com.tenth.nft.orm.dao;
+package com.tenth.nft.orm.external.dao;
 
-import com.tenth.nft.orm.entity.ExternalNftCollection;
+import com.tenth.nft.orm.external.entity.ExternalNftAssets;
 import com.tpulse.gs.convention.dao.SimpleDao;
 import org.springframework.stereotype.Component;
 
@@ -8,13 +8,13 @@ import java.util.Optional;
 
 /**
  * @author gs-orm-generator
- * @createdAt 2022/06/17 15:22
+ * @createdAt 2022/06/14 14:50
  */
 @Component
-public class NftCollectionNoCacheDao extends SimpleDao<ExternalNftCollection> {
+public class NftItemNoCacheDao extends SimpleDao<ExternalNftAssets> {
 
-    public NftCollectionNoCacheDao() {
-        super(ExternalNftCollection.class);
+    public NftItemNoCacheDao() {
+        super(ExternalNftAssets.class);
     }
 
     @Override
