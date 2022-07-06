@@ -72,7 +72,7 @@ public class NftCurrencyService {
     public void edit(NftCurrencyEditRequest request) {
 
         nftCurrencyDao.update(
-                NftCurrencyQuery.newBuilder().id(request.getId()).build(),
+                NftCurrencyQuery.newBuilder().version(NftCurrencyVersions.VERSION).id(request.getId()).build(),
                 NftCurrencyUpdate.newBuilder()
                                 .setBlockchain(request.getBlockchain())
                                 .setCode(request.getCode())
@@ -86,12 +86,13 @@ public class NftCurrencyService {
     }
 
     public void delete(NftCurrencyDeleteRequest request) {
-        nftCurrencyDao.remove(NftCurrencyQuery.newBuilder().id(request.getId()).build());
+        nftCurrencyDao.remove(NftCurrencyQuery.newBuilder().version(NftCurrencyVersions.VERSION).id(request.getId()).build());
     }
 
     public NftCurrencyDTO detail(NftCurrencyDeleteRequest request) {
 
         NftCurrencyDTO dto = nftCurrencyDao.findOne(NftCurrencyQuery.newBuilder()
+                        .version(NftCurrencyVersions.VERSION)
                         .id(request.getId())
                 .build(), NftCurrencyDTO.class);
 

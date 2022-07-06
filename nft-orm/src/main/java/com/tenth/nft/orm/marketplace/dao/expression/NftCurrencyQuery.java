@@ -13,6 +13,8 @@ public class NftCurrencyQuery extends SimplePageQuery {
     private Long id;
     @SimpleQueryParam
     private String blockchain;
+    @SimpleQueryParam
+    private Integer version;
 
     public Long getId() {
         return id;
@@ -20,6 +22,10 @@ public class NftCurrencyQuery extends SimplePageQuery {
 
     public String getBlockchain() {
         return blockchain;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 
     public static Builder newBuilder() {
@@ -42,6 +48,11 @@ public class NftCurrencyQuery extends SimplePageQuery {
 
         public Builder blockchain(String blockchain) {
             query.blockchain = blockchain;
+            return this;
+        }
+
+        public Builder version(Integer version) {
+            query.version = version;
             return this;
         }
     }

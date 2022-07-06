@@ -35,6 +35,7 @@ public class CurrencySearchService {
         Map<String, BlockchainSearchDTO> blockchainMapping = blockchainSearchService.listAll().stream().collect(Collectors.toMap(BlockchainSearchDTO::getCode, Function.identity()));
 
         List<CurrencySearchDTO> dtos = nftCurrencyDao.find(NftCurrencyQuery.newBuilder()
+                        .version(NftCurrencyVersions.VERSION)
                         .blockchain(request.getBlockchain())
                         .setSortField("order")
                         .setReverse(false)
