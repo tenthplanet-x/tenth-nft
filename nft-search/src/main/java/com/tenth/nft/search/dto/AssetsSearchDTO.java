@@ -1,5 +1,6 @@
 package com.tenth.nft.search.dto;
 
+import com.ruixi.tpulse.convention.protobuf.app.AppChat;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
@@ -35,6 +36,15 @@ public class AssetsSearchDTO implements SimpleResponse {
 
     @SimpleField
     private String blockchain;
+
+    @SimpleField
+    private String contractAddress;
+
+    @SimpleField
+    private String tokenStandard;
+
+    @SimpleField
+    private String token;
 
     public Long getId() {
         return id;
@@ -106,5 +116,29 @@ public class AssetsSearchDTO implements SimpleResponse {
 
     public void setBlockchain(String blockchain) {
         this.blockchain = blockchain;
+    }
+
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public void setContractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
+    }
+
+    public String getTokenStandard() {
+        return tokenStandard;
+    }
+
+    public void setTokenStandard(String tokenStandard) {
+        this.tokenStandard = tokenStandard;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

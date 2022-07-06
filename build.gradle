@@ -33,7 +33,7 @@ ext {
         commons: '0.4.0_003-SNAPSHOT',
         gs: '0.11.0_20220701_003-SNAPSHOT',
         operation: '0.3.0_20220228_007-SNAPSHOT',
-        tpulse: '0.0.20220704_004-SNAPSHOT'
+        tpulse: '0.0.20220704_005-SNAPSHOT'
     ]
     libs = [
             starter: 'org.springframework.boot:spring-boot-starter',
@@ -173,22 +173,7 @@ subprojects{
         }
     }
 
-    //protobuf
-    apply plugin: 'com.google.protobuf'
-    sourceSets {
-        main {
-            proto {
-                srcDir 'src/main/proto'
-                include '**/*.proto'
-            }
-        }
-    }
-    protobuf {
-        generatedFilesBaseDir = "$projectDir/src/"
-        protoc {
-            artifact = 'com.google.protobuf:protoc:3.19.4'
-        }
-    }
+
 
 
 

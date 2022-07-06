@@ -1,13 +1,17 @@
 package com.tenth.nft.marketplace.service;
 
 import com.google.common.base.Strings;
+import com.tenth.nft.convention.NftModules;
+import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
+import com.tenth.nft.convention.routes.exchange.MintRouteRequest;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsUpdate;
 import com.tenth.nft.marketplace.dto.NftAssetsDTO;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.marketplace.vo.*;
+import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
@@ -65,10 +69,24 @@ public class NftAssetsService {
     public NftAssetsDTO create(NftAssetsCreateRequest request) {
 
         GameUserContext context = GameUserContext.get();
+        Long uid = context.getLong(TpulseHeaders.UID);
 
+        Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
+
+        //mint
+        NftExchange.NftMintDTO mintDTO = routeClient.send(
+                NftExchange.MINT_IC.newBuilder()
+                        .setAssetsId(assetsId)
+                        .setBlockchain(request.getBlockchain())
+                        .setOwner(uid)
+                        .setQuantity(request.getSupply())
+                        .build(),
+                MintRouteRequest.class
+        ).getMint();
+
+        //create
         NftAssets nftAssets = new NftAssets();
-        nftAssets.setCreatedAt(System.currentTimeMillis());
-        nftAssets.setUpdatedAt(System.currentTimeMillis());
+        nftAssets.setId(assetsId);
         nftAssets.setType(request.getType());
         nftAssets.setCollectionId(request.getCollectionId());
         String dir = request.getUrl().substring(request.getUrl().indexOf("tmp/") + 4, request.getUrl().lastIndexOf("/"));
@@ -83,6 +101,13 @@ public class NftAssetsService {
         nftAssets.setDesc(request.getDesc());
         nftAssets.setSupply(request.getSupply());
         nftAssets.setBlockchain(request.getBlockchain());
+        nftAssets.setCreatedAt(System.currentTimeMillis());
+        nftAssets.setUpdatedAt(System.currentTimeMillis());
+
+        nftAssets.setContractAddress(mintDTO.getContractAddress());
+        nftAssets.setTokenStandard(mintDTO.getTokenStandard());
+        nftAssets.setToken(mintDTO.getToken());
+
         nftAssets = nftAssetsDao.insert(nftAssets);
 
         //更新总数量

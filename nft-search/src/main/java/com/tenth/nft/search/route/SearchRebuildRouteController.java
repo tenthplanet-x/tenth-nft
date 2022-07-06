@@ -1,7 +1,7 @@
 package com.tenth.nft.search.route;
 
-import com.ruixi.tpulse.convention.protobuf.NftSearch;
 import com.tenth.nft.convention.routes.*;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.service.*;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
 import com.wallan.router.annotation.Route;

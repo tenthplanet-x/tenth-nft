@@ -20,4 +20,13 @@ public class Times {
     public static Long createExpiredAt(Long duration) {
         return System.currentTimeMillis() + duration;
     }
+
+    /**
+     * now earlier than specific timestamp
+     * @param timestamp
+     * @return
+     */
+    public static boolean earlierThan(Long timestamp) {
+        return System.currentTimeMillis() < timestamp;
+    }
 }

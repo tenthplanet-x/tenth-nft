@@ -37,6 +37,15 @@ public class NftAssetsDTO implements SimpleResponse {
     @SimpleField
     private String blockchain;
 
+    @SimpleField
+    private String contractAddress;
+
+    @SimpleField
+    private String tokenStandard;
+
+    @SimpleField
+    private String token;
+
     public Long getId() {
         return id;
     }
@@ -107,5 +116,29 @@ public class NftAssetsDTO implements SimpleResponse {
 
     public void setBlockchain(String blockchain) {
         this.blockchain = blockchain;
+    }
+
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public void setContractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
+    }
+
+    public String getTokenStandard() {
+        return tokenStandard;
+    }
+
+    public void setTokenStandard(String tokenStandard) {
+        this.tokenStandard = tokenStandard;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

@@ -34,6 +34,12 @@ public class NftAssets {
 
     private String blockchain;
 
+    private String contractAddress;
+
+    private String tokenStandard;
+
+    private String token;
+
     public Long getId() {
         return id;
     }
@@ -120,5 +126,29 @@ public class NftAssets {
 
     public void setBlockchain(String blockchain) {
         this.blockchain = blockchain;
+    }
+
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public void setContractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
+    }
+
+    public String getTokenStandard() {
+        return tokenStandard;
+    }
+
+    public void setTokenStandard(String tokenStandard) {
+        this.tokenStandard = tokenStandard;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

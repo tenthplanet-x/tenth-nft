@@ -1,9 +1,9 @@
 package com.tenth.nft.search.service;
 
-import com.ruixi.tpulse.convention.protobuf.NftSearch;
 import com.tenth.nft.orm.external.NftCurrencyVersions;
 import com.tenth.nft.orm.marketplace.dao.NftCurrencyDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCurrencyQuery;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.dto.BlockchainSearchDTO;
 import com.tenth.nft.search.dto.CurrencySearchDTO;
 import com.tenth.nft.search.vo.CurrenySearchRequest;

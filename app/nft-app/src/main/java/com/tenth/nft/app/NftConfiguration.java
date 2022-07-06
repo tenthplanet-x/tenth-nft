@@ -1,8 +1,10 @@
 package com.tenth.nft.app;
 
 import com.tenth.nft.app.security.SimpleLockManger;
+import com.tenth.nft.blockchain.NftBlockchainConfiguration;
 import com.tenth.nft.convention.NftConventionConfiguration;
 import com.tenth.nft.crawler.NftCrawlerConfiguration;
+import com.tenth.nft.exchange.NftExchangeConfiguration;
 import com.tenth.nft.marketplace.NftMarketplaceConfiguration;
 import com.tenth.nft.orm.NftOrmConfiguration;
 import com.tenth.nft.search.NftSearchConfiguration;
@@ -26,7 +28,9 @@ import org.springframework.context.annotation.Import;
         NftConventionConfiguration.class,
         NftMarketplaceConfiguration.class,
         NftOrmConfiguration.class,
-        NftSearchConfiguration.class
+        NftSearchConfiguration.class,
+        NftBlockchainConfiguration.class,
+        NftExchangeConfiguration.class
 })
 public class NftConfiguration {
 
