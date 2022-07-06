@@ -11,11 +11,11 @@ public class CurrencySearchDTO implements SimpleResponse {
     @SimpleField
     private String blockchain;
     @SimpleField
-    private String blockchainLabel;
-    @SimpleField
     private String code;
     @SimpleField
     private String label;
+
+    private String blockchainLabel;
 
     public String getCode() {
         return code;
