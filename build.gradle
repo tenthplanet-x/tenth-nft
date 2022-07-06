@@ -90,9 +90,8 @@ ext {
 }
 
 allprojects{
-    sourceCompatibility = 1.8
-    group 'com.tpulse.row'
-    version "${versions.row}"
+    group 'com.tenth.nft'
+    version "0.0.1_20220706-SNAPSHOT"
 
     repositories {
         maven {
