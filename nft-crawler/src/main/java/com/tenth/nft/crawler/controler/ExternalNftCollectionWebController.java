@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author gs-orm-generator
  * @createdAt 2022/06/17 15:22
  */
-@RestController
-@HttpRoute(userAuth = true)
+//@RestController
+//@HttpRoute(userAuth = true)
 public class ExternalNftCollectionWebController {
 
     @Autowired
