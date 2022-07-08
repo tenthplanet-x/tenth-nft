@@ -36,6 +36,14 @@ message NftActivityDTO{
   required int64 createdAt = 10;
 }
 
+message NftAssetsProfileDTO{
+  required int64 id = 1;
+  optional float totalVolume = 6;
+  optional string currency = 7;
+  required int64 owners = 8;
+  optional float floorPrice = 9;
+}
+
 message SELL_IC{
   required int64 assetsId = 1;
   required int64 uid = 2;
@@ -92,4 +100,11 @@ message MINT_IC{
 }
 message MINT_IS{
   required NftMintDTO mint = 1;
+}
+
+message ASSETS_EXCHANGE_PROFILE_IC{
+  required int64 assetsId = 1;
+}
+message ASSETS_EXCHANGE_PROFILE_IS{
+  required NftAssetsProfileDTO profile = 1;
 }

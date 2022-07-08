@@ -40,6 +40,8 @@ public class NftAssets {
 
     private String token;
 
+    private Long creator;
+
     public Long getId() {
         return id;
     }
@@ -150,5 +152,13 @@ public class NftAssets {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Long getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Long creator) {
+        this.creator = creator;
     }
 }

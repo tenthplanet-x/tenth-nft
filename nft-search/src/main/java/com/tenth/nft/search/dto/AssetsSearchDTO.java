@@ -46,6 +46,9 @@ public class AssetsSearchDTO implements SimpleResponse {
     @SimpleField
     private String token;
 
+    @SimpleField
+    private Long creator;
+
     public Long getId() {
         return id;
     }
@@ -140,5 +143,13 @@ public class AssetsSearchDTO implements SimpleResponse {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Long getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Long creator) {
+        this.creator = creator;
     }
 }

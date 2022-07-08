@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
+import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
 import com.tpulse.gs.convention.dao.defination.QueryOpt;
@@ -12,9 +13,15 @@ public class NftOrderQuery extends SimplePageQuery {
 
     @SimpleQueryParam(name = "_id")
     private Long id;
+    @SimpleQueryParam
+    private Long assetsId;
 
     public Long getId() {
         return id;
+    }
+
+    public Long getAssetsId() {
+        return assetsId;
     }
 
     public static Builder newBuilder() {
@@ -35,6 +42,10 @@ public class NftOrderQuery extends SimplePageQuery {
             return this;
         }
 
+        public Builder assetsId(Long assetsId) {
+            query.assetsId = assetsId;
+            return this;
+        }
     }
 
 }

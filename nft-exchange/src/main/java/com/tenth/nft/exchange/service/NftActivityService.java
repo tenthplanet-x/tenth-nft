@@ -6,6 +6,7 @@ import com.qcloud.cos.transfer.Transfer;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.ActivityListRouteRequest;
 import com.tenth.nft.convention.routes.exchange.ListingListRouteRequest;
 import com.tenth.nft.exchange.controller.vo.NftActivityListRequest;
@@ -55,10 +56,10 @@ public class NftActivityService {
         Set<Long> fromUids = data.stream().map(dto -> dto.getFrom()).filter(Objects::nonNull).collect(Collectors.toSet());
         Set<Long> toUids = data.stream().map(dto -> dto.getTo()).filter(Objects::nonNull).collect(Collectors.toSet());
         fromUids.addAll(toUids);
-        Map<Long, UserProfileDTO> userProfileDTOMap = routeClient.send(
+        Map<Long, NftUserProfileDTO> userProfileDTOMap = routeClient.send(
                 Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(fromUids).build(),
                 SearchUserProfileRouteRequest.class
-        ).getProfilesList().stream().map(NftActivityService::from).collect(Collectors.toMap(UserProfileDTO::getUid, Function.identity()));
+        ).getProfilesList().stream().map(NftUserProfileDTO::from).collect(Collectors.toMap(NftUserProfileDTO::getUid, Function.identity()));
         data.stream().forEach(dto -> {
             if(null != dto.getFrom()){
                 dto.setFromProfile(userProfileDTOMap.get(dto.getFrom()));
@@ -92,15 +93,5 @@ public class NftActivityService {
 
 
 
-
-    private static UserProfileDTO from(Search.SearchUserDTO searchUserDTO) {
-        UserProfileDTO userProfileDTO = new UserProfileDTO();
-        userProfileDTO.setNickname(searchUserDTO.getNickname());
-        userProfileDTO.setUid(searchUserDTO.getUid());
-        userProfileDTO.setFaceImg(searchUserDTO.getFaceImg());
-        userProfileDTO.setGender(searchUserDTO.getGender());
-        userProfileDTO.setAge(searchUserDTO.getAge());
-        return userProfileDTO;
-    }
 
 }

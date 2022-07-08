@@ -8,10 +8,8 @@ import com.tenth.nft.exchange.service.NftOwnerService;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
 import com.wallan.router.annotation.Route;
-import com.wallan.router.endpoint.core.security.HttpRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author shijie
@@ -61,6 +59,11 @@ public class NftExchangeRoutesController {
     @RouteRequestMapping(OwnerListRouteRequest.class)
     public NftExchange.OWNER_LIST_IS ownerList(NftExchange.OWNER_LIST_IC request){
         return nftOwnerService.list(request);
+    }
+
+    @RouteRequestMapping(AssetsExchangeProfileRouteRequest.class)
+    public NftExchange.ASSETS_EXCHANGE_PROFILE_IS assetsProfile(NftExchange.ASSETS_EXCHANGE_PROFILE_IC request){
+        return nftExchangeService.profile(request);
     }
 
 }

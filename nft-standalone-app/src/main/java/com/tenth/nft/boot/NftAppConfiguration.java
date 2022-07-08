@@ -2,6 +2,7 @@ package com.tenth.nft.boot;
 
 import com.tenth.nft.convention.NftConventionConfiguration;
 import com.tenth.nft.crawler.NftCrawlerConfiguration;
+import com.tenth.nft.search.NftSearchConfiguration;
 import com.tpulse.gs.GsRoutesConfiguration;
 import com.tpulse.gs.convention.GsConventionConfiguration;
 import com.tpulse.gs.convention.dao.mysql.SimpleMysqlConfiguration;

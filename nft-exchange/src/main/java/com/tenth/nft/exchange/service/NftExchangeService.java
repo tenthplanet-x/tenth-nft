@@ -13,10 +13,7 @@ import com.tenth.nft.exchange.controller.vo.NftBuyRequest;
 import com.tenth.nft.exchange.dto.NftListingDTO;
 import com.tenth.nft.exchange.vo.NftSellRequest;
 import com.tenth.nft.orm.marketplace.dao.*;
-import com.tenth.nft.orm.marketplace.dao.expression.NftBelongQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftBelongUpdate;
-import com.tenth.nft.orm.marketplace.dao.expression.NftListingQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftListingUpdate;
+import com.tenth.nft.orm.marketplace.dao.expression.*;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.orm.marketplace.entity.event.ListEvent;
 import com.tenth.nft.orm.marketplace.entity.event.MintEvent;
@@ -33,7 +30,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Future;
+import java.util.function.BinaryOperator;
 
 /**
  * @author shijie
@@ -335,4 +336,36 @@ public class NftExchangeService {
 
     }
 
+    public NftExchange.ASSETS_EXCHANGE_PROFILE_IS profile(NftExchange.ASSETS_EXCHANGE_PROFILE_IC request) {
+
+        NftExchange.NftAssetsProfileDTO.Builder profileBuilder = NftExchange.NftAssetsProfileDTO.newBuilder();
+
+        Optional<NftListing> floor = nftListingDao
+                .find(NftListingQuery.newBuilder().assetsId(request.getAssetsId()).canceled(false).build())
+                .stream().min(Comparator.comparingDouble(listing -> listing.getPrice()));
+        ;
+        if(floor.isPresent()){
+            profileBuilder.setCurrency(floor.get().getCurrency());
+            profileBuilder.setFloorPrice(floor.get().getPrice());
+        }
+
+        Optional<Float> volumeOptional = nftOrderDao.find(NftOrderQuery.newBuilder().assetsId(request.getAssetsId()).build())
+                .stream()
+                .map(nftOrder -> nftOrder.getPrice() * nftOrder.getQuantity())
+                .reduce((a, b) -> a + b);
+
+        if(volumeOptional.isPresent()){
+            profileBuilder.setTotalVolume(volumeOptional.get());
+        }
+
+        long owners = nftBelongDao.count(NftBelongQuery.newBuilder().assetsId(request.getAssetsId()).build());
+        profileBuilder.setOwners((int)owners);
+
+        profileBuilder.setId(request.getAssetsId());
+
+        return NftExchange.ASSETS_EXCHANGE_PROFILE_IS.newBuilder()
+                .setProfile(profileBuilder.build())
+                .build();
+
+    }
 }

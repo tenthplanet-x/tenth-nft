@@ -87,6 +87,7 @@ public class NftAssetsService {
         //create
         NftAssets nftAssets = new NftAssets();
         nftAssets.setId(assetsId);
+        nftAssets.setCreator(uid);
         nftAssets.setType(request.getType());
         nftAssets.setCollectionId(request.getCollectionId());
         String dir = request.getUrl().substring(request.getUrl().indexOf("tmp/") + 4, request.getUrl().lastIndexOf("/"));

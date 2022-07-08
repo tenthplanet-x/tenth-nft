@@ -7,6 +7,7 @@ import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
+import com.tenth.nft.search.dto.CollectionDetailSearchDTO;
 import com.tenth.nft.search.dto.CollectionSearchDTO;
 import com.tenth.nft.search.lucenedao.NftCollectionLuceneDao;
 import com.tenth.nft.search.vo.CollectionDetailSearchRequest;
@@ -90,17 +91,19 @@ public class CollectionSearchService {
      */
     public CollectionSearchDTO detail(CollectionDetailSearchRequest request) {
 
-
-        CollectionSearchDTO collectionSearchDTO = nftCollectionCacheDao.findOne(
+        CollectionDetailSearchDTO collectionSearchDTO = nftCollectionCacheDao.findOne(
                 NftCollectionQuery.newBuilder().id(request.getId()).build(),
-                CollectionSearchDTO.class
+                CollectionDetailSearchDTO.class
         );
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         collectionSearchDTO.setOwned(collectionSearchDTO.getUid().equals(uid));
 
-        return collectionSearchDTO;
+        //floorPrice
+        //totalVolume
 
+
+        return collectionSearchDTO;
 
     }
 

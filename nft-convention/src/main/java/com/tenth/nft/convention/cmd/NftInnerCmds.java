@@ -23,6 +23,7 @@ public class NftInnerCmds {
     public static final int ACTIVITY_LIST_IC = -30004;
     public static final int MINT_IC = -30005;
     public static final int OWNER_LIST_IC = -30006;
+    public static final int ASSETS_EXCHANGE_PROFILE_IC = -30007;
 
     //marketplace
     public static final int ASSETS_IC = -40001;
