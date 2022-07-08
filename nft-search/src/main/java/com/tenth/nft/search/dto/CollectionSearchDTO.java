@@ -41,13 +41,7 @@ public class CollectionSearchDTO implements SimpleResponse {
     @SimpleField
     private Integer items;
 
-    private String floorPrice = "0.0";
-
     private Integer owners = 1;
-
-    private String totalVolume = "0.0";
-
-    private String currency = "T";
 
     private String creatorName;
 
@@ -133,38 +127,6 @@ public class CollectionSearchDTO implements SimpleResponse {
         this.items = items;
     }
 
-    public String getFloorPrice() {
-        return floorPrice;
-    }
-
-    public void setFloorPrice(String floorPrice) {
-        this.floorPrice = floorPrice;
-    }
-
-    public Integer getOwners() {
-        return owners;
-    }
-
-    public void setOwners(Integer owners) {
-        this.owners = owners;
-    }
-
-    public String getTotalVolume() {
-        return totalVolume;
-    }
-
-    public void setTotalVolume(String totalVolume) {
-        this.totalVolume = totalVolume;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
     public String getCreatorName() {
         return creatorName;
     }
@@ -179,5 +141,13 @@ public class CollectionSearchDTO implements SimpleResponse {
 
     public void setOwned(boolean owned) {
         this.owned = owned;
+    }
+
+    public Integer getOwners() {
+        return owners;
+    }
+
+    public void setOwners(Integer owners) {
+        this.owners = owners;
     }
 }

@@ -66,4 +66,9 @@ public class NftExchangeRoutesController {
         return nftExchangeService.profile(request);
     }
 
+    @RouteRequestMapping(CollectionsExchangeProfileRouteRequest.class)
+    public NftExchange.COLLECTION_EXCHANGE_PROFILE_IS collectionProfile(NftExchange.COLLECTION_EXCHANGE_PROFILE_IC request){
+        return nftExchangeService.profile(request);
+    }
+
 }

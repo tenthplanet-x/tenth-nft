@@ -6,12 +6,20 @@ import com.ruixi.tpulse.convention.TpulseIdModules;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
+import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
+import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.marketplace.dto.NftCollectionDTO;
+import com.tenth.nft.marketplace.dto.NftCollectionDetailDTO;
 import com.tenth.nft.marketplace.vo.*;
+import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
+import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionNoCacheDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionUpdate;
+import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
+import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
@@ -24,6 +32,9 @@ import com.tpulse.gs.oss.vo.OSSTokenType;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author gs-orm-generator
@@ -42,6 +53,8 @@ public class NftCollectionService {
     private GsCollectionIdService gsCollectionIdService;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private NftAssetsNoCacheDao nftAssetsNoCacheDao;
 
     public OSSToken getUploadToken() {
         return gsOssService.token(OSSTokenCreateOption.newBuilder()
@@ -145,11 +158,30 @@ public class NftCollectionService {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
-        NftCollectionDTO dto = nftCollectionDao.findOne(NftCollectionQuery.newBuilder()
+        NftCollectionDetailDTO dto = nftCollectionDao.findOne(NftCollectionQuery.newBuilder()
                 .id(request.getId())
-                .build(), NftCollectionDTO.class);
-
+                .build(), NftCollectionDetailDTO.class);
         dto.setOwned(uid.equals(dto.getUid()));
+
+        //floorPrice
+        //totalVolume
+        List<Long> assetsIds = nftAssetsNoCacheDao.find(NftAssetsQuery.newBuilder().setCollectionId(request.getId()).build()).stream().map(NftAssets::getId).collect(Collectors.toList());
+        if(!assetsIds.isEmpty()){
+            NftExchange.NftCollectionProfileDTO exchangeProfile = routeClient.send(
+                    NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()
+                            .addAllAssetsIds(assetsIds)
+                            .build(),
+                    CollectionsExchangeProfileRouteRequest.class
+            ).getProfile();
+
+            if(exchangeProfile.hasFloorPrice()){
+                dto.setCurrency(exchangeProfile.getCurrency());
+                dto.setFloorPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+            }
+            if(exchangeProfile.hasTotalVolume()){
+                dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+            }
+        }
 
         return dto;
     }

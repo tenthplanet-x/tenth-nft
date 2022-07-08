@@ -1,6 +1,7 @@
 package com.tenth.nft.search.web;
 
 import com.tenth.nft.search.NftSearchPaths;
+import com.tenth.nft.search.dto.CollectionDetailSearchDTO;
 import com.tenth.nft.search.dto.CollectionSearchDTO;
 import com.tenth.nft.search.service.CollectionSearchService;
 import com.tenth.nft.search.vo.CollectionDetailSearchRequest;
@@ -34,7 +35,7 @@ public class CollectionSearchController {
     @RequestMapping(NftSearchPaths.COLLECTION_DETAIL)
     public Response detail(@RequestBody CollectionDetailSearchRequest request){
 
-        CollectionSearchDTO collection = collectionSearchService.detail(request);
+        CollectionDetailSearchDTO collection = collectionSearchService.detail(request);
         return Response.successBuilder().data(collection).build();
     }
 }

@@ -1,23 +1,15 @@
-package com.tenth.nft.search.dto;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ruixi.tpulse.convention.vo.UserProfileDTO;
-import com.tpulse.gs.convention.dao.SimpleResponse;
-import com.tpulse.gs.convention.dao.annotation.SimpleField;
-
+package com.tenth.nft.marketplace.dto;
 
 /**
  * @author shijie
  */
-public class CollectionDetailSearchDTO extends CollectionSearchDTO {
+public class NftCollectionDetailDTO extends NftCollectionDTO {
 
     private String floorPrice;
 
     private String totalVolume;
 
     private String currency;
-
-    private UserProfileDTO creatorProfile;
 
     public String getFloorPrice() {
         return floorPrice;
@@ -41,13 +33,5 @@ public class CollectionDetailSearchDTO extends CollectionSearchDTO {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public UserProfileDTO getCreatorProfile() {
-        return creatorProfile;
-    }
-
-    public void setCreatorProfile(UserProfileDTO creatorProfile) {
-        this.creatorProfile = creatorProfile;
     }
 }

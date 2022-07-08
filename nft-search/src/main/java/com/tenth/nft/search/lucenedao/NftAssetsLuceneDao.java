@@ -86,4 +86,17 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
         remove(nftAssets.getId());
         insert(toLuceneDTO(nftAssets));
     }
+
+    public List<Long> listByCollectionId(Long id) {
+        List<Long> output = new ArrayList<>();
+        try{
+
+            BooleanQuery.Builder builder = new BooleanQuery.Builder();
+            builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", id), BooleanClause.Occur.MUST));
+            return find(builder.build(), 1, Integer.MAX_VALUE).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
+        }catch (Exception e){
+            LOGGER.error("", e);
+        }
+        return output;
+    }
 }
