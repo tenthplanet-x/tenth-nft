@@ -13,6 +13,8 @@ import com.tenth.nft.protobuf.NftExchange;
  */
 public class NftActivityDTO {
 
+    private Long id;
+
     private String event;
 
     private Long from;
@@ -34,6 +36,14 @@ public class NftActivityDTO {
     private Boolean canceled;
 
     private Long createdAt;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEvent() {
         return event;
@@ -125,6 +135,7 @@ public class NftActivityDTO {
 
     public static NftActivityDTO from(NftExchange.NftActivityDTO nftActivityDTO) {
         NftActivityDTO dto = new NftActivityDTO();
+        dto.setId(nftActivityDTO.getId());
         dto.setEvent(nftActivityDTO.getEvent());
         if(nftActivityDTO.hasFrom()){
             dto.setFrom(nftActivityDTO.getFrom());
