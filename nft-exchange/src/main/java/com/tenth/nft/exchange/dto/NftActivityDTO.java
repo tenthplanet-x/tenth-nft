@@ -171,7 +171,7 @@ public class NftActivityDTO {
 
         switch (nftActivity.getType()){
             case Minted:
-                builder.setFrom(nftActivity.getMint().getFrom());
+                builder.setTo(nftActivity.getMint().getTo());
                 builder.setQuantity(nftActivity.getMint().getQuantity());
                 break;
             case List:

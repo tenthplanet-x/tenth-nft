@@ -32,7 +32,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.Future;
-import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 /**
@@ -270,8 +269,9 @@ public class NftExchangeService {
         activity.setUpdatedAt(activity.getCreatedAt());
 
         MintEvent mintEvent = new MintEvent();
-        mintEvent.setFrom(request.getOwner());
+        mintEvent.setTo(request.getOwner());
         mintEvent.setQuantity(request.getQuantity());
+        activity.setMint(mintEvent);;
 
         nftActivityDao.insert(activity);
     }

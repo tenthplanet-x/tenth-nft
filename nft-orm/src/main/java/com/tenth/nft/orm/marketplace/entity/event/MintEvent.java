@@ -7,16 +7,16 @@ import com.tenth.nft.orm.marketplace.entity.NftActivityEvent;
  */
 public class MintEvent implements NftActivityEvent {
 
-    private Long from;
+    private Long to;
 
     private Integer quantity;
 
-    public Long getFrom() {
-        return from;
+    public Long getTo() {
+        return to;
     }
 
-    public void setFrom(Long from) {
-        this.from = from;
+    public void setTo(Long to) {
+        this.to = to;
     }
 
     public Integer getQuantity() {
