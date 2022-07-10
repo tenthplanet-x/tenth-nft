@@ -18,6 +18,7 @@ message NftListingDTO{
   required int64 startAt = 6;
   required int64 expireAt = 7;
   required int64 createdAt = 8;
+  required int64 id = 9;
 }
 message NftOwnerDTO{
   required int64 uid = 1;

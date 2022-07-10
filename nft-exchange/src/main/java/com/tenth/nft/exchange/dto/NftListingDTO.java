@@ -10,6 +10,8 @@ import com.tenth.nft.protobuf.NftExchange;
  */
 public class NftListingDTO {
 
+    private Long id;
+
     private Long assetsId;
 
     private String currency;
@@ -100,9 +102,18 @@ public class NftListingDTO {
         this.createdAt = createdAt;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public static NftListingDTO from(NftExchange.NftListingDTO result) {
 
         NftListingDTO dto = new NftListingDTO();
+        dto.setId(result.getId());
         dto.setAssetsId(result.getAssetsId());
         dto.setCurrency(result.getCurrency());
         dto.setPrice(Prices.toString(result.getPrice()));
@@ -117,6 +128,7 @@ public class NftListingDTO {
     public static NftExchange.NftListingDTO toProto(NftListing listing) {
 
         return NftExchange.NftListingDTO.newBuilder()
+                .setId(listing.getId())
                 .setAssetsId(listing.getAssetsId())
                 .setSeller(listing.getUid())
                 .setPrice(listing.getPrice())
