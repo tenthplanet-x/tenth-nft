@@ -1,7 +1,6 @@
 package com.tenth.nft.search.dto;
 
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
-import com.tenth.nft.search.dto.AssetsSearchDTO;
 
 /**
  * @author shijie
@@ -10,7 +9,7 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
 
     private UserProfileDTO creatorProfile;
 
-    private String floorPrice;
+    private String currentPrice;
 
     private String totalVolume;
 
@@ -26,12 +25,12 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
         this.creatorProfile = creatorProfile;
     }
 
-    public String getFloorPrice() {
-        return floorPrice;
+    public String getCurrentPrice() {
+        return currentPrice;
     }
 
-    public void setFloorPrice(String floorPrice) {
-        this.floorPrice = floorPrice;
+    public void setCurrentPrice(String currentPrice) {
+        this.currentPrice = currentPrice;
     }
 
     public String getTotalVolume() {

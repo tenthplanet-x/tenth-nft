@@ -90,9 +90,9 @@ public class AssetsSearchService {
                         .build(),
                 AssetsExchangeProfileRouteRequest.class
         ).getProfile();
-        if(exchangeProfile.hasFloorPrice()){
+        if(exchangeProfile.hasCurrentPrice()){
             dto.setCurrency(exchangeProfile.getCurrency());
-            dto.setFloorPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+            dto.setCurrentPrice(Prices.toString(exchangeProfile.getFloorPrice()));
         }
         if(exchangeProfile.hasTotalVolume()){
             dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
