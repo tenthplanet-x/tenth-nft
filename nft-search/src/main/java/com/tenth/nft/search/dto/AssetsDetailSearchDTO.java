@@ -16,6 +16,8 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
 
     private String currency;
 
+    private int owns;
+
     public UserProfileDTO getCreatorProfile() {
         return creatorProfile;
     }
@@ -46,5 +48,13 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public int getOwns() {
+        return owns;
+    }
+
+    public void setOwns(int owns) {
+        this.owns = owns;
     }
 }

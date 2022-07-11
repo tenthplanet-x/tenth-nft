@@ -8,6 +8,7 @@ import com.tenth.nft.search.vo.AssetsDetailSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
+import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author shijie
  */
 @RestController
+@HttpRoute(userAuth = true)
 public class AssetsSearchController {
 
     @Autowired

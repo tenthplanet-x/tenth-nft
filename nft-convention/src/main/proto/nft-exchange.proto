@@ -44,6 +44,8 @@ message NftAssetsProfileDTO{
   optional int64 owners = 8;
   optional float floorPrice = 9;
   repeated int64 ownerLists = 10;
+  optional int32 owns = 12;
+  optional float currentPrice = 13;
 }
 
 message NftCollectionProfileDTO{
@@ -113,6 +115,7 @@ message MINT_IS{
 
 message ASSETS_EXCHANGE_PROFILE_IC{
   required int64 assetsId = 1;
+  optional int64 observer = 2;
 }
 message ASSETS_EXCHANGE_PROFILE_IS{
   required NftAssetsProfileDTO profile = 1;

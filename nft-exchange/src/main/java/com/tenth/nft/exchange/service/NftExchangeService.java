@@ -337,30 +337,41 @@ public class NftExchangeService {
 
     public NftExchange.ASSETS_EXCHANGE_PROFILE_IS profile(NftExchange.ASSETS_EXCHANGE_PROFILE_IC request) {
 
-        NftExchange.NftAssetsProfileDTO assetsProfileDTO = profile(request.getAssetsId(), false);
+        NftExchange.NftAssetsProfileDTO assetsProfileDTO = profile(request.getAssetsId(), false, request.getObserver());
         return NftExchange.ASSETS_EXCHANGE_PROFILE_IS.newBuilder()
                 .setProfile(assetsProfileDTO)
                 .build();
     }
 
-    public NftExchange.NftAssetsProfileDTO profile(Long assetsId, boolean needOwnerUids){
+    /**
+     *
+     * @param assetsId
+     * @param needOwnerUids 是否需要详细的拥有者列表
+     * @param abserver 观察者（请求者）
+     * @return
+     */
+    public NftExchange.NftAssetsProfileDTO profile(Long assetsId, boolean needOwnerUids, Long abserver){
 
         NftExchange.NftAssetsProfileDTO.Builder profileBuilder = NftExchange.NftAssetsProfileDTO.newBuilder();
+        profileBuilder.setId(assetsId);
 
+        //floor price
+        //todo shijie cache
         Optional<NftListing> floor = nftListingDao
                 .find(NftListingQuery.newBuilder().assetsId(assetsId).canceled(false).build())
-                .stream().min(Comparator.comparingDouble(listing -> listing.getPrice()));
-        ;
+                .stream().sorted(Comparator.comparingLong(NftListing::getCreatedAt)).min(Comparator.comparingDouble(listing -> listing.getPrice()));
         if(floor.isPresent()){
             profileBuilder.setCurrency(floor.get().getCurrency());
             profileBuilder.setFloorPrice(floor.get().getPrice());
+            profileBuilder.setCurrentPrice(floor.get().getPrice());
         }
 
+        //total volume
+        //todo shijie cache
         Optional<Float> volumeOptional = nftOrderDao.find(NftOrderQuery.newBuilder().assetsId(assetsId).build())
                 .stream()
                 .map(nftOrder -> nftOrder.getPrice() * nftOrder.getQuantity())
                 .reduce((a, b) -> a + b);
-
         if(volumeOptional.isPresent()){
             profileBuilder.setTotalVolume(volumeOptional.get());
         }
@@ -372,7 +383,13 @@ public class NftExchangeService {
             profileBuilder.addAllOwnerLists(nftBelongDao.find(NftBelongQuery.newBuilder().assetsId(assetsId).build()).stream().map(NftBelong::getOwner).collect(Collectors.toList()));
         }
 
-        profileBuilder.setId(assetsId);
+        if(null != abserver){
+            //
+            NftBelong abserverBelong = nftBelongDao.findOne(NftBelongQuery.newBuilder().assetsId(assetsId).owner(abserver).build());
+            if(null != abserverBelong){
+                profileBuilder.setOwns(abserverBelong.getQuantity());
+            }
+        }
 
         return profileBuilder.build();
     }
@@ -382,7 +399,7 @@ public class NftExchangeService {
         NftExchange.NftCollectionProfileDTO.Builder collectionProfileDTOBuilder = NftExchange.NftCollectionProfileDTO.newBuilder();
         Set<Long> ownerLists = new HashSet<>();
 
-        request.getAssetsIdsList().stream().map(assetId -> profile(assetId, true)).forEach(profile -> {
+        request.getAssetsIdsList().stream().map(assetId -> profile(assetId, true, null)).forEach(profile -> {
 
             if(profile.hasFloorPrice()){
                 collectionProfileDTOBuilder.setCurrency(profile.getCurrency());

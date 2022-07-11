@@ -3,6 +3,7 @@ package com.tenth.nft.search.service;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.utils.Prices;
@@ -16,6 +17,7 @@ import com.tenth.nft.search.dto.AssetsDetailSearchDTO;
 import com.tenth.nft.search.vo.AssetsDetailSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
+import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,8 @@ public class AssetsSearchService {
 
     public AssetsDetailSearchDTO detail(AssetsDetailSearchRequest request) {
 
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
         AssetsDetailSearchDTO dto = nftAssetsDao.findOne(
                 NftAssetsQuery.newBuilder().id(request.getAssetsId()).build(),
                 AssetsDetailSearchDTO.class
@@ -82,6 +86,7 @@ public class AssetsSearchService {
         NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
                 NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
                         .setAssetsId(request.getAssetsId())
+                        .setObserver(uid)
                         .build(),
                 AssetsExchangeProfileRouteRequest.class
         ).getProfile();
@@ -92,6 +97,7 @@ public class AssetsSearchService {
         if(exchangeProfile.hasTotalVolume()){
             dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
         }
+        dto.setOwns(exchangeProfile.getOwns());
 
         return dto;
     }
