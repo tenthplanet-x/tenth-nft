@@ -39,20 +39,19 @@ message NftActivityDTO{
 
 message NftAssetsProfileDTO{
   required int64 id = 1;
-  optional float totalVolume = 6;
-  optional string currency = 7;
-  optional int64 owners = 8;
-  optional float floorPrice = 9;
-  repeated int64 ownerLists = 10;
-  optional int32 owns = 12;
-  optional float currentPrice = 13;
+  optional float totalVolume = 2;
+  optional string currency = 3;
+  optional int64 owners = 4;
+  repeated int64 ownerLists = 5;
+  optional int32 owns = 6;
+  optional NftListingDTO currentListing = 7;
 }
 
 message NftCollectionProfileDTO{
   optional float totalVolume = 2;
   optional string currency = 3;
   required int64 owners = 4;
-  optional float floorPrice = 5;
+  optional NftListingDTO currentListing = 5;
 }
 
 message SELL_IC{

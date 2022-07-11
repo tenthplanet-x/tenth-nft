@@ -13,6 +13,7 @@ import com.tenth.nft.orm.marketplace.dao.NftCollectionDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.search.dto.AssetsDetailSearchDTO;
 import com.tenth.nft.search.dto.CollectionDetailSearchDTO;
 import com.tenth.nft.search.dto.CollectionSearchDTO;
 import com.tenth.nft.search.lucenedao.NftAssetsLuceneDao;
@@ -119,12 +120,14 @@ public class CollectionSearchService {
 
             //floorPrice
             //totalVolume
-            if(exchangeProfile.hasFloorPrice()){
-                collectionSearchDTO.setCurrency(exchangeProfile.getCurrency());
-                collectionSearchDTO.setFloorPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+            if(exchangeProfile.hasCurrentListing()){
+                AssetsDetailSearchDTO.ListingDTO floorListing = AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing());
+                collectionSearchDTO.setFloorPrice(floorListing.getPrice());
+                collectionSearchDTO.setCurrency(floorListing.getCurrency());
             }
             if(exchangeProfile.hasTotalVolume()){
                 collectionSearchDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                collectionSearchDTO.setCurrency(exchangeProfile.getCurrency());
             }
         }
 

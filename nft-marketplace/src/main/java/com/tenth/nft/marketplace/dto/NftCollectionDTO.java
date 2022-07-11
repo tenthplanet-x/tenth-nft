@@ -2,6 +2,7 @@ package com.tenth.nft.marketplace.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ruixi.tpulse.convention.orm.FloatToStringDecoder;
+import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -44,7 +45,7 @@ public class NftCollectionDTO implements SimpleResponse {
 
     private Integer owners = 1;
 
-    private String creatorName;
+    private UserProfileDTO creatorProfile;
 
     private boolean owned;
 
@@ -120,12 +121,12 @@ public class NftCollectionDTO implements SimpleResponse {
         this.items = items;
     }
 
-    public String getCreatorName() {
-        return creatorName;
+    public UserProfileDTO getCreatorProfile() {
+        return creatorProfile;
     }
 
-    public void setCreatorName(String creatorName) {
-        this.creatorName = creatorName;
+    public void setCreatorProfile(UserProfileDTO creatorProfile) {
+        this.creatorProfile = creatorProfile;
     }
 
     public boolean isOwned() {

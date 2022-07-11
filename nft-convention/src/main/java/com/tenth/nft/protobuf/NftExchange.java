@@ -4925,93 +4925,86 @@ public final class NftExchange {
     long getId();
 
     /**
-     * <code>optional float totalVolume = 6;</code>
+     * <code>optional float totalVolume = 2;</code>
      * @return Whether the totalVolume field is set.
      */
     boolean hasTotalVolume();
     /**
-     * <code>optional float totalVolume = 6;</code>
+     * <code>optional float totalVolume = 2;</code>
      * @return The totalVolume.
      */
     float getTotalVolume();
 
     /**
-     * <code>optional string currency = 7;</code>
+     * <code>optional string currency = 3;</code>
      * @return Whether the currency field is set.
      */
     boolean hasCurrency();
     /**
-     * <code>optional string currency = 7;</code>
+     * <code>optional string currency = 3;</code>
      * @return The currency.
      */
     java.lang.String getCurrency();
     /**
-     * <code>optional string currency = 7;</code>
+     * <code>optional string currency = 3;</code>
      * @return The bytes for currency.
      */
     com.google.protobuf.ByteString
         getCurrencyBytes();
 
     /**
-     * <code>optional int64 owners = 8;</code>
+     * <code>optional int64 owners = 4;</code>
      * @return Whether the owners field is set.
      */
     boolean hasOwners();
     /**
-     * <code>optional int64 owners = 8;</code>
+     * <code>optional int64 owners = 4;</code>
      * @return The owners.
      */
     long getOwners();
 
     /**
-     * <code>optional float floorPrice = 9;</code>
-     * @return Whether the floorPrice field is set.
-     */
-    boolean hasFloorPrice();
-    /**
-     * <code>optional float floorPrice = 9;</code>
-     * @return The floorPrice.
-     */
-    float getFloorPrice();
-
-    /**
-     * <code>repeated int64 ownerLists = 10;</code>
+     * <code>repeated int64 ownerLists = 5;</code>
      * @return A list containing the ownerLists.
      */
     java.util.List<java.lang.Long> getOwnerListsList();
     /**
-     * <code>repeated int64 ownerLists = 10;</code>
+     * <code>repeated int64 ownerLists = 5;</code>
      * @return The count of ownerLists.
      */
     int getOwnerListsCount();
     /**
-     * <code>repeated int64 ownerLists = 10;</code>
+     * <code>repeated int64 ownerLists = 5;</code>
      * @param index The index of the element to return.
      * @return The ownerLists at the given index.
      */
     long getOwnerLists(int index);
 
     /**
-     * <code>optional int32 owns = 12;</code>
+     * <code>optional int32 owns = 6;</code>
      * @return Whether the owns field is set.
      */
     boolean hasOwns();
     /**
-     * <code>optional int32 owns = 12;</code>
+     * <code>optional int32 owns = 6;</code>
      * @return The owns.
      */
     int getOwns();
 
     /**
-     * <code>optional float currentPrice = 13;</code>
-     * @return Whether the currentPrice field is set.
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+     * @return Whether the currentListing field is set.
      */
-    boolean hasCurrentPrice();
+    boolean hasCurrentListing();
     /**
-     * <code>optional float currentPrice = 13;</code>
-     * @return The currentPrice.
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+     * @return The currentListing.
      */
-    float getCurrentPrice();
+    com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing();
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+     */
+    com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.NftAssetsProfileDTO}
@@ -5066,41 +5059,36 @@ public final class NftExchange {
               id_ = input.readInt64();
               break;
             }
-            case 53: {
+            case 21: {
               bitField0_ |= 0x00000002;
               totalVolume_ = input.readFloat();
               break;
             }
-            case 58: {
+            case 26: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
               currency_ = bs;
               break;
             }
-            case 64: {
+            case 32: {
               bitField0_ |= 0x00000008;
               owners_ = input.readInt64();
               break;
             }
-            case 77: {
-              bitField0_ |= 0x00000010;
-              floorPrice_ = input.readFloat();
-              break;
-            }
-            case 80: {
-              if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+            case 40: {
+              if (!((mutable_bitField0_ & 0x00000010) != 0)) {
                 ownerLists_ = newLongList();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000010;
               }
               ownerLists_.addLong(input.readInt64());
               break;
             }
-            case 82: {
+            case 42: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
-              if (!((mutable_bitField0_ & 0x00000020) != 0) && input.getBytesUntilLimit() > 0) {
+              if (!((mutable_bitField0_ & 0x00000010) != 0) && input.getBytesUntilLimit() > 0) {
                 ownerLists_ = newLongList();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000010;
               }
               while (input.getBytesUntilLimit() > 0) {
                 ownerLists_.addLong(input.readInt64());
@@ -5108,14 +5096,22 @@ public final class NftExchange {
               input.popLimit(limit);
               break;
             }
-            case 96: {
-              bitField0_ |= 0x00000020;
+            case 48: {
+              bitField0_ |= 0x00000010;
               owns_ = input.readInt32();
               break;
             }
-            case 109: {
-              bitField0_ |= 0x00000040;
-              currentPrice_ = input.readFloat();
+            case 58: {
+              com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000020) != 0)) {
+                subBuilder = currentListing_.toBuilder();
+              }
+              currentListing_ = input.readMessage(com.tenth.nft.protobuf.NftExchange.NftListingDTO.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(currentListing_);
+                currentListing_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000020;
               break;
             }
             default: {
@@ -5133,7 +5129,7 @@ public final class NftExchange {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000020) != 0)) {
+        if (((mutable_bitField0_ & 0x00000010) != 0)) {
           ownerLists_.makeImmutable(); // C
         }
         this.unknownFields = unknownFields.build();
@@ -5173,10 +5169,10 @@ public final class NftExchange {
       return id_;
     }
 
-    public static final int TOTALVOLUME_FIELD_NUMBER = 6;
+    public static final int TOTALVOLUME_FIELD_NUMBER = 2;
     private float totalVolume_;
     /**
-     * <code>optional float totalVolume = 6;</code>
+     * <code>optional float totalVolume = 2;</code>
      * @return Whether the totalVolume field is set.
      */
     @java.lang.Override
@@ -5184,7 +5180,7 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>optional float totalVolume = 6;</code>
+     * <code>optional float totalVolume = 2;</code>
      * @return The totalVolume.
      */
     @java.lang.Override
@@ -5192,10 +5188,10 @@ public final class NftExchange {
       return totalVolume_;
     }
 
-    public static final int CURRENCY_FIELD_NUMBER = 7;
+    public static final int CURRENCY_FIELD_NUMBER = 3;
     private volatile java.lang.Object currency_;
     /**
-     * <code>optional string currency = 7;</code>
+     * <code>optional string currency = 3;</code>
      * @return Whether the currency field is set.
      */
     @java.lang.Override
@@ -5203,7 +5199,7 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>optional string currency = 7;</code>
+     * <code>optional string currency = 3;</code>
      * @return The currency.
      */
     @java.lang.Override
@@ -5222,7 +5218,7 @@ public final class NftExchange {
       }
     }
     /**
-     * <code>optional string currency = 7;</code>
+     * <code>optional string currency = 3;</code>
      * @return The bytes for currency.
      */
     @java.lang.Override
@@ -5240,10 +5236,10 @@ public final class NftExchange {
       }
     }
 
-    public static final int OWNERS_FIELD_NUMBER = 8;
+    public static final int OWNERS_FIELD_NUMBER = 4;
     private long owners_;
     /**
-     * <code>optional int64 owners = 8;</code>
+     * <code>optional int64 owners = 4;</code>
      * @return Whether the owners field is set.
      */
     @java.lang.Override
@@ -5251,7 +5247,7 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000008) != 0);
     }
     /**
-     * <code>optional int64 owners = 8;</code>
+     * <code>optional int64 owners = 4;</code>
      * @return The owners.
      */
     @java.lang.Override
@@ -5259,29 +5255,10 @@ public final class NftExchange {
       return owners_;
     }
 
-    public static final int FLOORPRICE_FIELD_NUMBER = 9;
-    private float floorPrice_;
-    /**
-     * <code>optional float floorPrice = 9;</code>
-     * @return Whether the floorPrice field is set.
-     */
-    @java.lang.Override
-    public boolean hasFloorPrice() {
-      return ((bitField0_ & 0x00000010) != 0);
-    }
-    /**
-     * <code>optional float floorPrice = 9;</code>
-     * @return The floorPrice.
-     */
-    @java.lang.Override
-    public float getFloorPrice() {
-      return floorPrice_;
-    }
-
-    public static final int OWNERLISTS_FIELD_NUMBER = 10;
+    public static final int OWNERLISTS_FIELD_NUMBER = 5;
     private com.google.protobuf.Internal.LongList ownerLists_;
     /**
-     * <code>repeated int64 ownerLists = 10;</code>
+     * <code>repeated int64 ownerLists = 5;</code>
      * @return A list containing the ownerLists.
      */
     @java.lang.Override
@@ -5290,14 +5267,14 @@ public final class NftExchange {
       return ownerLists_;
     }
     /**
-     * <code>repeated int64 ownerLists = 10;</code>
+     * <code>repeated int64 ownerLists = 5;</code>
      * @return The count of ownerLists.
      */
     public int getOwnerListsCount() {
       return ownerLists_.size();
     }
     /**
-     * <code>repeated int64 ownerLists = 10;</code>
+     * <code>repeated int64 ownerLists = 5;</code>
      * @param index The index of the element to return.
      * @return The ownerLists at the given index.
      */
@@ -5305,18 +5282,18 @@ public final class NftExchange {
       return ownerLists_.getLong(index);
     }
 
-    public static final int OWNS_FIELD_NUMBER = 12;
+    public static final int OWNS_FIELD_NUMBER = 6;
     private int owns_;
     /**
-     * <code>optional int32 owns = 12;</code>
+     * <code>optional int32 owns = 6;</code>
      * @return Whether the owns field is set.
      */
     @java.lang.Override
     public boolean hasOwns() {
-      return ((bitField0_ & 0x00000020) != 0);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
-     * <code>optional int32 owns = 12;</code>
+     * <code>optional int32 owns = 6;</code>
      * @return The owns.
      */
     @java.lang.Override
@@ -5324,23 +5301,30 @@ public final class NftExchange {
       return owns_;
     }
 
-    public static final int CURRENTPRICE_FIELD_NUMBER = 13;
-    private float currentPrice_;
+    public static final int CURRENTLISTING_FIELD_NUMBER = 7;
+    private com.tenth.nft.protobuf.NftExchange.NftListingDTO currentListing_;
     /**
-     * <code>optional float currentPrice = 13;</code>
-     * @return Whether the currentPrice field is set.
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+     * @return Whether the currentListing field is set.
      */
     @java.lang.Override
-    public boolean hasCurrentPrice() {
-      return ((bitField0_ & 0x00000040) != 0);
+    public boolean hasCurrentListing() {
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
-     * <code>optional float currentPrice = 13;</code>
-     * @return The currentPrice.
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+     * @return The currentListing.
      */
     @java.lang.Override
-    public float getCurrentPrice() {
-      return currentPrice_;
+    public com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing() {
+      return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
+    }
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+     */
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder() {
+      return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -5354,6 +5338,12 @@ public final class NftExchange {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (hasCurrentListing()) {
+        if (!getCurrentListing().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -5365,25 +5355,22 @@ public final class NftExchange {
         output.writeInt64(1, id_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeFloat(6, totalVolume_);
+        output.writeFloat(2, totalVolume_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, currency_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, currency_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
-        output.writeInt64(8, owners_);
-      }
-      if (((bitField0_ & 0x00000010) != 0)) {
-        output.writeFloat(9, floorPrice_);
+        output.writeInt64(4, owners_);
       }
       for (int i = 0; i < ownerLists_.size(); i++) {
-        output.writeInt64(10, ownerLists_.getLong(i));
+        output.writeInt64(5, ownerLists_.getLong(i));
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        output.writeInt32(6, owns_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
-        output.writeInt32(12, owns_);
-      }
-      if (((bitField0_ & 0x00000040) != 0)) {
-        output.writeFloat(13, currentPrice_);
+        output.writeMessage(7, getCurrentListing());
       }
       unknownFields.writeTo(output);
     }
@@ -5400,18 +5387,14 @@ public final class NftExchange {
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(6, totalVolume_);
+          .computeFloatSize(2, totalVolume_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, currency_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, currency_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(8, owners_);
-      }
-      if (((bitField0_ & 0x00000010) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(9, floorPrice_);
+          .computeInt64Size(4, owners_);
       }
       {
         int dataSize = 0;
@@ -5422,13 +5405,13 @@ public final class NftExchange {
         size += dataSize;
         size += 1 * getOwnerListsList().size();
       }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, owns_);
+      }
       if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(12, owns_);
-      }
-      if (((bitField0_ & 0x00000040) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(13, currentPrice_);
+          .computeMessageSize(7, getCurrentListing());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5466,12 +5449,6 @@ public final class NftExchange {
         if (getOwners()
             != other.getOwners()) return false;
       }
-      if (hasFloorPrice() != other.hasFloorPrice()) return false;
-      if (hasFloorPrice()) {
-        if (java.lang.Float.floatToIntBits(getFloorPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getFloorPrice())) return false;
-      }
       if (!getOwnerListsList()
           .equals(other.getOwnerListsList())) return false;
       if (hasOwns() != other.hasOwns()) return false;
@@ -5479,11 +5456,10 @@ public final class NftExchange {
         if (getOwns()
             != other.getOwns()) return false;
       }
-      if (hasCurrentPrice() != other.hasCurrentPrice()) return false;
-      if (hasCurrentPrice()) {
-        if (java.lang.Float.floatToIntBits(getCurrentPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getCurrentPrice())) return false;
+      if (hasCurrentListing() != other.hasCurrentListing()) return false;
+      if (hasCurrentListing()) {
+        if (!getCurrentListing()
+            .equals(other.getCurrentListing())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -5515,11 +5491,6 @@ public final class NftExchange {
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getOwners());
       }
-      if (hasFloorPrice()) {
-        hash = (37 * hash) + FLOORPRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getFloorPrice());
-      }
       if (getOwnerListsCount() > 0) {
         hash = (37 * hash) + OWNERLISTS_FIELD_NUMBER;
         hash = (53 * hash) + getOwnerListsList().hashCode();
@@ -5528,10 +5499,9 @@ public final class NftExchange {
         hash = (37 * hash) + OWNS_FIELD_NUMBER;
         hash = (53 * hash) + getOwns();
       }
-      if (hasCurrentPrice()) {
-        hash = (37 * hash) + CURRENTPRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getCurrentPrice());
+      if (hasCurrentListing()) {
+        hash = (37 * hash) + CURRENTLISTING_FIELD_NUMBER;
+        hash = (53 * hash) + getCurrentListing().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -5661,6 +5631,7 @@ public final class NftExchange {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getCurrentListingFieldBuilder();
         }
       }
       @java.lang.Override
@@ -5674,14 +5645,16 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000004);
         owners_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
-        floorPrice_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000010);
         ownerLists_ = emptyLongList();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         owns_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        if (currentListingBuilder_ == null) {
+          currentListing_ = null;
+        } else {
+          currentListingBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000040);
-        currentPrice_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
 
@@ -5726,22 +5699,22 @@ public final class NftExchange {
           result.owners_ = owners_;
           to_bitField0_ |= 0x00000008;
         }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.floorPrice_ = floorPrice_;
-          to_bitField0_ |= 0x00000010;
-        }
-        if (((bitField0_ & 0x00000020) != 0)) {
+        if (((bitField0_ & 0x00000010) != 0)) {
           ownerLists_.makeImmutable();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.ownerLists_ = ownerLists_;
-        if (((from_bitField0_ & 0x00000040) != 0)) {
+        if (((from_bitField0_ & 0x00000020) != 0)) {
           result.owns_ = owns_;
-          to_bitField0_ |= 0x00000020;
+          to_bitField0_ |= 0x00000010;
         }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
-          result.currentPrice_ = currentPrice_;
-          to_bitField0_ |= 0x00000040;
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          if (currentListingBuilder_ == null) {
+            result.currentListing_ = currentListing_;
+          } else {
+            result.currentListing_ = currentListingBuilder_.build();
+          }
+          to_bitField0_ |= 0x00000020;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -5806,13 +5779,10 @@ public final class NftExchange {
         if (other.hasOwners()) {
           setOwners(other.getOwners());
         }
-        if (other.hasFloorPrice()) {
-          setFloorPrice(other.getFloorPrice());
-        }
         if (!other.ownerLists_.isEmpty()) {
           if (ownerLists_.isEmpty()) {
             ownerLists_ = other.ownerLists_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000010);
           } else {
             ensureOwnerListsIsMutable();
             ownerLists_.addAll(other.ownerLists_);
@@ -5822,8 +5792,8 @@ public final class NftExchange {
         if (other.hasOwns()) {
           setOwns(other.getOwns());
         }
-        if (other.hasCurrentPrice()) {
-          setCurrentPrice(other.getCurrentPrice());
+        if (other.hasCurrentListing()) {
+          mergeCurrentListing(other.getCurrentListing());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5834,6 +5804,11 @@ public final class NftExchange {
       public final boolean isInitialized() {
         if (!hasId()) {
           return false;
+        }
+        if (hasCurrentListing()) {
+          if (!getCurrentListing().isInitialized()) {
+            return false;
+          }
         }
         return true;
       }
@@ -5899,7 +5874,7 @@ public final class NftExchange {
 
       private float totalVolume_ ;
       /**
-       * <code>optional float totalVolume = 6;</code>
+       * <code>optional float totalVolume = 2;</code>
        * @return Whether the totalVolume field is set.
        */
       @java.lang.Override
@@ -5907,7 +5882,7 @@ public final class NftExchange {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>optional float totalVolume = 6;</code>
+       * <code>optional float totalVolume = 2;</code>
        * @return The totalVolume.
        */
       @java.lang.Override
@@ -5915,7 +5890,7 @@ public final class NftExchange {
         return totalVolume_;
       }
       /**
-       * <code>optional float totalVolume = 6;</code>
+       * <code>optional float totalVolume = 2;</code>
        * @param value The totalVolume to set.
        * @return This builder for chaining.
        */
@@ -5926,7 +5901,7 @@ public final class NftExchange {
         return this;
       }
       /**
-       * <code>optional float totalVolume = 6;</code>
+       * <code>optional float totalVolume = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTotalVolume() {
@@ -5938,14 +5913,14 @@ public final class NftExchange {
 
       private java.lang.Object currency_ = "";
       /**
-       * <code>optional string currency = 7;</code>
+       * <code>optional string currency = 3;</code>
        * @return Whether the currency field is set.
        */
       public boolean hasCurrency() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>optional string currency = 7;</code>
+       * <code>optional string currency = 3;</code>
        * @return The currency.
        */
       public java.lang.String getCurrency() {
@@ -5963,7 +5938,7 @@ public final class NftExchange {
         }
       }
       /**
-       * <code>optional string currency = 7;</code>
+       * <code>optional string currency = 3;</code>
        * @return The bytes for currency.
        */
       public com.google.protobuf.ByteString
@@ -5980,7 +5955,7 @@ public final class NftExchange {
         }
       }
       /**
-       * <code>optional string currency = 7;</code>
+       * <code>optional string currency = 3;</code>
        * @param value The currency to set.
        * @return This builder for chaining.
        */
@@ -5995,7 +5970,7 @@ public final class NftExchange {
         return this;
       }
       /**
-       * <code>optional string currency = 7;</code>
+       * <code>optional string currency = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearCurrency() {
@@ -6005,7 +5980,7 @@ public final class NftExchange {
         return this;
       }
       /**
-       * <code>optional string currency = 7;</code>
+       * <code>optional string currency = 3;</code>
        * @param value The bytes for currency to set.
        * @return This builder for chaining.
        */
@@ -6022,7 +5997,7 @@ public final class NftExchange {
 
       private long owners_ ;
       /**
-       * <code>optional int64 owners = 8;</code>
+       * <code>optional int64 owners = 4;</code>
        * @return Whether the owners field is set.
        */
       @java.lang.Override
@@ -6030,7 +6005,7 @@ public final class NftExchange {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>optional int64 owners = 8;</code>
+       * <code>optional int64 owners = 4;</code>
        * @return The owners.
        */
       @java.lang.Override
@@ -6038,7 +6013,7 @@ public final class NftExchange {
         return owners_;
       }
       /**
-       * <code>optional int64 owners = 8;</code>
+       * <code>optional int64 owners = 4;</code>
        * @param value The owners to set.
        * @return This builder for chaining.
        */
@@ -6049,7 +6024,7 @@ public final class NftExchange {
         return this;
       }
       /**
-       * <code>optional int64 owners = 8;</code>
+       * <code>optional int64 owners = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearOwners() {
@@ -6059,70 +6034,31 @@ public final class NftExchange {
         return this;
       }
 
-      private float floorPrice_ ;
-      /**
-       * <code>optional float floorPrice = 9;</code>
-       * @return Whether the floorPrice field is set.
-       */
-      @java.lang.Override
-      public boolean hasFloorPrice() {
-        return ((bitField0_ & 0x00000010) != 0);
-      }
-      /**
-       * <code>optional float floorPrice = 9;</code>
-       * @return The floorPrice.
-       */
-      @java.lang.Override
-      public float getFloorPrice() {
-        return floorPrice_;
-      }
-      /**
-       * <code>optional float floorPrice = 9;</code>
-       * @param value The floorPrice to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFloorPrice(float value) {
-        bitField0_ |= 0x00000010;
-        floorPrice_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float floorPrice = 9;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFloorPrice() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        floorPrice_ = 0F;
-        onChanged();
-        return this;
-      }
-
       private com.google.protobuf.Internal.LongList ownerLists_ = emptyLongList();
       private void ensureOwnerListsIsMutable() {
-        if (!((bitField0_ & 0x00000020) != 0)) {
+        if (!((bitField0_ & 0x00000010) != 0)) {
           ownerLists_ = mutableCopy(ownerLists_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
          }
       }
       /**
-       * <code>repeated int64 ownerLists = 10;</code>
+       * <code>repeated int64 ownerLists = 5;</code>
        * @return A list containing the ownerLists.
        */
       public java.util.List<java.lang.Long>
           getOwnerListsList() {
-        return ((bitField0_ & 0x00000020) != 0) ?
+        return ((bitField0_ & 0x00000010) != 0) ?
                  java.util.Collections.unmodifiableList(ownerLists_) : ownerLists_;
       }
       /**
-       * <code>repeated int64 ownerLists = 10;</code>
+       * <code>repeated int64 ownerLists = 5;</code>
        * @return The count of ownerLists.
        */
       public int getOwnerListsCount() {
         return ownerLists_.size();
       }
       /**
-       * <code>repeated int64 ownerLists = 10;</code>
+       * <code>repeated int64 ownerLists = 5;</code>
        * @param index The index of the element to return.
        * @return The ownerLists at the given index.
        */
@@ -6130,7 +6066,7 @@ public final class NftExchange {
         return ownerLists_.getLong(index);
       }
       /**
-       * <code>repeated int64 ownerLists = 10;</code>
+       * <code>repeated int64 ownerLists = 5;</code>
        * @param index The index to set the value at.
        * @param value The ownerLists to set.
        * @return This builder for chaining.
@@ -6143,7 +6079,7 @@ public final class NftExchange {
         return this;
       }
       /**
-       * <code>repeated int64 ownerLists = 10;</code>
+       * <code>repeated int64 ownerLists = 5;</code>
        * @param value The ownerLists to add.
        * @return This builder for chaining.
        */
@@ -6154,7 +6090,7 @@ public final class NftExchange {
         return this;
       }
       /**
-       * <code>repeated int64 ownerLists = 10;</code>
+       * <code>repeated int64 ownerLists = 5;</code>
        * @param values The ownerLists to add.
        * @return This builder for chaining.
        */
@@ -6167,27 +6103,27 @@ public final class NftExchange {
         return this;
       }
       /**
-       * <code>repeated int64 ownerLists = 10;</code>
+       * <code>repeated int64 ownerLists = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearOwnerLists() {
         ownerLists_ = emptyLongList();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
 
       private int owns_ ;
       /**
-       * <code>optional int32 owns = 12;</code>
+       * <code>optional int32 owns = 6;</code>
        * @return Whether the owns field is set.
        */
       @java.lang.Override
       public boolean hasOwns() {
-        return ((bitField0_ & 0x00000040) != 0);
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
-       * <code>optional int32 owns = 12;</code>
+       * <code>optional int32 owns = 6;</code>
        * @return The owns.
        */
       @java.lang.Override
@@ -6195,64 +6131,145 @@ public final class NftExchange {
         return owns_;
       }
       /**
-       * <code>optional int32 owns = 12;</code>
+       * <code>optional int32 owns = 6;</code>
        * @param value The owns to set.
        * @return This builder for chaining.
        */
       public Builder setOwns(int value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         owns_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 owns = 12;</code>
+       * <code>optional int32 owns = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearOwns() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         owns_ = 0;
         onChanged();
         return this;
       }
 
-      private float currentPrice_ ;
+      private com.tenth.nft.protobuf.NftExchange.NftListingDTO currentListing_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder> currentListingBuilder_;
       /**
-       * <code>optional float currentPrice = 13;</code>
-       * @return Whether the currentPrice field is set.
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+       * @return Whether the currentListing field is set.
        */
-      @java.lang.Override
-      public boolean hasCurrentPrice() {
-        return ((bitField0_ & 0x00000080) != 0);
+      public boolean hasCurrentListing() {
+        return ((bitField0_ & 0x00000040) != 0);
       }
       /**
-       * <code>optional float currentPrice = 13;</code>
-       * @return The currentPrice.
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+       * @return The currentListing.
        */
-      @java.lang.Override
-      public float getCurrentPrice() {
-        return currentPrice_;
+      public com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing() {
+        if (currentListingBuilder_ == null) {
+          return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
+        } else {
+          return currentListingBuilder_.getMessage();
+        }
       }
       /**
-       * <code>optional float currentPrice = 13;</code>
-       * @param value The currentPrice to set.
-       * @return This builder for chaining.
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
        */
-      public Builder setCurrentPrice(float value) {
-        bitField0_ |= 0x00000080;
-        currentPrice_ = value;
-        onChanged();
+      public Builder setCurrentListing(com.tenth.nft.protobuf.NftExchange.NftListingDTO value) {
+        if (currentListingBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          currentListing_ = value;
+          onChanged();
+        } else {
+          currentListingBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000040;
         return this;
       }
       /**
-       * <code>optional float currentPrice = 13;</code>
-       * @return This builder for chaining.
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
        */
-      public Builder clearCurrentPrice() {
-        bitField0_ = (bitField0_ & ~0x00000080);
-        currentPrice_ = 0F;
-        onChanged();
+      public Builder setCurrentListing(
+          com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder builderForValue) {
+        if (currentListingBuilder_ == null) {
+          currentListing_ = builderForValue.build();
+          onChanged();
+        } else {
+          currentListingBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000040;
         return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+       */
+      public Builder mergeCurrentListing(com.tenth.nft.protobuf.NftExchange.NftListingDTO value) {
+        if (currentListingBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) != 0) &&
+              currentListing_ != null &&
+              currentListing_ != com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance()) {
+            currentListing_ =
+              com.tenth.nft.protobuf.NftExchange.NftListingDTO.newBuilder(currentListing_).mergeFrom(value).buildPartial();
+          } else {
+            currentListing_ = value;
+          }
+          onChanged();
+        } else {
+          currentListingBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+       */
+      public Builder clearCurrentListing() {
+        if (currentListingBuilder_ == null) {
+          currentListing_ = null;
+          onChanged();
+        } else {
+          currentListingBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000040);
+        return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+       */
+      public com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder getCurrentListingBuilder() {
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return getCurrentListingFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+       */
+      public com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder() {
+        if (currentListingBuilder_ != null) {
+          return currentListingBuilder_.getMessageOrBuilder();
+        } else {
+          return currentListing_ == null ?
+              com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
+        }
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder> 
+          getCurrentListingFieldBuilder() {
+        if (currentListingBuilder_ == null) {
+          currentListingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder>(
+                  getCurrentListing(),
+                  getParentForChildren(),
+                  isClean());
+          currentListing_ = null;
+        }
+        return currentListingBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -6351,15 +6368,19 @@ public final class NftExchange {
     long getOwners();
 
     /**
-     * <code>optional float floorPrice = 5;</code>
-     * @return Whether the floorPrice field is set.
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+     * @return Whether the currentListing field is set.
      */
-    boolean hasFloorPrice();
+    boolean hasCurrentListing();
     /**
-     * <code>optional float floorPrice = 5;</code>
-     * @return The floorPrice.
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+     * @return The currentListing.
      */
-    float getFloorPrice();
+    com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing();
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+     */
+    com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.NftCollectionProfileDTO}
@@ -6424,9 +6445,17 @@ public final class NftExchange {
               owners_ = input.readInt64();
               break;
             }
-            case 45: {
+            case 42: {
+              com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) != 0)) {
+                subBuilder = currentListing_.toBuilder();
+              }
+              currentListing_ = input.readMessage(com.tenth.nft.protobuf.NftExchange.NftListingDTO.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(currentListing_);
+                currentListing_ = subBuilder.buildPartial();
+              }
               bitField0_ |= 0x00000008;
-              floorPrice_ = input.readFloat();
               break;
             }
             default: {
@@ -6548,23 +6577,30 @@ public final class NftExchange {
       return owners_;
     }
 
-    public static final int FLOORPRICE_FIELD_NUMBER = 5;
-    private float floorPrice_;
+    public static final int CURRENTLISTING_FIELD_NUMBER = 5;
+    private com.tenth.nft.protobuf.NftExchange.NftListingDTO currentListing_;
     /**
-     * <code>optional float floorPrice = 5;</code>
-     * @return Whether the floorPrice field is set.
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+     * @return Whether the currentListing field is set.
      */
     @java.lang.Override
-    public boolean hasFloorPrice() {
+    public boolean hasCurrentListing() {
       return ((bitField0_ & 0x00000008) != 0);
     }
     /**
-     * <code>optional float floorPrice = 5;</code>
-     * @return The floorPrice.
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+     * @return The currentListing.
      */
     @java.lang.Override
-    public float getFloorPrice() {
-      return floorPrice_;
+    public com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing() {
+      return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
+    }
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+     */
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder() {
+      return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6577,6 +6613,12 @@ public final class NftExchange {
       if (!hasOwners()) {
         memoizedIsInitialized = 0;
         return false;
+      }
+      if (hasCurrentListing()) {
+        if (!getCurrentListing().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -6595,7 +6637,7 @@ public final class NftExchange {
         output.writeInt64(4, owners_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
-        output.writeFloat(5, floorPrice_);
+        output.writeMessage(5, getCurrentListing());
       }
       unknownFields.writeTo(output);
     }
@@ -6619,7 +6661,7 @@ public final class NftExchange {
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(5, floorPrice_);
+          .computeMessageSize(5, getCurrentListing());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6652,11 +6694,10 @@ public final class NftExchange {
         if (getOwners()
             != other.getOwners()) return false;
       }
-      if (hasFloorPrice() != other.hasFloorPrice()) return false;
-      if (hasFloorPrice()) {
-        if (java.lang.Float.floatToIntBits(getFloorPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getFloorPrice())) return false;
+      if (hasCurrentListing() != other.hasCurrentListing()) return false;
+      if (hasCurrentListing()) {
+        if (!getCurrentListing()
+            .equals(other.getCurrentListing())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -6683,10 +6724,9 @@ public final class NftExchange {
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getOwners());
       }
-      if (hasFloorPrice()) {
-        hash = (37 * hash) + FLOORPRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getFloorPrice());
+      if (hasCurrentListing()) {
+        hash = (37 * hash) + CURRENTLISTING_FIELD_NUMBER;
+        hash = (53 * hash) + getCurrentListing().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -6816,6 +6856,7 @@ public final class NftExchange {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getCurrentListingFieldBuilder();
         }
       }
       @java.lang.Override
@@ -6827,7 +6868,11 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000002);
         owners_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
-        floorPrice_ = 0F;
+        if (currentListingBuilder_ == null) {
+          currentListing_ = null;
+        } else {
+          currentListingBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
@@ -6870,7 +6915,11 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000004;
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.floorPrice_ = floorPrice_;
+          if (currentListingBuilder_ == null) {
+            result.currentListing_ = currentListing_;
+          } else {
+            result.currentListing_ = currentListingBuilder_.build();
+          }
           to_bitField0_ |= 0x00000008;
         }
         result.bitField0_ = to_bitField0_;
@@ -6933,8 +6982,8 @@ public final class NftExchange {
         if (other.hasOwners()) {
           setOwners(other.getOwners());
         }
-        if (other.hasFloorPrice()) {
-          setFloorPrice(other.getFloorPrice());
+        if (other.hasCurrentListing()) {
+          mergeCurrentListing(other.getCurrentListing());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6945,6 +6994,11 @@ public final class NftExchange {
       public final boolean isInitialized() {
         if (!hasOwners()) {
           return false;
+        }
+        if (hasCurrentListing()) {
+          if (!getCurrentListing().isInitialized()) {
+            return false;
+          }
         }
         return true;
       }
@@ -7131,43 +7185,124 @@ public final class NftExchange {
         return this;
       }
 
-      private float floorPrice_ ;
+      private com.tenth.nft.protobuf.NftExchange.NftListingDTO currentListing_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder> currentListingBuilder_;
       /**
-       * <code>optional float floorPrice = 5;</code>
-       * @return Whether the floorPrice field is set.
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       * @return Whether the currentListing field is set.
        */
-      @java.lang.Override
-      public boolean hasFloorPrice() {
+      public boolean hasCurrentListing() {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>optional float floorPrice = 5;</code>
-       * @return The floorPrice.
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       * @return The currentListing.
        */
-      @java.lang.Override
-      public float getFloorPrice() {
-        return floorPrice_;
+      public com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing() {
+        if (currentListingBuilder_ == null) {
+          return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
+        } else {
+          return currentListingBuilder_.getMessage();
+        }
       }
       /**
-       * <code>optional float floorPrice = 5;</code>
-       * @param value The floorPrice to set.
-       * @return This builder for chaining.
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
        */
-      public Builder setFloorPrice(float value) {
+      public Builder setCurrentListing(com.tenth.nft.protobuf.NftExchange.NftListingDTO value) {
+        if (currentListingBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          currentListing_ = value;
+          onChanged();
+        } else {
+          currentListingBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000008;
-        floorPrice_ = value;
-        onChanged();
         return this;
       }
       /**
-       * <code>optional float floorPrice = 5;</code>
-       * @return This builder for chaining.
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
        */
-      public Builder clearFloorPrice() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        floorPrice_ = 0F;
-        onChanged();
+      public Builder setCurrentListing(
+          com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder builderForValue) {
+        if (currentListingBuilder_ == null) {
+          currentListing_ = builderForValue.build();
+          onChanged();
+        } else {
+          currentListingBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
         return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       */
+      public Builder mergeCurrentListing(com.tenth.nft.protobuf.NftExchange.NftListingDTO value) {
+        if (currentListingBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+              currentListing_ != null &&
+              currentListing_ != com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance()) {
+            currentListing_ =
+              com.tenth.nft.protobuf.NftExchange.NftListingDTO.newBuilder(currentListing_).mergeFrom(value).buildPartial();
+          } else {
+            currentListing_ = value;
+          }
+          onChanged();
+        } else {
+          currentListingBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       */
+      public Builder clearCurrentListing() {
+        if (currentListingBuilder_ == null) {
+          currentListing_ = null;
+          onChanged();
+        } else {
+          currentListingBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       */
+      public com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder getCurrentListingBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getCurrentListingFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       */
+      public com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder() {
+        if (currentListingBuilder_ != null) {
+          return currentListingBuilder_.getMessageOrBuilder();
+        } else {
+          return currentListing_ == null ?
+              com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
+        }
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder> 
+          getCurrentListingFieldBuilder() {
+        if (currentListingBuilder_ == null) {
+          currentListingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder>(
+                  getCurrentListing(),
+                  getParentForChildren(),
+                  isClean());
+          currentListing_ = null;
+        }
+        return currentListingBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -19347,45 +19482,47 @@ public final class NftExchange {
       "rom\030\002 \001(\003\022\n\n\002to\030\003 \001(\003\022\r\n\005price\030\004 \001(\002\022\020\n\010" +
       "currency\030\005 \001(\t\022\020\n\010quantity\030\006 \001(\005\022\n\n\002id\030\007" +
       " \002(\003\022\017\n\007expired\030\010 \001(\010\022\020\n\010canceled\030\t \001(\010\022" +
-      "\021\n\tcreatedAt\030\n \002(\003\"\244\001\n\023NftAssetsProfileD" +
-      "TO\022\n\n\002id\030\001 \002(\003\022\023\n\013totalVolume\030\006 \001(\002\022\020\n\010c" +
-      "urrency\030\007 \001(\t\022\016\n\006owners\030\010 \001(\003\022\022\n\nfloorPr" +
-      "ice\030\t \001(\002\022\022\n\nownerLists\030\n \003(\003\022\014\n\004owns\030\014 " +
-      "\001(\005\022\024\n\014currentPrice\030\r \001(\002\"d\n\027NftCollecti" +
-      "onProfileDTO\022\023\n\013totalVolume\030\002 \001(\002\022\020\n\010cur" +
-      "rency\030\003 \001(\t\022\016\n\006owners\030\004 \002(\003\022\022\n\nfloorPric" +
-      "e\030\005 \001(\002\"~\n\007SELL_IC\022\020\n\010assetsId\030\001 \002(\003\022\013\n\003" +
-      "uid\030\002 \002(\003\022\020\n\010quantity\030\003 \002(\005\022\020\n\010currency\030" +
-      "\004 \002(\t\022\r\n\005price\030\005 \002(\002\022\017\n\007startAt\030\006 \002(\003\022\020\n" +
-      "\010expireAt\030\007 \002(\003\"F\n\007SELL_IS\022;\n\007listing\030\001 " +
-      "\002(\0132*.com.ruixi.tpulse.convention.NftLis" +
-      "tingDTO\":\n\006BUY_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assets" +
-      "Id\030\002 \002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010\n\006BUY_IS\"C\n" +
-      "\017LISTING_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004pa" +
-      "ge\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017LISTING_LI" +
-      "ST_IS\022<\n\010listings\030\001 \003(\0132*.com.ruixi.tpul" +
-      "se.convention.NftListingDTO\"A\n\rOWNER_LIS" +
-      "T_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010" +
-      "pageSize\030\003 \002(\005\"I\n\rOWNER_LIST_IS\0228\n\006owner" +
-      "s\030\001 \003(\0132(.com.ruixi.tpulse.convention.Nf" +
-      "tOwnerDTO\"D\n\020ACTIVITY_LIST_IC\022\020\n\010assetsI" +
-      "d\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"" +
-      "S\n\020ACTIVITY_LIST_IS\022?\n\nactivities\030\001 \003(\0132" +
-      "+.com.ruixi.tpulse.convention.NftActivit" +
-      "yDTO\"i\n\007MINT_IC\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017c" +
-      "ontractAddress\030\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r" +
-      "\n\005owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002(\005\"@\n\007MINT_" +
-      "IS\0225\n\004mint\030\001 \002(\0132\'.com.ruixi.tpulse.conv" +
-      "ention.NftMintDTO\"@\n\032ASSETS_EXCHANGE_PRO" +
-      "FILE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010observer\030\002 " +
-      "\001(\003\"_\n\032ASSETS_EXCHANGE_PROFILE_IS\022A\n\007pro" +
-      "file\030\001 \002(\01320.com.ruixi.tpulse.convention" +
-      ".NftAssetsProfileDTO\"3\n\036COLLECTION_EXCHA" +
-      "NGE_PROFILE_IC\022\021\n\tassetsIds\030\001 \003(\003\"g\n\036COL" +
-      "LECTION_EXCHANGE_PROFILE_IS\022E\n\007profile\030\001" +
-      " \002(\01324.com.ruixi.tpulse.convention.NftCo" +
-      "llectionProfileDTOB%\n\026com.tenth.nft.prot" +
-      "obufB\013NftExchange"
+      "\021\n\tcreatedAt\030\n \002(\003\"\276\001\n\023NftAssetsProfileD" +
+      "TO\022\n\n\002id\030\001 \002(\003\022\023\n\013totalVolume\030\002 \001(\002\022\020\n\010c" +
+      "urrency\030\003 \001(\t\022\016\n\006owners\030\004 \001(\003\022\022\n\nownerLi" +
+      "sts\030\005 \003(\003\022\014\n\004owns\030\006 \001(\005\022B\n\016currentListin" +
+      "g\030\007 \001(\0132*.com.ruixi.tpulse.convention.Nf" +
+      "tListingDTO\"\224\001\n\027NftCollectionProfileDTO\022" +
+      "\023\n\013totalVolume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016" +
+      "\n\006owners\030\004 \002(\003\022B\n\016currentListing\030\005 \001(\0132*" +
+      ".com.ruixi.tpulse.convention.NftListingD" +
+      "TO\"~\n\007SELL_IC\022\020\n\010assetsId\030\001 \002(\003\022\013\n\003uid\030\002" +
+      " \002(\003\022\020\n\010quantity\030\003 \002(\005\022\020\n\010currency\030\004 \002(\t" +
+      "\022\r\n\005price\030\005 \002(\002\022\017\n\007startAt\030\006 \002(\003\022\020\n\010expi" +
+      "reAt\030\007 \002(\003\"F\n\007SELL_IS\022;\n\007listing\030\001 \002(\0132*" +
+      ".com.ruixi.tpulse.convention.NftListingD" +
+      "TO\":\n\006BUY_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 " +
+      "\002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010\n\006BUY_IS\"C\n\017LIST" +
+      "ING_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 " +
+      "\002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017LISTING_LIST_IS" +
+      "\022<\n\010listings\030\001 \003(\0132*.com.ruixi.tpulse.co" +
+      "nvention.NftListingDTO\"A\n\rOWNER_LIST_IC\022" +
+      "\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageS" +
+      "ize\030\003 \002(\005\"I\n\rOWNER_LIST_IS\0228\n\006owners\030\001 \003" +
+      "(\0132(.com.ruixi.tpulse.convention.NftOwne" +
+      "rDTO\"D\n\020ACTIVITY_LIST_IC\022\020\n\010assetsId\030\001 \002" +
+      "(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"S\n\020AC" +
+      "TIVITY_LIST_IS\022?\n\nactivities\030\001 \003(\0132+.com" +
+      ".ruixi.tpulse.convention.NftActivityDTO\"" +
+      "i\n\007MINT_IC\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017contra" +
+      "ctAddress\030\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r\n\005own" +
+      "er\030\004 \002(\003\022\020\n\010quantity\030\005 \002(\005\"@\n\007MINT_IS\0225\n" +
+      "\004mint\030\001 \002(\0132\'.com.ruixi.tpulse.conventio" +
+      "n.NftMintDTO\"@\n\032ASSETS_EXCHANGE_PROFILE_" +
+      "IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010observer\030\002 \001(\003\"_" +
+      "\n\032ASSETS_EXCHANGE_PROFILE_IS\022A\n\007profile\030" +
+      "\001 \002(\01320.com.ruixi.tpulse.convention.NftA" +
+      "ssetsProfileDTO\"3\n\036COLLECTION_EXCHANGE_P" +
+      "ROFILE_IC\022\021\n\tassetsIds\030\001 \003(\003\"g\n\036COLLECTI" +
+      "ON_EXCHANGE_PROFILE_IS\022E\n\007profile\030\001 \002(\0132" +
+      "4.com.ruixi.tpulse.convention.NftCollect" +
+      "ionProfileDTOB%\n\026com.tenth.nft.protobufB" +
+      "\013NftExchange"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -19420,13 +19557,13 @@ public final class NftExchange {
     internal_static_com_ruixi_tpulse_convention_NftAssetsProfileDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_NftAssetsProfileDTO_descriptor,
-        new java.lang.String[] { "Id", "TotalVolume", "Currency", "Owners", "FloorPrice", "OwnerLists", "Owns", "CurrentPrice", });
+        new java.lang.String[] { "Id", "TotalVolume", "Currency", "Owners", "OwnerLists", "Owns", "CurrentListing", });
     internal_static_com_ruixi_tpulse_convention_NftCollectionProfileDTO_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_com_ruixi_tpulse_convention_NftCollectionProfileDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_NftCollectionProfileDTO_descriptor,
-        new java.lang.String[] { "TotalVolume", "Currency", "Owners", "FloorPrice", });
+        new java.lang.String[] { "TotalVolume", "Currency", "Owners", "CurrentListing", });
     internal_static_com_ruixi_tpulse_convention_SELL_IC_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_com_ruixi_tpulse_convention_SELL_IC_fieldAccessorTable = new

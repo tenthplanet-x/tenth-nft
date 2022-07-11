@@ -2,6 +2,7 @@ package com.tenth.nft.search.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.orm.marketplace.entity.NftListing;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 

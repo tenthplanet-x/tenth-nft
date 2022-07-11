@@ -5,6 +5,8 @@ import com.ruixi.tpulse.convention.TpulseHeaders;
 import com.ruixi.tpulse.convention.TpulseIdModules;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
+import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.utils.Prices;
@@ -87,14 +89,14 @@ public class NftCollectionService {
                 NftCollectionDTO.class
         );
 
-        String nickname = routeClient.send(
+        Search.SearchUserDTO creatorProfile = routeClient.send(
                 Search.SEARCH_USER_PROFILE_IC.newBuilder()
                         .addUids(uid)
                         .build(),
                 SearchUserProfileRouteRequest.class
-        ).getProfiles(0).getNickname();
+        ).getProfiles(0);
         dataPage.getData().forEach(dto -> {
-            dto.setCreatorName(nickname);
+            dto.setCreatorProfile(NftUserProfileDTO.from(creatorProfile));
         });
 
         return dataPage;
@@ -163,7 +165,15 @@ public class NftCollectionService {
                 .build(), NftCollectionDetailDTO.class);
         dto.setOwned(uid.equals(dto.getUid()));
 
-        //floorPrice
+        //user profile
+        Search.SearchUserDTO createProfile = routeClient.send(
+                Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                        .addUids(uid)
+                        .build(),
+                SearchUserProfileRouteRequest.class
+        ).getProfiles(0);
+        dto.setCreatorProfile(NftUserProfileDTO.from(createProfile));
+
         //totalVolume
         List<Long> assetsIds = nftAssetsNoCacheDao.find(NftAssetsQuery.newBuilder().setCollectionId(request.getId()).build()).stream().map(NftAssets::getId).collect(Collectors.toList());
         if(!assetsIds.isEmpty()){
@@ -174,12 +184,13 @@ public class NftCollectionService {
                     CollectionsExchangeProfileRouteRequest.class
             ).getProfile();
 
-            if(exchangeProfile.hasFloorPrice()){
-                dto.setCurrency(exchangeProfile.getCurrency());
-                dto.setFloorPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+            if(exchangeProfile.hasCurrentListing()){
+                dto.setFloorPrice(Prices.toString(exchangeProfile.getCurrentListing().getPrice()));
+                dto.setCurrency(exchangeProfile.getCurrentListing().getCurrency());
             }
             if(exchangeProfile.hasTotalVolume()){
                 dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                dto.setCurrency(exchangeProfile.getCurrency());
             }
         }
 

@@ -90,12 +90,13 @@ public class AssetsSearchService {
                         .build(),
                 AssetsExchangeProfileRouteRequest.class
         ).getProfile();
-        if(exchangeProfile.hasCurrentPrice()){
-            dto.setCurrency(exchangeProfile.getCurrency());
-            dto.setCurrentPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+        if(exchangeProfile.hasCurrentListing()){
+            AssetsDetailSearchDTO.ListingDTO listingDTO = AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing());
+            dto.setCurrentListing(listingDTO);
         }
         if(exchangeProfile.hasTotalVolume()){
             dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+            dto.setCurrency(exchangeProfile.getCurrency());
         }
         dto.setOwns(exchangeProfile.getOwns());
 
