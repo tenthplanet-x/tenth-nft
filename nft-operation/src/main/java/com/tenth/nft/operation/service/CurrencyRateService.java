@@ -86,7 +86,8 @@ public class CurrencyRateService {
     }
 
     public void delete(CurrencyRateDeleteRequest request) {
-        currencyRateDao.remove(CurrencyRateQuery.newBuilder().id(request.getId()).build());
+        CurrencyRate currencyRate = currencyRateDao.findAndRemove(CurrencyRateQuery.newBuilder().id(request.getId()).build());
+        rebuildCache(currencyRate.getToken());
     }
 
     public CurrencyRateDTO detail(CurrencyRateDetailRequest request) {
