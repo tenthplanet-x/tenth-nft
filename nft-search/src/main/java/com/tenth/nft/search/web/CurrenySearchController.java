@@ -1,8 +1,10 @@
 package com.tenth.nft.search.web;
 
 import com.tenth.nft.search.NftSearchPaths;
+import com.tenth.nft.search.dto.CurrencyRateSearchDTO;
 import com.tenth.nft.search.dto.CurrencySearchDTO;
 import com.tenth.nft.search.service.CurrencySearchService;
+import com.tenth.nft.search.vo.CurrenyRateRequest;
 import com.tenth.nft.search.vo.CurrenySearchRequest;
 import com.tpulse.commons.validation.Validations;
 import com.wallan.router.vo.Response;
@@ -28,4 +30,18 @@ public class CurrenySearchController {
         List<CurrencySearchDTO> currencies = currencySearchService.listByBlockchain(request);
         return Response.successBuilder().data(currencies).build();
     }
+
+
+    /**
+     * 真实货币汇率
+     * @param request
+     * @return
+     */
+    @RequestMapping(NftSearchPaths.CURRENCY_RATE)
+    public Response rate(@RequestBody CurrenyRateRequest request){
+        Validations.check(request);
+        CurrencyRateSearchDTO currencies = currencySearchService.rate(request);
+        return Response.successBuilder().data(currencies).build();
+    }
+
 }

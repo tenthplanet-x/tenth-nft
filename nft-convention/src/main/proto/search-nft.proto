@@ -47,3 +47,10 @@ message ASSETS_IS{
   required AssetsDTO assets = 1;
 }
 
+message NFT_CURRENCY_RATE_REBUILD_IC{
+  required string token = 1;
+}
+message NFT_CURRENCY_RATE_REBUILD_IS{
+
+}
+

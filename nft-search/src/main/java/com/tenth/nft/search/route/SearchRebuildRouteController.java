@@ -1,6 +1,7 @@
 package com.tenth.nft.search.route;
 
 import com.tenth.nft.convention.routes.*;
+import com.tenth.nft.convention.routes.search.CurrencyRateRebuildRouteRequest;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.service.*;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
@@ -50,6 +51,11 @@ public class SearchRebuildRouteController {
     @RouteRequestMapping(AssetsRebuildRouteRequest.class)
     public void itemsRebuild(NftSearch.NFT_ASSETS_REBUILD_IC request){
         assetsSearchService.rebuild(request.getAssetsId());
+    }
+
+    @RouteRequestMapping(CurrencyRateRebuildRouteRequest.class)
+    public void currencyRateReBuild(NftSearch.NFT_CURRENCY_RATE_REBUILD_IC request){
+        currenySearchService.currencyRateReBuild(request);
     }
 
 }

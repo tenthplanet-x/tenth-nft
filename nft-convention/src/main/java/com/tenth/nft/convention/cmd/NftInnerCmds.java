@@ -15,6 +15,7 @@ public class NftInnerCmds {
     public static final int NFT_ASSETS_REBUILD_IC = -20003;
     public static final int NFT_BLOCKCHAIN_REBUILD_IC = -20004;
     public static final int NFT_CURRENCY_REBUILD_IC = -20005;
+    public static final int NFT_CURRENCY_RATE_REBUILD_IC = -20006;
 
     //exchange
     public static final int BUY_IC = -30001;
