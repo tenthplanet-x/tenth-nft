@@ -19,6 +19,16 @@ public class NftCurrencyCreateRequest {
 
     private Integer order;
 
+    private Boolean main;
+
+    private Boolean exchange;
+
+    private Boolean bid;
+
+    private Float exchangeRate;
+
+    private String icon;
+
     public String getBlockchain(){
         return blockchain;
     }
@@ -57,5 +67,45 @@ public class NftCurrencyCreateRequest {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Boolean getMain() {
+        return main;
+    }
+
+    public void setMain(Boolean main) {
+        this.main = main;
+    }
+
+    public Boolean getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(Boolean exchange) {
+        this.exchange = exchange;
+    }
+
+    public Boolean getBid() {
+        return bid;
+    }
+
+    public void setBid(Boolean bid) {
+        this.bid = bid;
+    }
+
+    public Float getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(Float exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

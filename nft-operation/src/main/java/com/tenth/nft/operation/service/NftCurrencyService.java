@@ -63,6 +63,10 @@ public class NftCurrencyService {
         nftCurrency.setLabel(request.getLabel());
         nftCurrency.setEnable(request.getEnable());
         nftCurrency.setOrder(request.getOrder());
+        nftCurrency.setExchange(request.getExchange());
+        nftCurrency.setBid(request.getBid());
+        nftCurrency.setExchangeRate(request.getExchangeRate());
+        nftCurrency.setIcon(request.getIcon());
         nftCurrencyDao.insert(nftCurrency);
 
         rebuildCache(request.getBlockchain());
@@ -78,6 +82,11 @@ public class NftCurrencyService {
                                 .setCode(request.getCode())
                                 .setLabel(request.getLabel())
                                 .setEnable(request.getEnable())
+                                .setIcon(request.getIcon())
+                                .setExchange(request.getExchange())
+                                .setBid(request.getBid())
+                                .setMain(request.getMain())
+                                .setExchangeRate(request.getExchangeRate())
                                 .order(request.getOrder())
                         .build()
         );

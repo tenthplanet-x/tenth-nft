@@ -1,5 +1,6 @@
 package com.tenth.nft.operation.dto;
 
+import com.ruixi.tpulse.convention.orm.FloatToStringDecoder;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -26,6 +27,21 @@ public class NftCurrencyDTO implements SimpleResponse {
 
     @SimpleField
     private Integer order;
+
+    @SimpleField
+    private Boolean main;
+
+    @SimpleField
+    private Boolean bid;
+
+    @SimpleField
+    private Boolean exchange;
+
+    @SimpleField(decoder = FloatToStringDecoder.class)
+    private String exchangeRate;
+
+    @SimpleField
+    private String icon;
 
     public Long getId() {
         return id;
@@ -73,5 +89,45 @@ public class NftCurrencyDTO implements SimpleResponse {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Boolean getMain() {
+        return main;
+    }
+
+    public void setMain(Boolean main) {
+        this.main = main;
+    }
+
+    public Boolean getBid() {
+        return bid;
+    }
+
+    public void setBid(Boolean bid) {
+        this.bid = bid;
+    }
+
+    public Boolean getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(Boolean exchange) {
+        this.exchange = exchange;
+    }
+
+    public String getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(String exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

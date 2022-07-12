@@ -25,6 +25,16 @@ public class NftCurrencyUpdate extends SimpleUpdate {
     private Long updatedAt = System.currentTimeMillis();
     @SimpleWriteParam
     private Integer order;
+    @SimpleWriteParam
+    private Float exchangeRate;
+    @SimpleWriteParam
+    private Boolean main;
+    @SimpleWriteParam
+    private Boolean bid;
+    @SimpleWriteParam
+    private Boolean exchange;
+    @SimpleWriteParam
+    private String icon;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -48,6 +58,26 @@ public class NftCurrencyUpdate extends SimpleUpdate {
 
     public Integer getOrder() {
         return order;
+    }
+
+    public Float getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public Boolean getMain() {
+        return main;
+    }
+
+    public Boolean getBid() {
+        return bid;
+    }
+
+    public Boolean getExchange() {
+        return exchange;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 
     public static Builder newBuilder(){
@@ -84,6 +114,31 @@ public class NftCurrencyUpdate extends SimpleUpdate {
 
         public Builder order(Integer order) {
             update.order = order;
+            return this;
+        }
+
+        public Builder setIcon(String icon) {
+            update.icon = icon;
+            return this;
+        }
+
+        public Builder setExchange(Boolean exchange) {
+            update.exchange = exchange;
+            return this;
+        }
+
+        public Builder setBid(Boolean bid) {
+            update.bid = bid;
+            return this;
+        }
+
+        public Builder setMain(Boolean main) {
+            update.main = main;
+            return this;
+        }
+
+        public Builder setExchangeRate(Float exchangeRate) {
+            update.exchangeRate = exchangeRate;
             return this;
         }
     }
