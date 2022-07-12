@@ -168,7 +168,7 @@ public class NftCollectionService {
         //user profile
         Search.SearchUserDTO createProfile = routeClient.send(
                 Search.SEARCH_USER_PROFILE_IC.newBuilder()
-                        .addUids(uid)
+                        .addUids(dto.getUid())
                         .build(),
                 SearchUserProfileRouteRequest.class
         ).getProfiles(0);

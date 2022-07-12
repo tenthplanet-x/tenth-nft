@@ -419,8 +419,10 @@ public class NftExchangeService {
 
         request.getAssetsIdsList().stream().map(assetId -> profile(assetId, true, null)).forEach(profile -> {
 
-            if(!collectionProfileDTOBuilder.hasCurrentListing() || (profile.getCurrentListing().getPrice() < collectionProfileDTOBuilder.getCurrentListing().getPrice())){
-                collectionProfileDTOBuilder.setCurrentListing(profile.getCurrentListing());
+            if(profile.hasCurrentListing()){
+                if(!collectionProfileDTOBuilder.hasCurrentListing() || (profile.getCurrentListing().getPrice() < collectionProfileDTOBuilder.getCurrentListing().getPrice())){
+                    collectionProfileDTOBuilder.setCurrentListing(profile.getCurrentListing());
+                }
             }
 
             if(profile.hasTotalVolume()){
