@@ -99,7 +99,8 @@ public class NftCurrencyService {
     }
 
     public void delete(NftCurrencyDeleteRequest request) {
-        nftCurrencyDao.remove(NftCurrencyQuery.newBuilder().version(NftCurrencyVersions.VERSION).id(request.getId()).build());
+        NftCurrency currency = nftCurrencyDao.findAndRemove(NftCurrencyQuery.newBuilder().version(NftCurrencyVersions.VERSION).id(request.getId()).build());
+        rebuildCache(currency.getBlockchain());
     }
 
     public NftCurrencyDTO detail(NftCurrencyDeleteRequest request) {
