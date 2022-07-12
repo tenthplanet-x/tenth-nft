@@ -11,10 +11,12 @@ import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
 import com.tenth.nft.search.lucenedao.NftAssetsLuceneDao;
 import com.tenth.nft.search.dto.AssetsDetailSearchDTO;
 import com.tenth.nft.search.vo.AssetsDetailSearchRequest;
+import com.tenth.nft.search.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -101,5 +103,37 @@ public class AssetsSearchService {
         dto.setOwns(exchangeProfile.getOwns());
 
         return dto;
+    }
+
+    public Page<AssetsOwnSearchDTO> list(AssetsOwnSearchRequest request) {
+
+        List<Long> page = nftAssetsLuceneDao.list(request);
+        if(!page.isEmpty()){
+            List<AssetsOwnSearchDTO> assets = page.stream().map(id -> {
+
+                AssetsOwnSearchDTO dto = nftAssetsDao.findOne(
+                        NftAssetsQuery.newBuilder().id(id).build(),
+                        AssetsOwnSearchDTO.class
+                );
+
+                NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
+                        NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
+                                .setAssetsId(id)
+                                .build(),
+                        AssetsExchangeProfileRouteRequest.class
+                ).getProfile();
+                if(exchangeProfile.hasCurrentListing()){
+                    dto.setCurrentListing(AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
+                }
+
+                return dto;
+            }).collect(Collectors.toList());
+            return new Page<>(
+                    0,
+                    assets
+            );
+        }
+
+        return new Page<>();
     }
 }

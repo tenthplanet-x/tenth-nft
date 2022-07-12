@@ -1,10 +1,12 @@
 package com.tenth.nft.search.web;
 
 import com.tenth.nft.search.NftSearchPaths;
+import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
 import com.tenth.nft.search.service.AssetsSearchService;
 import com.tenth.nft.search.dto.AssetsDetailSearchDTO;
 import com.tenth.nft.search.vo.AssetsDetailSearchRequest;
+import com.tenth.nft.search.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
@@ -38,4 +40,12 @@ public class AssetsSearchController {
         AssetsDetailSearchDTO dto = assetsSearchService.detail(request);
         return Response.successBuilder().data(dto).build();
     }
+
+    @RequestMapping(NftSearchPaths.ASSETS_OWN_LIST)
+    public Response list(@RequestBody AssetsOwnSearchRequest request){
+        Validations.check(request);
+        Page<AssetsOwnSearchDTO> collections = assetsSearchService.list(request);
+        return Response.successBuilder().data(collections).build();
+    }
+
 }

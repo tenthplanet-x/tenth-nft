@@ -4,6 +4,8 @@ import com.tpulse.gs.lucenedb.defination.annotation.LuceneDocument;
 import com.tpulse.gs.lucenedb.defination.annotation.LuceneDocumentField;
 import com.tpulse.gs.lucenedb.defination.annotation.LuceneDocumentId;
 
+import java.util.List;
+
 /**
  * @author shijie
  */
@@ -17,6 +19,8 @@ public class NftAssetsLuceneDTO {
     private Long collectionId;
     @LuceneDocumentField(sortable = true)
     private Long createdAt;
+    @LuceneDocumentField
+    private List<String> owners;
 
     public Long getId() {
         return id;
@@ -40,5 +44,13 @@ public class NftAssetsLuceneDTO {
 
     public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<String> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(List<String> owners) {
+        this.owners = owners;
     }
 }
