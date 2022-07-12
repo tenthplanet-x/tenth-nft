@@ -27,10 +27,6 @@ public class NftCurrencyOpsWebController {
     @Autowired
     private NftCurrencyService nftCurrencyService;
 
-    /**
-     * 列表
-     * @return
-     */
     @RequestMapping(NftCurrencyPaths.NFTCURRENCY_LIST)
     public Response list(@RequestBody NftCurrencyListRequest request){
         Validations.check(request);
@@ -38,10 +34,6 @@ public class NftCurrencyOpsWebController {
         return Response.successBuilder().data(dataPage).build();
     }
 
-    /**
-     * 创建
-     * @return
-     */
     @RequestMapping(NftCurrencyPaths.NFTCURRENCY_CREATE)
     public Response create(@RequestBody NftCurrencyCreateRequest request){
         Validations.check(request);
@@ -49,10 +41,6 @@ public class NftCurrencyOpsWebController {
         return Response.successBuilder().build();
     }
 
-    /**
-     * 编辑
-     * @return
-     */
     @RequestMapping(NftCurrencyPaths.NFTCURRENCY_EDIT)
     public Response edit(@RequestBody NftCurrencyEditRequest request){
         Validations.check(request);
@@ -61,16 +49,18 @@ public class NftCurrencyOpsWebController {
     }
 
 
-    /**
-     * 详情
-     * @return
-     */
     @RequestMapping(NftCurrencyPaths.NFTCURRENCY_DETAIL)
-    public Response delete(@RequestBody NftCurrencyDeleteRequest request){
+    public Response detail(@RequestBody NftCurrencyDeleteRequest request){
         Validations.check(request);
         NftCurrencyDTO dto = nftCurrencyService.detail(request);
         return Response.successBuilder().data(dto).build();
     }
 
+    @RequestMapping(NftCurrencyPaths.NFTCURRENCY_DELETE)
+    public Response delete(@RequestBody NftCurrencyDeleteRequest request){
+        Validations.check(request);
+        nftCurrencyService.delete(request);
+        return Response.successBuilder().build();
+    }
 
 }

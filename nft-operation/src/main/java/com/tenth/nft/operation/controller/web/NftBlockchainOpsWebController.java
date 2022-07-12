@@ -27,10 +27,6 @@ public class NftBlockchainOpsWebController {
     @Autowired
     private NftBlockchainService nftBlockchainService;
 
-    /**
-     * 列表
-     * @return
-     */
     @RequestMapping(NftBlockchainPaths.NFTBLOCKCHAIN_LIST)
     public Response list(@RequestBody NftBlockchainListRequest request){
         Validations.check(request);
@@ -38,10 +34,6 @@ public class NftBlockchainOpsWebController {
         return Response.successBuilder().data(dataPage).build();
     }
 
-    /**
-     * 创建
-     * @return
-     */
     @RequestMapping(NftBlockchainPaths.NFTBLOCKCHAIN_CREATE)
     public Response create(@RequestBody NftBlockchainCreateRequest request){
         Validations.check(request);
@@ -49,10 +41,6 @@ public class NftBlockchainOpsWebController {
         return Response.successBuilder().build();
     }
 
-    /**
-     * 编辑
-     * @return
-     */
     @RequestMapping(NftBlockchainPaths.NFTBLOCKCHAIN_EDIT)
     public Response edit(@RequestBody NftBlockchainEditRequest request){
         Validations.check(request);
@@ -61,10 +49,6 @@ public class NftBlockchainOpsWebController {
     }
 
 
-    /**
-     * 详情
-     * @return
-     */
     @RequestMapping(NftBlockchainPaths.NFTBLOCKCHAIN_DETAIL)
     public Response delete(@RequestBody NftBlockchainDeleteRequest request){
         Validations.check(request);
