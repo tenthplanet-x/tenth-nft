@@ -11,6 +11,8 @@ public class MintEvent implements NftActivityEvent {
 
     private Integer quantity;
 
+    private String from;
+
     public Long getTo() {
         return to;
     }
@@ -25,5 +27,13 @@ public class MintEvent implements NftActivityEvent {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getFrom() {
+        return from;
     }
 }

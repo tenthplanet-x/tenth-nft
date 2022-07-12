@@ -6,6 +6,7 @@ import com.tenth.nft.blockchain.BlockchainGateway;
 import com.tenth.nft.blockchain.BlockchainRouter;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
+import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.routes.exchange.BuyRouteRequest;
 import com.tenth.nft.convention.routes.exchange.SellRouteRequest;
 import com.tenth.nft.convention.utils.Times;
@@ -269,6 +270,7 @@ public class NftExchangeService {
         activity.setUpdatedAt(activity.getCreatedAt());
 
         MintEvent mintEvent = new MintEvent();
+        mintEvent.setFrom(NullAddress.TOKEN);
         mintEvent.setTo(request.getOwner());
         mintEvent.setQuantity(request.getQuantity());
         activity.setMint(mintEvent);;

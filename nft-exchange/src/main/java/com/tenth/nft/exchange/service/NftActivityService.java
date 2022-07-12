@@ -6,6 +6,7 @@ import com.qcloud.cos.transfer.Transfer;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.ActivityListRouteRequest;
 import com.tenth.nft.convention.routes.exchange.ListingListRouteRequest;
@@ -53,8 +54,8 @@ public class NftActivityService {
         ).getActivitiesList().stream().map(NftActivityDTO::from).collect(Collectors.toList());
 
         //fill with userProfile
-        Set<Long> fromUids = data.stream().map(dto -> dto.getFrom()).filter(Objects::nonNull).collect(Collectors.toSet());
-        Set<Long> toUids = data.stream().map(dto -> dto.getTo()).filter(Objects::nonNull).collect(Collectors.toSet());
+        Set<Long> fromUids = data.stream().map(dto -> dto.getFrom()).filter(Objects::nonNull).filter(from -> !NullAddress.TOKEN.equals(from)).collect(Collectors.toSet());
+        Set<Long> toUids = data.stream().map(dto -> dto.getTo()).filter(Objects::nonNull).filter(from -> !NullAddress.TOKEN.equals(from)).collect(Collectors.toSet());
         fromUids.addAll(toUids);
         Map<Long, NftUserProfileDTO> userProfileDTOMap = routeClient.send(
                 Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(fromUids).build(),
