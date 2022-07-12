@@ -33,6 +33,12 @@ public class NftCurrencyEditRequest {
 
     private String icon;
 
+    private Float min;
+
+    private Float max;
+
+    private Integer precision;
+
     public Long getId() {
         return id;
     }
@@ -119,5 +125,29 @@ public class NftCurrencyEditRequest {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public Float getMin() {
+        return min;
+    }
+
+    public void setMin(Float min) {
+        this.min = min;
+    }
+
+    public Float getMax() {
+        return max;
+    }
+
+    public void setMax(Float max) {
+        this.max = max;
+    }
+
+    public Integer getPrecision() {
+        return precision;
+    }
+
+    public void setPrecision(Integer precision) {
+        this.precision = precision;
     }
 }

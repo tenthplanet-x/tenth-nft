@@ -43,6 +43,10 @@ public class NftCurrency {
 
     private String icon;
 
+    private Float min;
+
+    private Float max;
+
     public Long getId() {
         return id;
     }
@@ -154,4 +158,21 @@ public class NftCurrency {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
+    public Float getMin() {
+        return min;
+    }
+
+    public void setMin(Float min) {
+        this.min = min;
+    }
+
+    public Float getMax() {
+        return max;
+    }
+
+    public void setMax(Float max) {
+        this.max = max;
+    }
+
 }

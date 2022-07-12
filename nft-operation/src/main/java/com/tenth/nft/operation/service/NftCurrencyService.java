@@ -67,6 +67,8 @@ public class NftCurrencyService {
         nftCurrency.setBid(request.getBid());
         nftCurrency.setExchangeRate(request.getExchangeRate());
         nftCurrency.setIcon(request.getIcon());
+        nftCurrency.setMin(request.getMin());
+        nftCurrency.setMax(request.getMax());
         nftCurrencyDao.insert(nftCurrency);
 
         rebuildCache(request.getBlockchain());
@@ -88,6 +90,8 @@ public class NftCurrencyService {
                                 .setMain(request.getMain())
                                 .setExchangeRate(request.getExchangeRate())
                                 .order(request.getOrder())
+                                .setMin(request.getMin())
+                                .setMax(request.getMax())
                         .build()
         );
 

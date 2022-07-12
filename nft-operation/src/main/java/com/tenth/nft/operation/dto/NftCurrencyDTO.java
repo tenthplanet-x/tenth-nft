@@ -43,6 +43,12 @@ public class NftCurrencyDTO implements SimpleResponse {
     @SimpleField
     private String icon;
 
+    @SimpleField
+    private Float min;
+
+    @SimpleField
+    private Float max;
+
     public Long getId() {
         return id;
     }
@@ -130,4 +136,21 @@ public class NftCurrencyDTO implements SimpleResponse {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
+    public Float getMin() {
+        return min;
+    }
+
+    public void setMin(Float min) {
+        this.min = min;
+    }
+
+    public Float getMax() {
+        return max;
+    }
+
+    public void setMax(Float max) {
+        this.max = max;
+    }
+
 }

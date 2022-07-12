@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
+import com.tenth.nft.orm.marketplace.entity.NftCurrency;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 
@@ -35,6 +36,10 @@ public class NftCurrencyUpdate extends SimpleUpdate {
     private Boolean exchange;
     @SimpleWriteParam
     private String icon;
+    @SimpleWriteParam
+    private Float min;
+    @SimpleWriteParam
+    private Float max;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -78,6 +83,14 @@ public class NftCurrencyUpdate extends SimpleUpdate {
 
     public String getIcon() {
         return icon;
+    }
+
+    public Float getMin() {
+        return min;
+    }
+
+    public Float getMax() {
+        return max;
     }
 
     public static Builder newBuilder(){
@@ -141,6 +154,18 @@ public class NftCurrencyUpdate extends SimpleUpdate {
             update.exchangeRate = exchangeRate;
             return this;
         }
+
+        public Builder setMin(Float min) {
+            update.min = min;
+            return this;
+        }
+
+        public Builder setMax(Float max) {
+            update.max = max;
+            return this;
+        }
+
+
     }
 
 }

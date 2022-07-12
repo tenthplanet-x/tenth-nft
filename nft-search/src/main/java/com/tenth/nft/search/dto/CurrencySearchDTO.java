@@ -1,5 +1,6 @@
 package com.tenth.nft.search.dto;
 
+import com.tenth.nft.orm.marketplace.decoder.PricesToStringDecoder;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -24,6 +25,10 @@ public class CurrencySearchDTO implements SimpleResponse {
     private String exchangeRate;
     @SimpleField
     private String icon;
+    @SimpleField(decoder = PricesToStringDecoder.class)
+    private String min;
+    @SimpleField(decoder = PricesToStringDecoder.class)
+    private String max;
 
     private String blockchainLabel;
 
@@ -98,4 +103,21 @@ public class CurrencySearchDTO implements SimpleResponse {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
+    public String getMin() {
+        return min;
+    }
+
+    public void setMin(String min) {
+        this.min = min;
+    }
+
+    public String getMax() {
+        return max;
+    }
+
+    public void setMax(String max) {
+        this.max = max;
+    }
+
 }
