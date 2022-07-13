@@ -1,11 +1,9 @@
 package com.tenth.nft.search.route;
 
-import com.tenth.nft.convention.routes.CategoryRebuildRouteRequest;
-import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
-import com.tenth.nft.convention.routes.ItemsRebuildRouteRequest;
-import com.tenth.nft.protobuf.Search;
-import com.tenth.nft.search.service.CategorySearchService;
-import com.tenth.nft.search.service.CollectionSearchService;
+import com.tenth.nft.convention.routes.*;
+import com.tenth.nft.convention.routes.search.CurrencyRateRebuildRouteRequest;
+import com.tenth.nft.protobuf.NftSearch;
+import com.tenth.nft.search.service.*;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
 import com.wallan.router.annotation.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +20,42 @@ public class SearchRebuildRouteController {
     @Autowired
     private CategorySearchService categorySearchService;
     @Autowired
+    private BlockchainSearchService blockchainSearchService;
+    @Autowired
+    private CurrencySearchService currenySearchService;
+    @Autowired
     private CollectionSearchService collectionSearchService;
+    @Autowired
+    private AssetsSearchService assetsSearchService;
 
     @RouteRequestMapping(CategoryRebuildRouteRequest.class)
-    public void categoryRebuild(Search.NFT_CATEGORY_REBUILD_IC request){
+    public void categoryRebuild(NftSearch.NFT_CATEGORY_REBUILD_IC request){
         categorySearchService.rebuildCache();
     }
 
+    @RouteRequestMapping(BlockchainRebuildRouteRequest.class)
+    public void blockchainRebuild(NftSearch.NFT_BLOCKCHAIN_REBUILD_IC request){
+        blockchainSearchService.rebuildCache();
+    }
+
+    @RouteRequestMapping(CurrencyRebuildRouteRequest.class)
+    public void currencyRebuild(NftSearch.NFT_CURRENCY_REBUILD_IC request){
+        currenySearchService.rebuildCache(request);
+    }
+
     @RouteRequestMapping(CollectionRebuildRouteRequest.class)
-    public void collectionRebuild(Search.NFT_COLLECTION_REBUILD_IC request){
+    public void collectionRebuild(NftSearch.NFT_COLLECTION_REBUILD_IC request){
         collectionSearchService.rebuild(request.getCollectionId());
     }
 
-    @RouteRequestMapping(ItemsRebuildRouteRequest.class)
-    public void itemsRebuild(Search.NFT_ITEM_REBUILD_IC request){
-        collectionSearchService.rebuildItems(request.getCollectionId());
+    @RouteRequestMapping(AssetsRebuildRouteRequest.class)
+    public void itemsRebuild(NftSearch.NFT_ASSETS_REBUILD_IC request){
+        assetsSearchService.rebuild(request.getAssetsId());
+    }
+
+    @RouteRequestMapping(CurrencyRateRebuildRouteRequest.class)
+    public void currencyRateReBuild(NftSearch.NFT_CURRENCY_RATE_REBUILD_IC request){
+        currenySearchService.currencyRateReBuild(request);
     }
 
 }

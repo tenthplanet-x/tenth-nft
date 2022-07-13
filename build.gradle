@@ -31,8 +31,9 @@ ext {
     versions = [
         springboot: '2.1.6.RELEASE',
         commons: '0.4.0_003-SNAPSHOT',
-        gs: '0.11.0_20220619_001-SNAPSHOT',
+        gs: '0.11.0_20220711_003-SNAPSHOT',
         operation: '0.3.0_20220228_007-SNAPSHOT',
+        tpulse: '0.0.20220704_005-SNAPSHOT'
     ]
     libs = [
             starter: 'org.springframework.boot:spring-boot-starter',
@@ -82,14 +83,15 @@ ext {
             gs_oss: "com.tpulse.gs:gs-oss:${versions.gs}",
             gs_lucenedb: "com.tpulse.gs:gs-lucenedb:${versions.gs}",
 
-            operation_security_client: "com.tpulse:operation-security-client:${versions.operation}"
+            operation_security_client: "com.tpulse:operation-security-client:${versions.operation}",
+
+            tpulse_convention: "com.tpulse.tpulse:tpulse-convention:${versions.tpulse}"
     ]
 }
 
 allprojects{
-    sourceCompatibility = 1.8
-    group 'com.tpulse.row'
-    version "${versions.row}"
+    group 'com.tenth.nft'
+    version "0.0.1_20220712_005-SNAPSHOT"
 
     repositories {
         maven {
@@ -170,22 +172,7 @@ subprojects{
         }
     }
 
-    //protobuf
-    apply plugin: 'com.google.protobuf'
-    sourceSets {
-        main {
-            proto {
-                srcDir 'src/main/proto'
-                include '**/*.proto'
-            }
-        }
-    }
-    protobuf {
-        generatedFilesBaseDir = "$projectDir/src/"
-        protoc {
-            artifact = 'com.google.protobuf:protoc:3.19.4'
-        }
-    }
+
 
 
 

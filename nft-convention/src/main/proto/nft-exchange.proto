@@ -1,0 +1,127 @@
+syntax = "proto2";
+package com.ruixi.tpulse.convention;
+option java_package="com.tenth.nft.protobuf";
+option java_outer_classname = "NftExchange";
+
+message NftMintDTO{
+  required string blockchain = 1;
+  required string contractAddress = 2;
+  required string tokenStandard = 3;
+  required string token = 4;
+}
+message NftListingDTO{
+  required int64 assetsId = 1;
+  required int64 seller = 2;
+  required float price = 3;
+  required int32 quantity = 4;
+  required string currency = 5;
+  required int64 startAt = 6;
+  required int64 expireAt = 7;
+  required int64 createdAt = 8;
+  required int64 id = 9;
+}
+message NftOwnerDTO{
+  required int64 uid = 1;
+  required int32 quantity = 2;
+}
+message NftActivityDTO{
+  required string event = 1;
+  optional int64 from = 2;
+  optional int64 to = 3;
+  optional float price = 4;
+  optional string currency = 5;
+  optional int32 quantity = 6;
+  required int64 id = 7;
+  optional bool expired = 8;
+  optional bool canceled = 9;
+  required int64 createdAt = 10;
+}
+
+message NftAssetsProfileDTO{
+  required int64 id = 1;
+  optional float totalVolume = 2;
+  optional string currency = 3;
+  optional int64 owners = 4;
+  repeated int64 ownerLists = 5;
+  optional int32 owns = 6;
+  optional NftListingDTO currentListing = 7;
+}
+
+message NftCollectionProfileDTO{
+  optional float totalVolume = 2;
+  optional string currency = 3;
+  required int64 owners = 4;
+  optional NftListingDTO currentListing = 5;
+}
+
+message SELL_IC{
+  required int64 assetsId = 1;
+  required int64 uid = 2;
+  required int32 quantity = 3;
+  required string currency = 4;
+  required float price = 5;
+  required int64 startAt = 6;
+  required int64 expireAt = 7;
+}
+message SELL_IS{
+  required NftListingDTO listing = 1;
+}
+
+message BUY_IC{
+  required int64 uid = 1;
+  required int64 assetsId = 2;
+  required int64 listingId = 3;
+}
+message BUY_IS{
+
+}
+
+message LISTING_LIST_IC{
+  required int64 assetsId = 1;
+  required int32 page = 2;
+  required int32 pageSize = 3;
+}
+message LISTING_LIST_IS{
+  repeated NftListingDTO listings = 1;
+}
+message OWNER_LIST_IC{
+  required int64 assetsId = 1;
+  required int32 page = 2;
+  required int32 pageSize = 3;
+}
+message OWNER_LIST_IS{
+  repeated NftOwnerDTO owners = 1;
+}
+message ACTIVITY_LIST_IC{
+  required int64 assetsId = 1;
+  required int32 page = 2;
+  required int32 pageSize = 3;
+}
+message ACTIVITY_LIST_IS{
+    repeated NftActivityDTO activities = 1;
+}
+
+message MINT_IC{
+  required string blockchain = 1;
+  optional string contractAddress = 2;
+  required int64 assetsId = 3;
+  required int64 owner = 4;
+  required int32 quantity = 5;
+}
+message MINT_IS{
+  required NftMintDTO mint = 1;
+}
+
+message ASSETS_EXCHANGE_PROFILE_IC{
+  required int64 assetsId = 1;
+  optional int64 observer = 2;
+}
+message ASSETS_EXCHANGE_PROFILE_IS{
+  required NftAssetsProfileDTO profile = 1;
+}
+message COLLECTION_EXCHANGE_PROFILE_IC{
+  repeated int64 assetsIds = 1;
+}
+message COLLECTION_EXCHANGE_PROFILE_IS{
+  required NftCollectionProfileDTO profile = 1;
+}

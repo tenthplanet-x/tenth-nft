@@ -1,6 +1,6 @@
 package com.tenth.nft.crawler.sdk.opensea;
 
-import com.tenth.nft.convention.TenthErrorCodes;
+import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaCollectionDTO;
 import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaConstractDTO;
 import com.tenth.nft.crawler.sdk.opensea.dto.OpenseaGetCollectionResponse;
@@ -53,7 +53,7 @@ public class OpenseaSdk {
             return openseaGetCollectionResponse.getCollection();
         }catch (Exception e){
             LOGGER.error(String.format("scan url: %s get exception", url), e);
-            throw BizException.newInstance(TenthErrorCodes.OPEANSEASDK_EXCEPTION);
+            throw BizException.newInstance(NftExchangeErrorCodes.OPEANSEASDK_EXCEPTION);
         }finally {
             if(LOGGER.isDebugEnabled()){
                 LOGGER.debug("url: {} cost: {} ms ", url, System.currentTimeMillis() - startedAt);
@@ -82,7 +82,7 @@ public class OpenseaSdk {
             return JsonUtil.fromJson(data, OpenseaConstractDTO.class);
         }catch (Exception e){
             LOGGER.error(String.format("scan url: %s get exception", url), e);
-            throw BizException.newInstance(TenthErrorCodes.OPEANSEASDK_EXCEPTION);
+            throw BizException.newInstance(NftExchangeErrorCodes.OPEANSEASDK_EXCEPTION);
         }finally {
             if(LOGGER.isDebugEnabled()){
                 LOGGER.debug("url: {} cost: {} ms ", url, System.currentTimeMillis() - startedAt);
@@ -118,7 +118,7 @@ public class OpenseaSdk {
                 result.add(itemDTO);
             }catch (Exception e){
                 LOGGER.error(String.format("scan url: %s get exception", url), e);
-                throw BizException.newInstance(TenthErrorCodes.OPEANSEASDK_EXCEPTION);
+                throw BizException.newInstance(NftExchangeErrorCodes.OPEANSEASDK_EXCEPTION);
             }finally {
                 if(LOGGER.isDebugEnabled()){
                     LOGGER.debug("url: {} cost: {} ms ", url, System.currentTimeMillis() - startedAt);

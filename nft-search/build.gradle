@@ -7,4 +7,5 @@ dependencies{
     api libs.gs_router
     api libs.gs_mongodb
     implementation libs.starter_web
+    implementation libs.tpulse_convention
 }

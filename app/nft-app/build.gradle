@@ -1,0 +1,11 @@
+dependencies {
+
+    implementation project(":nft-crawler")
+    implementation project(":nft-search")
+    implementation project(":nft-marketplace")
+    implementation project(":nft-operation")
+    implementation project(":nft-exchange")
+    implementation libs.tpulse_convention
+    implementation libs.starter_web
+
+}

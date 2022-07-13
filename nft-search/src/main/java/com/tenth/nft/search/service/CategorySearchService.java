@@ -1,9 +1,8 @@
 package com.tenth.nft.search.service;
 
-import com.tenth.nft.orm.NftCategoryVersions;
-import com.tenth.nft.orm.dao.NftCategoryDao;
-import com.tenth.nft.orm.dao.expression.NftCategoryQuery;
-import com.tenth.nft.orm.entity.NftCategory;
+import com.tenth.nft.orm.external.NftCategoryVersions;
+import com.tenth.nft.orm.marketplace.dao.NftCategoryDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftCategoryQuery;
 import com.tenth.nft.search.dto.CategorySearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

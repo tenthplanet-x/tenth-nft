@@ -1,0 +1,13 @@
+dependencies {
+
+    api project(":nft-convention")
+    api project(":nft-orm")
+    implementation libs.tpulse_convention
+
+    api libs.gs_httprouter
+    api libs.gs_router
+    api libs.gs_mongodb
+    api libs.gs_oss
+    api libs.starter_web
+
+}

@@ -2,7 +2,7 @@ package com.tenth.nft.crawler;
 
 import com.tenth.nft.convention.utils.Crons;
 import com.tenth.nft.crawler.sdk.alchemy.AlchemyProperties;
-import com.tenth.nft.crawler.service.NftBotProcessService;
+import com.tenth.nft.crawler.service.ExternalNftBotProcessService;
 import com.tpulse.gs.oss.qiniu.QiniuGsOssConfiguration;
 import com.tpulse.gs.scheduer.GsJob;
 import com.tpulse.gs.scheduer.GsScheduler;
@@ -26,8 +26,8 @@ public class NftCrawlerConfiguration implements SmartApplicationListener {
 
     @Bean
     @ConfigurationProperties("nft.crawler")
-    public NftCrawlerProperties nftCrawlerProperties(){
-        return new NftCrawlerProperties();
+    public ExternalNftCrawlerProperties nftCrawlerProperties(){
+        return new ExternalNftCrawlerProperties();
     }
 
     @Bean
@@ -44,7 +44,7 @@ public class NftCrawlerConfiguration implements SmartApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
         GsScheduler gsScheduler = ((ApplicationStartedEvent)event).getApplicationContext().getBean(GsScheduler.class);
-        NftBotProcessService nftBotProcessService = ((ApplicationStartedEvent)event).getApplicationContext().getBean(NftBotProcessService.class);
+        ExternalNftBotProcessService nftBotProcessService = ((ApplicationStartedEvent)event).getApplicationContext().getBean(ExternalNftBotProcessService.class);
         gsScheduler.schedule(
                 Crons.minute(),
                 new GsJob("nft-bot") {
