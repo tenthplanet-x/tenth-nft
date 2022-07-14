@@ -17,6 +17,8 @@ public class ListCancelEvent implements NftActivityEvent {
 
     private String currency;
 
+    private String reason;
+
     public Long getFrom() {
         return from;
     }
@@ -57,4 +59,11 @@ public class ListCancelEvent implements NftActivityEvent {
         this.to = to;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 }

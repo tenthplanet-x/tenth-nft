@@ -1,5 +1,6 @@
 package com.tenth.nft.exchange.dto;
 
+import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.entity.NftActivity;
@@ -37,6 +38,8 @@ public class NftActivityDTO {
     private Boolean canceled;
 
     private Long createdAt;
+
+    private String reason;
 
     public Long getId() {
         return id;
@@ -134,6 +137,14 @@ public class NftActivityDTO {
         this.createdAt = createdAt;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     public static NftActivityDTO from(NftExchange.NftActivityDTO nftActivityDTO) {
         NftActivityDTO dto = new NftActivityDTO();
         dto.setId(nftActivityDTO.getId());
@@ -162,6 +173,7 @@ public class NftActivityDTO {
         }
 
         dto.setCreatedAt(nftActivityDTO.getCreatedAt());
+        dto.setReason(nftActivityDTO.getReason());
         return dto;
     }
 
@@ -208,6 +220,9 @@ public class NftActivityDTO {
                 builder.setPrice(cancelEvent.getPrice());
                 builder.setQuantity(cancelEvent.getQuantity());
                 builder.setCanceled(true);
+                if(!Strings.isNullOrEmpty(cancelEvent.getReason())){
+                    builder.setReason(cancelEvent.getReason());
+                }
                 break;
         }
 

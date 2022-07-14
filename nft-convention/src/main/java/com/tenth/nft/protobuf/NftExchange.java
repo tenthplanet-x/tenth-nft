@@ -3425,6 +3425,23 @@ public final class NftExchange {
      * @return The createdAt.
      */
     long getCreatedAt();
+
+    /**
+     * <code>optional string reason = 11;</code>
+     * @return Whether the reason field is set.
+     */
+    boolean hasReason();
+    /**
+     * <code>optional string reason = 11;</code>
+     * @return The reason.
+     */
+    java.lang.String getReason();
+    /**
+     * <code>optional string reason = 11;</code>
+     * @return The bytes for reason.
+     */
+    com.google.protobuf.ByteString
+        getReasonBytes();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.NftActivityDTO}
@@ -3441,6 +3458,7 @@ public final class NftExchange {
     private NftActivityDTO() {
       event_ = "";
       currency_ = "";
+      reason_ = "";
     }
 
     @java.lang.Override
@@ -3524,6 +3542,12 @@ public final class NftExchange {
             case 80: {
               bitField0_ |= 0x00000200;
               createdAt_ = input.readInt64();
+              break;
+            }
+            case 90: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000400;
+              reason_ = bs;
               break;
             }
             default: {
@@ -3807,6 +3831,54 @@ public final class NftExchange {
       return createdAt_;
     }
 
+    public static final int REASON_FIELD_NUMBER = 11;
+    private volatile java.lang.Object reason_;
+    /**
+     * <code>optional string reason = 11;</code>
+     * @return Whether the reason field is set.
+     */
+    @java.lang.Override
+    public boolean hasReason() {
+      return ((bitField0_ & 0x00000400) != 0);
+    }
+    /**
+     * <code>optional string reason = 11;</code>
+     * @return The reason.
+     */
+    @java.lang.Override
+    public java.lang.String getReason() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          reason_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string reason = 11;</code>
+     * @return The bytes for reason.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getReasonBytes() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        reason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3863,6 +3935,9 @@ public final class NftExchange {
       if (((bitField0_ & 0x00000200) != 0)) {
         output.writeInt64(10, createdAt_);
       }
+      if (((bitField0_ & 0x00000400) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, reason_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -3909,6 +3984,9 @@ public final class NftExchange {
       if (((bitField0_ & 0x00000200) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(10, createdAt_);
+      }
+      if (((bitField0_ & 0x00000400) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, reason_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3976,6 +4054,11 @@ public final class NftExchange {
         if (getCreatedAt()
             != other.getCreatedAt()) return false;
       }
+      if (hasReason() != other.hasReason()) return false;
+      if (hasReason()) {
+        if (!getReason()
+            .equals(other.getReason())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -4033,6 +4116,10 @@ public final class NftExchange {
         hash = (37 * hash) + CREATEDAT_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getCreatedAt());
+      }
+      if (hasReason()) {
+        hash = (37 * hash) + REASON_FIELD_NUMBER;
+        hash = (53 * hash) + getReason().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -4187,6 +4274,8 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000100);
         createdAt_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000200);
+        reason_ = "";
+        bitField0_ = (bitField0_ & ~0x00000400);
         return this;
       }
 
@@ -4255,6 +4344,10 @@ public final class NftExchange {
           result.createdAt_ = createdAt_;
           to_bitField0_ |= 0x00000200;
         }
+        if (((from_bitField0_ & 0x00000400) != 0)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.reason_ = reason_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4337,6 +4430,11 @@ public final class NftExchange {
         }
         if (other.hasCreatedAt()) {
           setCreatedAt(other.getCreatedAt());
+        }
+        if (other.hasReason()) {
+          bitField0_ |= 0x00000400;
+          reason_ = other.reason_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4853,6 +4951,90 @@ public final class NftExchange {
       public Builder clearCreatedAt() {
         bitField0_ = (bitField0_ & ~0x00000200);
         createdAt_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object reason_ = "";
+      /**
+       * <code>optional string reason = 11;</code>
+       * @return Whether the reason field is set.
+       */
+      public boolean hasReason() {
+        return ((bitField0_ & 0x00000400) != 0);
+      }
+      /**
+       * <code>optional string reason = 11;</code>
+       * @return The reason.
+       */
+      public java.lang.String getReason() {
+        java.lang.Object ref = reason_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            reason_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 11;</code>
+       * @return The bytes for reason.
+       */
+      public com.google.protobuf.ByteString
+          getReasonBytes() {
+        java.lang.Object ref = reason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          reason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 11;</code>
+       * @param value The reason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000400;
+        reason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReason() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        reason_ = getDefaultInstance().getReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 11;</code>
+       * @param value The bytes for reason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000400;
+        reason_ = value;
         onChanged();
         return this;
       }
@@ -10457,6 +10639,23 @@ public final class NftExchange {
      * @return The seller.
      */
     long getSeller();
+
+    /**
+     * <code>required string reason = 4;</code>
+     * @return Whether the reason field is set.
+     */
+    boolean hasReason();
+    /**
+     * <code>required string reason = 4;</code>
+     * @return The reason.
+     */
+    java.lang.String getReason();
+    /**
+     * <code>required string reason = 4;</code>
+     * @return The bytes for reason.
+     */
+    com.google.protobuf.ByteString
+        getReasonBytes();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.SELL_CANCEL_IC}
@@ -10471,6 +10670,7 @@ public final class NftExchange {
       super(builder);
     }
     private SELL_CANCEL_IC() {
+      reason_ = "";
     }
 
     @java.lang.Override
@@ -10517,6 +10717,12 @@ public final class NftExchange {
             case 24: {
               bitField0_ |= 0x00000004;
               seller_ = input.readInt64();
+              break;
+            }
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000008;
+              reason_ = bs;
               break;
             }
             default: {
@@ -10609,6 +10815,54 @@ public final class NftExchange {
       return seller_;
     }
 
+    public static final int REASON_FIELD_NUMBER = 4;
+    private volatile java.lang.Object reason_;
+    /**
+     * <code>required string reason = 4;</code>
+     * @return Whether the reason field is set.
+     */
+    @java.lang.Override
+    public boolean hasReason() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>required string reason = 4;</code>
+     * @return The reason.
+     */
+    @java.lang.Override
+    public java.lang.String getReason() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          reason_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string reason = 4;</code>
+     * @return The bytes for reason.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getReasonBytes() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        reason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10628,6 +10882,10 @@ public final class NftExchange {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasReason()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -10643,6 +10901,9 @@ public final class NftExchange {
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         output.writeInt64(3, seller_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, reason_);
       }
       unknownFields.writeTo(output);
     }
@@ -10664,6 +10925,9 @@ public final class NftExchange {
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(3, seller_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, reason_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -10695,6 +10959,11 @@ public final class NftExchange {
         if (getSeller()
             != other.getSeller()) return false;
       }
+      if (hasReason() != other.hasReason()) return false;
+      if (hasReason()) {
+        if (!getReason()
+            .equals(other.getReason())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -10720,6 +10989,10 @@ public final class NftExchange {
         hash = (37 * hash) + SELLER_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getSeller());
+      }
+      if (hasReason()) {
+        hash = (37 * hash) + REASON_FIELD_NUMBER;
+        hash = (53 * hash) + getReason().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -10860,6 +11133,8 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000002);
         seller_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
+        reason_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -10900,6 +11175,10 @@ public final class NftExchange {
           result.seller_ = seller_;
           to_bitField0_ |= 0x00000004;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.reason_ = reason_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -10958,6 +11237,11 @@ public final class NftExchange {
         if (other.hasSeller()) {
           setSeller(other.getSeller());
         }
+        if (other.hasReason()) {
+          bitField0_ |= 0x00000008;
+          reason_ = other.reason_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -10972,6 +11256,9 @@ public final class NftExchange {
           return false;
         }
         if (!hasSeller()) {
+          return false;
+        }
+        if (!hasReason()) {
           return false;
         }
         return true;
@@ -11110,6 +11397,90 @@ public final class NftExchange {
       public Builder clearSeller() {
         bitField0_ = (bitField0_ & ~0x00000004);
         seller_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object reason_ = "";
+      /**
+       * <code>required string reason = 4;</code>
+       * @return Whether the reason field is set.
+       */
+      public boolean hasReason() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>required string reason = 4;</code>
+       * @return The reason.
+       */
+      public java.lang.String getReason() {
+        java.lang.Object ref = reason_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            reason_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string reason = 4;</code>
+       * @return The bytes for reason.
+       */
+      public com.google.protobuf.ByteString
+          getReasonBytes() {
+        java.lang.Object ref = reason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          reason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string reason = 4;</code>
+       * @param value The reason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        reason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string reason = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReason() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        reason_ = getDefaultInstance().getReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string reason = 4;</code>
+       * @param value The bytes for reason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        reason_ = value;
         onChanged();
         return this;
       }
@@ -20833,53 +21204,54 @@ public final class NftExchange {
       "ncy\030\005 \002(\t\022\017\n\007startAt\030\006 \002(\003\022\020\n\010expireAt\030\007" +
       " \002(\003\022\021\n\tcreatedAt\030\010 \002(\003\022\n\n\002id\030\t \002(\003\",\n\013N" +
       "ftOwnerDTO\022\013\n\003uid\030\001 \002(\003\022\020\n\010quantity\030\002 \002(" +
-      "\005\"\256\001\n\016NftActivityDTO\022\r\n\005event\030\001 \002(\t\022\014\n\004f" +
+      "\005\"\276\001\n\016NftActivityDTO\022\r\n\005event\030\001 \002(\t\022\014\n\004f" +
       "rom\030\002 \001(\003\022\n\n\002to\030\003 \001(\003\022\r\n\005price\030\004 \001(\002\022\020\n\010" +
       "currency\030\005 \001(\t\022\020\n\010quantity\030\006 \001(\005\022\n\n\002id\030\007" +
       " \002(\003\022\017\n\007expired\030\010 \001(\010\022\020\n\010canceled\030\t \001(\010\022" +
-      "\021\n\tcreatedAt\030\n \002(\003\"\276\001\n\023NftAssetsProfileD" +
-      "TO\022\n\n\002id\030\001 \002(\003\022\023\n\013totalVolume\030\002 \001(\002\022\020\n\010c" +
-      "urrency\030\003 \001(\t\022\016\n\006owners\030\004 \001(\003\022\022\n\nownerLi" +
-      "sts\030\005 \003(\003\022\014\n\004owns\030\006 \001(\005\022B\n\016currentListin" +
-      "g\030\007 \001(\0132*.com.ruixi.tpulse.convention.Nf" +
-      "tListingDTO\"\224\001\n\027NftCollectionProfileDTO\022" +
-      "\023\n\013totalVolume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016" +
-      "\n\006owners\030\004 \002(\003\022B\n\016currentListing\030\005 \001(\0132*" +
-      ".com.ruixi.tpulse.convention.NftListingD" +
-      "TO\"~\n\007SELL_IC\022\020\n\010assetsId\030\001 \002(\003\022\013\n\003uid\030\002" +
-      " \002(\003\022\020\n\010quantity\030\003 \002(\005\022\020\n\010currency\030\004 \002(\t" +
-      "\022\r\n\005price\030\005 \002(\002\022\017\n\007startAt\030\006 \002(\003\022\020\n\010expi" +
-      "reAt\030\007 \002(\003\"F\n\007SELL_IS\022;\n\007listing\030\001 \002(\0132*" +
-      ".com.ruixi.tpulse.convention.NftListingD" +
-      "TO\":\n\006BUY_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 " +
-      "\002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010\n\006BUY_IS\"E\n\016SELL" +
-      "_CANCEL_IC\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlistingI" +
-      "d\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\"\020\n\016SELL_CANCEL_I" +
-      "S\"C\n\017LISTING_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014" +
-      "\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017LISTIN" +
-      "G_LIST_IS\022<\n\010listings\030\001 \003(\0132*.com.ruixi." +
-      "tpulse.convention.NftListingDTO\"A\n\rOWNER" +
-      "_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005" +
-      "\022\020\n\010pageSize\030\003 \002(\005\"I\n\rOWNER_LIST_IS\0228\n\006o" +
-      "wners\030\001 \003(\0132(.com.ruixi.tpulse.conventio" +
-      "n.NftOwnerDTO\"S\n\020ACTIVITY_LIST_IC\022\020\n\010ass" +
-      "etsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 " +
-      "\002(\005\022\r\n\005event\030\004 \001(\t\"S\n\020ACTIVITY_LIST_IS\022?" +
-      "\n\nactivities\030\001 \003(\0132+.com.ruixi.tpulse.co" +
-      "nvention.NftActivityDTO\"i\n\007MINT_IC\022\022\n\nbl" +
-      "ockchain\030\001 \002(\t\022\027\n\017contractAddress\030\002 \001(\t\022" +
-      "\020\n\010assetsId\030\003 \002(\003\022\r\n\005owner\030\004 \002(\003\022\020\n\010quan" +
-      "tity\030\005 \002(\005\"@\n\007MINT_IS\0225\n\004mint\030\001 \002(\0132\'.co" +
-      "m.ruixi.tpulse.convention.NftMintDTO\"@\n\032" +
-      "ASSETS_EXCHANGE_PROFILE_IC\022\020\n\010assetsId\030\001" +
-      " \002(\003\022\020\n\010observer\030\002 \001(\003\"_\n\032ASSETS_EXCHANG" +
-      "E_PROFILE_IS\022A\n\007profile\030\001 \002(\01320.com.ruix" +
-      "i.tpulse.convention.NftAssetsProfileDTO\"" +
-      "3\n\036COLLECTION_EXCHANGE_PROFILE_IC\022\021\n\tass" +
-      "etsIds\030\001 \003(\003\"g\n\036COLLECTION_EXCHANGE_PROF" +
-      "ILE_IS\022E\n\007profile\030\001 \002(\01324.com.ruixi.tpul" +
-      "se.convention.NftCollectionProfileDTOB%\n" +
-      "\026com.tenth.nft.protobufB\013NftExchange"
+      "\021\n\tcreatedAt\030\n \002(\003\022\016\n\006reason\030\013 \001(\t\"\276\001\n\023N" +
+      "ftAssetsProfileDTO\022\n\n\002id\030\001 \002(\003\022\023\n\013totalV" +
+      "olume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016\n\006owners\030" +
+      "\004 \001(\003\022\022\n\nownerLists\030\005 \003(\003\022\014\n\004owns\030\006 \001(\005\022" +
+      "B\n\016currentListing\030\007 \001(\0132*.com.ruixi.tpul" +
+      "se.convention.NftListingDTO\"\224\001\n\027NftColle" +
+      "ctionProfileDTO\022\023\n\013totalVolume\030\002 \001(\002\022\020\n\010" +
+      "currency\030\003 \001(\t\022\016\n\006owners\030\004 \002(\003\022B\n\016curren" +
+      "tListing\030\005 \001(\0132*.com.ruixi.tpulse.conven" +
+      "tion.NftListingDTO\"~\n\007SELL_IC\022\020\n\010assetsI" +
+      "d\030\001 \002(\003\022\013\n\003uid\030\002 \002(\003\022\020\n\010quantity\030\003 \002(\005\022\020" +
+      "\n\010currency\030\004 \002(\t\022\r\n\005price\030\005 \002(\002\022\017\n\007start" +
+      "At\030\006 \002(\003\022\020\n\010expireAt\030\007 \002(\003\"F\n\007SELL_IS\022;\n" +
+      "\007listing\030\001 \002(\0132*.com.ruixi.tpulse.conven" +
+      "tion.NftListingDTO\":\n\006BUY_IC\022\013\n\003uid\030\001 \002(" +
+      "\003\022\020\n\010assetsId\030\002 \002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010" +
+      "\n\006BUY_IS\"U\n\016SELL_CANCEL_IC\022\020\n\010assetsId\030\001" +
+      " \002(\003\022\021\n\tlistingId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022" +
+      "\016\n\006reason\030\004 \002(\t\"\020\n\016SELL_CANCEL_IS\"C\n\017LIS" +
+      "TING_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002" +
+      " \002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017LISTING_LIST_I" +
+      "S\022<\n\010listings\030\001 \003(\0132*.com.ruixi.tpulse.c" +
+      "onvention.NftListingDTO\"A\n\rOWNER_LIST_IC" +
+      "\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010page" +
+      "Size\030\003 \002(\005\"I\n\rOWNER_LIST_IS\0228\n\006owners\030\001 " +
+      "\003(\0132(.com.ruixi.tpulse.convention.NftOwn" +
+      "erDTO\"S\n\020ACTIVITY_LIST_IC\022\020\n\010assetsId\030\001 " +
+      "\002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\022\r\n\005e" +
+      "vent\030\004 \001(\t\"S\n\020ACTIVITY_LIST_IS\022?\n\nactivi" +
+      "ties\030\001 \003(\0132+.com.ruixi.tpulse.convention" +
+      ".NftActivityDTO\"i\n\007MINT_IC\022\022\n\nblockchain" +
+      "\030\001 \002(\t\022\027\n\017contractAddress\030\002 \001(\t\022\020\n\010asset" +
+      "sId\030\003 \002(\003\022\r\n\005owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002" +
+      "(\005\"@\n\007MINT_IS\0225\n\004mint\030\001 \002(\0132\'.com.ruixi." +
+      "tpulse.convention.NftMintDTO\"@\n\032ASSETS_E" +
+      "XCHANGE_PROFILE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010" +
+      "observer\030\002 \001(\003\"_\n\032ASSETS_EXCHANGE_PROFIL" +
+      "E_IS\022A\n\007profile\030\001 \002(\01320.com.ruixi.tpulse" +
+      ".convention.NftAssetsProfileDTO\"3\n\036COLLE" +
+      "CTION_EXCHANGE_PROFILE_IC\022\021\n\tassetsIds\030\001" +
+      " \003(\003\"g\n\036COLLECTION_EXCHANGE_PROFILE_IS\022E" +
+      "\n\007profile\030\001 \002(\01324.com.ruixi.tpulse.conve" +
+      "ntion.NftCollectionProfileDTOB%\n\026com.ten" +
+      "th.nft.protobufB\013NftExchange"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -20908,7 +21280,7 @@ public final class NftExchange {
     internal_static_com_ruixi_tpulse_convention_NftActivityDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_NftActivityDTO_descriptor,
-        new java.lang.String[] { "Event", "From", "To", "Price", "Currency", "Quantity", "Id", "Expired", "Canceled", "CreatedAt", });
+        new java.lang.String[] { "Event", "From", "To", "Price", "Currency", "Quantity", "Id", "Expired", "Canceled", "CreatedAt", "Reason", });
     internal_static_com_ruixi_tpulse_convention_NftAssetsProfileDTO_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_com_ruixi_tpulse_convention_NftAssetsProfileDTO_fieldAccessorTable = new
@@ -20950,7 +21322,7 @@ public final class NftExchange {
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor,
-        new java.lang.String[] { "AssetsId", "ListingId", "Seller", });
+        new java.lang.String[] { "AssetsId", "ListingId", "Seller", "Reason", });
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_fieldAccessorTable = new

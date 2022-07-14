@@ -114,6 +114,7 @@ public class NftExchangeService {
                         .setAssetsId(request.getAssetsId())
                         .setListingId(request.getListingId())
                         .setSeller(uid)
+                        .setReason(ListCancelEventReason.FORCE.name())
                         .build(),
                 SellCancelRouteRequest.class
         );
@@ -132,9 +133,8 @@ public class NftExchangeService {
                 NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build()
         );
         if(null != nftListing){
-            sendCancelEvent(nftListing);
+            sendCancelEvent(nftListing, request.getReason());
         }
-
 
         return NftExchange.SELL_CANCEL_IS.newBuilder().build();
     }
@@ -161,9 +161,16 @@ public class NftExchangeService {
         if(Times.earlierThan(nftListing.getStartAt())){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NOT_START);
         }
-//        if(Times.isExpired(nftListing.getExpireAt())){
-//            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_EXPIRED);
-//        }
+        if(Times.isExpired(nftListing.getExpireAt())){
+            //cancel
+            sellCancel(NftExchange.SELL_CANCEL_IC.newBuilder()
+                    .setAssetsId(request.getAssetsId())
+                    .setListingId(request.getListingId())
+                    .setSeller(nftListing.getUid())
+                    .setReason(ListCancelEventReason.EXPIRED.name())
+                    .build());
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_EXPIRED);
+        }
         if(nftListing.getCanceled()){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_CANCELED);
         }
@@ -174,6 +181,7 @@ public class NftExchangeService {
                     .setAssetsId(request.getAssetsId())
                     .setListingId(request.getListingId())
                     .setSeller(nftListing.getUid())
+                    .setReason(ListCancelEventReason.QUANTITY.name())
                     .build());
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NO_ENOUGH_QUANTITY);
         }
@@ -286,6 +294,7 @@ public class NftExchangeService {
                                 .setAssetsId(nftListing.getAssetsId())
                                 .setListingId(history.getId())
                                 .setSeller(nftListing.getUid())
+                                .setReason(ListCancelEventReason.QUANTITY.name())
                                 .build());
                     }
                 });
@@ -470,7 +479,7 @@ public class NftExchangeService {
 
     }
 
-    private void sendCancelEvent(NftListing nftListing) {
+    private void sendCancelEvent(NftListing nftListing, String reason) {
 
         NftActivity activity = new NftActivity();
         activity.setAssetsId(nftListing.getAssetsId());
@@ -483,6 +492,7 @@ public class NftExchangeService {
         list.setQuantity(nftListing.getQuantity());
         list.setPrice(nftListing.getPrice());
         list.setCurrency(nftListing.getCurrency());
+        list.setReason(reason);
         activity.setCancel(list);
 
         nftActivityDao.insert(activity);
