@@ -2,6 +2,7 @@ package com.tenth.nft.exchange.dto;
 
 import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.entity.NftActivity;
 import com.tenth.nft.orm.marketplace.entity.event.ListCancelEvent;
@@ -189,6 +190,9 @@ public class NftActivityDTO {
             case Minted:
                 builder.setTo(nftActivity.getMint().getTo());
                 builder.setQuantity(nftActivity.getMint().getQuantity());
+                if(NullAddress.TOKEN.equals(nftActivity.getMint().getFrom())){
+                    builder.setFrom(0);
+                }
                 break;
             case List:
                 ListEvent listEvent = nftActivity.getList();
