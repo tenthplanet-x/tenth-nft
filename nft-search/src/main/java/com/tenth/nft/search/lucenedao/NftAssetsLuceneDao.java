@@ -67,7 +67,7 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
         try{
 
             BooleanQuery.Builder builder = new BooleanQuery.Builder();
-            builder.add(new BooleanClause(new TermQuery(new Term("owners", String.valueOf(request.getUid()))), BooleanClause.Occur.MUST));
+            builder.add(new BooleanClause(LongPoint.newExactQuery("owners", request.getUid()), BooleanClause.Occur.MUST));
             Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
             return find(builder.build(), request.getPage(), request.getPageSize(), sort).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
         }catch (Exception e){
@@ -102,7 +102,7 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
         dto.setCollectionId(assets.getCollectionId());
         //获取拥有者信息
         List<NftBelongIdDTO> belongs = nftBelongNoCacheDao.find(NftBelongQuery.newBuilder().assetsId(assets.getId()).build(), NftBelongIdDTO.class);
-        List<String> belongUids = belongs.stream().map(belong -> String.valueOf(belong.getOwner())).collect(Collectors.toList());
+        List<Long> belongUids = belongs.stream().map(belong -> belong.getOwner()).collect(Collectors.toList());
         dto.setOwners(belongUids);
 
         return dto;

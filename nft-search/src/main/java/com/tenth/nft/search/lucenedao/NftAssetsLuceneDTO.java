@@ -20,7 +20,7 @@ public class NftAssetsLuceneDTO {
     @LuceneDocumentField(sortable = true)
     private Long createdAt;
     @LuceneDocumentField
-    private List<String> owners;
+    private List<Long> owners;
 
     public Long getId() {
         return id;
@@ -46,11 +46,11 @@ public class NftAssetsLuceneDTO {
         this.createdAt = createdAt;
     }
 
-    public List<String> getOwners() {
+    public List<Long> getOwners() {
         return owners;
     }
 
-    public void setOwners(List<String> owners) {
+    public void setOwners(List<Long> owners) {
         this.owners = owners;
     }
 }
