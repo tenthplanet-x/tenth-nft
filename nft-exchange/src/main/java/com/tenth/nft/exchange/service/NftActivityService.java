@@ -44,12 +44,16 @@ public class NftActivityService {
 
     public Page<NftActivityDTO> list(NftActivityListRequest request) {
 
+        NftExchange.ACTIVITY_LIST_IC.Builder builder = NftExchange.ACTIVITY_LIST_IC.newBuilder();
+        builder.setAssetsId(request.getAssetsId())
+                .setPage(request.getPage())
+                .setPageSize(request.getPageSize());
+        if(null != request.getEvent()){
+            builder.setEvent(request.getEvent().name());
+        }
+
         List<NftActivityDTO> data = routeClient.send(
-                NftExchange.ACTIVITY_LIST_IC.newBuilder()
-                        .setAssetsId(request.getAssetsId())
-                        .setPage(request.getPage())
-                        .setPageSize(request.getPageSize())
-                        .build(),
+                builder.build(),
                 ActivityListRouteRequest.class
         ).getActivitiesList().stream().map(NftActivityDTO::from).collect(Collectors.toList());
 
@@ -81,6 +85,7 @@ public class NftActivityService {
         List<NftExchange.NftActivityDTO> dtos = nftActivityDao.findPage(
                 NftActivityQuery.newBuilder()
                         .assetsId(request.getAssetsId())
+                        .event(request.hasEvent()?request.getEvent(): null)
                         .setPage(page)
                         .setPageSize(pageSize)
                         .setSortField("_id")

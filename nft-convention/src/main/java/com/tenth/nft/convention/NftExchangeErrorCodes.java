@@ -15,7 +15,8 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     BUY_EXCEPTION_EXPIRED("8004", "expired"),
     BUY_EXCEPTION_CANCELED("8005", "canceled"),
     BUY_EXCEPTION_NO_ENOUGH_QUANTITY("8006", "no enough quantity"),
-    MINT_EXCEPTION("8007", "mint excepiton")
+    MINT_EXCEPTION("8007", "mint excepiton"),
+    SELL_CANCEL_EXCEPTION_NOT_EXIST("8008", "listing not exist")
     ;
 
     private String code;

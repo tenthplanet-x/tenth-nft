@@ -1,13 +1,14 @@
 package com.tenth.nft.exchange.controller.web;
 
 import com.tenth.nft.exchange.ExchangePaths;
-import com.tenth.nft.exchange.service.*;
 import com.tenth.nft.exchange.controller.vo.*;
 import com.tenth.nft.exchange.dto.NftActivityDTO;
 import com.tenth.nft.exchange.dto.NftListingDTO;
 import com.tenth.nft.exchange.dto.NftMintDTO;
 import com.tenth.nft.exchange.dto.NftOwnerDTO;
+import com.tenth.nft.exchange.service.*;
 import com.tenth.nft.exchange.vo.NftSellRequest;
+import com.tenth.nft.exchange.vo.SellCancelRequest;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.wallan.router.endpoint.core.security.HttpRoute;
@@ -39,6 +40,13 @@ public class NftExchangeController {
     public Response sell(@RequestBody NftSellRequest request){
         Validations.check(request);
         nftExchangeService.sell(request);
+        return Response.successBuilder().build();
+    }
+
+    @RequestMapping(ExchangePaths.SELL_CANCEL)
+    public Response sellCancel(@RequestBody SellCancelRequest request){
+        Validations.check(request);
+        nftExchangeService.sellCancel(request);
         return Response.successBuilder().build();
     }
 

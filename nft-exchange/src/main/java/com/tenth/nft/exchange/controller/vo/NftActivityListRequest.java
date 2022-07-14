@@ -1,5 +1,7 @@
 package com.tenth.nft.exchange.controller.vo;
 
+import com.tenth.nft.orm.marketplace.entity.NftActivityEvent;
+import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
 import com.tpulse.commons.biz.dto.PageRequest;
 
 import javax.validation.Valid;
@@ -14,11 +16,21 @@ public class NftActivityListRequest extends PageRequest {
     @NotNull
     private Long assetsId;
 
+    private NftActivityEventType event;
+
     public Long getAssetsId() {
         return assetsId;
     }
 
     public void setAssetsId(Long assetsId) {
         this.assetsId = assetsId;
+    }
+
+    public NftActivityEventType getEvent() {
+        return event;
+    }
+
+    public void setEvent(NftActivityEventType event) {
+        this.event = event;
     }
 }

@@ -14,6 +14,8 @@ public class NftActivityQuery extends SimplePageQuery {
     private Long id;
     @SimpleQueryParam
     private Long assetsId;
+    @SimpleQueryParam(name = "type")
+    private String event;
 
     public Long getId() {
         return id;
@@ -21,6 +23,10 @@ public class NftActivityQuery extends SimplePageQuery {
 
     public Long getAssetsId() {
         return assetsId;
+    }
+
+    public String getEvent() {
+        return event;
     }
 
     public static Builder newBuilder() {
@@ -43,6 +49,11 @@ public class NftActivityQuery extends SimplePageQuery {
 
         public Builder assetsId(Long assetsId) {
             query.assetsId = assetsId;
+            return this;
+        }
+
+        public Builder event(String event) {
+            query.event = event;
             return this;
         }
     }

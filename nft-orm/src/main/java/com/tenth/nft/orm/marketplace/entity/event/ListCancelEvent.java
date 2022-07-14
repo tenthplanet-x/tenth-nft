@@ -5,7 +5,7 @@ import com.tenth.nft.orm.marketplace.entity.NftActivityEvent;
 /**
  * @author shijie
  */
-public class ListEvent implements NftActivityEvent {
+public class ListCancelEvent implements NftActivityEvent {
 
     private Long from;
 

@@ -10421,6 +10421,1169 @@ public final class NftExchange {
 
   }
 
+  public interface SELL_CANCEL_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.SELL_CANCEL_IC)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    boolean hasAssetsId();
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    long getAssetsId();
+
+    /**
+     * <code>required int64 listingId = 2;</code>
+     * @return Whether the listingId field is set.
+     */
+    boolean hasListingId();
+    /**
+     * <code>required int64 listingId = 2;</code>
+     * @return The listingId.
+     */
+    long getListingId();
+
+    /**
+     * <code>required int64 seller = 3;</code>
+     * @return Whether the seller field is set.
+     */
+    boolean hasSeller();
+    /**
+     * <code>required int64 seller = 3;</code>
+     * @return The seller.
+     */
+    long getSeller();
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.SELL_CANCEL_IC}
+   */
+  public static final class SELL_CANCEL_IC extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.SELL_CANCEL_IC)
+      SELL_CANCEL_ICOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SELL_CANCEL_IC.newBuilder() to construct.
+    private SELL_CANCEL_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SELL_CANCEL_IC() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SELL_CANCEL_IC();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SELL_CANCEL_IC(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              assetsId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              listingId_ = input.readInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              seller_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC.class, com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ASSETSID_FIELD_NUMBER = 1;
+    private long assetsId_;
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    @java.lang.Override
+    public boolean hasAssetsId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    @java.lang.Override
+    public long getAssetsId() {
+      return assetsId_;
+    }
+
+    public static final int LISTINGID_FIELD_NUMBER = 2;
+    private long listingId_;
+    /**
+     * <code>required int64 listingId = 2;</code>
+     * @return Whether the listingId field is set.
+     */
+    @java.lang.Override
+    public boolean hasListingId() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required int64 listingId = 2;</code>
+     * @return The listingId.
+     */
+    @java.lang.Override
+    public long getListingId() {
+      return listingId_;
+    }
+
+    public static final int SELLER_FIELD_NUMBER = 3;
+    private long seller_;
+    /**
+     * <code>required int64 seller = 3;</code>
+     * @return Whether the seller field is set.
+     */
+    @java.lang.Override
+    public boolean hasSeller() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>required int64 seller = 3;</code>
+     * @return The seller.
+     */
+    @java.lang.Override
+    public long getSeller() {
+      return seller_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasAssetsId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasListingId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSeller()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, assetsId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeInt64(2, listingId_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeInt64(3, seller_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, assetsId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, listingId_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, seller_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC other = (com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC) obj;
+
+      if (hasAssetsId() != other.hasAssetsId()) return false;
+      if (hasAssetsId()) {
+        if (getAssetsId()
+            != other.getAssetsId()) return false;
+      }
+      if (hasListingId() != other.hasListingId()) return false;
+      if (hasListingId()) {
+        if (getListingId()
+            != other.getListingId()) return false;
+      }
+      if (hasSeller() != other.hasSeller()) return false;
+      if (hasSeller()) {
+        if (getSeller()
+            != other.getSeller()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasAssetsId()) {
+        hash = (37 * hash) + ASSETSID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getAssetsId());
+      }
+      if (hasListingId()) {
+        hash = (37 * hash) + LISTINGID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getListingId());
+      }
+      if (hasSeller()) {
+        hash = (37 * hash) + SELLER_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getSeller());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.SELL_CANCEL_IC}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.SELL_CANCEL_IC)
+        com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_ICOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC.class, com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        assetsId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        listingId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        seller_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC build() {
+        com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC result = new com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.assetsId_ = assetsId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.listingId_ = listingId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.seller_ = seller_;
+          to_bitField0_ |= 0x00000004;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC.getDefaultInstance()) return this;
+        if (other.hasAssetsId()) {
+          setAssetsId(other.getAssetsId());
+        }
+        if (other.hasListingId()) {
+          setListingId(other.getListingId());
+        }
+        if (other.hasSeller()) {
+          setSeller(other.getSeller());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasAssetsId()) {
+          return false;
+        }
+        if (!hasListingId()) {
+          return false;
+        }
+        if (!hasSeller()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long assetsId_ ;
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return Whether the assetsId field is set.
+       */
+      @java.lang.Override
+      public boolean hasAssetsId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return The assetsId.
+       */
+      @java.lang.Override
+      public long getAssetsId() {
+        return assetsId_;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @param value The assetsId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssetsId(long value) {
+        bitField0_ |= 0x00000001;
+        assetsId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAssetsId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        assetsId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long listingId_ ;
+      /**
+       * <code>required int64 listingId = 2;</code>
+       * @return Whether the listingId field is set.
+       */
+      @java.lang.Override
+      public boolean hasListingId() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required int64 listingId = 2;</code>
+       * @return The listingId.
+       */
+      @java.lang.Override
+      public long getListingId() {
+        return listingId_;
+      }
+      /**
+       * <code>required int64 listingId = 2;</code>
+       * @param value The listingId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setListingId(long value) {
+        bitField0_ |= 0x00000002;
+        listingId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 listingId = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearListingId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        listingId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long seller_ ;
+      /**
+       * <code>required int64 seller = 3;</code>
+       * @return Whether the seller field is set.
+       */
+      @java.lang.Override
+      public boolean hasSeller() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>required int64 seller = 3;</code>
+       * @return The seller.
+       */
+      @java.lang.Override
+      public long getSeller() {
+        return seller_;
+      }
+      /**
+       * <code>required int64 seller = 3;</code>
+       * @param value The seller to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSeller(long value) {
+        bitField0_ |= 0x00000004;
+        seller_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 seller = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSeller() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        seller_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.SELL_CANCEL_IC)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.SELL_CANCEL_IC)
+    private static final com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC();
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SELL_CANCEL_IC>
+        PARSER = new com.google.protobuf.AbstractParser<SELL_CANCEL_IC>() {
+      @java.lang.Override
+      public SELL_CANCEL_IC parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SELL_CANCEL_IC(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SELL_CANCEL_IC> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SELL_CANCEL_IC> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IC getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SELL_CANCEL_ISOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.SELL_CANCEL_IS)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.SELL_CANCEL_IS}
+   */
+  public static final class SELL_CANCEL_IS extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.SELL_CANCEL_IS)
+      SELL_CANCEL_ISOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SELL_CANCEL_IS.newBuilder() to construct.
+    private SELL_CANCEL_IS(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SELL_CANCEL_IS() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SELL_CANCEL_IS();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SELL_CANCEL_IS(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS.class, com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS other = (com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.SELL_CANCEL_IS}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.SELL_CANCEL_IS)
+        com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_ISOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS.class, com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS build() {
+        com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS result = new com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.SELL_CANCEL_IS)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.SELL_CANCEL_IS)
+    private static final com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS();
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SELL_CANCEL_IS>
+        PARSER = new com.google.protobuf.AbstractParser<SELL_CANCEL_IS>() {
+      @java.lang.Override
+      public SELL_CANCEL_IS parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SELL_CANCEL_IS(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SELL_CANCEL_IS> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SELL_CANCEL_IS> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.SELL_CANCEL_IS getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface LISTING_LIST_ICOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.LISTING_LIST_IC)
       com.google.protobuf.MessageOrBuilder {
@@ -13551,6 +14714,23 @@ public final class NftExchange {
      * @return The pageSize.
      */
     int getPageSize();
+
+    /**
+     * <code>optional string event = 4;</code>
+     * @return Whether the event field is set.
+     */
+    boolean hasEvent();
+    /**
+     * <code>optional string event = 4;</code>
+     * @return The event.
+     */
+    java.lang.String getEvent();
+    /**
+     * <code>optional string event = 4;</code>
+     * @return The bytes for event.
+     */
+    com.google.protobuf.ByteString
+        getEventBytes();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.ACTIVITY_LIST_IC}
@@ -13565,6 +14745,7 @@ public final class NftExchange {
       super(builder);
     }
     private ACTIVITY_LIST_IC() {
+      event_ = "";
     }
 
     @java.lang.Override
@@ -13611,6 +14792,12 @@ public final class NftExchange {
             case 24: {
               bitField0_ |= 0x00000004;
               pageSize_ = input.readInt32();
+              break;
+            }
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000008;
+              event_ = bs;
               break;
             }
             default: {
@@ -13703,6 +14890,54 @@ public final class NftExchange {
       return pageSize_;
     }
 
+    public static final int EVENT_FIELD_NUMBER = 4;
+    private volatile java.lang.Object event_;
+    /**
+     * <code>optional string event = 4;</code>
+     * @return Whether the event field is set.
+     */
+    @java.lang.Override
+    public boolean hasEvent() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>optional string event = 4;</code>
+     * @return The event.
+     */
+    @java.lang.Override
+    public java.lang.String getEvent() {
+      java.lang.Object ref = event_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          event_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string event = 4;</code>
+     * @return The bytes for event.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEventBytes() {
+      java.lang.Object ref = event_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        event_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -13738,6 +14973,9 @@ public final class NftExchange {
       if (((bitField0_ & 0x00000004) != 0)) {
         output.writeInt32(3, pageSize_);
       }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, event_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -13758,6 +14996,9 @@ public final class NftExchange {
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, pageSize_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, event_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -13789,6 +15030,11 @@ public final class NftExchange {
         if (getPageSize()
             != other.getPageSize()) return false;
       }
+      if (hasEvent() != other.hasEvent()) return false;
+      if (hasEvent()) {
+        if (!getEvent()
+            .equals(other.getEvent())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -13812,6 +15058,10 @@ public final class NftExchange {
       if (hasPageSize()) {
         hash = (37 * hash) + PAGESIZE_FIELD_NUMBER;
         hash = (53 * hash) + getPageSize();
+      }
+      if (hasEvent()) {
+        hash = (37 * hash) + EVENT_FIELD_NUMBER;
+        hash = (53 * hash) + getEvent().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -13952,6 +15202,8 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000002);
         pageSize_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        event_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -13992,6 +15244,10 @@ public final class NftExchange {
           result.pageSize_ = pageSize_;
           to_bitField0_ |= 0x00000004;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.event_ = event_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -14049,6 +15305,11 @@ public final class NftExchange {
         }
         if (other.hasPageSize()) {
           setPageSize(other.getPageSize());
+        }
+        if (other.hasEvent()) {
+          bitField0_ |= 0x00000008;
+          event_ = other.event_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -14202,6 +15463,90 @@ public final class NftExchange {
       public Builder clearPageSize() {
         bitField0_ = (bitField0_ & ~0x00000004);
         pageSize_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object event_ = "";
+      /**
+       * <code>optional string event = 4;</code>
+       * @return Whether the event field is set.
+       */
+      public boolean hasEvent() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>optional string event = 4;</code>
+       * @return The event.
+       */
+      public java.lang.String getEvent() {
+        java.lang.Object ref = event_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            event_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string event = 4;</code>
+       * @return The bytes for event.
+       */
+      public com.google.protobuf.ByteString
+          getEventBytes() {
+        java.lang.Object ref = event_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          event_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string event = 4;</code>
+       * @param value The event to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEvent(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        event_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string event = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEvent() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        event_ = getDefaultInstance().getEvent();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string event = 4;</code>
+       * @param value The bytes for event to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        event_ = value;
         onChanged();
         return this;
       }
@@ -19401,6 +20746,16 @@ public final class NftExchange {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_ruixi_tpulse_convention_BUY_IS_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ruixi_tpulse_convention_LISTING_LIST_IC_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -19497,32 +20852,34 @@ public final class NftExchange {
       "reAt\030\007 \002(\003\"F\n\007SELL_IS\022;\n\007listing\030\001 \002(\0132*" +
       ".com.ruixi.tpulse.convention.NftListingD" +
       "TO\":\n\006BUY_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 " +
-      "\002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010\n\006BUY_IS\"C\n\017LIST" +
-      "ING_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 " +
-      "\002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017LISTING_LIST_IS" +
-      "\022<\n\010listings\030\001 \003(\0132*.com.ruixi.tpulse.co" +
-      "nvention.NftListingDTO\"A\n\rOWNER_LIST_IC\022" +
-      "\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageS" +
-      "ize\030\003 \002(\005\"I\n\rOWNER_LIST_IS\0228\n\006owners\030\001 \003" +
-      "(\0132(.com.ruixi.tpulse.convention.NftOwne" +
-      "rDTO\"D\n\020ACTIVITY_LIST_IC\022\020\n\010assetsId\030\001 \002" +
-      "(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"S\n\020AC" +
-      "TIVITY_LIST_IS\022?\n\nactivities\030\001 \003(\0132+.com" +
-      ".ruixi.tpulse.convention.NftActivityDTO\"" +
-      "i\n\007MINT_IC\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017contra" +
-      "ctAddress\030\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r\n\005own" +
-      "er\030\004 \002(\003\022\020\n\010quantity\030\005 \002(\005\"@\n\007MINT_IS\0225\n" +
-      "\004mint\030\001 \002(\0132\'.com.ruixi.tpulse.conventio" +
-      "n.NftMintDTO\"@\n\032ASSETS_EXCHANGE_PROFILE_" +
-      "IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010observer\030\002 \001(\003\"_" +
-      "\n\032ASSETS_EXCHANGE_PROFILE_IS\022A\n\007profile\030" +
-      "\001 \002(\01320.com.ruixi.tpulse.convention.NftA" +
-      "ssetsProfileDTO\"3\n\036COLLECTION_EXCHANGE_P" +
-      "ROFILE_IC\022\021\n\tassetsIds\030\001 \003(\003\"g\n\036COLLECTI" +
-      "ON_EXCHANGE_PROFILE_IS\022E\n\007profile\030\001 \002(\0132" +
-      "4.com.ruixi.tpulse.convention.NftCollect" +
-      "ionProfileDTOB%\n\026com.tenth.nft.protobufB" +
-      "\013NftExchange"
+      "\002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010\n\006BUY_IS\"E\n\016SELL" +
+      "_CANCEL_IC\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlistingI" +
+      "d\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\"\020\n\016SELL_CANCEL_I" +
+      "S\"C\n\017LISTING_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014" +
+      "\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017LISTIN" +
+      "G_LIST_IS\022<\n\010listings\030\001 \003(\0132*.com.ruixi." +
+      "tpulse.convention.NftListingDTO\"A\n\rOWNER" +
+      "_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005" +
+      "\022\020\n\010pageSize\030\003 \002(\005\"I\n\rOWNER_LIST_IS\0228\n\006o" +
+      "wners\030\001 \003(\0132(.com.ruixi.tpulse.conventio" +
+      "n.NftOwnerDTO\"S\n\020ACTIVITY_LIST_IC\022\020\n\010ass" +
+      "etsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 " +
+      "\002(\005\022\r\n\005event\030\004 \001(\t\"S\n\020ACTIVITY_LIST_IS\022?" +
+      "\n\nactivities\030\001 \003(\0132+.com.ruixi.tpulse.co" +
+      "nvention.NftActivityDTO\"i\n\007MINT_IC\022\022\n\nbl" +
+      "ockchain\030\001 \002(\t\022\027\n\017contractAddress\030\002 \001(\t\022" +
+      "\020\n\010assetsId\030\003 \002(\003\022\r\n\005owner\030\004 \002(\003\022\020\n\010quan" +
+      "tity\030\005 \002(\005\"@\n\007MINT_IS\0225\n\004mint\030\001 \002(\0132\'.co" +
+      "m.ruixi.tpulse.convention.NftMintDTO\"@\n\032" +
+      "ASSETS_EXCHANGE_PROFILE_IC\022\020\n\010assetsId\030\001" +
+      " \002(\003\022\020\n\010observer\030\002 \001(\003\"_\n\032ASSETS_EXCHANG" +
+      "E_PROFILE_IS\022A\n\007profile\030\001 \002(\01320.com.ruix" +
+      "i.tpulse.convention.NftAssetsProfileDTO\"" +
+      "3\n\036COLLECTION_EXCHANGE_PROFILE_IC\022\021\n\tass" +
+      "etsIds\030\001 \003(\003\"g\n\036COLLECTION_EXCHANGE_PROF" +
+      "ILE_IS\022E\n\007profile\030\001 \002(\01324.com.ruixi.tpul" +
+      "se.convention.NftCollectionProfileDTOB%\n" +
+      "\026com.tenth.nft.protobufB\013NftExchange"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -19588,74 +20945,86 @@ public final class NftExchange {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_BUY_IS_descriptor,
         new java.lang.String[] { });
-    internal_static_com_ruixi_tpulse_convention_LISTING_LIST_IC_descriptor =
+    internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor =
       getDescriptor().getMessageTypes().get(10);
+    internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor,
+        new java.lang.String[] { "AssetsId", "ListingId", "Seller", });
+    internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IS_descriptor,
+        new java.lang.String[] { });
+    internal_static_com_ruixi_tpulse_convention_LISTING_LIST_IC_descriptor =
+      getDescriptor().getMessageTypes().get(12);
     internal_static_com_ruixi_tpulse_convention_LISTING_LIST_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_LISTING_LIST_IC_descriptor,
         new java.lang.String[] { "AssetsId", "Page", "PageSize", });
     internal_static_com_ruixi_tpulse_convention_LISTING_LIST_IS_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_com_ruixi_tpulse_convention_LISTING_LIST_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_LISTING_LIST_IS_descriptor,
         new java.lang.String[] { "Listings", });
     internal_static_com_ruixi_tpulse_convention_OWNER_LIST_IC_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_com_ruixi_tpulse_convention_OWNER_LIST_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_OWNER_LIST_IC_descriptor,
         new java.lang.String[] { "AssetsId", "Page", "PageSize", });
     internal_static_com_ruixi_tpulse_convention_OWNER_LIST_IS_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_com_ruixi_tpulse_convention_OWNER_LIST_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_OWNER_LIST_IS_descriptor,
         new java.lang.String[] { "Owners", });
     internal_static_com_ruixi_tpulse_convention_ACTIVITY_LIST_IC_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_com_ruixi_tpulse_convention_ACTIVITY_LIST_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_ACTIVITY_LIST_IC_descriptor,
-        new java.lang.String[] { "AssetsId", "Page", "PageSize", });
+        new java.lang.String[] { "AssetsId", "Page", "PageSize", "Event", });
     internal_static_com_ruixi_tpulse_convention_ACTIVITY_LIST_IS_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_com_ruixi_tpulse_convention_ACTIVITY_LIST_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_ACTIVITY_LIST_IS_descriptor,
         new java.lang.String[] { "Activities", });
     internal_static_com_ruixi_tpulse_convention_MINT_IC_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_com_ruixi_tpulse_convention_MINT_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_MINT_IC_descriptor,
         new java.lang.String[] { "Blockchain", "ContractAddress", "AssetsId", "Owner", "Quantity", });
     internal_static_com_ruixi_tpulse_convention_MINT_IS_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_com_ruixi_tpulse_convention_MINT_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_MINT_IS_descriptor,
         new java.lang.String[] { "Mint", });
     internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IC_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IC_descriptor,
         new java.lang.String[] { "AssetsId", "Observer", });
     internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IS_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IS_descriptor,
         new java.lang.String[] { "Profile", });
     internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IC_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IC_descriptor,
         new java.lang.String[] { "AssetsIds", });
     internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IS_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IS_descriptor,
