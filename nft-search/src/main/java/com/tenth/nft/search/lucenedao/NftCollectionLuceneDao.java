@@ -109,8 +109,13 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
         try{
 
             BooleanQuery.Builder builder = new BooleanQuery.Builder();
-            Query query = LongPoint.newExactQuery("categoryNull", 0);
-            builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
+            if(null != request.getCategoryId()){
+                Query query = LongPoint.newExactQuery("category", request.getCategoryId());
+                builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
+            }else{
+                Query query = LongPoint.newExactQuery("categoryNull", 0);
+                builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
+            }
             Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
             return find(builder.build(), request.getPage(), request.getPageSize(), sort).stream()
                     .map(document -> Long.valueOf(document.get("id")))

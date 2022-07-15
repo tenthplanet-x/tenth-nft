@@ -22,6 +22,7 @@ import com.tenth.nft.search.lucenedao.NftCollectionLuceneDao;
 import com.tenth.nft.search.vo.CollectionDetailSearchRequest;
 import com.tenth.nft.search.vo.CollectionListSearchRequest;
 import com.tenth.nft.search.vo.CollectionLuceneSearchParams;
+import com.tenth.nft.search.vo.CollectionRecommentListSearchRequest;
 import com.tpulse.commons.biz.dto.PageRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -154,13 +155,14 @@ public class CollectionSearchService {
     }
 
 
-    public Page<CollectionSearchDTO> recommendList(PageRequest request) {
+    public Page<CollectionSearchDTO> recommendList(CollectionRecommentListSearchRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
         List<Long> page = nftCollectionLuceneDao.recommendList(CollectionLuceneSearchParams.newBuilder()
                 .page(request.getPage())
                 .pageSize(request.getPageSize())
+                        .categoryId(request.getCategoryId())
                 .build());
 
         if(!page.isEmpty()){
