@@ -62,6 +62,7 @@ public class NftBlockchainService {
         nftBlockchain.setLabel(request.getLabel());
         nftBlockchain.setEnable(request.getEnable());
         nftBlockchain.setOrder(request.getOrder());
+        nftBlockchain.setIcon(request.getIcon());
         nftBlockchainDao.insert(nftBlockchain);
 
         rebuildCache();
@@ -76,6 +77,7 @@ public class NftBlockchainService {
                                 .setCode(request.getCode())
                                 .setLabel(request.getLabel())
                                 .setEnable(request.getEnable())
+                                .setIcon(request.getIcon())
                         .order(request.getOrder())
                         .build()
         );

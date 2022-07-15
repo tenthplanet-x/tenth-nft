@@ -24,6 +24,9 @@ public class NftBlockchainUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private Integer order;
 
+    @SimpleWriteParam
+    private String icon;
+
     public Long getUpdatedAt() {
         return updatedAt;
     }
@@ -42,6 +45,10 @@ public class NftBlockchainUpdate extends SimpleUpdate {
 
     public Integer getOrder() {
         return order;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 
     public static Builder newBuilder(){
@@ -73,6 +80,11 @@ public class NftBlockchainUpdate extends SimpleUpdate {
 
         public Builder order(Integer order) {
             update.order = order;
+            return this;
+        }
+
+        public Builder setIcon(String icon) {
+            update.icon = icon;
             return this;
         }
     }

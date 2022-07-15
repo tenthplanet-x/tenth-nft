@@ -12,6 +12,8 @@ public class BlockchainSearchDTO implements SimpleResponse {
     private String code;
     @SimpleField
     private String label;
+    @SimpleField
+    private String icon;
 
     public String getCode() {
         return code;
@@ -27,5 +29,13 @@ public class BlockchainSearchDTO implements SimpleResponse {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

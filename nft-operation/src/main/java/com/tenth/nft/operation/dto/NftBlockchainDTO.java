@@ -24,6 +24,9 @@ public class NftBlockchainDTO implements SimpleResponse {
     @SimpleField
     private Integer order;
 
+    @SimpleField
+    private String icon;
+
     public Long getId() {
         return id;
     }
@@ -62,5 +65,13 @@ public class NftBlockchainDTO implements SimpleResponse {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
