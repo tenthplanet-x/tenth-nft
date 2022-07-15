@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.entity;
 
+import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import org.hibernate.validator.internal.constraintvalidators.bv.time.past.PastValidatorForReadableInstant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -9,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author shijie
  */
 @Document("tpulse.nft_exchange_listing")
+@SimpleCache(cacheField = "assetsId")
 public class NftListing {
 
     @Id

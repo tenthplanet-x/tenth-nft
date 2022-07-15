@@ -49,6 +49,8 @@ public class AssetsSearchDTO implements SimpleResponse {
     @SimpleField
     private Long creator;
 
+    private AssetsDetailSearchDTO.ListingDTO currentListing;
+
     public Long getId() {
         return id;
     }
@@ -151,5 +153,13 @@ public class AssetsSearchDTO implements SimpleResponse {
 
     public void setCreator(Long creator) {
         this.creator = creator;
+    }
+
+    public AssetsDetailSearchDTO.ListingDTO getCurrentListing() {
+        return currentListing;
+    }
+
+    public void setCurrentListing(AssetsDetailSearchDTO.ListingDTO currentListing) {
+        this.currentListing = currentListing;
     }
 }

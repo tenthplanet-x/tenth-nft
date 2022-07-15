@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftModules;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
+import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.routes.exchange.MintRouteRequest;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
@@ -62,6 +63,18 @@ public class NftAssetsService {
                         .build(),
                 NftAssetsDTO.class
         );
+
+        for(NftAssetsDTO dto: dataPage.getData()){
+            NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
+                    NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
+                            .setAssetsId(dto.getId())
+                            .build(),
+                    AssetsExchangeProfileRouteRequest.class
+            ).getProfile();
+            if(exchangeProfile.hasCurrentListing()){
+                dto.setCurrentListing(NftAssetsDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
+            }
+        }
 
         return dataPage;
     }

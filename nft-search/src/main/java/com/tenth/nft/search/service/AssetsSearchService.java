@@ -45,10 +45,23 @@ public class AssetsSearchService {
         List<Long> page = nftAssetsLuceneDao.list(request);
         if(!page.isEmpty()){
             List<AssetsSearchDTO> assets = page.stream().map(id -> {
-                return nftAssetsDao.findOne(
+                AssetsSearchDTO assetsSearchDTO = nftAssetsDao.findOne(
                         NftAssetsQuery.newBuilder().id(id).build(),
                         AssetsSearchDTO.class
                 );
+
+                NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
+                        NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
+                                .setAssetsId(id)
+                                .build(),
+                        AssetsExchangeProfileRouteRequest.class
+                ).getProfile();
+                if(exchangeProfile.hasCurrentListing()){
+                    assetsSearchDTO.setCurrentListing(AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
+                }
+
+                return assetsSearchDTO;
+
             }).collect(Collectors.toList());
             return new Page<>(
                     0,
