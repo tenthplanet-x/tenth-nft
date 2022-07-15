@@ -42,7 +42,7 @@ message NftAssetsProfileDTO{
   required int64 id = 1;
   optional float totalVolume = 2;
   optional string currency = 3;
-  optional int64 owners = 4;
+  optional int32 owners = 4;
   repeated int64 ownerLists = 5;
   optional int32 owns = 6;
   optional NftListingDTO currentListing = 7;

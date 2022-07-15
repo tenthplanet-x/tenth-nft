@@ -100,6 +100,8 @@ public class AssetsSearchService {
             dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
             dto.setCurrency(exchangeProfile.getCurrency());
         }
+        dto.setOwners(exchangeProfile.getOwners());
+
         dto.setOwns(exchangeProfile.getOwns());
 
         if(dto.getSupply() == 1){

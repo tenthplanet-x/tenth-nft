@@ -5135,15 +5135,15 @@ public final class NftExchange {
         getCurrencyBytes();
 
     /**
-     * <code>optional int64 owners = 4;</code>
+     * <code>optional int32 owners = 4;</code>
      * @return Whether the owners field is set.
      */
     boolean hasOwners();
     /**
-     * <code>optional int64 owners = 4;</code>
+     * <code>optional int32 owners = 4;</code>
      * @return The owners.
      */
-    long getOwners();
+    int getOwners();
 
     /**
      * <code>repeated int64 ownerLists = 5;</code>
@@ -5254,7 +5254,7 @@ public final class NftExchange {
             }
             case 32: {
               bitField0_ |= 0x00000008;
-              owners_ = input.readInt64();
+              owners_ = input.readInt32();
               break;
             }
             case 40: {
@@ -5419,9 +5419,9 @@ public final class NftExchange {
     }
 
     public static final int OWNERS_FIELD_NUMBER = 4;
-    private long owners_;
+    private int owners_;
     /**
-     * <code>optional int64 owners = 4;</code>
+     * <code>optional int32 owners = 4;</code>
      * @return Whether the owners field is set.
      */
     @java.lang.Override
@@ -5429,11 +5429,11 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000008) != 0);
     }
     /**
-     * <code>optional int64 owners = 4;</code>
+     * <code>optional int32 owners = 4;</code>
      * @return The owners.
      */
     @java.lang.Override
-    public long getOwners() {
+    public int getOwners() {
       return owners_;
     }
 
@@ -5543,7 +5543,7 @@ public final class NftExchange {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, currency_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
-        output.writeInt64(4, owners_);
+        output.writeInt32(4, owners_);
       }
       for (int i = 0; i < ownerLists_.size(); i++) {
         output.writeInt64(5, ownerLists_.getLong(i));
@@ -5576,7 +5576,7 @@ public final class NftExchange {
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, owners_);
+          .computeInt32Size(4, owners_);
       }
       {
         int dataSize = 0;
@@ -5670,8 +5670,7 @@ public final class NftExchange {
       }
       if (hasOwners()) {
         hash = (37 * hash) + OWNERS_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOwners());
+        hash = (53 * hash) + getOwners();
       }
       if (getOwnerListsCount() > 0) {
         hash = (37 * hash) + OWNERLISTS_FIELD_NUMBER;
@@ -5825,7 +5824,7 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000002);
         currency_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        owners_ = 0L;
+        owners_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
         ownerLists_ = emptyLongList();
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -6177,9 +6176,9 @@ public final class NftExchange {
         return this;
       }
 
-      private long owners_ ;
+      private int owners_ ;
       /**
-       * <code>optional int64 owners = 4;</code>
+       * <code>optional int32 owners = 4;</code>
        * @return Whether the owners field is set.
        */
       @java.lang.Override
@@ -6187,31 +6186,31 @@ public final class NftExchange {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>optional int64 owners = 4;</code>
+       * <code>optional int32 owners = 4;</code>
        * @return The owners.
        */
       @java.lang.Override
-      public long getOwners() {
+      public int getOwners() {
         return owners_;
       }
       /**
-       * <code>optional int64 owners = 4;</code>
+       * <code>optional int32 owners = 4;</code>
        * @param value The owners to set.
        * @return This builder for chaining.
        */
-      public Builder setOwners(long value) {
+      public Builder setOwners(int value) {
         bitField0_ |= 0x00000008;
         owners_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 owners = 4;</code>
+       * <code>optional int32 owners = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearOwners() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        owners_ = 0L;
+        owners_ = 0;
         onChanged();
         return this;
       }
@@ -21211,7 +21210,7 @@ public final class NftExchange {
       "\021\n\tcreatedAt\030\n \002(\003\022\016\n\006reason\030\013 \001(\t\"\276\001\n\023N" +
       "ftAssetsProfileDTO\022\n\n\002id\030\001 \002(\003\022\023\n\013totalV" +
       "olume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016\n\006owners\030" +
-      "\004 \001(\003\022\022\n\nownerLists\030\005 \003(\003\022\014\n\004owns\030\006 \001(\005\022" +
+      "\004 \001(\005\022\022\n\nownerLists\030\005 \003(\003\022\014\n\004owns\030\006 \001(\005\022" +
       "B\n\016currentListing\030\007 \001(\0132*.com.ruixi.tpul" +
       "se.convention.NftListingDTO\"\224\001\n\027NftColle" +
       "ctionProfileDTO\022\023\n\013totalVolume\030\002 \001(\002\022\020\n\010" +

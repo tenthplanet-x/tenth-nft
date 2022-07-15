@@ -22,6 +22,8 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
     //仅只有一个拥有者时，使用
     private UserProfileDTO ownerProfile;
 
+    private int owners;
+
     public UserProfileDTO getCreatorProfile() {
         return creatorProfile;
     }
@@ -68,6 +70,14 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
 
     public void setOwnerProfile(UserProfileDTO ownerProfile) {
         this.ownerProfile = ownerProfile;
+    }
+
+    public int getOwners() {
+        return owners;
+    }
+
+    public void setOwners(int owners) {
+        this.owners = owners;
     }
 
     public static class ListingDTO{
