@@ -9,6 +9,6 @@ public class PricesTest {
 
     @Test
     public void test(){
-        System.out.println(Prices.toString(0.01f));
+//        System.out.println(Prices.toString(0.01f));
     }
 }

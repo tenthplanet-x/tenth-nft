@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * @author shijie
  */
-@Document("tpulse.nft_currency")
+@Document("tpulse.nft_currency_v1")
 @SimpleCache(cacheField = "version")
 public class NftCurrency {
 
@@ -43,9 +43,9 @@ public class NftCurrency {
 
     private String icon;
 
-    private Float min;
+    private String min;
 
-    private Float max;
+    private String max;
 
     public Long getId() {
         return id;
@@ -159,20 +159,19 @@ public class NftCurrency {
         this.icon = icon;
     }
 
-    public Float getMin() {
+    public String getMin() {
         return min;
     }
 
-    public void setMin(Float min) {
+    public void setMin(String min) {
         this.min = min;
     }
 
-    public Float getMax() {
+    public String getMax() {
         return max;
     }
 
-    public void setMax(Float max) {
+    public void setMax(String max) {
         this.max = max;
     }
-
 }

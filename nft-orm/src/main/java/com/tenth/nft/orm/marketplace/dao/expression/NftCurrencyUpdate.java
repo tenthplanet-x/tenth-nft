@@ -37,9 +37,9 @@ public class NftCurrencyUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private String icon;
     @SimpleWriteParam
-    private Float min;
+    private String min;
     @SimpleWriteParam
-    private Float max;
+    private String max;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -85,11 +85,11 @@ public class NftCurrencyUpdate extends SimpleUpdate {
         return icon;
     }
 
-    public Float getMin() {
+    public String getMin() {
         return min;
     }
 
-    public Float getMax() {
+    public String getMax() {
         return max;
     }
 
@@ -155,12 +155,12 @@ public class NftCurrencyUpdate extends SimpleUpdate {
             return this;
         }
 
-        public Builder setMin(Float min) {
+        public Builder setMin(String min) {
             update.min = min;
             return this;
         }
 
-        public Builder setMax(Float max) {
+        public Builder setMax(String max) {
             update.max = max;
             return this;
         }
