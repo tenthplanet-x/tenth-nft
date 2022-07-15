@@ -58,7 +58,7 @@ public class CollectionSearchService {
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
         List<Long> page = nftCollectionLuceneDao.list(CollectionLuceneSearchParams.newBuilder()
-                .uid(uid)
+                .uid(request.getUid())
                 .categoryId(request.getCategoryId())
                 .page(request.getPage())
                 .pageSize(request.getPageSize()).build());
