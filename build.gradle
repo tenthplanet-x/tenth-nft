@@ -91,13 +91,13 @@ ext {
 
 allprojects{
     group 'com.tenth.nft'
-    version "0.0.1_20220714_006-SNAPSHOT"
+    version "0.0.1_20220715_007-SNAPSHOT"
 
     repositories {
         maven {
             url 'https://maven.aliyun.com/repository/public'
         }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/gradlenf-plugin' }
         maven { url 'https://maven.aliyun.com/repository/jcenter'}
         maven { url 'https://maven.aliyun.com/repository/jcenter'}
 

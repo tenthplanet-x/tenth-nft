@@ -25,9 +25,9 @@ public class CurrencySearchDTO implements SimpleResponse {
     private String exchangeRate;
     @SimpleField
     private String icon;
-    @SimpleField(decoder = PricesToStringDecoder.class)
+    @SimpleField
     private String min;
-    @SimpleField(decoder = PricesToStringDecoder.class)
+    @SimpleField
     private String max;
 
     private String blockchainLabel;
