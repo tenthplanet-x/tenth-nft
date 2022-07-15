@@ -102,6 +102,14 @@ public class AssetsSearchService {
         }
         dto.setOwns(exchangeProfile.getOwns());
 
+        if(dto.getSupply() == 1){
+            Search.SearchUserDTO ownerUserDTO = routeClient.send(
+                    Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(exchangeProfile.getOwnerListsList()).build(),
+                    SearchUserProfileRouteRequest.class
+            ).getProfiles(0);
+            dto.setOwnerProfile(NftUserProfileDTO.from(ownerUserDTO));
+        }
+
         return dto;
     }
 

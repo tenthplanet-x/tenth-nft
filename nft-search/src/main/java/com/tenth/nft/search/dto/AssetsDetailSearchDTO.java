@@ -19,6 +19,9 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
 
     private ListingDTO currentListing;
 
+    //仅只有一个拥有者时，使用
+    private UserProfileDTO ownerProfile;
+
     public UserProfileDTO getCreatorProfile() {
         return creatorProfile;
     }
@@ -57,6 +60,14 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
 
     public void setCurrentListing(ListingDTO currentListing) {
         this.currentListing = currentListing;
+    }
+
+    public UserProfileDTO getOwnerProfile() {
+        return ownerProfile;
+    }
+
+    public void setOwnerProfile(UserProfileDTO ownerProfile) {
+        this.ownerProfile = ownerProfile;
     }
 
     public static class ListingDTO{

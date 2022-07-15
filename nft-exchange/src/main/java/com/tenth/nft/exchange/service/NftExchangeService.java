@@ -360,6 +360,10 @@ public class NftExchangeService {
         if(!needOwnerUids){
             long owners = nftBelongDao.count(NftBelongQuery.newBuilder().assetsId(assetsId).build());
             profileBuilder.setOwners((int)owners);
+            if(owners == 1){
+                NftBelong belong = nftBelongDao.findOne(NftBelongQuery.newBuilder().assetsId(assetsId).build());
+                profileBuilder.addOwnerLists(belong.getOwner());
+            }
         }else{
             profileBuilder.addAllOwnerLists(nftBelongDao.find(NftBelongQuery.newBuilder().assetsId(assetsId).build()).stream().map(NftBelong::getOwner).collect(Collectors.toList()));
         }
