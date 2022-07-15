@@ -170,7 +170,9 @@ public class CollectionSearchService {
                 //assets
                 List<Long> assetsIds = nftAssetsLuceneDao.listByCollectionId(collectionDTO.getId(), 1, 5);
                 if(!assetsIds.isEmpty()){
-                    List<AssetsSearchDTO> assets = nftItemCacheDao.find(NftAssetsQuery.newBuilder().setCollectionId(id).IdIn(assetsIds).build(), AssetsSearchDTO.class);
+                    List<AssetsSearchDTO> assets = assetsIds.stream().map(assetsId -> {
+                        return nftItemCacheDao.findOne(NftAssetsQuery.newBuilder().id(assetsId).build(), AssetsSearchDTO.class);
+                    }).collect(Collectors.toList());
                     Map<Long, AssetsSearchDTO> assetsMapping = assets.stream().collect(Collectors.toMap(AssetsSearchDTO::getId, Function.identity()));
                     collectionDTO.setRecommendAssets(assetsIds.stream().map(assetsId -> assetsMapping.get(assetsId)).collect(Collectors.toList()));
                 }

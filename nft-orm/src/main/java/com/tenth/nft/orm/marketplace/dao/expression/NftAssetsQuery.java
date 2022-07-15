@@ -17,8 +17,6 @@ public class NftAssetsQuery extends SimplePageQuery {
     private Long id;
     @SimpleQueryParam
     private Long collectionId;
-    @SimpleQueryParam(name = "_id", opt = QueryOpt.IN)
-    private List<Long> ids;
 
     public Long getId() {
         return id;
@@ -26,10 +24,6 @@ public class NftAssetsQuery extends SimplePageQuery {
 
     public Long getCollectionId() {
         return collectionId;
-    }
-
-    public List<Long> getIds() {
-        return ids;
     }
 
     public static Builder newBuilder() {
@@ -52,11 +46,6 @@ public class NftAssetsQuery extends SimplePageQuery {
 
         public Builder setCollectionId(Long collectionId) {
             query.collectionId = collectionId;
-            return this;
-        }
-
-        public Builder IdIn(List<Long> ids) {
-            query.ids = ids;
             return this;
         }
     }
