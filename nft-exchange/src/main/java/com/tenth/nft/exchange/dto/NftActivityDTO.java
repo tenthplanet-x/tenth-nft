@@ -1,8 +1,11 @@
 package com.tenth.nft.exchange.dto;
 
+import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.entity.NftActivity;
+import com.tenth.nft.orm.marketplace.entity.event.ListCancelEvent;
 import com.tenth.nft.orm.marketplace.entity.event.ListEvent;
 import com.tenth.nft.orm.marketplace.entity.event.SaleEvent;
 import com.tenth.nft.orm.marketplace.entity.event.TransferEvent;
@@ -36,6 +39,8 @@ public class NftActivityDTO {
     private Boolean canceled;
 
     private Long createdAt;
+
+    private String reason;
 
     public Long getId() {
         return id;
@@ -133,6 +138,14 @@ public class NftActivityDTO {
         this.createdAt = createdAt;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     public static NftActivityDTO from(NftExchange.NftActivityDTO nftActivityDTO) {
         NftActivityDTO dto = new NftActivityDTO();
         dto.setId(nftActivityDTO.getId());
@@ -153,9 +166,15 @@ public class NftActivityDTO {
             dto.setQuantity(nftActivityDTO.getQuantity());
         }
 
-        dto.setExpired(nftActivityDTO.getExpired());
-        dto.setCanceled(nftActivityDTO.getCanceled());
+        if(nftActivityDTO.hasExpired()){
+            dto.setExpired(true);
+        }
+        if(nftActivityDTO.hasCanceled()){
+            dto.setCanceled(true);
+        }
+
         dto.setCreatedAt(nftActivityDTO.getCreatedAt());
+        dto.setReason(nftActivityDTO.getReason());
         return dto;
     }
 
@@ -164,8 +183,6 @@ public class NftActivityDTO {
         NftExchange.NftActivityDTO.Builder builder = NftExchange.NftActivityDTO.newBuilder()
                 .setId(nftActivity.getId())
                 .setEvent(nftActivity.getType().name())
-                .setExpired(nftActivity.getExpired())
-                .setCanceled(nftActivity.getCanceled())
                 .setCreatedAt(nftActivity.getCreatedAt())
                 ;
 
@@ -173,6 +190,9 @@ public class NftActivityDTO {
             case Minted:
                 builder.setTo(nftActivity.getMint().getTo());
                 builder.setQuantity(nftActivity.getMint().getQuantity());
+                if(NullAddress.TOKEN.equals(nftActivity.getMint().getFrom())){
+                    builder.setFrom(0);
+                }
                 break;
             case List:
                 ListEvent listEvent = nftActivity.getList();
@@ -196,6 +216,18 @@ public class NftActivityDTO {
                 builder.setCurrency(transfer.getCurrency());
                 builder.setPrice(transfer.getPrice());
                 builder.setQuantity(transfer.getQuantity());
+                break;
+            case Cancel:
+                ListCancelEvent cancelEvent = nftActivity.getCancel();
+                builder.setFrom(cancelEvent.getFrom());
+                builder.setCurrency(cancelEvent.getCurrency());
+                builder.setPrice(cancelEvent.getPrice());
+                builder.setQuantity(cancelEvent.getQuantity());
+                builder.setCanceled(true);
+                if(!Strings.isNullOrEmpty(cancelEvent.getReason())){
+                    builder.setReason(cancelEvent.getReason());
+                }
+                break;
         }
 
         return builder.build();

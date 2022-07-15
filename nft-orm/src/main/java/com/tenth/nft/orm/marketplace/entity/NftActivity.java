@@ -33,9 +33,7 @@ public class NftActivity {
 
     private SaleEvent sale;
 
-    private Boolean canceled = false;
-
-    private Boolean expired = false;
+    private ListCancelEvent cancel;
 
     public Long getId() {
         return id;
@@ -117,19 +115,11 @@ public class NftActivity {
         this.sale = sale;
     }
 
-    public Boolean getCanceled() {
-        return canceled;
+    public ListCancelEvent getCancel() {
+        return cancel;
     }
 
-    public void setCanceled(Boolean canceled) {
-        this.canceled = canceled;
-    }
-
-    public Boolean getExpired() {
-        return expired;
-    }
-
-    public void setExpired(Boolean expired) {
-        this.expired = expired;
+    public void setCancel(ListCancelEvent cancel) {
+        this.cancel = cancel;
     }
 }

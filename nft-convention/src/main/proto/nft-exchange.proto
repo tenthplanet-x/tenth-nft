@@ -35,6 +35,7 @@ message NftActivityDTO{
   optional bool expired = 8;
   optional bool canceled = 9;
   required int64 createdAt = 10;
+  optional string reason = 11;
 }
 
 message NftAssetsProfileDTO{
@@ -76,6 +77,16 @@ message BUY_IS{
 
 }
 
+message SELL_CANCEL_IC{
+  required int64 assetsId = 1;
+  required int64 listingId = 2;
+  required int64 seller = 3;
+  required string reason = 4;
+}
+message SELL_CANCEL_IS{
+
+}
+
 message LISTING_LIST_IC{
   required int64 assetsId = 1;
   required int32 page = 2;
@@ -96,6 +107,7 @@ message ACTIVITY_LIST_IC{
   required int64 assetsId = 1;
   required int32 page = 2;
   required int32 pageSize = 3;
+  optional string event = 4;
 }
 message ACTIVITY_LIST_IS{
     repeated NftActivityDTO activities = 1;

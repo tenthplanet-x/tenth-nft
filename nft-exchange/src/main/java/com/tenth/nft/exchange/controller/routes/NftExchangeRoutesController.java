@@ -40,6 +40,11 @@ public class NftExchangeRoutesController {
                 .build();
     }
 
+    @RouteRequestMapping(SellCancelRouteRequest.class)
+    public NftExchange.SELL_CANCEL_IS sellCancel(NftExchange.SELL_CANCEL_IC request){
+        return nftExchangeService.sellCancel(request);
+    }
+
     @RouteRequestMapping(BuyRouteRequest.class)
     public NftExchange.BUY_IS buy(NftExchange.BUY_IC request){
         nftExchangeService.buy(request);

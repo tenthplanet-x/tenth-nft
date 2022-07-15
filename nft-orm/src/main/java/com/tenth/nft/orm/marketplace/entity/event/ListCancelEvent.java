@@ -5,7 +5,7 @@ import com.tenth.nft.orm.marketplace.entity.NftActivityEvent;
 /**
  * @author shijie
  */
-public class ListEvent implements NftActivityEvent {
+public class ListCancelEvent implements NftActivityEvent {
 
     private Long from;
 
@@ -16,6 +16,8 @@ public class ListEvent implements NftActivityEvent {
     private Float price;
 
     private String currency;
+
+    private String reason;
 
     public Long getFrom() {
         return from;
@@ -57,4 +59,11 @@ public class ListEvent implements NftActivityEvent {
         this.to = to;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 }
