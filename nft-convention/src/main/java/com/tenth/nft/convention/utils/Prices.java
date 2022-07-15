@@ -8,7 +8,8 @@ import java.text.DecimalFormat;
 public class Prices {
 
     public static String toString(float price) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.#########");
-        return decimalFormat.format(price);
+        DecimalFormat decimalFormat = new DecimalFormat("#.#############");
+        Double wrap = Double.valueOf(String.valueOf(price));
+        return decimalFormat.format(wrap);
     }
 }
