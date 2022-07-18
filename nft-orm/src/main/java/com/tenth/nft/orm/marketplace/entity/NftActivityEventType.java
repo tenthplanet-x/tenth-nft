@@ -5,11 +5,21 @@ package com.tenth.nft.orm.marketplace.entity;
  */
 public enum NftActivityEventType {
 
-    Sale,
-    Transfer,
-    Bid,
-    List,
-    Offer,
-    Minted,
-    Cancel
+    Sale("Sale"),
+    Transfer("Transfer"),
+    Bid("Bid"),
+    List("List"),
+    Minted("Minted"),
+    Cancel("List Cancel"),
+    OFFER("Offer"),
+    OFFER_CANCEL("Offer Canceled");
+
+    String label;
+    NftActivityEventType(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
 }

@@ -33,6 +33,8 @@ public class NftOrder {
 
     private NftOrderStatus status;
 
+    private Long offerId;
+
     private Long createdAt;
 
     private Long updatedAt;
@@ -125,5 +127,11 @@ public class NftOrder {
         this.price = price;
     }
 
+    public Long getOfferId() {
+        return offerId;
+    }
 
+    public void setOfferId(Long offerId) {
+        this.offerId = offerId;
+    }
 }
