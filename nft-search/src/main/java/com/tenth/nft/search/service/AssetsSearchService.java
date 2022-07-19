@@ -58,6 +58,16 @@ public class AssetsSearchService {
                 ).getProfile();
                 if(exchangeProfile.hasCurrentListing()){
                     assetsSearchDTO.setCurrentListing(AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
+                    assetsSearchDTO.getCurrentListing().setSellerProfile(
+                            NftUserProfileDTO.from(
+                                    routeClient.send(
+                                            Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                                                    .addUids(assetsSearchDTO.getCurrentListing().getSeller())
+                                                    .build(),
+                                            SearchUserProfileRouteRequest.class
+                                    ).getProfiles(0)
+                            )
+                    );
                 }
 
                 return assetsSearchDTO;
@@ -107,6 +117,16 @@ public class AssetsSearchService {
         ).getProfile();
         if(exchangeProfile.hasCurrentListing()){
             AssetsDetailSearchDTO.ListingDTO listingDTO = AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing());
+            listingDTO.setSellerProfile(
+                    NftUserProfileDTO.from(
+                            routeClient.send(
+                                    Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                                            .addUids(listingDTO.getSeller())
+                                            .build(),
+                                    SearchUserProfileRouteRequest.class
+                            ).getProfiles(0)
+                    )
+            );
             dto.setCurrentListing(listingDTO);
         }
         if(exchangeProfile.hasTotalVolume()){
@@ -147,6 +167,16 @@ public class AssetsSearchService {
                 ).getProfile();
                 if(exchangeProfile.hasCurrentListing()){
                     dto.setCurrentListing(AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
+                    dto.getCurrentListing().setSellerProfile(
+                            NftUserProfileDTO.from(
+                                    routeClient.send(
+                                            Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                                                    .addUids(dto.getCurrentListing().getSeller())
+                                                    .build(),
+                                            SearchUserProfileRouteRequest.class
+                                    ).getProfiles(0)
+                            )
+                    );
                 }
 
                 return dto;

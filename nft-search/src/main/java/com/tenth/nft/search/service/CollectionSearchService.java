@@ -136,6 +136,16 @@ public class CollectionSearchService {
                 AssetsDetailSearchDTO.ListingDTO floorListing = AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing());
                 collectionSearchDTO.setFloorPrice(floorListing.getPrice());
                 collectionSearchDTO.setCurrency(floorListing.getCurrency());
+                floorListing.setSellerProfile(
+                        NftUserProfileDTO.from(
+                                routeClient.send(
+                                        Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                                                .addUids(floorListing.getSeller())
+                                                .build(),
+                                        SearchUserProfileRouteRequest.class
+                                ).getProfiles(0)
+                        )
+                );
             }
             if(exchangeProfile.hasTotalVolume()){
                 collectionSearchDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));

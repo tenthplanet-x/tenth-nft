@@ -84,11 +84,17 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
 
         private Long id;
 
+        private Long assetsId;
+
         private String currency;
 
         private String price;
 
         private Integer quantity;
+
+        private Long seller;
+
+        private UserProfileDTO sellerProfile;
 
         private Long startAt;
 
@@ -142,6 +148,30 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
             this.expireAt = expireAt;
         }
 
+        public Long getAssetsId() {
+            return assetsId;
+        }
+
+        public void setAssetsId(Long assetsId) {
+            this.assetsId = assetsId;
+        }
+
+        public Long getSeller() {
+            return seller;
+        }
+
+        public void setSeller(Long seller) {
+            this.seller = seller;
+        }
+
+        public UserProfileDTO getSellerProfile() {
+            return sellerProfile;
+        }
+
+        public void setSellerProfile(UserProfileDTO sellerProfile) {
+            this.sellerProfile = sellerProfile;
+        }
+
         public static ListingDTO from(NftExchange.NftListingDTO listing) {
             ListingDTO dto = new ListingDTO();
             dto.setId(listing.getId());
@@ -150,6 +180,8 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
             dto.setPrice(Prices.toString(listing.getPrice()));
             dto.setQuantity(listing.getQuantity());
             dto.setStartAt(listing.getStartAt());
+            dto.setExpireAt(listing.getExpireAt());
+            dto.setSeller(listing.getSeller());
             return dto;
         }
     }
