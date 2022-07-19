@@ -58,6 +58,8 @@ public class NftExchangeService {
     private NftContractDao nftContractDao;
     @Autowired
     private BlockchainRouter blockChainRouter;
+    @Autowired
+    private NftAssetsDao nftAssetsDao;
 
     public NftListingDTO sell(NftSellRequest request) {
 
@@ -214,14 +216,8 @@ public class NftExchangeService {
             Future<String> tokenFuture = blockchainGateway.mint(contract);
             String token = tokenFuture.get();
 
-            //设置拥有数量
-            NftBelong belong = new NftBelong();
-            belong.setAssetsId(request.getAssetsId());
-            belong.setQuantity(request.getQuantity());
-            belong.setOwner(request.getOwner());
-            belong.setCreatedAt(System.currentTimeMillis());
-            belong.setUpdatedAt(belong.getCreatedAt());
-            nftBelongDao.insert(belong);
+            //
+            refreshBelong(request.getOwner(), request.getAssetsId());
 
             //send mint event
             sendMintEvent(request);
@@ -244,6 +240,8 @@ public class NftExchangeService {
 
     private void refreshBelong(Long owner, Long assetsId) {
 
+        NftAssets nftAssets = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(assetsId).build());
+
         SimpleQuery orderBuyQuery = NftOrderQuery.newBuilder().assetsId(assetsId).buyer(owner).status(NftOrderStatus.COMPLETE).build();
         Optional<Integer> buyQuantity = nftOrderDao.find(orderBuyQuery).stream().map(NftOrder::getQuantity).reduce((o1, o2) -> o1 + o2);
         SimpleQuery orderSellQuery = NftOrderQuery.newBuilder().assetsId(assetsId).owner(owner).status(NftOrderStatus.COMPLETE).build();
@@ -254,6 +252,9 @@ public class NftExchangeService {
         }
         if(sellQuantity.isPresent()){
             rest -= sellQuantity.get();
+        }
+        if(nftAssets.getCreator().equals(owner)){
+            rest += nftAssets.getSupply();
         }
 
         if(rest > 0){

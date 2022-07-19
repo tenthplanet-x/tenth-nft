@@ -86,17 +86,6 @@ public class NftAssetsService {
 
         Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
 
-        //mint
-        NftExchange.NftMintDTO mintDTO = routeClient.send(
-                NftExchange.MINT_IC.newBuilder()
-                        .setAssetsId(assetsId)
-                        .setBlockchain(request.getBlockchain())
-                        .setOwner(uid)
-                        .setQuantity(request.getSupply())
-                        .build(),
-                MintRouteRequest.class
-        ).getMint();
-
         //create
         NftAssets nftAssets = new NftAssets();
         nftAssets.setId(assetsId);
@@ -117,12 +106,26 @@ public class NftAssetsService {
         nftAssets.setBlockchain(request.getBlockchain());
         nftAssets.setCreatedAt(System.currentTimeMillis());
         nftAssets.setUpdatedAt(System.currentTimeMillis());
-
-        nftAssets.setContractAddress(mintDTO.getContractAddress());
-        nftAssets.setTokenStandard(mintDTO.getTokenStandard());
-        nftAssets.setToken(mintDTO.getToken());
-
         nftAssets = nftAssetsDao.insert(nftAssets);
+
+        //mint
+        NftExchange.NftMintDTO mintDTO = routeClient.send(
+                NftExchange.MINT_IC.newBuilder()
+                        .setAssetsId(assetsId)
+                        .setBlockchain(request.getBlockchain())
+                        .setOwner(uid)
+                        .setQuantity(request.getSupply())
+                        .build(),
+                MintRouteRequest.class
+        ).getMint();
+        nftAssetsDao.update(
+                NftAssetsQuery.newBuilder().id(nftAssets.getId()).build(),
+                NftAssetsUpdate.newBuilder()
+                        .setContractAddress(mintDTO.getContractAddress())
+                        .setTokenStandard(mintDTO.getTokenStandard())
+                        .setToken(mintDTO.getToken())
+                        .build()
+        );
 
         //更新总数量
         long count = nftAssetsDao.count(NftAssetsQuery.newBuilder().setCollectionId(request.getCollectionId()).build());
