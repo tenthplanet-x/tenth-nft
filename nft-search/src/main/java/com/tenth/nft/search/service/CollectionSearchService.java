@@ -177,7 +177,24 @@ public class CollectionSearchService {
                     }).collect(Collectors.toList());
                     Map<Long, AssetsSearchDTO> assetsMapping = assets.stream().collect(Collectors.toMap(AssetsSearchDTO::getId, Function.identity()));
                     collectionDTO.setRecommendAssets(assetsIds.stream().map(assetsId -> assetsMapping.get(assetsId)).collect(Collectors.toList()));
+
+                    //totalVolume
+                    NftExchange.NftCollectionProfileDTO exchangeProfile = routeClient.send(
+                            NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()
+                                    .addAllAssetsIds(assetsIds)
+                                    .build(),
+                            CollectionsExchangeProfileRouteRequest.class
+                    ).getProfile();
+                    if(exchangeProfile.hasTotalVolume()){
+                        collectionDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                        collectionDTO.setCurrency(exchangeProfile.getCurrency());
+                    }
+
+
                 }
+
+
+
                 return collectionDTO;
             }).collect(Collectors.toList());
             return new Page<>(

@@ -54,6 +54,10 @@ public class CollectionSearchDTO implements SimpleResponse {
 
     private List<AssetsSearchDTO> recommendAssets;
 
+    private String totalVolume;
+
+    private String currency;
+
     public Long getId() {
         return id;
     }
@@ -172,5 +176,21 @@ public class CollectionSearchDTO implements SimpleResponse {
 
     public void setRecommendAssets(List<AssetsSearchDTO> recommendAssets) {
         this.recommendAssets = recommendAssets;
+    }
+
+    public String getTotalVolume() {
+        return totalVolume;
+    }
+
+    public void setTotalVolume(String totalVolume) {
+        this.totalVolume = totalVolume;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }
