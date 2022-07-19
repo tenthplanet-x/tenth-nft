@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftModules;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
+import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.routes.exchange.MintRouteRequest;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
@@ -63,6 +64,18 @@ public class NftAssetsService {
                 NftAssetsDTO.class
         );
 
+        for(NftAssetsDTO dto: dataPage.getData()){
+            NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
+                    NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
+                            .setAssetsId(dto.getId())
+                            .build(),
+                    AssetsExchangeProfileRouteRequest.class
+            ).getProfile();
+            if(exchangeProfile.hasCurrentListing()){
+                dto.setCurrentListing(NftAssetsDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
+            }
+        }
+
         return dataPage;
     }
 
@@ -72,17 +85,6 @@ public class NftAssetsService {
         Long uid = context.getLong(TpulseHeaders.UID);
 
         Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
-
-        //mint
-        NftExchange.NftMintDTO mintDTO = routeClient.send(
-                NftExchange.MINT_IC.newBuilder()
-                        .setAssetsId(assetsId)
-                        .setBlockchain(request.getBlockchain())
-                        .setOwner(uid)
-                        .setQuantity(request.getSupply())
-                        .build(),
-                MintRouteRequest.class
-        ).getMint();
 
         //create
         NftAssets nftAssets = new NftAssets();
@@ -104,12 +106,26 @@ public class NftAssetsService {
         nftAssets.setBlockchain(request.getBlockchain());
         nftAssets.setCreatedAt(System.currentTimeMillis());
         nftAssets.setUpdatedAt(System.currentTimeMillis());
-
-        nftAssets.setContractAddress(mintDTO.getContractAddress());
-        nftAssets.setTokenStandard(mintDTO.getTokenStandard());
-        nftAssets.setToken(mintDTO.getToken());
-
         nftAssets = nftAssetsDao.insert(nftAssets);
+
+        //mint
+        NftExchange.NftMintDTO mintDTO = routeClient.send(
+                NftExchange.MINT_IC.newBuilder()
+                        .setAssetsId(assetsId)
+                        .setBlockchain(request.getBlockchain())
+                        .setOwner(uid)
+                        .setQuantity(request.getSupply())
+                        .build(),
+                MintRouteRequest.class
+        ).getMint();
+        nftAssetsDao.update(
+                NftAssetsQuery.newBuilder().id(nftAssets.getId()).build(),
+                NftAssetsUpdate.newBuilder()
+                        .setContractAddress(mintDTO.getContractAddress())
+                        .setTokenStandard(mintDTO.getTokenStandard())
+                        .setToken(mintDTO.getToken())
+                        .build()
+        );
 
         //更新总数量
         long count = nftAssetsDao.count(NftAssetsQuery.newBuilder().setCollectionId(request.getCollectionId()).build());

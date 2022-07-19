@@ -21,6 +21,8 @@ public class NftBlockchainEditRequest {
 
     private Integer order;
 
+    private String icon;
+
     public Long getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class NftBlockchainEditRequest {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

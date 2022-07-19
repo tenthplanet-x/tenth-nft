@@ -4,29 +4,36 @@ import com.ruixi.tpulse.convention.TpulseHeaders;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserFriendProfileRouteRequest;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
-import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.search.dto.AssetsDetailSearchDTO;
+import com.tenth.nft.search.dto.AssetsSearchDTO;
 import com.tenth.nft.search.dto.CollectionDetailSearchDTO;
 import com.tenth.nft.search.dto.CollectionSearchDTO;
 import com.tenth.nft.search.lucenedao.NftAssetsLuceneDao;
 import com.tenth.nft.search.lucenedao.NftCollectionLuceneDao;
 import com.tenth.nft.search.vo.CollectionDetailSearchRequest;
-import com.tenth.nft.search.vo.CollectionSearchRequest;
+import com.tenth.nft.search.vo.CollectionListSearchRequest;
+import com.tenth.nft.search.vo.CollectionLuceneSearchParams;
+import com.tenth.nft.search.vo.CollectionRecommentListSearchRequest;
+import com.tpulse.commons.biz.dto.PageRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -46,31 +53,19 @@ public class CollectionSearchService {
     @Autowired
     private NftAssetsLuceneDao nftAssetsLuceneDao;
 
-    public Page<CollectionSearchDTO> list(CollectionSearchRequest request) {
+    public Page<CollectionSearchDTO> list(CollectionListSearchRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
-        List<Long> page = nftCollectionLuceneDao.list(request);
+        List<Long> page = nftCollectionLuceneDao.list(CollectionLuceneSearchParams.newBuilder()
+                .uid(request.getUid())
+                .categoryId(request.getCategoryId())
+                .page(request.getPage())
+                .pageSize(request.getPageSize()).build());
+
         if(!page.isEmpty()){
             List<CollectionSearchDTO> collections = page.stream().map(id -> {
-
-                CollectionSearchDTO dto = nftCollectionCacheDao.findOne(
-                        NftCollectionQuery.newBuilder().id(id).build(),
-                        CollectionSearchDTO.class
-                );
-
-                String nickname = routeClient.send(
-                        Search.SEARCH_USER_FRIEND_PROFILE_IC.newBuilder()
-                                .setUid(uid)
-                                .addFriendUids(dto.getUid())
-                                .build(),
-                        SearchUserFriendProfileRouteRequest.class
-                ).getProfiles(0).getNickname();
-                dto.setCreatorName(nickname);
-                dto.setOwned(dto.getUid().equals(uid));
-
-                return dto;
-
+                return toSearchDTO(uid, id);
             }).collect(Collectors.toList());
             return new Page<>(
                     0,
@@ -79,6 +74,23 @@ public class CollectionSearchService {
         }
 
         return new Page<>();
+    }
+
+    private CollectionSearchDTO toSearchDTO(Long uid, Long collectionId) {
+        CollectionSearchDTO dto = nftCollectionCacheDao.findOne(
+                NftCollectionQuery.newBuilder().id(collectionId).build(),
+                CollectionSearchDTO.class
+        );
+
+        Search.SearchUserDTO creatorProfileDTO = routeClient.send(
+                Search.SEARCH_USER_PROFILE_IC.newBuilder().addUids(dto.getUid()).build(),
+                SearchUserProfileRouteRequest.class
+        ).getProfiles(0);
+        dto.setCreatorProfile(NftUserProfileDTO.from(creatorProfileDTO));
+        dto.setCreatorName(dto.getCreatorProfile().getNickname());
+        dto.setOwned(dto.getUid().equals(uid));
+
+        return dto;
     }
 
     /**
@@ -143,6 +155,54 @@ public class CollectionSearchService {
     }
 
 
+    public Page<CollectionSearchDTO> recommendList(CollectionRecommentListSearchRequest request) {
+
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
+        List<Long> page = nftCollectionLuceneDao.recommendList(CollectionLuceneSearchParams.newBuilder()
+                .page(request.getPage())
+                .pageSize(request.getPageSize())
+                        .categoryId(request.getCategoryId())
+                .build());
+
+        if(!page.isEmpty()){
+            List<CollectionSearchDTO> collections = page.stream().map(id -> {
+                CollectionSearchDTO collectionDTO = toSearchDTO(uid, id);
+
+                //assets
+                List<Long> assetsIds = nftAssetsLuceneDao.listByCollectionId(collectionDTO.getId(), 1, 5);
+                if(!assetsIds.isEmpty()){
+                    List<AssetsSearchDTO> assets = assetsIds.stream().map(assetsId -> {
+                        return nftItemCacheDao.findOne(NftAssetsQuery.newBuilder().id(assetsId).build(), AssetsSearchDTO.class);
+                    }).collect(Collectors.toList());
+                    Map<Long, AssetsSearchDTO> assetsMapping = assets.stream().collect(Collectors.toMap(AssetsSearchDTO::getId, Function.identity()));
+                    collectionDTO.setRecommendAssets(assetsIds.stream().map(assetsId -> assetsMapping.get(assetsId)).collect(Collectors.toList()));
+
+                    //totalVolume
+                    NftExchange.NftCollectionProfileDTO exchangeProfile = routeClient.send(
+                            NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()
+                                    .addAllAssetsIds(assetsIds)
+                                    .build(),
+                            CollectionsExchangeProfileRouteRequest.class
+                    ).getProfile();
+                    if(exchangeProfile.hasTotalVolume()){
+                        collectionDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                        collectionDTO.setCurrency(exchangeProfile.getCurrency());
+                    }
 
 
+                }
+
+
+
+                return collectionDTO;
+            }).collect(Collectors.toList());
+            return new Page<>(
+                    0,
+                    collections
+            );
+        }
+
+        return new Page<>();
+    }
 }

@@ -1,9 +1,12 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
+import com.tenth.nft.orm.marketplace.entity.NftOrderStatus;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
 import com.tpulse.gs.convention.dao.defination.QueryOpt;
+
+import java.awt.image.PixelGrabber;
 
 /**
  * @author gs-orm-generator
@@ -15,6 +18,12 @@ public class NftOrderQuery extends SimplePageQuery {
     private Long id;
     @SimpleQueryParam
     private Long assetsId;
+    @SimpleQueryParam
+    private Long buyer;
+    @SimpleQueryParam
+    private NftOrderStatus status;
+    @SimpleQueryParam
+    private Long owner;
 
     public Long getId() {
         return id;
@@ -22,6 +31,18 @@ public class NftOrderQuery extends SimplePageQuery {
 
     public Long getAssetsId() {
         return assetsId;
+    }
+
+    public Long getBuyer() {
+        return buyer;
+    }
+
+    public NftOrderStatus getStatus() {
+        return status;
+    }
+
+    public Long getOwner() {
+        return owner;
     }
 
     public static Builder newBuilder() {
@@ -44,6 +65,21 @@ public class NftOrderQuery extends SimplePageQuery {
 
         public Builder assetsId(Long assetsId) {
             query.assetsId = assetsId;
+            return this;
+        }
+
+        public Builder buyer(Long owner) {
+            query.buyer = owner;
+            return this;
+        }
+
+        public Builder status(NftOrderStatus status) {
+            query.status = status;
+            return this;
+        }
+
+        public Builder owner(Long owner) {
+            query.owner = owner;
             return this;
         }
     }

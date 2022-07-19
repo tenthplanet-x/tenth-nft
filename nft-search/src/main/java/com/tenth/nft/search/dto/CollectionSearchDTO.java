@@ -1,8 +1,11 @@
 package com.tenth.nft.search.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
+
+import java.util.List;
 
 
 /**
@@ -43,9 +46,17 @@ public class CollectionSearchDTO implements SimpleResponse {
 
     private Integer owners = 1;
 
+    private boolean owned;
+
     private String creatorName;
 
-    private boolean owned;
+    private UserProfileDTO creatorProfile;
+
+    private List<AssetsSearchDTO> recommendAssets;
+
+    private String totalVolume;
+
+    private String currency;
 
     public Long getId() {
         return id;
@@ -149,5 +160,37 @@ public class CollectionSearchDTO implements SimpleResponse {
 
     public void setOwners(Integer owners) {
         this.owners = owners;
+    }
+
+    public UserProfileDTO getCreatorProfile() {
+        return creatorProfile;
+    }
+
+    public void setCreatorProfile(UserProfileDTO creatorProfile) {
+        this.creatorProfile = creatorProfile;
+    }
+
+    public List<AssetsSearchDTO> getRecommendAssets() {
+        return recommendAssets;
+    }
+
+    public void setRecommendAssets(List<AssetsSearchDTO> recommendAssets) {
+        this.recommendAssets = recommendAssets;
+    }
+
+    public String getTotalVolume() {
+        return totalVolume;
+    }
+
+    public void setTotalVolume(String totalVolume) {
+        this.totalVolume = totalVolume;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

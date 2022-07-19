@@ -35,6 +35,12 @@ public class NftAssetsUpdate extends SimpleUpdate {
     private Long updatedAt = System.currentTimeMillis();
     @SimpleWriteParam
     private String blockchain;
+    @SimpleWriteParam
+    private String contractAddress;
+    @SimpleWriteParam
+    private String tokenStandard;
+    @SimpleWriteParam
+    private String token;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -72,6 +78,18 @@ public class NftAssetsUpdate extends SimpleUpdate {
         return blockchain;
     }
 
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public String getTokenStandard() {
+        return tokenStandard;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
     public static Builder newBuilder(){
         return new Builder();
     }
@@ -79,6 +97,7 @@ public class NftAssetsUpdate extends SimpleUpdate {
     public static class Builder{
 
         private NftAssetsUpdate update = new NftAssetsUpdate();
+        private String contractAddress;
 
         public Builder setType(NftAssetsType type){
             update.type = type;
@@ -121,6 +140,21 @@ public class NftAssetsUpdate extends SimpleUpdate {
 
         public Builder setBlockchain(String blockchain) {
             update.blockchain = blockchain;
+            return this;
+        }
+
+        public Builder setContractAddress(String contractAddress) {
+            update.contractAddress = contractAddress;
+            return this;
+        }
+
+        public Builder setTokenStandard(String tokenStandard) {
+            update.tokenStandard = tokenStandard;
+            return this;
+        }
+
+        public Builder setToken(String token) {
+            update.token = token;
             return this;
         }
     }

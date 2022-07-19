@@ -29,9 +29,9 @@ public class NftCurrencyCreateRequest {
 
     private String icon;
 
-    private Float min;
+    private String min;
 
-    private Float max;
+    private String max;
 
     private Integer precision;
 
@@ -115,19 +115,19 @@ public class NftCurrencyCreateRequest {
         this.icon = icon;
     }
 
-    public Float getMin() {
+    public String getMin() {
         return min;
     }
 
-    public void setMin(Float min) {
+    public void setMin(String min) {
         this.min = min;
     }
 
-    public Float getMax() {
+    public String getMax() {
         return max;
     }
 
-    public void setMax(Float max) {
+    public void setMax(String max) {
         this.max = max;
     }
 

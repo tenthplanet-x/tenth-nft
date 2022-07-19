@@ -5,25 +5,29 @@ import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
 import com.tpulse.gs.convention.dao.defination.QueryOpt;
 
-import java.util.List;
-
 /**
  * @author gs-orm-generator
- * @createdAt 2022/06/21 11:07
+ * @createdAt 2022/07/18 08:24
  */
-public class NftAssetsQuery extends SimplePageQuery {
+public class NftOfferQuery extends SimplePageQuery {
 
     @SimpleQueryParam(name = "_id")
     private Long id;
     @SimpleQueryParam
-    private Long collectionId;
+    private Long uid;
+    @SimpleQueryParam
+    private Long assetsId;
 
     public Long getId() {
         return id;
     }
 
-    public Long getCollectionId() {
-        return collectionId;
+    public Long getUid() {
+        return uid;
+    }
+
+    public Long getAssetsId() {
+        return assetsId;
     }
 
     public static Builder newBuilder() {
@@ -32,11 +36,11 @@ public class NftAssetsQuery extends SimplePageQuery {
 
     public static class Builder extends SimplePageQuery.Builder{
 
-        NftAssetsQuery query;
+        NftOfferQuery query;
 
         public Builder() {
-            super(new NftAssetsQuery());
-            this.query = (NftAssetsQuery) super.query;
+            super(new NftOfferQuery());
+            this.query = (NftOfferQuery) super.query;
         }
 
         public Builder id(Long id) {
@@ -44,8 +48,13 @@ public class NftAssetsQuery extends SimplePageQuery {
             return this;
         }
 
-        public Builder setCollectionId(Long collectionId) {
-            query.collectionId = collectionId;
+        public Builder assetsId(Long assetsId) {
+            query.assetsId = assetsId;
+            return this;
+        }
+
+        public Builder uid(Long uid) {
+            query.uid = uid;
             return this;
         }
     }

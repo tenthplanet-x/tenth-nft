@@ -113,13 +113,28 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
         insert(toLuceneDTO(nftAssets));
     }
 
-    public List<Long> listByCollectionId(Long id) {
+    public List<Long> listByCollectionId(Long collectionId) {
         List<Long> output = new ArrayList<>();
         try{
 
             BooleanQuery.Builder builder = new BooleanQuery.Builder();
-            builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", id), BooleanClause.Occur.MUST));
-            return find(builder.build(), 1, Integer.MAX_VALUE).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
+            builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", collectionId), BooleanClause.Occur.MUST));
+            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, false));
+            return find(builder.build(), 1, Integer.MAX_VALUE, sort).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
+        }catch (Exception e){
+            LOGGER.error("", e);
+        }
+        return output;
+    }
+
+    public List<Long> listByCollectionId(Long collectionId, Integer page, Integer pageSize) {
+        List<Long> output = new ArrayList<>();
+        try{
+
+            BooleanQuery.Builder builder = new BooleanQuery.Builder();
+            builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", collectionId), BooleanClause.Occur.MUST));
+            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
+            return find(builder.build(), page, pageSize, sort).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
         }catch (Exception e){
             LOGGER.error("", e);
         }

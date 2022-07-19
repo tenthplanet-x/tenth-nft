@@ -2,15 +2,17 @@ package com.tenth.nft.search.vo;
 
 import com.tpulse.commons.biz.dto.PageRequest;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * @author shijie
  */
-public class CollectionSearchRequest extends PageRequest {
+@Valid
+public class CollectionRecommentListSearchRequest extends PageRequest {
 
     private Long categoryId;
-
-    private Long uid;
 
     public Long getCategoryId() {
         return categoryId;
@@ -18,13 +20,5 @@ public class CollectionSearchRequest extends PageRequest {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public Long getUid() {
-        return uid;
-    }
-
-    public void setUid(Long uid) {
-        this.uid = uid;
     }
 }

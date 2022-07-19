@@ -1,25 +1,22 @@
 package com.tenth.nft.orm.marketplace.entity;
 
 import com.tpulse.gs.convention.dao.annotation.SimpleCache;
-import org.hibernate.validator.internal.constraintvalidators.bv.time.past.PastValidatorForReadableInstant;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author shijie
  */
-@Document("tpulse.nft_exchange_listing")
+@Document("tpulse.nft_exchange_offer")
 @SimpleCache(cacheField = "assetsId")
-public class NftListing {
+public class NftOffer {
 
     @Id
     private Long id;
 
-    private Long uid;
-
-    @Indexed
     private Long assetsId;
+
+    private Long uid;
 
     private Integer quantity;
 
@@ -27,15 +24,11 @@ public class NftListing {
 
     private String currency;
 
-    private Long startAt;
-
     private Long expireAt;
 
     private Long createdAt;
 
     private Long updatedAt;
-
-    private Boolean canceled = false;
 
     public Long getId() {
         return id;
@@ -53,12 +46,12 @@ public class NftListing {
         this.assetsId = assetsId;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Long getUid() {
+        return uid;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public Float getPrice() {
@@ -75,14 +68,6 @@ public class NftListing {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public Long getStartAt() {
-        return startAt;
-    }
-
-    public void setStartAt(Long startAt) {
-        this.startAt = startAt;
     }
 
     public Long getExpireAt() {
@@ -109,19 +94,11 @@ public class NftListing {
         this.updatedAt = updatedAt;
     }
 
-    public Long getUid() {
-        return uid;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
-    }
-
-    public Boolean getCanceled() {
-        return canceled;
-    }
-
-    public void setCanceled(Boolean canceled) {
-        this.canceled = canceled;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

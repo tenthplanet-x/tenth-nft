@@ -5,10 +5,7 @@ import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.entity.NftActivity;
-import com.tenth.nft.orm.marketplace.entity.event.ListCancelEvent;
-import com.tenth.nft.orm.marketplace.entity.event.ListEvent;
-import com.tenth.nft.orm.marketplace.entity.event.SaleEvent;
-import com.tenth.nft.orm.marketplace.entity.event.TransferEvent;
+import com.tenth.nft.orm.marketplace.entity.event.*;
 import com.tenth.nft.protobuf.NftExchange;
 
 /**
@@ -182,7 +179,7 @@ public class NftActivityDTO {
 
         NftExchange.NftActivityDTO.Builder builder = NftExchange.NftActivityDTO.newBuilder()
                 .setId(nftActivity.getId())
-                .setEvent(nftActivity.getType().name())
+                .setEvent(nftActivity.getType().getLabel())
                 .setCreatedAt(nftActivity.getCreatedAt())
                 ;
 
@@ -228,6 +225,17 @@ public class NftActivityDTO {
                     builder.setReason(cancelEvent.getReason());
                 }
                 break;
+            case OFFER:
+            case OFFER_CANCEL:
+                OfferEvent offerEvent = nftActivity.getOffer();
+                builder.setFrom(offerEvent.getFrom());
+                builder.setCurrency(offerEvent.getCurrency());
+                builder.setPrice(offerEvent.getPrice());
+                builder.setQuantity(offerEvent.getQuantity());
+                builder.setCanceled(null != offerEvent.getCancel()? offerEvent.getCancel(): false);
+                if(!Strings.isNullOrEmpty(offerEvent.getReason())){
+                    builder.setReason(offerEvent.getReason());
+                }
         }
 
         return builder.build();

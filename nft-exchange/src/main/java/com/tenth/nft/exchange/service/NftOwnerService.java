@@ -10,6 +10,7 @@ import com.tenth.nft.exchange.dto.NftActivityDTO;
 import com.tenth.nft.exchange.dto.NftOwnerDTO;
 import com.tenth.nft.orm.marketplace.dao.NftBelongDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftActivityQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftBelongQuery;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
@@ -63,7 +64,7 @@ public class NftOwnerService {
         int pageSize = request.getPageSize();
 
         List<NftExchange.NftOwnerDTO> dtos = nftBelongDao.findPage(
-                NftActivityQuery.newBuilder()
+                NftBelongQuery.newBuilder()
                         .assetsId(request.getAssetsId())
                         .setPage(page)
                         .setPageSize(pageSize)

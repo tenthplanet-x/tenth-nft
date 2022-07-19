@@ -51,8 +51,10 @@ public class CurrencySearchService {
 
         dtos.forEach(dto -> {
             String blockchain = dto.getBlockchain();
-            String blockchainLabel = blockchainMapping.get(blockchain).getLabel();
-            dto.setBlockchainLabel(blockchainLabel);
+            BlockchainSearchDTO blockchainSearchDTO = blockchainMapping.get(blockchain);
+            dto.setBlockchainLabel(blockchainSearchDTO.getLabel());
+            dto.setBlockchainIcon(blockchainSearchDTO.getIcon());
+
         });
 
         return dtos;

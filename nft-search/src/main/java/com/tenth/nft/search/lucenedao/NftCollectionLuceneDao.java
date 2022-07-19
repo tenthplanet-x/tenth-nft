@@ -4,7 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
-import com.tenth.nft.search.vo.CollectionSearchRequest;
+import com.tenth.nft.search.vo.CollectionLuceneSearchParams;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.lucenedb.dao.SimpleLuceneDao;
 import com.tpulse.gs.lucenedb.dao.SimpleLucenedbProperties;
@@ -41,13 +41,12 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
      * @param request
      * @return
      */
-    public List<Long> list(CollectionSearchRequest request) {
+    public List<Long> list(CollectionLuceneSearchParams request) {
 
         List<Long> output = new ArrayList<>();
         try{
 
             BooleanQuery.Builder builder = new BooleanQuery.Builder();
-
             {
                 if(null != request.getCategoryId()){
                     Query query = LongPoint.newExactQuery("category", request.getCategoryId());
@@ -103,5 +102,27 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
     public void rebuild(NftCollection collection) {
         remove(collection.getId());
         insert(toLuceneDTO(collection));
+    }
+
+    public List<Long> recommendList(CollectionLuceneSearchParams request) {
+        List<Long> output = new ArrayList<>();
+        try{
+
+            BooleanQuery.Builder builder = new BooleanQuery.Builder();
+            if(null != request.getCategoryId()){
+                Query query = LongPoint.newExactQuery("category", request.getCategoryId());
+                builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
+            }else{
+                Query query = LongPoint.newExactQuery("categoryNull", 0);
+                builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
+            }
+            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
+            return find(builder.build(), request.getPage(), request.getPageSize(), sort).stream()
+                    .map(document -> Long.valueOf(document.get("id")))
+                    .collect(Collectors.toList());
+        }catch (Exception e){
+            LOGGER.error("", e);
+        }
+        return output;
     }
 }

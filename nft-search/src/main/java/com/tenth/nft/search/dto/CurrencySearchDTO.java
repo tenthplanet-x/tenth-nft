@@ -25,12 +25,14 @@ public class CurrencySearchDTO implements SimpleResponse {
     private String exchangeRate;
     @SimpleField
     private String icon;
-    @SimpleField(decoder = PricesToStringDecoder.class)
+    @SimpleField
     private String min;
-    @SimpleField(decoder = PricesToStringDecoder.class)
+    @SimpleField
     private String max;
 
     private String blockchainLabel;
+
+    private String blockchainIcon;
 
     public String getCode() {
         return code;
@@ -120,4 +122,11 @@ public class CurrencySearchDTO implements SimpleResponse {
         this.max = max;
     }
 
+    public String getBlockchainIcon() {
+        return blockchainIcon;
+    }
+
+    public void setBlockchainIcon(String blockchainIcon) {
+        this.blockchainIcon = blockchainIcon;
+    }
 }

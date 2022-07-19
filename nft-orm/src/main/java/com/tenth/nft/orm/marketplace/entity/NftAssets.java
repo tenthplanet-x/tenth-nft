@@ -1,5 +1,7 @@
 package com.tenth.nft.orm.marketplace.entity;
 
+import com.tpulse.gs.convention.dao.annotation.SimpleCache;
+import com.tpulse.gs.convention.dao.annotation.columns.SimpleColumnTypeText;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author shijie
  */
 @Document("tpulse.nft_assets")
+@SimpleCache(cacheField = "_id")
 public class NftAssets {
 
     @Id
@@ -24,6 +27,7 @@ public class NftAssets {
 
     private String name;
 
+    @SimpleColumnTypeText
     private String desc;
 
     private Integer supply;

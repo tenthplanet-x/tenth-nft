@@ -32,7 +32,11 @@ public enum NftInnerCmdTypes implements CmdType {
     OWNER_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OWNER_LIST_IC, NftExchange.OWNER_LIST_IC.newBuilder()),
     ASSETS_EXCHANGE_PROFILE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_EXCHANGE_PROFILE_IC, NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()),
     COLLECTION_EXCHANGE_PROFILE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_EXCHANGE_PROFILE_IC, NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()),
-    SELL_CANCEL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.SELL_CANCEL_IC, NftExchange.SELL_CANCEL_IC.newBuilder())
+    SELL_CANCEL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.SELL_CANCEL_IC, NftExchange.SELL_CANCEL_IC.newBuilder()),
+    OFFER_MAKE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_MAKE_IC, NftExchange.OFFER_MAKE_IC.newBuilder()),
+    OFFER_ACCEPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_ACCEPT_IC, NftExchange.OFFER_ACCEPT_IC.newBuilder()),
+    OFFER_CANCEL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_CANCEL_IC, NftExchange.OFFER_CANCEL_IC.newBuilder()),
+    OFFER_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_LIST_IC, NftExchange.OFFER_LIST_IC.newBuilder()),
 
     ;
 

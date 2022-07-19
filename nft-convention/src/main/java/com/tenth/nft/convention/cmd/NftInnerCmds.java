@@ -27,7 +27,13 @@ public class NftInnerCmds {
     public static final int ASSETS_EXCHANGE_PROFILE_IC = -30007;
     public static final int COLLECTION_EXCHANGE_PROFILE_IC = -30008;
     public static final int SELL_CANCEL_IC = -30009;
+    public static final int OFFER_LIST_IC = -30010;
+    public static final int OFFER_MAKE_IC = -30011;
+    public static final int OFFER_CANCEL_IC = -30012;
+    public static final int OFFER_ACCEPT_IC = -30013;
 
     //marketplace
     public static final int ASSETS_IC = -40001;
+
+
 }
