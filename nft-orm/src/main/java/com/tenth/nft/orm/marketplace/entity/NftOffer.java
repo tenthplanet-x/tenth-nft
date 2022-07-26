@@ -30,6 +30,8 @@ public class NftOffer {
 
     private Long updatedAt;
 
+    private Long activityId;
+
     public Long getId() {
         return id;
     }
@@ -100,5 +102,13 @@ public class NftOffer {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 }

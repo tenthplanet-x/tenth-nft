@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
+import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tenth.nft.orm.marketplace.entity.NftActivity;
 import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
 import com.tenth.nft.orm.marketplace.entity.event.*;
@@ -35,6 +36,8 @@ public class NftActivityUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
     private Long updatedAt = System.currentTimeMillis();
+    @SimpleWriteParam
+    private Boolean freeze;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -62,6 +65,14 @@ public class NftActivityUpdate extends SimpleUpdate {
 
     public OfferEvent getOffer(){
         return offer;
+    }
+
+    public SaleEvent getSale() {
+        return sale;
+    }
+
+    public Boolean getFreeze() {
+        return freeze;
     }
 
     public static Builder newBuilder(){
@@ -106,6 +117,10 @@ public class NftActivityUpdate extends SimpleUpdate {
             return update;
         }
 
+        public Builder freeze(Boolean freeze) {
+            update.freeze = freeze;
+            return this;
+        }
     }
 
 }

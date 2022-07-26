@@ -1,26 +1,14 @@
 package com.tenth.nft.exchange.service;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
-import com.qcloud.cos.transfer.Transfer;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
-import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.ActivityListRouteRequest;
-import com.tenth.nft.convention.routes.exchange.ListingListRouteRequest;
 import com.tenth.nft.exchange.controller.vo.NftActivityListRequest;
 import com.tenth.nft.exchange.dto.NftActivityDTO;
-import com.tenth.nft.exchange.dto.NftListingDTO;
-import com.tenth.nft.orm.marketplace.dao.NftActivityDao;
+import com.tenth.nft.orm.marketplace.dao.NftActivityNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftActivityQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftListingQuery;
-import com.tenth.nft.orm.marketplace.entity.NftActivity;
-import com.tenth.nft.orm.marketplace.entity.NftListing;
-import com.tenth.nft.orm.marketplace.entity.event.ListEvent;
-import com.tenth.nft.orm.marketplace.entity.event.SaleEvent;
-import com.tenth.nft.orm.marketplace.entity.event.TransferEvent;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
@@ -40,7 +28,7 @@ public class NftActivityService {
     @Autowired
     private RouteClient routeClient;
     @Autowired
-    private NftActivityDao nftActivityDao;
+    private NftActivityNoCacheDao nftActivityDao;
 
     public Page<NftActivityDTO> list(NftActivityListRequest request) {
 

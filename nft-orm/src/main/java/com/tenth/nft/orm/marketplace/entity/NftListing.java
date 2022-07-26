@@ -36,6 +36,7 @@ public class NftListing {
     private Long updatedAt;
 
     private Boolean canceled = false;
+    private Long activityId;
 
     public Long getId() {
         return id;
@@ -123,5 +124,13 @@ public class NftListing {
 
     public void setCanceled(Boolean canceled) {
         this.canceled = canceled;
+    }
+
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
+    }
+
+    public Long getActivityId() {
+        return activityId;
     }
 }

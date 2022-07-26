@@ -13,6 +13,7 @@ public class OfferEvent implements NftActivityEvent {
     private String currency;
     private Boolean cancel;
     private String reason;
+    private Long expireAt;
 
     public void setFrom(Long from) {
         this.from = from;
@@ -60,5 +61,13 @@ public class OfferEvent implements NftActivityEvent {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public Long getExpireAt() {
+        return expireAt;
+    }
+
+    public void setExpireAt(Long expireAt) {
+        this.expireAt = expireAt;
     }
 }

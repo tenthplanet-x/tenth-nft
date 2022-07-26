@@ -15,10 +15,12 @@ import com.tenth.nft.exchange.vo.NftMakeOfferRequest;
 import com.tenth.nft.exchange.vo.NftOfferAcceptRequest;
 import com.tenth.nft.exchange.vo.NftOfferCancelRequest;
 import com.tenth.nft.exchange.vo.NftOfferListRequest;
-import com.tenth.nft.orm.marketplace.dao.NftActivityDao;
+import com.tenth.nft.orm.marketplace.dao.NftActivityNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
 import com.tenth.nft.orm.marketplace.dao.NftBelongDao;
 import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftActivityQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftActivityUpdate;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOfferQuery;
 import com.tenth.nft.orm.marketplace.entity.*;
@@ -36,7 +38,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.DocFlavor;
 import java.util.stream.Collectors;
 
 /**
@@ -56,7 +57,7 @@ public class NftOfferService {
     @Autowired
     private NftAssetsDao nftAssetsDao;
     @Autowired
-    private NftActivityDao nftActivityDao;
+    private NftActivityNoCacheDao nftActivityDao;
     @Autowired
     private NftExchangeService nftExchangeService;
 
@@ -161,15 +162,14 @@ public class NftOfferService {
         nftOffer.setCreatedAt(System.currentTimeMillis());
         nftOffer.setUpdatedAt(nftOffer.getCreatedAt());
         nftOffer.setExpireAt(request.getExpireAt());
+        Long activityId = sendOfferEvent(nftOffer);
+        nftOffer.setActivityId(activityId);
         nftOfferDao.insert(nftOffer);
-
-        sendOfferEvent(nftOffer);
-
         return NftExchange.OFFER_MAKE_IS.newBuilder().setOffer(NftOfferDTO.from(nftOffer)).build();
 
     }
 
-    private void sendOfferEvent(NftOffer nftOffer) {
+    private Long sendOfferEvent(NftOffer nftOffer) {
 
         NftActivity nftActivity = new NftActivity();
         nftActivity.setAssetsId(nftOffer.getAssetsId());
@@ -182,9 +182,10 @@ public class NftOfferService {
         offerEvent.setQuantity(nftOffer.getQuantity());
         offerEvent.setPrice(nftOffer.getPrice());
         offerEvent.setCurrency(nftOffer.getCurrency());
+        offerEvent.setExpireAt(nftOffer.getExpireAt());
         nftActivity.setOffer(offerEvent);
 
-        nftActivityDao.insert(nftActivity);
+        return nftActivityDao.insert(nftActivity).getId();
     }
 
 
@@ -210,12 +211,15 @@ public class NftOfferService {
             throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_NOT_EXIST);
         }
 
+        //freeze offer event
+        freezeOfferEvent(nftOffer);
+
+        //cancel event
         NftActivity nftActivity = new NftActivity();
         nftActivity.setAssetsId(nftOffer.getAssetsId());
         nftActivity.setType(NftActivityEventType.OFFER_CANCEL);
         nftActivity.setCreatedAt(System.currentTimeMillis());
         nftActivity.setUpdatedAt(nftActivity.getCreatedAt());
-
         OfferEvent offerEvent = new OfferEvent();
         offerEvent.setFrom(nftOffer.getUid());
         offerEvent.setQuantity(nftOffer.getQuantity());
@@ -223,7 +227,6 @@ public class NftOfferService {
         offerEvent.setCurrency(nftOffer.getCurrency());
         offerEvent.setCancel(true);
         nftActivity.setOffer(offerEvent);
-
         nftActivityDao.insert(nftActivity);
 
     }
@@ -250,17 +253,16 @@ public class NftOfferService {
             throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_NOT_EXIST);
         }
         if(Times.isExpired(nftOffer.getExpireAt())){
-            cancel(NftExchange.OFFER_CANCEL_IC.newBuilder()
-                    .setUid(nftOffer.getUid())
-                    .setAssetsId(request.getAssetsId())
-                    .setOfferId(request.getOfferId())
-                    .setReason(ListCancelEventReason.EXPIRED.name())
-                    .build());
+//            cancel(NftExchange.OFFER_CANCEL_IC.newBuilder()
+//                    .setUid(nftOffer.getUid())
+//                    .setAssetsId(request.getAssetsId())
+//                    .setOfferId(request.getOfferId())
+//                    .setReason(ListCancelEventReason.EXPIRED.name())
+//                    .build());
             throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_OFFER_EXPIRED);
         }
 
         NftAssets nftAssets = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(request.getAssetsId()).build());
-
         //buy
         try{
             NftOrder order = new NftOrder();
@@ -275,8 +277,23 @@ public class NftOfferService {
             order.setUpdatedAt(order.getCreatedAt());
             nftExchangeService.buy(order);
             nftOfferDao.remove(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).build());
+
+            //freeze offer even
+            freezeOfferEvent(nftOffer);
+
         }finally {
             //
+        }
+
+    }
+
+    private void freezeOfferEvent(NftOffer nftOffer) {
+
+        if(null != nftOffer.getActivityId()){
+            nftActivityDao.update(
+                    NftActivityQuery.newBuilder().id(nftOffer.getActivityId()).build(),
+                    NftActivityUpdate.newBuilder().freeze(true).build()
+            );
         }
 
     }

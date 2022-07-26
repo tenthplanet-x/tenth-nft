@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
  * @createdAt 2022/07/05 12:01
  */
 @Component
-public class NftActivityDao extends SimpleDao<NftActivity> {
+public class NftActivityNoCacheDao extends SimpleDao<NftActivity> {
 
-    public NftActivityDao() {
+    public NftActivityNoCacheDao() {
         super(NftActivity.class);
     }
 }

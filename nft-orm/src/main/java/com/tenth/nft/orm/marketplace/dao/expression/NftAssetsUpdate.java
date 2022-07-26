@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
+import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
@@ -157,6 +158,7 @@ public class NftAssetsUpdate extends SimpleUpdate {
             update.token = token;
             return this;
         }
+
     }
 
 }
