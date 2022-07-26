@@ -9,10 +9,13 @@ import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteReques
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
+import com.tenth.nft.orm.marketplace.dao.NftCollectionDao;
 import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOfferQuery;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
+import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.orm.marketplace.entity.NftOffer;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
@@ -46,6 +49,8 @@ public class AssetsSearchService {
     private RouteClient routeClient;
     @Autowired
     private NftOfferDao nftOfferDao;
+    @Autowired
+    private NftCollectionDao nftCollectionDao;
 
     public Page<AssetsSearchDTO> list(AssetsSearchRequest request) {
 
@@ -150,8 +155,7 @@ public class AssetsSearchService {
             dto.setOwnerProfile(NftUserProfileDTO.from(ownerUserDTO));
         }
         //current offer
-        NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).setSorts(SimpleQuerySorts.newBuilder().sort("price", false).sort("createdAt", true).build()).build());
-        if(null != nftOffer && !Times.isExpired(nftOffer.getExpireAt())){
+        if(exchangeProfile.hasBestOffer()){
             dto.setBestOffer(AssetsDetailSearchDTO.NftOfferDTO.from(exchangeProfile.getBestOffer()));
         }
 
@@ -168,6 +172,10 @@ public class AssetsSearchService {
                         NftAssetsQuery.newBuilder().id(id).build(),
                         AssetsOwnSearchDTO.class
                 );
+
+                //collection Name
+                NftCollection nftCollection = nftCollectionDao.findOne(NftCollectionQuery.newBuilder().id(dto.getCollectionId()).build());
+                dto.setCollectioName(nftCollection.getName());
 
                 NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
                         NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
