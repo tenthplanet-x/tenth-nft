@@ -7,9 +7,13 @@ import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.utils.Prices;
+import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
+import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftOfferQuery;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
+import com.tenth.nft.orm.marketplace.entity.NftOffer;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
@@ -39,6 +43,8 @@ public class AssetsSearchService {
     private NftAssetsDao nftAssetsDao;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private NftOfferDao nftOfferDao;
 
     public Page<AssetsSearchDTO> list(AssetsSearchRequest request) {
 
@@ -134,15 +140,18 @@ public class AssetsSearchService {
             dto.setCurrency(exchangeProfile.getCurrency());
         }
         dto.setOwners(exchangeProfile.getOwners());
-
         dto.setOwns(exchangeProfile.getOwns());
-
         if(dto.getSupply() == 1){
             Search.SearchUserDTO ownerUserDTO = routeClient.send(
                     Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(exchangeProfile.getOwnerListsList()).build(),
                     SearchUserProfileRouteRequest.class
             ).getProfiles(0);
             dto.setOwnerProfile(NftUserProfileDTO.from(ownerUserDTO));
+        }
+        //current offer
+        NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).setSortField("createdAt").setReverse(true).build());
+        if(null != nftOffer && !Times.isExpired(nftOffer.getExpireAt())){
+            dto.setBestOffer(AssetsDetailSearchDTO.NftOfferDTO.from(exchangeProfile.getBestOffer()));
         }
 
         return dto;

@@ -13,6 +13,7 @@ import com.tenth.nft.convention.routes.exchange.SellRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.exchange.controller.vo.NftBuyRequest;
 import com.tenth.nft.exchange.dto.NftListingDTO;
+import com.tenth.nft.exchange.dto.NftOfferDTO;
 import com.tenth.nft.exchange.vo.NftSellRequest;
 import com.tenth.nft.exchange.vo.SellCancelRequest;
 import com.tenth.nft.orm.marketplace.dao.*;
@@ -21,6 +22,7 @@ import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.orm.marketplace.entity.event.*;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tpulse.gs.convention.dao.SimpleQuery;
+import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -60,6 +62,8 @@ public class NftExchangeService {
     private BlockchainRouter blockChainRouter;
     @Autowired
     private NftAssetsDao nftAssetsDao;
+    @Autowired
+    private NftOfferDao nftOfferDao;
 
     public NftListingDTO sell(NftSellRequest request) {
 
@@ -358,7 +362,11 @@ public class NftExchangeService {
                 profileBuilder.addOwnerLists(belong.getOwner());
             }
         }else{
-            profileBuilder.addAllOwnerLists(nftBelongDao.find(NftBelongQuery.newBuilder().assetsId(assetsId).build()).stream().map(NftBelong::getOwner).collect(Collectors.toList()));
+            profileBuilder.addAllOwnerLists(nftBelongDao
+                    .find(NftBelongQuery.newBuilder().assetsId(assetsId).build())
+                    .stream()
+                    .map(NftBelong::getOwner)
+                    .collect(Collectors.toList()));
         }
 
         if(null != abserver){
@@ -367,6 +375,15 @@ public class NftExchangeService {
             if(null != abserverBelong){
                 profileBuilder.setOwns(abserverBelong.getQuantity());
             }
+        }
+
+        //bestOffer
+        NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder()
+                .assetsId(assetsId)
+                .setSorts(SimpleQuerySorts.newBuilder().sort("price", false).sort("createdAt", true).build()).build()
+        );
+        if(nftOffer != null && !Times.isExpired(nftOffer.getExpireAt())){
+            profileBuilder.setBestOffer(NftOfferDTO.from(nftOffer));
         }
 
         return profileBuilder.build();

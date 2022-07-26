@@ -46,6 +46,7 @@ message NftAssetsProfileDTO{
   repeated int64 ownerLists = 5;
   optional int32 owns = 6;
   optional NftListingDTO currentListing = 7;
+  optional NftOfferDTO bestOffer = 8;
 }
 
 message NftCollectionProfileDTO{

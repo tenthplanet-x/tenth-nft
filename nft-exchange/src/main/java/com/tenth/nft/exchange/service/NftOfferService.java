@@ -25,6 +25,8 @@ import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.orm.marketplace.entity.event.ListCancelEventReason;
 import com.tenth.nft.orm.marketplace.entity.event.OfferEvent;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tpulse.gs.convention.dao.SimplePageQuery;
+import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -93,12 +95,11 @@ public class NftOfferService {
 
     public NftExchange.OFFER_LIST_IS offerList(NftExchange.OFFER_LIST_IC request){
 
-        Page<NftOffer> dataPage = nftOfferDao.findPage(NftOfferQuery.newBuilder()
+        Page<NftOffer> dataPage = nftOfferDao.findPage((SimplePageQuery) NftOfferQuery.newBuilder()
                 .assetsId(request.getAssetsId())
-                        .setPage(request.getPage())
-                        .setPageSize(request.getPageSize())
-                        .setSortField("createdAt")
-                        .setReverse(true)
+                .setPage(request.getPage())
+                .setPageSize(request.getPageSize())
+                .setSorts(SimpleQuerySorts.newBuilder().sort("price", false).sort("createdAt", true).build())
                 .build()
         );
 
