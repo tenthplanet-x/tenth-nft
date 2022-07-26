@@ -22,6 +22,7 @@ import com.tenth.nft.search.dto.AssetsDetailSearchDTO;
 import com.tenth.nft.search.vo.AssetsDetailSearchRequest;
 import com.tenth.nft.search.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
+import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -141,7 +142,7 @@ public class AssetsSearchService {
         }
         dto.setOwners(exchangeProfile.getOwners());
         dto.setOwns(exchangeProfile.getOwns());
-        if(dto.getSupply() == 1){
+        if(dto.getSupply() == 1 || dto.getOwners() == 1){
             Search.SearchUserDTO ownerUserDTO = routeClient.send(
                     Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(exchangeProfile.getOwnerListsList()).build(),
                     SearchUserProfileRouteRequest.class
@@ -149,7 +150,7 @@ public class AssetsSearchService {
             dto.setOwnerProfile(NftUserProfileDTO.from(ownerUserDTO));
         }
         //current offer
-        NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).setSortField("createdAt").setReverse(true).build());
+        NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).setSorts(SimpleQuerySorts.newBuilder().sort("price", false).sort("createdAt", true).build()).build());
         if(null != nftOffer && !Times.isExpired(nftOffer.getExpireAt())){
             dto.setBestOffer(AssetsDetailSearchDTO.NftOfferDTO.from(exchangeProfile.getBestOffer()));
         }
