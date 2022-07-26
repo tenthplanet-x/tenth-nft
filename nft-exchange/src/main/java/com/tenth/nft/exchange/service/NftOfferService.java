@@ -106,7 +106,7 @@ public class NftOfferService {
 
         if(!dataPage.getData().isEmpty()){
             return NftExchange.OFFER_LIST_IS.newBuilder()
-                    .addAllOffers(dataPage.getData().stream().map(NftOfferDTO::from).collect(Collectors.toList()))
+                    .addAllOffers(dataPage.getData().stream().filter(dto -> !Times.isExpired(dto.getExpireAt())).map(NftOfferDTO::from).collect(Collectors.toList()))
                     .build();
         }
 

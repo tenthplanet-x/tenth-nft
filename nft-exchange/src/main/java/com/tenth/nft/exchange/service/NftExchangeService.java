@@ -321,7 +321,9 @@ public class NftExchangeService {
         //todo shijie cache
         Optional<NftListing> floor = nftListingDao
                 .find(NftListingQuery.newBuilder().assetsId(assetsId).canceled(false).build())
-                .stream().sorted(Comparator.comparingLong(NftListing::getCreatedAt)).min(Comparator.comparingDouble(listing -> listing.getPrice()));
+                .stream()
+                .filter(dto -> !Times.isExpired(dto.getExpireAt()))
+                .sorted(Comparator.comparingLong(NftListing::getCreatedAt)).min(Comparator.comparingDouble(listing -> listing.getPrice()));
         if(floor.isPresent()){
             profileBuilder.setCurrentListing(NftExchange.NftListingDTO.newBuilder()
                     .setId(floor.get().getId())
@@ -378,12 +380,13 @@ public class NftExchangeService {
         }
 
         //bestOffer
-        NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder()
+        Optional<NftOffer> nftOffer = nftOfferDao.find(NftOfferQuery.newBuilder()
                 .assetsId(assetsId)
-                .setSorts(SimpleQuerySorts.newBuilder().sort("price", false).sort("createdAt", true).build()).build()
-        );
-        if(nftOffer != null && !Times.isExpired(nftOffer.getExpireAt())){
-            profileBuilder.setBestOffer(NftOfferDTO.from(nftOffer));
+                .setSorts(SimpleQuerySorts.newBuilder().sort("price", false).sort("createdAt", true).build())
+                .build()
+        ).stream().filter(dto -> !Times.isExpired(dto.getExpireAt())).findFirst();
+        if(nftOffer.isPresent()){
+            profileBuilder.setBestOffer(NftOfferDTO.from(nftOffer.get()));
         }
 
         return profileBuilder.build();
