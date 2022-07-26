@@ -167,6 +167,10 @@ public class NftExchangeService {
         NftListing nftListing = nftListingDao.findOne(
                 NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build()
         );
+        if(null == nftListing || nftListing.getCanceled()){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_CANCELED);
+        }
+
         if(Times.earlierThan(nftListing.getStartAt())){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NOT_START);
         }
@@ -180,9 +184,7 @@ public class NftExchangeService {
 //                    .build());
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_EXPIRED);
         }
-        if(nftListing.getCanceled()){
-            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_CANCELED);
-        }
+
 
         //TODO wallet check
 
