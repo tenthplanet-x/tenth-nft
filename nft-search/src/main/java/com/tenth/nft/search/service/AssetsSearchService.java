@@ -7,16 +7,13 @@ import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.utils.Prices;
-import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionDao;
 import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftOfferQuery;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
-import com.tenth.nft.orm.marketplace.entity.NftOffer;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
@@ -25,7 +22,6 @@ import com.tenth.nft.search.dto.AssetsDetailSearchDTO;
 import com.tenth.nft.search.vo.AssetsDetailSearchRequest;
 import com.tenth.nft.search.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
-import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -175,7 +171,7 @@ public class AssetsSearchService {
 
                 //collection Name
                 NftCollection nftCollection = nftCollectionDao.findOne(NftCollectionQuery.newBuilder().id(dto.getCollectionId()).build());
-                dto.setCollectioName(nftCollection.getName());
+                dto.setCollectionName(nftCollection.getName());
 
                 NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
                         NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()

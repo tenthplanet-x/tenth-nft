@@ -388,7 +388,7 @@ public class NftExchangeService {
         //bestOffer
         Optional<NftOffer> nftOffer = nftOfferDao.find(NftOfferQuery.newBuilder()
                 .assetsId(assetsId)
-                .setSorts(SimpleQuerySorts.newBuilder().sort("price", false).sort("createdAt", true).build())
+                .setSorts(SimpleQuerySorts.newBuilder().sort("price", true).sort("createdAt", true).build())
                 .build()
         ).stream().filter(dto -> !Times.isExpired(dto.getExpireAt())).findFirst();
         if(nftOffer.isPresent()){

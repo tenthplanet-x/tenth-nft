@@ -29,7 +29,7 @@ public class AssetsOwnSearchDTO implements SimpleResponse {
     @SimpleField
     private Long collectionId;
 
-    private String collectioName;
+    private String collectionName;
 
     public Long getId() {
         return id;
@@ -87,11 +87,11 @@ public class AssetsOwnSearchDTO implements SimpleResponse {
         this.collectionId = collectionId;
     }
 
-    public String getCollectioName() {
-        return collectioName;
+    public String getCollectionName() {
+        return collectionName;
     }
 
-    public void setCollectioName(String collectioName) {
-        this.collectioName = collectioName;
+    public void setCollectionName(String collectionName) {
+        this.collectionName = collectionName;
     }
 }

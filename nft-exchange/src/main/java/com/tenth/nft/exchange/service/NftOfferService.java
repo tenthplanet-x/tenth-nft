@@ -100,7 +100,7 @@ public class NftOfferService {
                 .assetsId(request.getAssetsId())
                 .setPage(request.getPage())
                 .setPageSize(request.getPageSize())
-                .setSorts(SimpleQuerySorts.newBuilder().sort("price", false).sort("createdAt", true).build())
+                .setSorts(SimpleQuerySorts.newBuilder().sort("price", true).sort("createdAt", true).build())
                 .build()
         );
 
