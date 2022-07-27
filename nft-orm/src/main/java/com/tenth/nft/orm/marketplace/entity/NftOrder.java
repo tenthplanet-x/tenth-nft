@@ -18,7 +18,6 @@ public class NftOrder {
     @Indexed
     private Long assetsId;
 
-    @Indexed
     private Long listingId;
 
     private Integer quantity;

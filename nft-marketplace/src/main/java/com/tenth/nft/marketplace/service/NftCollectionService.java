@@ -214,4 +214,8 @@ public class NftCollectionService {
                 CollectionRebuildRouteRequest.class
         );
     }
+
+    public NftCollection detail(Long collectionId) {
+        return nftCollectionDao.findOne(NftCollectionQuery.newBuilder().id(collectionId).build());
+    }
 }

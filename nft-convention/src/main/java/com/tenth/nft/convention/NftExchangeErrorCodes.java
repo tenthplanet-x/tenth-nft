@@ -14,6 +14,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
      * 20200 mint
      */
     MINT_EXCEPTION("20201", "mint excepiton"),
+    MINT_EXCEPTION_INVALID_PARAMS("20202", "invalid mint params"),
     /**
      * 20300 sell
      */
