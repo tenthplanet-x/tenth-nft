@@ -108,6 +108,7 @@ public class NftStatsService {
                 .find(NftListingQuery.newBuilder().assetsId(assetsId).build())
                 .stream()
                 .filter(dto -> !Times.isExpired(dto.getExpireAt()))
+                .filter(dto -> dto.getCurrency().equals(currency))
                 .sorted(Comparator.comparingLong(NftListing::getCreatedAt))
                 .map(listing -> {
                     float rate = 1;

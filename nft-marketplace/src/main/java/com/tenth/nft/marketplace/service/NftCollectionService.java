@@ -184,9 +184,9 @@ public class NftCollectionService {
                     CollectionsExchangeProfileRouteRequest.class
             ).getProfile();
 
-            if(exchangeProfile.hasCurrentListing()){
-                dto.setFloorPrice(Prices.toString(exchangeProfile.getCurrentListing().getPrice()));
-                dto.setCurrency(exchangeProfile.getCurrentListing().getCurrency());
+            if(exchangeProfile.hasFloorPrice()){
+                dto.setFloorPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+                dto.setCurrency(exchangeProfile.getCurrency());
             }
             if(exchangeProfile.hasTotalVolume()){
                 dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));

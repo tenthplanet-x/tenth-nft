@@ -8,6 +8,7 @@ import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.routes.exchange.*;
+import com.tenth.nft.convention.routes.search.AssetsRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.exchange.controller.vo.NftBuyRequest;
 import com.tenth.nft.exchange.dto.NftListingDTO;
@@ -19,6 +20,7 @@ import com.tenth.nft.orm.marketplace.dao.expression.*;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.orm.marketplace.entity.event.*;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.SimpleQuery;
 import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
@@ -59,11 +61,10 @@ public class NftExchangeService {
     @Autowired
     private BlockchainRouter blockChainRouter;
     @Autowired
-    private NftAssetsDao nftAssetsDao;
-    @Autowired
     private NftOfferDao nftOfferDao;
     @Autowired
     private NftAssetsStatsDao nftAssetsStatsDao;
+
 
     public NftListingDTO sell(NftSellRequest request) {
 
@@ -317,12 +318,20 @@ public class NftExchangeService {
 
         NftExchange.NftAssetsProfileDTO.Builder profileBuilder = NftExchange.NftAssetsProfileDTO.newBuilder();
         profileBuilder.setId(assetsId);
+        NftSearch.AssetsDTO assetsDTO = routeClient.send(
+                NftSearch.ASSETS_IC.newBuilder()
+                        .setAssetsId(assetsId)
+                        .build(),
+                AssetsRouteRequest.class
+        ).getAssets();
+        String currency = assetsDTO.getCurrency();
 
         //current price
         Optional<NftListing> floor = nftListingDao
                 .find(NftListingQuery.newBuilder().assetsId(assetsId).build())
                 .stream()
                 .filter(dto -> !Times.isExpired(dto.getExpireAt()))
+                .filter(dto -> dto.getCurrency().equals(currency))
                 .sorted(Comparator.comparingLong(NftListing::getCreatedAt)).min(Comparator.comparingDouble(listing -> listing.getPrice()));
         if(floor.isPresent()){
             profileBuilder.setCurrentListing(NftExchange.NftListingDTO.newBuilder()
@@ -386,20 +395,25 @@ public class NftExchangeService {
         NftExchange.NftCollectionProfileDTO.Builder collectionProfileDTOBuilder = NftExchange.NftCollectionProfileDTO.newBuilder();
         Set<Long> ownerLists = new HashSet<>();
 
-        request.getAssetsIdsList().stream().map(assetId -> profile(assetId, true, null)).forEach(profile -> {
+        request.getAssetsIdsList().stream().forEach(assetsId -> {
 
-            if(profile.hasCurrentListing()){
-                if(!collectionProfileDTOBuilder.hasCurrentListing() || (profile.getCurrentListing().getPrice() < collectionProfileDTOBuilder.getCurrentListing().getPrice())){
-                    collectionProfileDTOBuilder.setCurrentListing(profile.getCurrentListing());
+            NftAssetsStats stats = nftAssetsStatsDao.findOne(NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build());
+            if(null != stats){
+                if(stats.getTotalVolume() > 0){
+                    collectionProfileDTOBuilder.setTotalVolume(stats.getTotalVolume());
+                    collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
+                }
+                if(stats.getFloorPrice() > 0){
+                    collectionProfileDTOBuilder.setFloorPrice(stats.getFloorPrice());
+                    collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
                 }
             }
 
-            if(profile.hasTotalVolume()){
-                collectionProfileDTOBuilder.setTotalVolume(collectionProfileDTOBuilder.getTotalVolume() + profile.getTotalVolume());
-                collectionProfileDTOBuilder.setCurrency(profile.getCurrency());
-            }
-
-            ownerLists.addAll(profile.getOwnerListsList());
+            //ownerUids
+            ownerLists.addAll(nftBelongDao.find(NftBelongQuery.newBuilder().assetsId(assetsId).build())
+                    .stream()
+                    .map(belong -> belong.getOwner())
+                    .collect(Collectors.toList()));
 
         });
 

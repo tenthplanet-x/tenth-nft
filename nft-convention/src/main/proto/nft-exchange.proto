@@ -53,7 +53,7 @@ message NftCollectionProfileDTO{
   optional float totalVolume = 2;
   optional string currency = 3;
   required int64 owners = 4;
-  optional NftListingDTO currentListing = 5;
+  optional float floorPrice = 6;
 }
 
 message NftOfferDTO{
