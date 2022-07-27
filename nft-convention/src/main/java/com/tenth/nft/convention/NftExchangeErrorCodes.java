@@ -28,16 +28,19 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     BUY_EXCEPTION_EXPIRED("20402", "expired"),
     BUY_EXCEPTION_CANCELED("20403", "canceled"),
     BUY_EXCEPTION_NO_ENOUGH_QUANTITY("20404", "no enough quantity"),
+    BUY_EXCEPTION_BELONGS_TO_YOU("20405", "belongs to you"),
     /**
      * 20500 offer
      */
     OFFER_EXCEPTION_INVALID_PARAMS("20501", "invalid params"),
-    OFFER_ACCEPT_EXCEPTION_NOT_EXIST("20502", "offer not exist"),
-    OFFER_ACCEPT_EXCEPTION_EXPIRED("20503", "expired"),
-    OFFER_EXCEPTION_EXPIRED("20504", "expired")
+    OFFER_EXCEPTION_BELONGS_TO_YOU("20502", "belongs to you"),
+    OFFER_EXCEPTION_EXPIRED("20503", "expired"),
+    OFFER_EXCEPTION_NOT_EXIST("20504", "offer not exist"),
+
     /**
      * 20600 accept
      */
+
 
     ;
 

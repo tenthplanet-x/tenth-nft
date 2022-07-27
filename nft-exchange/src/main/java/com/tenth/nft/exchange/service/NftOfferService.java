@@ -19,10 +19,7 @@ import com.tenth.nft.orm.marketplace.dao.NftActivityNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
 import com.tenth.nft.orm.marketplace.dao.NftBelongDao;
 import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
-import com.tenth.nft.orm.marketplace.dao.expression.NftActivityQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftActivityUpdate;
-import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftOfferQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.*;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.orm.marketplace.entity.event.OfferEvent;
 import com.tenth.nft.protobuf.NftExchange;
@@ -152,6 +149,14 @@ public class NftOfferService {
         if(Times.isExpired(request.getExpireAt())){
             throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_INVALID_PARAMS);
         }
+        int owns = 0;
+        NftBelong nftBelong = nftBelongDao.findOne(NftBelongQuery.newBuilder().assetsId(request.getAssetsId()).owner(request.getUid()).build());
+        if(null != nftBelong){
+            owns = nftBelong.getQuantity();
+        }
+        if(owns == assets.getSupply()){
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_BELONGS_TO_YOU);
+        }
 
         //todo wallet check
 
@@ -210,7 +215,7 @@ public class NftOfferService {
 
         NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).uid(request.getUid()).build());
         if(null == nftOffer){
-            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_ACCEPT_EXCEPTION_NOT_EXIST);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_NOT_EXIST);
         }
 
         if(Times.isExpired(nftOffer.getExpireAt())){
@@ -256,10 +261,10 @@ public class NftOfferService {
 
         NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).build());
         if(null == nftOffer){
-            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_ACCEPT_EXCEPTION_NOT_EXIST);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_NOT_EXIST);
         }
         if(Times.isExpired(nftOffer.getExpireAt())){
-            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_ACCEPT_EXCEPTION_EXPIRED);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_EXPIRED);
         }
 
         NftAssets nftAssets = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(request.getAssetsId()).build());

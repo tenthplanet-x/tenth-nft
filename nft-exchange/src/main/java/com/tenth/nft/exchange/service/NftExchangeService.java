@@ -174,19 +174,14 @@ public class NftExchangeService {
         if(null == nftListing || nftListing.getCanceled()){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_CANCELED);
         }
-
         if(Times.earlierThan(nftListing.getStartAt())){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NOT_START);
         }
         if(Times.isExpired(nftListing.getExpireAt())){
-            //cancel
-//            sellCancel(NftExchange.SELL_CANCEL_IC.newBuilder()
-//                    .setAssetsId(request.getAssetsId())
-//                    .setListingId(request.getListingId())
-//                    .setSeller(nftListing.getUid())
-//                    .setReason(ListCancelEventReason.EXPIRED.name())
-//                    .build());
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_EXPIRED);
+        }
+        if(nftListing.getUid().equals(request.getUid())){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_BELONGS_TO_YOU);
         }
 
 
