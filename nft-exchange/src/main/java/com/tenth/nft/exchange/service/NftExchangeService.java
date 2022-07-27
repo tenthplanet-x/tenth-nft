@@ -91,7 +91,10 @@ public class NftExchangeService {
         //quantity check
         NftBelong nftBelong = nftBelongDao.findOne(NftBelongQuery.newBuilder().assetsId(request.getAssetsId()).owner(request.getUid()).build());
         if(null == nftBelong || nftBelong.getQuantity() < request.getQuantity()){
-            throw BizException.newInstance(NftExchangeErrorCodes.EXCHANGE_EXCEPTION_NO_ENOUGH_QUANTITY);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_INVALID_PARAMS);
+        }
+        if(Times.isExpired(request.getExpireAt())){
+            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
         }
 
         NftListing listing = new NftListing();
@@ -131,19 +134,20 @@ public class NftExchangeService {
     public NftExchange.SELL_CANCEL_IS sellCancel(NftExchange.SELL_CANCEL_IC request){
         //listing check
         NftListing nftListing = nftListingDao.findOne(
-                NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).uid(request.getSeller()).build()
+                NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build()
         );
         if(null == nftListing){
             throw BizException.newInstance(NftExchangeErrorCodes.SELL_CANCEL_EXCEPTION_NOT_EXIST);
         }
+        if(Times.isExpired(nftListing.getExpireAt())){
+            throw BizException.newInstance(NftExchangeErrorCodes.SELL_CANCEL_EXCEPTION_EXPIRED);
+        }
 
-        nftListing = nftListingDao.findAndRemove(
+        nftListingDao.remove(
                 NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build()
         );
-        if(null != nftListing){
-            freezeListingEvent(nftListing);
-            sendCancelEvent(nftListing, request.getReason());
-        }
+        freezeListingEvent(nftListing);
+        sendCancelEvent(nftListing, request.getReason());
 
         return NftExchange.SELL_CANCEL_IS.newBuilder().build();
     }

@@ -24,7 +24,6 @@ import com.tenth.nft.orm.marketplace.dao.expression.NftActivityUpdate;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOfferQuery;
 import com.tenth.nft.orm.marketplace.entity.*;
-import com.tenth.nft.orm.marketplace.entity.event.ListCancelEventReason;
 import com.tenth.nft.orm.marketplace.entity.event.OfferEvent;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
@@ -148,7 +147,10 @@ public class NftOfferService {
 
         NftAssets assets = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(request.getAssetsId()).build());
         if(assets.getSupply() < request.getQuantity()){
-            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_INSUFFICIENT);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_INVALID_PARAMS);
+        }
+        if(Times.isExpired(request.getExpireAt())){
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_INVALID_PARAMS);
         }
 
         //todo wallet check
@@ -206,9 +208,13 @@ public class NftOfferService {
 
     public void cancel(NftExchange.OFFER_CANCEL_IC request){
 
-        NftOffer nftOffer = nftOfferDao.findAndRemove(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).uid(request.getUid()).build());
+        NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).uid(request.getUid()).build());
         if(null == nftOffer){
-            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_NOT_EXIST);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_ACCEPT_EXCEPTION_NOT_EXIST);
+        }
+
+        if(Times.isExpired(nftOffer.getExpireAt())){
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_EXPIRED);
         }
 
         //freeze offer event
@@ -250,16 +256,10 @@ public class NftOfferService {
 
         NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).build());
         if(null == nftOffer){
-            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_NOT_EXIST);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_ACCEPT_EXCEPTION_NOT_EXIST);
         }
         if(Times.isExpired(nftOffer.getExpireAt())){
-//            cancel(NftExchange.OFFER_CANCEL_IC.newBuilder()
-//                    .setUid(nftOffer.getUid())
-//                    .setAssetsId(request.getAssetsId())
-//                    .setOfferId(request.getOfferId())
-//                    .setReason(ListCancelEventReason.EXPIRED.name())
-//                    .build());
-            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_OFFER_EXPIRED);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_ACCEPT_EXCEPTION_EXPIRED);
         }
 
         NftAssets nftAssets = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(request.getAssetsId()).build());
@@ -295,9 +295,6 @@ public class NftOfferService {
                     NftActivityUpdate.newBuilder().freeze(true).build()
             );
         }
-
     }
-
-
 
 }
