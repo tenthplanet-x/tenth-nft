@@ -19,14 +19,14 @@ public enum NftExchangeErrorCodes implements ErrorCode {
      */
     SELL_EXCEPTION_INVALID_PARAMS("20301", "invalid params"),
     SELL_EXCEPTION_CREATE_CONTRACT_ERROR("20302", "create contract error"),
-    SELL_CANCEL_EXCEPTION_NOT_EXIST("20303", "listing not exist"),
+    SELL_CANCEL_EXCEPTION_NOT_EXIST("20303", "does not exist"),
     SELL_CANCEL_EXCEPTION_EXPIRED("20304", "expire"),
     /**
      * 20400 buy
      */
     BUY_EXCEPTION_NOT_START("20401", "not start"),
     BUY_EXCEPTION_EXPIRED("20402", "expired"),
-    BUY_EXCEPTION_CANCELED("20403", "canceled"),
+    BUY_EXCEPTION_NO_EXIST("20403", "does not exist"),
     BUY_EXCEPTION_NO_ENOUGH_QUANTITY("20404", "no enough quantity"),
     BUY_EXCEPTION_BELONGS_TO_YOU("20405", "belongs to you"),
     /**
@@ -35,11 +35,12 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     OFFER_EXCEPTION_INVALID_PARAMS("20501", "invalid params"),
     OFFER_EXCEPTION_BELONGS_TO_YOU("20502", "belongs to you"),
     OFFER_EXCEPTION_EXPIRED("20503", "expired"),
-    OFFER_EXCEPTION_NOT_EXIST("20504", "offer not exist"),
+    OFFER_EXCEPTION_NOT_EXIST("20504", "does not exist"),
 
     /**
      * 20600 accept
      */
+    ACCEPT_EXCEPTION_OWNS("20601", "offer belongs to you")
 
 
     ;

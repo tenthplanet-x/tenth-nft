@@ -266,6 +266,9 @@ public class NftOfferService {
         if(Times.isExpired(nftOffer.getExpireAt())){
             throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_EXPIRED);
         }
+        if(nftOffer.getUid().equals(request.getUid())){
+            throw BizException.newInstance(NftExchangeErrorCodes.ACCEPT_EXCEPTION_OWNS);
+        }
 
         NftAssets nftAssets = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(request.getAssetsId()).build());
         //buy

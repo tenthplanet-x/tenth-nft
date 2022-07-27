@@ -172,7 +172,7 @@ public class NftExchangeService {
                 NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build()
         );
         if(null == nftListing || nftListing.getCanceled()){
-            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_CANCELED);
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NO_EXIST);
         }
         if(Times.earlierThan(nftListing.getStartAt())){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NOT_START);
