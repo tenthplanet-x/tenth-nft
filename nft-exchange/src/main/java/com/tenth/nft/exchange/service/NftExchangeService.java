@@ -7,6 +7,7 @@ import com.tenth.nft.blockchain.BlockchainRouter;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.blockchain.NullAddress;
+import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
 import com.tenth.nft.convention.routes.exchange.*;
 import com.tenth.nft.convention.routes.search.AssetsRouteRequest;
 import com.tenth.nft.convention.utils.Times;
@@ -211,8 +212,15 @@ public class NftExchangeService {
             );
             //owner listing refresh
             refrehListing(nftOrder.getOwner(), nftOrder.getAssetsId());
-
             sendListingRouteEvent(nftOrder.getAssetsId());
+
+            //rebuild assets
+            routeClient.send(
+                    NftSearch.NFT_ASSETS_REBUILD_IC.newBuilder()
+                            .setAssetsId(nftOrder.getAssetsId())
+                            .build(),
+                    AssetsRebuildRouteRequest.class
+            );
         }
 
     }
