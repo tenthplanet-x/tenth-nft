@@ -29,6 +29,7 @@ public class NftListing {
 
     private Long startAt;
 
+    @Indexed
     private Long expireAt;
 
     private Long createdAt;

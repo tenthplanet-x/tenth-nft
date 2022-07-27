@@ -187,3 +187,21 @@ message OFFER_ACCEPT_IC{
 message OFFER_ACCEPT_IS{
 
 }
+
+message LISTING_EVENT_IC{
+  required int64 assetsId = 1;
+}
+
+message EXCHANGE_EVENT_IC{
+  required int64 assetsId = 1;
+}
+
+message LISTING_EXPIRE_CHECK_IC{
+  required int64 assetsId = 1;
+  required int64 listingId = 2;
+}
+
+message OFFER_EXPIRE_CHECK_IC{
+  required int64 assetsId = 1;
+  required int64 offerId = 2;
+}

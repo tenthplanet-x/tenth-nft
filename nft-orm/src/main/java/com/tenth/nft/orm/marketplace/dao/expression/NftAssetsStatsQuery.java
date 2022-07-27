@@ -7,20 +7,14 @@ import com.tpulse.gs.convention.dao.defination.QueryOpt;
 
 /**
  * @author gs-orm-generator
- * @createdAt 2022/07/05 12:01
+ * @createdAt 2022/07/27 15:26
  */
-public class NftListingQuery extends SimplePageQuery {
+public class NftAssetsStatsQuery extends SimplePageQuery {
 
     @SimpleQueryParam(name = "_id")
     private Long id;
     @SimpleQueryParam
     private Long assetsId;
-    @SimpleQueryParam
-    private Long uid;
-    @SimpleQueryParam
-    private Boolean canceled;
-    @SimpleQueryParam(name = "expireAt", opt = QueryOpt.LT)
-    private Long expireAtLt;
 
     public Long getId() {
         return id;
@@ -30,29 +24,17 @@ public class NftListingQuery extends SimplePageQuery {
         return assetsId;
     }
 
-    public Long getUid() {
-        return uid;
-    }
-
-    public Boolean getCanceled() {
-        return canceled;
-    }
-
-    public Long getExpireAtLt() {
-        return expireAtLt;
-    }
-
     public static Builder newBuilder() {
         return new Builder();
     }
 
     public static class Builder extends SimplePageQuery.Builder{
 
-        NftListingQuery query;
+        NftAssetsStatsQuery query;
 
         public Builder() {
-            super(new NftListingQuery());
-            this.query = (NftListingQuery) super.query;
+            super(new NftAssetsStatsQuery());
+            this.query = (NftAssetsStatsQuery) super.query;
         }
 
         public Builder id(Long id) {
@@ -62,21 +44,6 @@ public class NftListingQuery extends SimplePageQuery {
 
         public Builder assetsId(Long assetsId) {
             query.assetsId = assetsId;
-            return this;
-        }
-
-        public Builder uid(Long owner) {
-            query.uid = owner;
-            return this;
-        }
-
-        public Builder canceled(Boolean canceled) {
-            query.canceled = canceled;
-            return this;
-        }
-
-        public Builder expireAtLt(Long expireAtLt) {
-            query.expireAtLt = expireAtLt;
             return this;
         }
     }

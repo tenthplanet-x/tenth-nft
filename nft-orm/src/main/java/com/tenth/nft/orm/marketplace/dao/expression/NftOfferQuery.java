@@ -17,6 +17,8 @@ public class NftOfferQuery extends SimplePageQuery {
     private Long uid;
     @SimpleQueryParam
     private Long assetsId;
+    @SimpleQueryParam(name = "expireAt", opt = QueryOpt.LT)
+    private Long expireAtLt;
 
     public Long getId() {
         return id;
@@ -28,6 +30,10 @@ public class NftOfferQuery extends SimplePageQuery {
 
     public Long getAssetsId() {
         return assetsId;
+    }
+
+    public Long getExpireAtLt() {
+        return expireAtLt;
     }
 
     public static Builder newBuilder() {
@@ -55,6 +61,11 @@ public class NftOfferQuery extends SimplePageQuery {
 
         public Builder uid(Long uid) {
             query.uid = uid;
+            return this;
+        }
+
+        public Builder expireAtLt(Long expireAtLt) {
+            query.expireAtLt = expireAtLt;
             return this;
         }
     }

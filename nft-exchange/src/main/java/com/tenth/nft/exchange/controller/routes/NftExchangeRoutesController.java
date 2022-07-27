@@ -76,4 +76,10 @@ public class NftExchangeRoutesController {
         return nftExchangeService.profile(request);
     }
 
+    @RouteRequestMapping(ListingExpireCheckRouteRequest.class)
+    public void expireCheck(NftExchange.LISTING_EXPIRE_CHECK_IC request){
+        nftExchangeService.expireCheck(request);
+    }
+
+
 }

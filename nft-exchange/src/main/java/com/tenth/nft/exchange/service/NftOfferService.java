@@ -305,4 +305,8 @@ public class NftOfferService {
         }
     }
 
+    public void expireCheck(NftExchange.OFFER_EXPIRE_CHECK_IC request) {
+        nftOfferDao.remove(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).build());
+    }
+
 }

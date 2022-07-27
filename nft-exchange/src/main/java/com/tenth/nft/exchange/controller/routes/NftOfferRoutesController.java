@@ -1,9 +1,6 @@
 package com.tenth.nft.exchange.controller.routes;
 
-import com.tenth.nft.convention.routes.exchange.OfferAcceptRouteRequest;
-import com.tenth.nft.convention.routes.exchange.OfferCancelRouteRequest;
-import com.tenth.nft.convention.routes.exchange.OfferListRouteRequest;
-import com.tenth.nft.convention.routes.exchange.OfferMakeRouteRequest;
+import com.tenth.nft.convention.routes.exchange.*;
 import com.tenth.nft.exchange.service.NftOfferService;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
@@ -41,6 +38,11 @@ public class NftOfferRoutesController {
     public NftExchange.OFFER_ACCEPT_IS accept(NftExchange.OFFER_ACCEPT_IC request){
         nftOfferService.accept(request);
         return NftExchange.OFFER_ACCEPT_IS.newBuilder().build();
+    }
+
+    @RouteRequestMapping(OfferExpireCheckRouteRequest.class)
+    public void expireCheck(NftExchange.OFFER_EXPIRE_CHECK_IC request){
+        nftOfferService.expireCheck(request);
     }
 
 }

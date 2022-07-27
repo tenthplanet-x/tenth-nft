@@ -15,6 +15,7 @@ import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
 import com.tenth.nft.search.lucenedao.NftAssetsLuceneDao;
@@ -47,6 +48,9 @@ public class AssetsSearchService {
     private NftOfferDao nftOfferDao;
     @Autowired
     private NftCollectionDao nftCollectionDao;
+    @Autowired
+    private CurrencySearchService currencySearchService;
+
 
     public Page<AssetsSearchDTO> list(AssetsSearchRequest request) {
 
@@ -202,5 +206,25 @@ public class AssetsSearchService {
         }
 
         return new Page<>();
+    }
+
+    public NftSearch.ASSETS_IS assetsProfile(NftSearch.ASSETS_IC request) {
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
+        NftAssets nftAssets = nftAssetsDao.findOne(
+                NftAssetsQuery.newBuilder().id(request.getAssetsId()).build()
+        );
+
+        String mainCurrency = currencySearchService.getMainCurrency(nftAssets.getBlockchain());
+
+        return NftSearch.ASSETS_IS.newBuilder()
+                .setAssets(NftSearch.AssetsDTO.newBuilder()
+                        .setCollectionId(nftAssets.getCollectionId())
+                        .setBlockchain(nftAssets.getBlockchain())
+                        .setCurrency(mainCurrency)
+                        .setCreator(nftAssets.getCreator())
+                        .build())
+                .build();
+
     }
 }
