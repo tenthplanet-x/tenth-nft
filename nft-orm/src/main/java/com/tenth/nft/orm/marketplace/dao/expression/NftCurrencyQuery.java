@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
+import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
 
@@ -15,6 +16,8 @@ public class NftCurrencyQuery extends SimplePageQuery {
     private String blockchain;
     @SimpleQueryParam
     private Integer version;
+    @SimpleQueryParam
+    private Boolean main;
 
     public Long getId() {
         return id;
@@ -26,6 +29,10 @@ public class NftCurrencyQuery extends SimplePageQuery {
 
     public Integer getVersion() {
         return version;
+    }
+
+    public Boolean getMain() {
+        return main;
     }
 
     public static Builder newBuilder() {
@@ -53,6 +60,11 @@ public class NftCurrencyQuery extends SimplePageQuery {
 
         public Builder version(Integer version) {
             query.version = version;
+            return this;
+        }
+
+        public Builder main(Boolean main) {
+            query.main = main;
             return this;
         }
     }

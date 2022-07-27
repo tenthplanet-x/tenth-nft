@@ -132,10 +132,9 @@ public class CollectionSearchService {
 
             //floorPrice
             //totalVolume
-            if(exchangeProfile.hasCurrentListing()){
-                AssetsDetailSearchDTO.ListingDTO floorListing = AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing());
-                collectionSearchDTO.setFloorPrice(floorListing.getPrice());
-                collectionSearchDTO.setCurrency(floorListing.getCurrency());
+            if(exchangeProfile.hasFloorPrice()){
+                collectionSearchDTO.setFloorPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+                collectionSearchDTO.setCurrency(exchangeProfile.getCurrency());
             }
             if(exchangeProfile.hasTotalVolume()){
                 collectionSearchDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
@@ -189,12 +188,7 @@ public class CollectionSearchService {
                         collectionDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
                         collectionDTO.setCurrency(exchangeProfile.getCurrency());
                     }
-
-
                 }
-
-
-
                 return collectionDTO;
             }).collect(Collectors.toList());
             return new Page<>(

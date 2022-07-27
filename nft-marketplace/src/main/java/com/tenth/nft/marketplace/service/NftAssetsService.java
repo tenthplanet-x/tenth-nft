@@ -1,6 +1,7 @@
 package com.tenth.nft.marketplace.service;
 
 import com.google.common.base.Strings;
+import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftModules;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
@@ -12,6 +13,7 @@ import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsUpdate;
 import com.tenth.nft.marketplace.dto.NftAssetsDTO;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.marketplace.vo.*;
+import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
@@ -20,6 +22,7 @@ import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.oss.IGsOssService;
 import com.tpulse.gs.oss.qiniu.QiniuProperties;
 import com.tpulse.gs.router.client.RouteClient;
+import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,8 +87,13 @@ public class NftAssetsService {
         GameUserContext context = GameUserContext.get();
         Long uid = context.getLong(TpulseHeaders.UID);
 
-        Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
+        //合集归属判定
+        NftCollection collection = nftCollectionService.detail(request.getCollectionId());
+        if(null == collection || !collection.getUid().equals(uid)){
+            throw BizException.newInstance(NftExchangeErrorCodes.MINT_EXCEPTION_INVALID_PARAMS);
+        }
 
+        Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
         //create
         NftAssets nftAssets = new NftAssets();
         nftAssets.setId(assetsId);

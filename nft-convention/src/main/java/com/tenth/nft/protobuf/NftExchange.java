@@ -5187,6 +5187,21 @@ public final class NftExchange {
      * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 7;</code>
      */
     com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder();
+
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+     * @return Whether the bestOffer field is set.
+     */
+    boolean hasBestOffer();
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+     * @return The bestOffer.
+     */
+    com.tenth.nft.protobuf.NftExchange.NftOfferDTO getBestOffer();
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+     */
+    com.tenth.nft.protobuf.NftExchange.NftOfferDTOOrBuilder getBestOfferOrBuilder();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.NftAssetsProfileDTO}
@@ -5294,6 +5309,19 @@ public final class NftExchange {
                 currentListing_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000020;
+              break;
+            }
+            case 66: {
+              com.tenth.nft.protobuf.NftExchange.NftOfferDTO.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000040) != 0)) {
+                subBuilder = bestOffer_.toBuilder();
+              }
+              bestOffer_ = input.readMessage(com.tenth.nft.protobuf.NftExchange.NftOfferDTO.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(bestOffer_);
+                bestOffer_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000040;
               break;
             }
             default: {
@@ -5509,6 +5537,32 @@ public final class NftExchange {
       return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
     }
 
+    public static final int BESTOFFER_FIELD_NUMBER = 8;
+    private com.tenth.nft.protobuf.NftExchange.NftOfferDTO bestOffer_;
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+     * @return Whether the bestOffer field is set.
+     */
+    @java.lang.Override
+    public boolean hasBestOffer() {
+      return ((bitField0_ & 0x00000040) != 0);
+    }
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+     * @return The bestOffer.
+     */
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.NftOfferDTO getBestOffer() {
+      return bestOffer_ == null ? com.tenth.nft.protobuf.NftExchange.NftOfferDTO.getDefaultInstance() : bestOffer_;
+    }
+    /**
+     * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+     */
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.NftOfferDTOOrBuilder getBestOfferOrBuilder() {
+      return bestOffer_ == null ? com.tenth.nft.protobuf.NftExchange.NftOfferDTO.getDefaultInstance() : bestOffer_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -5522,6 +5576,12 @@ public final class NftExchange {
       }
       if (hasCurrentListing()) {
         if (!getCurrentListing().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasBestOffer()) {
+        if (!getBestOffer().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -5553,6 +5613,9 @@ public final class NftExchange {
       }
       if (((bitField0_ & 0x00000020) != 0)) {
         output.writeMessage(7, getCurrentListing());
+      }
+      if (((bitField0_ & 0x00000040) != 0)) {
+        output.writeMessage(8, getBestOffer());
       }
       unknownFields.writeTo(output);
     }
@@ -5594,6 +5657,10 @@ public final class NftExchange {
       if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(7, getCurrentListing());
+      }
+      if (((bitField0_ & 0x00000040) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, getBestOffer());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5643,6 +5710,11 @@ public final class NftExchange {
         if (!getCurrentListing()
             .equals(other.getCurrentListing())) return false;
       }
+      if (hasBestOffer() != other.hasBestOffer()) return false;
+      if (hasBestOffer()) {
+        if (!getBestOffer()
+            .equals(other.getBestOffer())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5683,6 +5755,10 @@ public final class NftExchange {
       if (hasCurrentListing()) {
         hash = (37 * hash) + CURRENTLISTING_FIELD_NUMBER;
         hash = (53 * hash) + getCurrentListing().hashCode();
+      }
+      if (hasBestOffer()) {
+        hash = (37 * hash) + BESTOFFER_FIELD_NUMBER;
+        hash = (53 * hash) + getBestOffer().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -5813,6 +5889,7 @@ public final class NftExchange {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getCurrentListingFieldBuilder();
+          getBestOfferFieldBuilder();
         }
       }
       @java.lang.Override
@@ -5836,6 +5913,12 @@ public final class NftExchange {
           currentListingBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000040);
+        if (bestOfferBuilder_ == null) {
+          bestOffer_ = null;
+        } else {
+          bestOfferBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
 
@@ -5896,6 +5979,14 @@ public final class NftExchange {
             result.currentListing_ = currentListingBuilder_.build();
           }
           to_bitField0_ |= 0x00000020;
+        }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          if (bestOfferBuilder_ == null) {
+            result.bestOffer_ = bestOffer_;
+          } else {
+            result.bestOffer_ = bestOfferBuilder_.build();
+          }
+          to_bitField0_ |= 0x00000040;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -5976,6 +6067,9 @@ public final class NftExchange {
         if (other.hasCurrentListing()) {
           mergeCurrentListing(other.getCurrentListing());
         }
+        if (other.hasBestOffer()) {
+          mergeBestOffer(other.getBestOffer());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -5988,6 +6082,11 @@ public final class NftExchange {
         }
         if (hasCurrentListing()) {
           if (!getCurrentListing().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasBestOffer()) {
+          if (!getBestOffer().isInitialized()) {
             return false;
           }
         }
@@ -6452,6 +6551,126 @@ public final class NftExchange {
         }
         return currentListingBuilder_;
       }
+
+      private com.tenth.nft.protobuf.NftExchange.NftOfferDTO bestOffer_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.tenth.nft.protobuf.NftExchange.NftOfferDTO, com.tenth.nft.protobuf.NftExchange.NftOfferDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftOfferDTOOrBuilder> bestOfferBuilder_;
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       * @return Whether the bestOffer field is set.
+       */
+      public boolean hasBestOffer() {
+        return ((bitField0_ & 0x00000080) != 0);
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       * @return The bestOffer.
+       */
+      public com.tenth.nft.protobuf.NftExchange.NftOfferDTO getBestOffer() {
+        if (bestOfferBuilder_ == null) {
+          return bestOffer_ == null ? com.tenth.nft.protobuf.NftExchange.NftOfferDTO.getDefaultInstance() : bestOffer_;
+        } else {
+          return bestOfferBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       */
+      public Builder setBestOffer(com.tenth.nft.protobuf.NftExchange.NftOfferDTO value) {
+        if (bestOfferBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          bestOffer_ = value;
+          onChanged();
+        } else {
+          bestOfferBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000080;
+        return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       */
+      public Builder setBestOffer(
+          com.tenth.nft.protobuf.NftExchange.NftOfferDTO.Builder builderForValue) {
+        if (bestOfferBuilder_ == null) {
+          bestOffer_ = builderForValue.build();
+          onChanged();
+        } else {
+          bestOfferBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000080;
+        return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       */
+      public Builder mergeBestOffer(com.tenth.nft.protobuf.NftExchange.NftOfferDTO value) {
+        if (bestOfferBuilder_ == null) {
+          if (((bitField0_ & 0x00000080) != 0) &&
+              bestOffer_ != null &&
+              bestOffer_ != com.tenth.nft.protobuf.NftExchange.NftOfferDTO.getDefaultInstance()) {
+            bestOffer_ =
+              com.tenth.nft.protobuf.NftExchange.NftOfferDTO.newBuilder(bestOffer_).mergeFrom(value).buildPartial();
+          } else {
+            bestOffer_ = value;
+          }
+          onChanged();
+        } else {
+          bestOfferBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000080;
+        return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       */
+      public Builder clearBestOffer() {
+        if (bestOfferBuilder_ == null) {
+          bestOffer_ = null;
+          onChanged();
+        } else {
+          bestOfferBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000080);
+        return this;
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       */
+      public com.tenth.nft.protobuf.NftExchange.NftOfferDTO.Builder getBestOfferBuilder() {
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return getBestOfferFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       */
+      public com.tenth.nft.protobuf.NftExchange.NftOfferDTOOrBuilder getBestOfferOrBuilder() {
+        if (bestOfferBuilder_ != null) {
+          return bestOfferBuilder_.getMessageOrBuilder();
+        } else {
+          return bestOffer_ == null ?
+              com.tenth.nft.protobuf.NftExchange.NftOfferDTO.getDefaultInstance() : bestOffer_;
+        }
+      }
+      /**
+       * <code>optional .com.ruixi.tpulse.convention.NftOfferDTO bestOffer = 8;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.tenth.nft.protobuf.NftExchange.NftOfferDTO, com.tenth.nft.protobuf.NftExchange.NftOfferDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftOfferDTOOrBuilder> 
+          getBestOfferFieldBuilder() {
+        if (bestOfferBuilder_ == null) {
+          bestOfferBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.tenth.nft.protobuf.NftExchange.NftOfferDTO, com.tenth.nft.protobuf.NftExchange.NftOfferDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftOfferDTOOrBuilder>(
+                  getBestOffer(),
+                  getParentForChildren(),
+                  isClean());
+          bestOffer_ = null;
+        }
+        return bestOfferBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -6549,19 +6768,15 @@ public final class NftExchange {
     long getOwners();
 
     /**
-     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-     * @return Whether the currentListing field is set.
+     * <code>optional float floorPrice = 6;</code>
+     * @return Whether the floorPrice field is set.
      */
-    boolean hasCurrentListing();
+    boolean hasFloorPrice();
     /**
-     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-     * @return The currentListing.
+     * <code>optional float floorPrice = 6;</code>
+     * @return The floorPrice.
      */
-    com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing();
-    /**
-     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-     */
-    com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder();
+    float getFloorPrice();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.NftCollectionProfileDTO}
@@ -6626,17 +6841,9 @@ public final class NftExchange {
               owners_ = input.readInt64();
               break;
             }
-            case 42: {
-              com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000008) != 0)) {
-                subBuilder = currentListing_.toBuilder();
-              }
-              currentListing_ = input.readMessage(com.tenth.nft.protobuf.NftExchange.NftListingDTO.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(currentListing_);
-                currentListing_ = subBuilder.buildPartial();
-              }
+            case 53: {
               bitField0_ |= 0x00000008;
+              floorPrice_ = input.readFloat();
               break;
             }
             default: {
@@ -6758,30 +6965,23 @@ public final class NftExchange {
       return owners_;
     }
 
-    public static final int CURRENTLISTING_FIELD_NUMBER = 5;
-    private com.tenth.nft.protobuf.NftExchange.NftListingDTO currentListing_;
+    public static final int FLOORPRICE_FIELD_NUMBER = 6;
+    private float floorPrice_;
     /**
-     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-     * @return Whether the currentListing field is set.
+     * <code>optional float floorPrice = 6;</code>
+     * @return Whether the floorPrice field is set.
      */
     @java.lang.Override
-    public boolean hasCurrentListing() {
+    public boolean hasFloorPrice() {
       return ((bitField0_ & 0x00000008) != 0);
     }
     /**
-     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-     * @return The currentListing.
+     * <code>optional float floorPrice = 6;</code>
+     * @return The floorPrice.
      */
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing() {
-      return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
-    }
-    /**
-     * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-     */
-    @java.lang.Override
-    public com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder() {
-      return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
+    public float getFloorPrice() {
+      return floorPrice_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6794,12 +6994,6 @@ public final class NftExchange {
       if (!hasOwners()) {
         memoizedIsInitialized = 0;
         return false;
-      }
-      if (hasCurrentListing()) {
-        if (!getCurrentListing().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -6818,7 +7012,7 @@ public final class NftExchange {
         output.writeInt64(4, owners_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
-        output.writeMessage(5, getCurrentListing());
+        output.writeFloat(6, floorPrice_);
       }
       unknownFields.writeTo(output);
     }
@@ -6842,7 +7036,7 @@ public final class NftExchange {
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, getCurrentListing());
+          .computeFloatSize(6, floorPrice_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6875,10 +7069,11 @@ public final class NftExchange {
         if (getOwners()
             != other.getOwners()) return false;
       }
-      if (hasCurrentListing() != other.hasCurrentListing()) return false;
-      if (hasCurrentListing()) {
-        if (!getCurrentListing()
-            .equals(other.getCurrentListing())) return false;
+      if (hasFloorPrice() != other.hasFloorPrice()) return false;
+      if (hasFloorPrice()) {
+        if (java.lang.Float.floatToIntBits(getFloorPrice())
+            != java.lang.Float.floatToIntBits(
+                other.getFloorPrice())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -6905,9 +7100,10 @@ public final class NftExchange {
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getOwners());
       }
-      if (hasCurrentListing()) {
-        hash = (37 * hash) + CURRENTLISTING_FIELD_NUMBER;
-        hash = (53 * hash) + getCurrentListing().hashCode();
+      if (hasFloorPrice()) {
+        hash = (37 * hash) + FLOORPRICE_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getFloorPrice());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -7037,7 +7233,6 @@ public final class NftExchange {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getCurrentListingFieldBuilder();
         }
       }
       @java.lang.Override
@@ -7049,11 +7244,7 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000002);
         owners_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
-        if (currentListingBuilder_ == null) {
-          currentListing_ = null;
-        } else {
-          currentListingBuilder_.clear();
-        }
+        floorPrice_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
@@ -7096,11 +7287,7 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000004;
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
-          if (currentListingBuilder_ == null) {
-            result.currentListing_ = currentListing_;
-          } else {
-            result.currentListing_ = currentListingBuilder_.build();
-          }
+          result.floorPrice_ = floorPrice_;
           to_bitField0_ |= 0x00000008;
         }
         result.bitField0_ = to_bitField0_;
@@ -7163,8 +7350,8 @@ public final class NftExchange {
         if (other.hasOwners()) {
           setOwners(other.getOwners());
         }
-        if (other.hasCurrentListing()) {
-          mergeCurrentListing(other.getCurrentListing());
+        if (other.hasFloorPrice()) {
+          setFloorPrice(other.getFloorPrice());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -7175,11 +7362,6 @@ public final class NftExchange {
       public final boolean isInitialized() {
         if (!hasOwners()) {
           return false;
-        }
-        if (hasCurrentListing()) {
-          if (!getCurrentListing().isInitialized()) {
-            return false;
-          }
         }
         return true;
       }
@@ -7366,124 +7548,43 @@ public final class NftExchange {
         return this;
       }
 
-      private com.tenth.nft.protobuf.NftExchange.NftListingDTO currentListing_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder> currentListingBuilder_;
+      private float floorPrice_ ;
       /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-       * @return Whether the currentListing field is set.
+       * <code>optional float floorPrice = 6;</code>
+       * @return Whether the floorPrice field is set.
        */
-      public boolean hasCurrentListing() {
+      @java.lang.Override
+      public boolean hasFloorPrice() {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-       * @return The currentListing.
+       * <code>optional float floorPrice = 6;</code>
+       * @return The floorPrice.
        */
-      public com.tenth.nft.protobuf.NftExchange.NftListingDTO getCurrentListing() {
-        if (currentListingBuilder_ == null) {
-          return currentListing_ == null ? com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
-        } else {
-          return currentListingBuilder_.getMessage();
-        }
+      @java.lang.Override
+      public float getFloorPrice() {
+        return floorPrice_;
       }
       /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       * <code>optional float floorPrice = 6;</code>
+       * @param value The floorPrice to set.
+       * @return This builder for chaining.
        */
-      public Builder setCurrentListing(com.tenth.nft.protobuf.NftExchange.NftListingDTO value) {
-        if (currentListingBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          currentListing_ = value;
-          onChanged();
-        } else {
-          currentListingBuilder_.setMessage(value);
-        }
+      public Builder setFloorPrice(float value) {
         bitField0_ |= 0x00000008;
-        return this;
-      }
-      /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-       */
-      public Builder setCurrentListing(
-          com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder builderForValue) {
-        if (currentListingBuilder_ == null) {
-          currentListing_ = builderForValue.build();
-          onChanged();
-        } else {
-          currentListingBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000008;
-        return this;
-      }
-      /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-       */
-      public Builder mergeCurrentListing(com.tenth.nft.protobuf.NftExchange.NftListingDTO value) {
-        if (currentListingBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) != 0) &&
-              currentListing_ != null &&
-              currentListing_ != com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance()) {
-            currentListing_ =
-              com.tenth.nft.protobuf.NftExchange.NftListingDTO.newBuilder(currentListing_).mergeFrom(value).buildPartial();
-          } else {
-            currentListing_ = value;
-          }
-          onChanged();
-        } else {
-          currentListingBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000008;
-        return this;
-      }
-      /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-       */
-      public Builder clearCurrentListing() {
-        if (currentListingBuilder_ == null) {
-          currentListing_ = null;
-          onChanged();
-        } else {
-          currentListingBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000008);
-        return this;
-      }
-      /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-       */
-      public com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder getCurrentListingBuilder() {
-        bitField0_ |= 0x00000008;
+        floorPrice_ = value;
         onChanged();
-        return getCurrentListingFieldBuilder().getBuilder();
+        return this;
       }
       /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
+       * <code>optional float floorPrice = 6;</code>
+       * @return This builder for chaining.
        */
-      public com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder getCurrentListingOrBuilder() {
-        if (currentListingBuilder_ != null) {
-          return currentListingBuilder_.getMessageOrBuilder();
-        } else {
-          return currentListing_ == null ?
-              com.tenth.nft.protobuf.NftExchange.NftListingDTO.getDefaultInstance() : currentListing_;
-        }
-      }
-      /**
-       * <code>optional .com.ruixi.tpulse.convention.NftListingDTO currentListing = 5;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder> 
-          getCurrentListingFieldBuilder() {
-        if (currentListingBuilder_ == null) {
-          currentListingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.tenth.nft.protobuf.NftExchange.NftListingDTO, com.tenth.nft.protobuf.NftExchange.NftListingDTO.Builder, com.tenth.nft.protobuf.NftExchange.NftListingDTOOrBuilder>(
-                  getCurrentListing(),
-                  getParentForChildren(),
-                  isClean());
-          currentListing_ = null;
-        }
-        return currentListingBuilder_;
+      public Builder clearFloorPrice() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        floorPrice_ = 0F;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -19925,6 +20026,17 @@ public final class NftExchange {
      * @return The observer.
      */
     long getObserver();
+
+    /**
+     * <code>optional bool needOwners = 3;</code>
+     * @return Whether the needOwners field is set.
+     */
+    boolean hasNeedOwners();
+    /**
+     * <code>optional bool needOwners = 3;</code>
+     * @return The needOwners.
+     */
+    boolean getNeedOwners();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.ASSETS_EXCHANGE_PROFILE_IC}
@@ -19980,6 +20092,11 @@ public final class NftExchange {
             case 16: {
               bitField0_ |= 0x00000002;
               observer_ = input.readInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              needOwners_ = input.readBool();
               break;
             }
             default: {
@@ -20053,6 +20170,25 @@ public final class NftExchange {
       return observer_;
     }
 
+    public static final int NEEDOWNERS_FIELD_NUMBER = 3;
+    private boolean needOwners_;
+    /**
+     * <code>optional bool needOwners = 3;</code>
+     * @return Whether the needOwners field is set.
+     */
+    @java.lang.Override
+    public boolean hasNeedOwners() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>optional bool needOwners = 3;</code>
+     * @return The needOwners.
+     */
+    @java.lang.Override
+    public boolean getNeedOwners() {
+      return needOwners_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -20077,6 +20213,9 @@ public final class NftExchange {
       if (((bitField0_ & 0x00000002) != 0)) {
         output.writeInt64(2, observer_);
       }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeBool(3, needOwners_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -20093,6 +20232,10 @@ public final class NftExchange {
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, observer_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, needOwners_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -20119,6 +20262,11 @@ public final class NftExchange {
         if (getObserver()
             != other.getObserver()) return false;
       }
+      if (hasNeedOwners() != other.hasNeedOwners()) return false;
+      if (hasNeedOwners()) {
+        if (getNeedOwners()
+            != other.getNeedOwners()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -20139,6 +20287,11 @@ public final class NftExchange {
         hash = (37 * hash) + OBSERVER_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getObserver());
+      }
+      if (hasNeedOwners()) {
+        hash = (37 * hash) + NEEDOWNERS_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getNeedOwners());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -20277,6 +20430,8 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000001);
         observer_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
+        needOwners_ = false;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -20312,6 +20467,10 @@ public final class NftExchange {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.observer_ = observer_;
           to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.needOwners_ = needOwners_;
+          to_bitField0_ |= 0x00000004;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -20367,6 +20526,9 @@ public final class NftExchange {
         }
         if (other.hasObserver()) {
           setObserver(other.getObserver());
+        }
+        if (other.hasNeedOwners()) {
+          setNeedOwners(other.getNeedOwners());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -20475,6 +20637,45 @@ public final class NftExchange {
       public Builder clearObserver() {
         bitField0_ = (bitField0_ & ~0x00000002);
         observer_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean needOwners_ ;
+      /**
+       * <code>optional bool needOwners = 3;</code>
+       * @return Whether the needOwners field is set.
+       */
+      @java.lang.Override
+      public boolean hasNeedOwners() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>optional bool needOwners = 3;</code>
+       * @return The needOwners.
+       */
+      @java.lang.Override
+      public boolean getNeedOwners() {
+        return needOwners_;
+      }
+      /**
+       * <code>optional bool needOwners = 3;</code>
+       * @param value The needOwners to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNeedOwners(boolean value) {
+        bitField0_ |= 0x00000004;
+        needOwners_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool needOwners = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNeedOwners() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        needOwners_ = false;
         onChanged();
         return this;
       }
@@ -28276,6 +28477,2344 @@ public final class NftExchange {
 
   }
 
+  public interface LISTING_EVENT_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.LISTING_EVENT_IC)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    boolean hasAssetsId();
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    long getAssetsId();
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.LISTING_EVENT_IC}
+   */
+  public static final class LISTING_EVENT_IC extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.LISTING_EVENT_IC)
+      LISTING_EVENT_ICOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LISTING_EVENT_IC.newBuilder() to construct.
+    private LISTING_EVENT_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LISTING_EVENT_IC() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LISTING_EVENT_IC();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LISTING_EVENT_IC(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              assetsId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC.class, com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ASSETSID_FIELD_NUMBER = 1;
+    private long assetsId_;
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    @java.lang.Override
+    public boolean hasAssetsId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    @java.lang.Override
+    public long getAssetsId() {
+      return assetsId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasAssetsId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, assetsId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, assetsId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC other = (com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC) obj;
+
+      if (hasAssetsId() != other.hasAssetsId()) return false;
+      if (hasAssetsId()) {
+        if (getAssetsId()
+            != other.getAssetsId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasAssetsId()) {
+        hash = (37 * hash) + ASSETSID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getAssetsId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.LISTING_EVENT_IC}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.LISTING_EVENT_IC)
+        com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_ICOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC.class, com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        assetsId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC build() {
+        com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC result = new com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.assetsId_ = assetsId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC.getDefaultInstance()) return this;
+        if (other.hasAssetsId()) {
+          setAssetsId(other.getAssetsId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasAssetsId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long assetsId_ ;
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return Whether the assetsId field is set.
+       */
+      @java.lang.Override
+      public boolean hasAssetsId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return The assetsId.
+       */
+      @java.lang.Override
+      public long getAssetsId() {
+        return assetsId_;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @param value The assetsId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssetsId(long value) {
+        bitField0_ |= 0x00000001;
+        assetsId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAssetsId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        assetsId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.LISTING_EVENT_IC)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.LISTING_EVENT_IC)
+    private static final com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC();
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<LISTING_EVENT_IC>
+        PARSER = new com.google.protobuf.AbstractParser<LISTING_EVENT_IC>() {
+      @java.lang.Override
+      public LISTING_EVENT_IC parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LISTING_EVENT_IC(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LISTING_EVENT_IC> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LISTING_EVENT_IC> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.LISTING_EVENT_IC getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface EXCHANGE_EVENT_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.EXCHANGE_EVENT_IC)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    boolean hasAssetsId();
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    long getAssetsId();
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.EXCHANGE_EVENT_IC}
+   */
+  public static final class EXCHANGE_EVENT_IC extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.EXCHANGE_EVENT_IC)
+      EXCHANGE_EVENT_ICOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use EXCHANGE_EVENT_IC.newBuilder() to construct.
+    private EXCHANGE_EVENT_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EXCHANGE_EVENT_IC() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new EXCHANGE_EVENT_IC();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private EXCHANGE_EVENT_IC(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              assetsId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC.class, com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ASSETSID_FIELD_NUMBER = 1;
+    private long assetsId_;
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    @java.lang.Override
+    public boolean hasAssetsId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    @java.lang.Override
+    public long getAssetsId() {
+      return assetsId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasAssetsId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, assetsId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, assetsId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC other = (com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC) obj;
+
+      if (hasAssetsId() != other.hasAssetsId()) return false;
+      if (hasAssetsId()) {
+        if (getAssetsId()
+            != other.getAssetsId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasAssetsId()) {
+        hash = (37 * hash) + ASSETSID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getAssetsId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.EXCHANGE_EVENT_IC}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.EXCHANGE_EVENT_IC)
+        com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_ICOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC.class, com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        assetsId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC build() {
+        com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC result = new com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.assetsId_ = assetsId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC.getDefaultInstance()) return this;
+        if (other.hasAssetsId()) {
+          setAssetsId(other.getAssetsId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasAssetsId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long assetsId_ ;
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return Whether the assetsId field is set.
+       */
+      @java.lang.Override
+      public boolean hasAssetsId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return The assetsId.
+       */
+      @java.lang.Override
+      public long getAssetsId() {
+        return assetsId_;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @param value The assetsId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssetsId(long value) {
+        bitField0_ |= 0x00000001;
+        assetsId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAssetsId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        assetsId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.EXCHANGE_EVENT_IC)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.EXCHANGE_EVENT_IC)
+    private static final com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC();
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<EXCHANGE_EVENT_IC>
+        PARSER = new com.google.protobuf.AbstractParser<EXCHANGE_EVENT_IC>() {
+      @java.lang.Override
+      public EXCHANGE_EVENT_IC parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new EXCHANGE_EVENT_IC(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EXCHANGE_EVENT_IC> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EXCHANGE_EVENT_IC> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.EXCHANGE_EVENT_IC getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface LISTING_EXPIRE_CHECK_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.LISTING_EXPIRE_CHECK_IC)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    boolean hasAssetsId();
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    long getAssetsId();
+
+    /**
+     * <code>required int64 listingId = 2;</code>
+     * @return Whether the listingId field is set.
+     */
+    boolean hasListingId();
+    /**
+     * <code>required int64 listingId = 2;</code>
+     * @return The listingId.
+     */
+    long getListingId();
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.LISTING_EXPIRE_CHECK_IC}
+   */
+  public static final class LISTING_EXPIRE_CHECK_IC extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.LISTING_EXPIRE_CHECK_IC)
+      LISTING_EXPIRE_CHECK_ICOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LISTING_EXPIRE_CHECK_IC.newBuilder() to construct.
+    private LISTING_EXPIRE_CHECK_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LISTING_EXPIRE_CHECK_IC() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LISTING_EXPIRE_CHECK_IC();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LISTING_EXPIRE_CHECK_IC(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              assetsId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              listingId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC.class, com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ASSETSID_FIELD_NUMBER = 1;
+    private long assetsId_;
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    @java.lang.Override
+    public boolean hasAssetsId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    @java.lang.Override
+    public long getAssetsId() {
+      return assetsId_;
+    }
+
+    public static final int LISTINGID_FIELD_NUMBER = 2;
+    private long listingId_;
+    /**
+     * <code>required int64 listingId = 2;</code>
+     * @return Whether the listingId field is set.
+     */
+    @java.lang.Override
+    public boolean hasListingId() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required int64 listingId = 2;</code>
+     * @return The listingId.
+     */
+    @java.lang.Override
+    public long getListingId() {
+      return listingId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasAssetsId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasListingId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, assetsId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeInt64(2, listingId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, assetsId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, listingId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC other = (com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC) obj;
+
+      if (hasAssetsId() != other.hasAssetsId()) return false;
+      if (hasAssetsId()) {
+        if (getAssetsId()
+            != other.getAssetsId()) return false;
+      }
+      if (hasListingId() != other.hasListingId()) return false;
+      if (hasListingId()) {
+        if (getListingId()
+            != other.getListingId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasAssetsId()) {
+        hash = (37 * hash) + ASSETSID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getAssetsId());
+      }
+      if (hasListingId()) {
+        hash = (37 * hash) + LISTINGID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getListingId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.LISTING_EXPIRE_CHECK_IC}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.LISTING_EXPIRE_CHECK_IC)
+        com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_ICOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC.class, com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        assetsId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        listingId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC build() {
+        com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC result = new com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.assetsId_ = assetsId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.listingId_ = listingId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC.getDefaultInstance()) return this;
+        if (other.hasAssetsId()) {
+          setAssetsId(other.getAssetsId());
+        }
+        if (other.hasListingId()) {
+          setListingId(other.getListingId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasAssetsId()) {
+          return false;
+        }
+        if (!hasListingId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long assetsId_ ;
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return Whether the assetsId field is set.
+       */
+      @java.lang.Override
+      public boolean hasAssetsId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return The assetsId.
+       */
+      @java.lang.Override
+      public long getAssetsId() {
+        return assetsId_;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @param value The assetsId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssetsId(long value) {
+        bitField0_ |= 0x00000001;
+        assetsId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAssetsId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        assetsId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long listingId_ ;
+      /**
+       * <code>required int64 listingId = 2;</code>
+       * @return Whether the listingId field is set.
+       */
+      @java.lang.Override
+      public boolean hasListingId() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required int64 listingId = 2;</code>
+       * @return The listingId.
+       */
+      @java.lang.Override
+      public long getListingId() {
+        return listingId_;
+      }
+      /**
+       * <code>required int64 listingId = 2;</code>
+       * @param value The listingId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setListingId(long value) {
+        bitField0_ |= 0x00000002;
+        listingId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 listingId = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearListingId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        listingId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.LISTING_EXPIRE_CHECK_IC)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.LISTING_EXPIRE_CHECK_IC)
+    private static final com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC();
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<LISTING_EXPIRE_CHECK_IC>
+        PARSER = new com.google.protobuf.AbstractParser<LISTING_EXPIRE_CHECK_IC>() {
+      @java.lang.Override
+      public LISTING_EXPIRE_CHECK_IC parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LISTING_EXPIRE_CHECK_IC(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LISTING_EXPIRE_CHECK_IC> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LISTING_EXPIRE_CHECK_IC> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.LISTING_EXPIRE_CHECK_IC getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface OFFER_EXPIRE_CHECK_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.OFFER_EXPIRE_CHECK_IC)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    boolean hasAssetsId();
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    long getAssetsId();
+
+    /**
+     * <code>required int64 offerId = 2;</code>
+     * @return Whether the offerId field is set.
+     */
+    boolean hasOfferId();
+    /**
+     * <code>required int64 offerId = 2;</code>
+     * @return The offerId.
+     */
+    long getOfferId();
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.OFFER_EXPIRE_CHECK_IC}
+   */
+  public static final class OFFER_EXPIRE_CHECK_IC extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.OFFER_EXPIRE_CHECK_IC)
+      OFFER_EXPIRE_CHECK_ICOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use OFFER_EXPIRE_CHECK_IC.newBuilder() to construct.
+    private OFFER_EXPIRE_CHECK_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private OFFER_EXPIRE_CHECK_IC() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new OFFER_EXPIRE_CHECK_IC();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private OFFER_EXPIRE_CHECK_IC(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              assetsId_ = input.readInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              offerId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC.class, com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ASSETSID_FIELD_NUMBER = 1;
+    private long assetsId_;
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return Whether the assetsId field is set.
+     */
+    @java.lang.Override
+    public boolean hasAssetsId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int64 assetsId = 1;</code>
+     * @return The assetsId.
+     */
+    @java.lang.Override
+    public long getAssetsId() {
+      return assetsId_;
+    }
+
+    public static final int OFFERID_FIELD_NUMBER = 2;
+    private long offerId_;
+    /**
+     * <code>required int64 offerId = 2;</code>
+     * @return Whether the offerId field is set.
+     */
+    @java.lang.Override
+    public boolean hasOfferId() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required int64 offerId = 2;</code>
+     * @return The offerId.
+     */
+    @java.lang.Override
+    public long getOfferId() {
+      return offerId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasAssetsId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOfferId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, assetsId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeInt64(2, offerId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, assetsId_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, offerId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC other = (com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC) obj;
+
+      if (hasAssetsId() != other.hasAssetsId()) return false;
+      if (hasAssetsId()) {
+        if (getAssetsId()
+            != other.getAssetsId()) return false;
+      }
+      if (hasOfferId() != other.hasOfferId()) return false;
+      if (hasOfferId()) {
+        if (getOfferId()
+            != other.getOfferId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasAssetsId()) {
+        hash = (37 * hash) + ASSETSID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getAssetsId());
+      }
+      if (hasOfferId()) {
+        hash = (37 * hash) + OFFERID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getOfferId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.OFFER_EXPIRE_CHECK_IC}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.OFFER_EXPIRE_CHECK_IC)
+        com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_ICOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC.class, com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        assetsId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        offerId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC build() {
+        com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC result = new com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.assetsId_ = assetsId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.offerId_ = offerId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC.getDefaultInstance()) return this;
+        if (other.hasAssetsId()) {
+          setAssetsId(other.getAssetsId());
+        }
+        if (other.hasOfferId()) {
+          setOfferId(other.getOfferId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasAssetsId()) {
+          return false;
+        }
+        if (!hasOfferId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long assetsId_ ;
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return Whether the assetsId field is set.
+       */
+      @java.lang.Override
+      public boolean hasAssetsId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return The assetsId.
+       */
+      @java.lang.Override
+      public long getAssetsId() {
+        return assetsId_;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @param value The assetsId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssetsId(long value) {
+        bitField0_ |= 0x00000001;
+        assetsId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 assetsId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAssetsId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        assetsId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long offerId_ ;
+      /**
+       * <code>required int64 offerId = 2;</code>
+       * @return Whether the offerId field is set.
+       */
+      @java.lang.Override
+      public boolean hasOfferId() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required int64 offerId = 2;</code>
+       * @return The offerId.
+       */
+      @java.lang.Override
+      public long getOfferId() {
+        return offerId_;
+      }
+      /**
+       * <code>required int64 offerId = 2;</code>
+       * @param value The offerId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOfferId(long value) {
+        bitField0_ |= 0x00000002;
+        offerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 offerId = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOfferId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        offerId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.OFFER_EXPIRE_CHECK_IC)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.OFFER_EXPIRE_CHECK_IC)
+    private static final com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC();
+    }
+
+    public static com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<OFFER_EXPIRE_CHECK_IC>
+        PARSER = new com.google.protobuf.AbstractParser<OFFER_EXPIRE_CHECK_IC>() {
+      @java.lang.Override
+      public OFFER_EXPIRE_CHECK_IC parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new OFFER_EXPIRE_CHECK_IC(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<OFFER_EXPIRE_CHECK_IC> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<OFFER_EXPIRE_CHECK_IC> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftExchange.OFFER_EXPIRE_CHECK_IC getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ruixi_tpulse_convention_NftMintDTO_descriptor;
   private static final 
@@ -28441,6 +30980,26 @@ public final class NftExchange {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_ruixi_tpulse_convention_OFFER_ACCEPT_IS_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -28463,67 +31022,73 @@ public final class NftExchange {
       "rom\030\002 \001(\003\022\n\n\002to\030\003 \001(\003\022\r\n\005price\030\004 \001(\002\022\020\n\010" +
       "currency\030\005 \001(\t\022\020\n\010quantity\030\006 \001(\005\022\n\n\002id\030\007" +
       " \002(\003\022\017\n\007expired\030\010 \001(\010\022\020\n\010canceled\030\t \001(\010\022" +
-      "\021\n\tcreatedAt\030\n \002(\003\022\016\n\006reason\030\013 \001(\t\"\276\001\n\023N" +
+      "\021\n\tcreatedAt\030\n \002(\003\022\016\n\006reason\030\013 \001(\t\"\373\001\n\023N" +
       "ftAssetsProfileDTO\022\n\n\002id\030\001 \002(\003\022\023\n\013totalV" +
       "olume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016\n\006owners\030" +
       "\004 \001(\005\022\022\n\nownerLists\030\005 \003(\003\022\014\n\004owns\030\006 \001(\005\022" +
       "B\n\016currentListing\030\007 \001(\0132*.com.ruixi.tpul" +
-      "se.convention.NftListingDTO\"\224\001\n\027NftColle" +
-      "ctionProfileDTO\022\023\n\013totalVolume\030\002 \001(\002\022\020\n\010" +
-      "currency\030\003 \001(\t\022\016\n\006owners\030\004 \002(\003\022B\n\016curren" +
-      "tListing\030\005 \001(\0132*.com.ruixi.tpulse.conven" +
-      "tion.NftListingDTO\"\220\001\n\013NftOfferDTO\022\n\n\002id" +
-      "\030\001 \002(\003\022\013\n\003uid\030\002 \002(\003\022\020\n\010assetsId\030\003 \002(\003\022\020\n" +
-      "\010quantity\030\004 \002(\005\022\r\n\005price\030\005 \002(\002\022\020\n\010curren" +
-      "cy\030\006 \002(\t\022\021\n\tcreatedAt\030\007 \002(\003\022\020\n\010expireAt\030" +
-      "\010 \002(\003\"~\n\007SELL_IC\022\020\n\010assetsId\030\001 \002(\003\022\013\n\003ui" +
-      "d\030\002 \002(\003\022\020\n\010quantity\030\003 \002(\005\022\020\n\010currency\030\004 " +
-      "\002(\t\022\r\n\005price\030\005 \002(\002\022\017\n\007startAt\030\006 \002(\003\022\020\n\010e" +
-      "xpireAt\030\007 \002(\003\"F\n\007SELL_IS\022;\n\007listing\030\001 \002(" +
-      "\0132*.com.ruixi.tpulse.convention.NftListi" +
-      "ngDTO\":\n\006BUY_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId" +
-      "\030\002 \002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010\n\006BUY_IS\"U\n\016S" +
-      "ELL_CANCEL_IC\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlisti" +
-      "ngId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022\016\n\006reason\030\004 \002" +
-      "(\t\"\020\n\016SELL_CANCEL_IS\"C\n\017LISTING_LIST_IC\022" +
+      "se.convention.NftListingDTO\022;\n\tbestOffer" +
+      "\030\010 \001(\0132(.com.ruixi.tpulse.convention.Nft" +
+      "OfferDTO\"d\n\027NftCollectionProfileDTO\022\023\n\013t" +
+      "otalVolume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016\n\006ow" +
+      "ners\030\004 \002(\003\022\022\n\nfloorPrice\030\006 \001(\002\"\220\001\n\013NftOf" +
+      "ferDTO\022\n\n\002id\030\001 \002(\003\022\013\n\003uid\030\002 \002(\003\022\020\n\010asset" +
+      "sId\030\003 \002(\003\022\020\n\010quantity\030\004 \002(\005\022\r\n\005price\030\005 \002" +
+      "(\002\022\020\n\010currency\030\006 \002(\t\022\021\n\tcreatedAt\030\007 \002(\003\022" +
+      "\020\n\010expireAt\030\010 \002(\003\"~\n\007SELL_IC\022\020\n\010assetsId" +
+      "\030\001 \002(\003\022\013\n\003uid\030\002 \002(\003\022\020\n\010quantity\030\003 \002(\005\022\020\n" +
+      "\010currency\030\004 \002(\t\022\r\n\005price\030\005 \002(\002\022\017\n\007startA" +
+      "t\030\006 \002(\003\022\020\n\010expireAt\030\007 \002(\003\"F\n\007SELL_IS\022;\n\007" +
+      "listing\030\001 \002(\0132*.com.ruixi.tpulse.convent" +
+      "ion.NftListingDTO\":\n\006BUY_IC\022\013\n\003uid\030\001 \002(\003" +
+      "\022\020\n\010assetsId\030\002 \002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010\n" +
+      "\006BUY_IS\"U\n\016SELL_CANCEL_IC\022\020\n\010assetsId\030\001 " +
+      "\002(\003\022\021\n\tlistingId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022\016" +
+      "\n\006reason\030\004 \002(\t\"\020\n\016SELL_CANCEL_IS\"C\n\017LIST" +
+      "ING_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 " +
+      "\002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017LISTING_LIST_IS" +
+      "\022<\n\010listings\030\001 \003(\0132*.com.ruixi.tpulse.co" +
+      "nvention.NftListingDTO\"A\n\rOWNER_LIST_IC\022" +
       "\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageS" +
-      "ize\030\003 \002(\005\"O\n\017LISTING_LIST_IS\022<\n\010listings" +
-      "\030\001 \003(\0132*.com.ruixi.tpulse.convention.Nft" +
-      "ListingDTO\"A\n\rOWNER_LIST_IC\022\020\n\010assetsId\030" +
-      "\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"I\n" +
-      "\rOWNER_LIST_IS\0228\n\006owners\030\001 \003(\0132(.com.rui" +
-      "xi.tpulse.convention.NftOwnerDTO\"S\n\020ACTI" +
-      "VITY_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002" +
-      " \002(\005\022\020\n\010pageSize\030\003 \002(\005\022\r\n\005event\030\004 \001(\t\"S\n" +
-      "\020ACTIVITY_LIST_IS\022?\n\nactivities\030\001 \003(\0132+." +
-      "com.ruixi.tpulse.convention.NftActivityD" +
-      "TO\"i\n\007MINT_IC\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017con" +
-      "tractAddress\030\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r\n\005" +
-      "owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002(\005\"@\n\007MINT_IS" +
-      "\0225\n\004mint\030\001 \002(\0132\'.com.ruixi.tpulse.conven" +
-      "tion.NftMintDTO\"@\n\032ASSETS_EXCHANGE_PROFI" +
-      "LE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010observer\030\002 \001(" +
-      "\003\"_\n\032ASSETS_EXCHANGE_PROFILE_IS\022A\n\007profi" +
-      "le\030\001 \002(\01320.com.ruixi.tpulse.convention.N" +
-      "ftAssetsProfileDTO\"3\n\036COLLECTION_EXCHANG" +
-      "E_PROFILE_IC\022\021\n\tassetsIds\030\001 \003(\003\"g\n\036COLLE" +
-      "CTION_EXCHANGE_PROFILE_IS\022E\n\007profile\030\001 \002" +
-      "(\01324.com.ruixi.tpulse.convention.NftColl" +
-      "ectionProfileDTO\"s\n\rOFFER_MAKE_IC\022\020\n\010ass" +
-      "etsId\030\001 \002(\003\022\020\n\010quantity\030\002 \002(\005\022\r\n\005price\030\003" +
-      " \002(\002\022\020\n\010currency\030\004 \002(\t\022\020\n\010expireAt\030\005 \002(\003" +
-      "\022\013\n\003uid\030\006 \002(\003\"H\n\rOFFER_MAKE_IS\0227\n\005offer\030" +
-      "\001 \002(\0132(.com.ruixi.tpulse.convention.NftO" +
-      "fferDTO\"Q\n\017OFFER_CANCEL_IC\022\013\n\003uid\030\001 \002(\003\022" +
-      "\020\n\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\022\016\n\006re" +
-      "ason\030\004 \001(\t\"\021\n\017OFFER_CANCEL_IS\"A\n\rOFFER_L" +
-      "IST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020" +
-      "\n\010pageSize\030\003 \002(\005\"I\n\rOFFER_LIST_IS\0228\n\006off" +
-      "ers\030\001 \003(\0132(.com.ruixi.tpulse.convention." +
-      "NftOfferDTO\"A\n\017OFFER_ACCEPT_IC\022\013\n\003uid\030\001 " +
-      "\002(\003\022\020\n\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\"\021" +
-      "\n\017OFFER_ACCEPT_ISB%\n\026com.tenth.nft.proto" +
-      "bufB\013NftExchange"
+      "ize\030\003 \002(\005\"I\n\rOWNER_LIST_IS\0228\n\006owners\030\001 \003" +
+      "(\0132(.com.ruixi.tpulse.convention.NftOwne" +
+      "rDTO\"S\n\020ACTIVITY_LIST_IC\022\020\n\010assetsId\030\001 \002" +
+      "(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\022\r\n\005ev" +
+      "ent\030\004 \001(\t\"S\n\020ACTIVITY_LIST_IS\022?\n\nactivit" +
+      "ies\030\001 \003(\0132+.com.ruixi.tpulse.convention." +
+      "NftActivityDTO\"i\n\007MINT_IC\022\022\n\nblockchain\030" +
+      "\001 \002(\t\022\027\n\017contractAddress\030\002 \001(\t\022\020\n\010assets" +
+      "Id\030\003 \002(\003\022\r\n\005owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002(" +
+      "\005\"@\n\007MINT_IS\0225\n\004mint\030\001 \002(\0132\'.com.ruixi.t" +
+      "pulse.convention.NftMintDTO\"T\n\032ASSETS_EX" +
+      "CHANGE_PROFILE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010o" +
+      "bserver\030\002 \001(\003\022\022\n\nneedOwners\030\003 \001(\010\"_\n\032ASS" +
+      "ETS_EXCHANGE_PROFILE_IS\022A\n\007profile\030\001 \002(\013" +
+      "20.com.ruixi.tpulse.convention.NftAssets" +
+      "ProfileDTO\"3\n\036COLLECTION_EXCHANGE_PROFIL" +
+      "E_IC\022\021\n\tassetsIds\030\001 \003(\003\"g\n\036COLLECTION_EX" +
+      "CHANGE_PROFILE_IS\022E\n\007profile\030\001 \002(\01324.com" +
+      ".ruixi.tpulse.convention.NftCollectionPr" +
+      "ofileDTO\"s\n\rOFFER_MAKE_IC\022\020\n\010assetsId\030\001 " +
+      "\002(\003\022\020\n\010quantity\030\002 \002(\005\022\r\n\005price\030\003 \002(\002\022\020\n\010" +
+      "currency\030\004 \002(\t\022\020\n\010expireAt\030\005 \002(\003\022\013\n\003uid\030" +
+      "\006 \002(\003\"H\n\rOFFER_MAKE_IS\0227\n\005offer\030\001 \002(\0132(." +
+      "com.ruixi.tpulse.convention.NftOfferDTO\"" +
+      "Q\n\017OFFER_CANCEL_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010asset" +
+      "sId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\022\016\n\006reason\030\004 \001" +
+      "(\t\"\021\n\017OFFER_CANCEL_IS\"A\n\rOFFER_LIST_IC\022\020" +
+      "\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSi" +
+      "ze\030\003 \002(\005\"I\n\rOFFER_LIST_IS\0228\n\006offers\030\001 \003(" +
+      "\0132(.com.ruixi.tpulse.convention.NftOffer" +
+      "DTO\"A\n\017OFFER_ACCEPT_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010a" +
+      "ssetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\"\021\n\017OFFER_" +
+      "ACCEPT_IS\"$\n\020LISTING_EVENT_IC\022\020\n\010assetsI" +
+      "d\030\001 \002(\003\"%\n\021EXCHANGE_EVENT_IC\022\020\n\010assetsId" +
+      "\030\001 \002(\003\">\n\027LISTING_EXPIRE_CHECK_IC\022\020\n\010ass" +
+      "etsId\030\001 \002(\003\022\021\n\tlistingId\030\002 \002(\003\":\n\025OFFER_" +
+      "EXPIRE_CHECK_IC\022\020\n\010assetsId\030\001 \002(\003\022\017\n\007off" +
+      "erId\030\002 \002(\003B%\n\026com.tenth.nft.protobufB\013Nf" +
+      "tExchange"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -28558,13 +31123,13 @@ public final class NftExchange {
     internal_static_com_ruixi_tpulse_convention_NftAssetsProfileDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_NftAssetsProfileDTO_descriptor,
-        new java.lang.String[] { "Id", "TotalVolume", "Currency", "Owners", "OwnerLists", "Owns", "CurrentListing", });
+        new java.lang.String[] { "Id", "TotalVolume", "Currency", "Owners", "OwnerLists", "Owns", "CurrentListing", "BestOffer", });
     internal_static_com_ruixi_tpulse_convention_NftCollectionProfileDTO_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_com_ruixi_tpulse_convention_NftCollectionProfileDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_NftCollectionProfileDTO_descriptor,
-        new java.lang.String[] { "TotalVolume", "Currency", "Owners", "CurrentListing", });
+        new java.lang.String[] { "TotalVolume", "Currency", "Owners", "FloorPrice", });
     internal_static_com_ruixi_tpulse_convention_NftOfferDTO_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_com_ruixi_tpulse_convention_NftOfferDTO_fieldAccessorTable = new
@@ -28660,7 +31225,7 @@ public final class NftExchange {
     internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IC_descriptor,
-        new java.lang.String[] { "AssetsId", "Observer", });
+        new java.lang.String[] { "AssetsId", "Observer", "NeedOwners", });
     internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IS_descriptor =
       getDescriptor().getMessageTypes().get(22);
     internal_static_com_ruixi_tpulse_convention_ASSETS_EXCHANGE_PROFILE_IS_fieldAccessorTable = new
@@ -28727,6 +31292,30 @@ public final class NftExchange {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_OFFER_ACCEPT_IS_descriptor,
         new java.lang.String[] { });
+    internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_descriptor =
+      getDescriptor().getMessageTypes().get(33);
+    internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_LISTING_EVENT_IC_descriptor,
+        new java.lang.String[] { "AssetsId", });
+    internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_descriptor =
+      getDescriptor().getMessageTypes().get(34);
+    internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_EXCHANGE_EVENT_IC_descriptor,
+        new java.lang.String[] { "AssetsId", });
+    internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_descriptor =
+      getDescriptor().getMessageTypes().get(35);
+    internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_LISTING_EXPIRE_CHECK_IC_descriptor,
+        new java.lang.String[] { "AssetsId", "ListingId", });
+    internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_descriptor =
+      getDescriptor().getMessageTypes().get(36);
+    internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_OFFER_EXPIRE_CHECK_IC_descriptor,
+        new java.lang.String[] { "AssetsId", "OfferId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

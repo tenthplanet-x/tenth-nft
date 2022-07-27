@@ -1,5 +1,7 @@
 package com.tenth.nft.search.web;
 
+import com.tenth.nft.convention.routes.search.AssetsRouteRequest;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.NftSearchPaths;
 import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
@@ -10,6 +12,8 @@ import com.tenth.nft.search.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
+import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
+import com.wallan.router.annotation.Route;
 import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @HttpRoute(userAuth = true)
+@Route
 public class AssetsSearchController {
 
     @Autowired
@@ -46,6 +51,12 @@ public class AssetsSearchController {
         Validations.check(request);
         Page<AssetsOwnSearchDTO> collections = assetsSearchService.list(request);
         return Response.successBuilder().data(collections).build();
+    }
+
+    @RouteRequestMapping(AssetsRouteRequest.class)
+    public NftSearch.ASSETS_IS assetsProfile(NftSearch.ASSETS_IC request){
+        NftSearch.ASSETS_IS response = assetsSearchService.assetsProfile(request);
+        return response;
     }
 
 }

@@ -7,30 +7,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * @author shijie
  */
-@Document("tpulse.nft_exchange_offer")
+@Document("tpulse.nft_assets_stats")
 @SimpleCache(cacheField = "assetsId")
-public class NftOffer {
+public class NftAssetsStats {
 
     @Id
     private Long id;
 
     private Long assetsId;
 
-    private Long uid;
+    private Float totalVolume = 0f;
 
-    private Integer quantity;
-
-    private Float price;
+    private Float floorPrice = 0f;
 
     private String currency;
-
-    private Long expireAt;
 
     private Long createdAt;
 
     private Long updatedAt;
-
-    private Long activityId;
 
     public Long getId() {
         return id;
@@ -48,20 +42,20 @@ public class NftOffer {
         this.assetsId = assetsId;
     }
 
-    public Long getUid() {
-        return uid;
+    public Float getTotalVolume() {
+        return totalVolume;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setTotalVolume(Float totalVolume) {
+        this.totalVolume = totalVolume;
     }
 
-    public Float getPrice() {
-        return price;
+    public Float getFloorPrice() {
+        return floorPrice;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setFloorPrice(Float floorPrice) {
+        this.floorPrice = floorPrice;
     }
 
     public String getCurrency() {
@@ -70,14 +64,6 @@ public class NftOffer {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public Long getExpireAt() {
-        return expireAt;
-    }
-
-    public void setExpireAt(Long expireAt) {
-        this.expireAt = expireAt;
     }
 
     public Long getCreatedAt() {
@@ -94,21 +80,5 @@ public class NftOffer {
 
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Long getActivityId() {
-        return activityId;
-    }
-
-    public void setActivityId(Long activityId) {
-        this.activityId = activityId;
     }
 }

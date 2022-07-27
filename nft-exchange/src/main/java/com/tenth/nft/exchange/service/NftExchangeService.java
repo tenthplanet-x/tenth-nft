@@ -7,12 +7,12 @@ import com.tenth.nft.blockchain.BlockchainRouter;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.blockchain.NullAddress;
-import com.tenth.nft.convention.routes.exchange.BuyRouteRequest;
-import com.tenth.nft.convention.routes.exchange.SellCancelRouteRequest;
-import com.tenth.nft.convention.routes.exchange.SellRouteRequest;
+import com.tenth.nft.convention.routes.exchange.*;
+import com.tenth.nft.convention.routes.search.AssetsRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.exchange.controller.vo.NftBuyRequest;
 import com.tenth.nft.exchange.dto.NftListingDTO;
+import com.tenth.nft.exchange.dto.NftOfferDTO;
 import com.tenth.nft.exchange.vo.NftSellRequest;
 import com.tenth.nft.exchange.vo.SellCancelRequest;
 import com.tenth.nft.orm.marketplace.dao.*;
@@ -20,7 +20,9 @@ import com.tenth.nft.orm.marketplace.dao.expression.*;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.orm.marketplace.entity.event.*;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.SimpleQuery;
+import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -51,7 +53,7 @@ public class NftExchangeService {
     @Autowired
     private NftListingDao nftListingDao;
     @Autowired
-    private NftActivityDao nftActivityDao;
+    private NftActivityNoCacheDao nftActivityDao;
     @Autowired
     private NftOrderDao nftOrderDao;
     @Autowired
@@ -59,7 +61,10 @@ public class NftExchangeService {
     @Autowired
     private BlockchainRouter blockChainRouter;
     @Autowired
-    private NftAssetsDao nftAssetsDao;
+    private NftOfferDao nftOfferDao;
+    @Autowired
+    private NftAssetsStatsDao nftAssetsStatsDao;
+
 
     public NftListingDTO sell(NftSellRequest request) {
 
@@ -87,7 +92,10 @@ public class NftExchangeService {
         //quantity check
         NftBelong nftBelong = nftBelongDao.findOne(NftBelongQuery.newBuilder().assetsId(request.getAssetsId()).owner(request.getUid()).build());
         if(null == nftBelong || nftBelong.getQuantity() < request.getQuantity()){
-            throw BizException.newInstance(NftExchangeErrorCodes.EXCHANGE_EXCEPTION_NO_ENOUGH_QUANTITY);
+            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_INVALID_PARAMS);
+        }
+        if(Times.isExpired(request.getExpireAt())){
+            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
         }
 
         NftListing listing = new NftListing();
@@ -101,9 +109,12 @@ public class NftExchangeService {
         listing.setCreatedAt(System.currentTimeMillis());
         listing.setUpdatedAt(listing.getCreatedAt());
         listing.setCanceled(false);
+        //send activity
+        Long activityId = sendListingEvent(listing);
+        listing.setActivityId(activityId);
         listing = nftListingDao.insert(listing);
 
-        sendListingEvent(listing);
+        sendListingRouteEvent(listing.getAssetsId());
 
         return NftListingDTO.toProto(listing);
 
@@ -120,23 +131,27 @@ public class NftExchangeService {
                         .build(),
                 SellCancelRouteRequest.class
         );
+
     }
 
     public NftExchange.SELL_CANCEL_IS sellCancel(NftExchange.SELL_CANCEL_IC request){
         //listing check
         NftListing nftListing = nftListingDao.findOne(
-                NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).uid(request.getSeller()).build()
+                NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build()
         );
         if(null == nftListing){
             throw BizException.newInstance(NftExchangeErrorCodes.SELL_CANCEL_EXCEPTION_NOT_EXIST);
         }
+        if(Times.isExpired(nftListing.getExpireAt())){
+            throw BizException.newInstance(NftExchangeErrorCodes.SELL_CANCEL_EXCEPTION_EXPIRED);
+        }
 
-        nftListing = nftListingDao.findAndRemove(
+        nftListingDao.remove(
                 NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build()
         );
-        if(null != nftListing){
-            sendCancelEvent(nftListing, request.getReason());
-        }
+        freezeListingEvent(nftListing);
+        sendCancelEvent(nftListing, request.getReason());
+        sendListingRouteEvent(nftListing.getAssetsId());
 
         return NftExchange.SELL_CANCEL_IS.newBuilder().build();
     }
@@ -160,22 +175,19 @@ public class NftExchangeService {
         NftListing nftListing = nftListingDao.findOne(
                 NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build()
         );
+        if(null == nftListing || nftListing.getCanceled()){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NO_EXIST);
+        }
         if(Times.earlierThan(nftListing.getStartAt())){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NOT_START);
         }
         if(Times.isExpired(nftListing.getExpireAt())){
-            //cancel
-            sellCancel(NftExchange.SELL_CANCEL_IC.newBuilder()
-                    .setAssetsId(request.getAssetsId())
-                    .setListingId(request.getListingId())
-                    .setSeller(nftListing.getUid())
-                    .setReason(ListCancelEventReason.EXPIRED.name())
-                    .build());
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_EXPIRED);
         }
-        if(nftListing.getCanceled()){
-            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_CANCELED);
+        if(nftListing.getUid().equals(request.getUid())){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_BELONGS_TO_YOU);
         }
+
 
         //TODO wallet check
 
@@ -192,11 +204,15 @@ public class NftExchangeService {
             nftOrder.setQuantity(nftListing.getQuantity());
             buy(nftOrder);
         }finally {
+            freezeListingEvent(nftListing);
+            //
             nftListingDao.remove(
                     NftListingQuery.newBuilder().assetsId(nftListing.getAssetsId()).id(nftListing.getId()).build()
             );
             //owner listing refresh
             refrehListing(nftOrder.getOwner(), nftOrder.getAssetsId());
+
+            sendListingRouteEvent(nftOrder.getAssetsId());
         }
 
     }
@@ -216,8 +232,15 @@ public class NftExchangeService {
             Future<String> tokenFuture = blockchainGateway.mint(contract);
             String token = tokenFuture.get();
 
-            //
-            refreshBelong(request.getOwner(), request.getAssetsId());
+            //belongs
+            //refreshBelong(request.getOwner(), request.getAssetsId());
+            NftBelong belong = new NftBelong();
+            belong.setOwner(request.getOwner());
+            belong.setAssetsId(request.getAssetsId());
+            belong.setQuantity(request.getQuantity());
+            belong.setCreatedAt(System.currentTimeMillis());
+            belong.setUpdatedAt(belong.getCreatedAt());
+            nftBelongDao.insert(belong);
 
             //send mint event
             sendMintEvent(request);
@@ -238,32 +261,14 @@ public class NftExchangeService {
 
     }
 
-    private void refreshBelong(Long owner, Long assetsId) {
+    private void decBelongQuantity(Long owner, Long assetsId, int quantity) {
 
-        NftAssets nftAssets = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(assetsId).build());
-
-        SimpleQuery orderBuyQuery = NftOrderQuery.newBuilder().assetsId(assetsId).buyer(owner).status(NftOrderStatus.COMPLETE).build();
-        Optional<Integer> buyQuantity = nftOrderDao.find(orderBuyQuery).stream().map(NftOrder::getQuantity).reduce((o1, o2) -> o1 + o2);
-        SimpleQuery orderSellQuery = NftOrderQuery.newBuilder().assetsId(assetsId).owner(owner).status(NftOrderStatus.COMPLETE).build();
-        Optional<Integer> sellQuantity = nftOrderDao.find(orderSellQuery).stream().map(NftOrder::getQuantity).reduce((o1, o2) -> o1 + o2);
-        int rest = 0;
-        if(buyQuantity.isPresent()){
-            rest += buyQuantity.get();
-        }
-        if(sellQuantity.isPresent()){
-            rest -= sellQuantity.get();
-        }
-        if(nftAssets.getCreator().equals(owner)){
-            rest += nftAssets.getSupply();
-        }
-
-        if(rest > 0){
-            nftBelongDao.findAndModify(
-                    NftBelongQuery.newBuilder().assetsId(assetsId).owner(owner).build(),
-                    NftBelongUpdate.newBuilder().setQuantity(rest).createdAtOnInsert().build(),
-                    UpdateOptions.options().upsert(true)
-            );
-        }else{
+        NftBelong belong = nftBelongDao.findAndModify(
+                NftBelongQuery.newBuilder().assetsId(assetsId).owner(owner).build(),
+                NftBelongUpdate.newBuilder().quantityInc(-quantity).build(),
+                UpdateOptions.options().returnNew(true)
+        );
+        if(belong.getQuantity() <= 0){
             nftBelongDao.remove(NftBelongQuery.newBuilder().assetsId(assetsId).owner(owner).build());
         }
     }
@@ -278,10 +283,11 @@ public class NftExchangeService {
         }
 
         //
+        final int _rest = rest;
         nftListingDao
                 .find(NftListingQuery.newBuilder().assetsId(assetsId).uid(owner).canceled(false).build())
                 .stream().forEach(history -> {
-                    if(history.getQuantity() > preBelong.getQuantity()){
+                    if(history.getQuantity() > _rest){
                         sellCancel(NftExchange.SELL_CANCEL_IC.newBuilder()
                                 .setAssetsId(assetsId)
                                 .setListingId(history.getId())
@@ -295,7 +301,7 @@ public class NftExchangeService {
 
     public NftExchange.ASSETS_EXCHANGE_PROFILE_IS profile(NftExchange.ASSETS_EXCHANGE_PROFILE_IC request) {
 
-        NftExchange.NftAssetsProfileDTO assetsProfileDTO = profile(request.getAssetsId(), false, request.getObserver());
+        NftExchange.NftAssetsProfileDTO assetsProfileDTO = profile(request.getAssetsId(), request.getNeedOwners(), request.getObserver());
         return NftExchange.ASSETS_EXCHANGE_PROFILE_IS.newBuilder()
                 .setProfile(assetsProfileDTO)
                 .build();
@@ -312,12 +318,21 @@ public class NftExchangeService {
 
         NftExchange.NftAssetsProfileDTO.Builder profileBuilder = NftExchange.NftAssetsProfileDTO.newBuilder();
         profileBuilder.setId(assetsId);
+        NftSearch.AssetsDTO assetsDTO = routeClient.send(
+                NftSearch.ASSETS_IC.newBuilder()
+                        .setAssetsId(assetsId)
+                        .build(),
+                AssetsRouteRequest.class
+        ).getAssets();
+        String currency = assetsDTO.getCurrency();
 
-        //floor price
-        //todo shijie cache
+        //current price
         Optional<NftListing> floor = nftListingDao
-                .find(NftListingQuery.newBuilder().assetsId(assetsId).canceled(false).build())
-                .stream().sorted(Comparator.comparingLong(NftListing::getCreatedAt)).min(Comparator.comparingDouble(listing -> listing.getPrice()));
+                .find(NftListingQuery.newBuilder().assetsId(assetsId).build())
+                .stream()
+                .filter(dto -> !Times.isExpired(dto.getExpireAt()))
+                .filter(dto -> dto.getCurrency().equals(currency))
+                .sorted(Comparator.comparingLong(NftListing::getCreatedAt)).min(Comparator.comparingDouble(listing -> listing.getPrice()));
         if(floor.isPresent()){
             profileBuilder.setCurrentListing(NftExchange.NftListingDTO.newBuilder()
                     .setId(floor.get().getId())
@@ -333,21 +348,10 @@ public class NftExchangeService {
         }
 
         //total volume
-        //todo shijie cache
-        StringBuffer currency = new StringBuffer();
-        Optional<Float> volumeOptional = nftOrderDao.find(NftOrderQuery.newBuilder().assetsId(assetsId).build())
-                .stream()
-                .map(nftOrder -> {
-                    if(currency.isEmpty()){
-                        currency.append(nftOrder.getCurrency());
-                        //TODO shijie: currency convert
-                    }
-                    return nftOrder.getPrice() * nftOrder.getQuantity();
-                })
-                .reduce((a, b) -> a + b);
-        if(volumeOptional.isPresent()){
-            profileBuilder.setTotalVolume(volumeOptional.get());
-            profileBuilder.setCurrency(currency.toString());
+        NftAssetsStats stats = nftAssetsStatsDao.findOne(NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build());
+        if(null != stats && stats.getTotalVolume() > 0){
+            profileBuilder.setTotalVolume(stats.getTotalVolume());
+            profileBuilder.setCurrency(stats.getCurrency());
         }
 
         if(!needOwnerUids){
@@ -358,7 +362,11 @@ public class NftExchangeService {
                 profileBuilder.addOwnerLists(belong.getOwner());
             }
         }else{
-            profileBuilder.addAllOwnerLists(nftBelongDao.find(NftBelongQuery.newBuilder().assetsId(assetsId).build()).stream().map(NftBelong::getOwner).collect(Collectors.toList()));
+            profileBuilder.addAllOwnerLists(nftBelongDao
+                    .find(NftBelongQuery.newBuilder().assetsId(assetsId).build())
+                    .stream()
+                    .map(NftBelong::getOwner)
+                    .collect(Collectors.toList()));
         }
 
         if(null != abserver){
@@ -369,6 +377,16 @@ public class NftExchangeService {
             }
         }
 
+        //bestOffer
+        Optional<NftOffer> nftOffer = nftOfferDao.find(NftOfferQuery.newBuilder()
+                .assetsId(assetsId)
+                .setSorts(SimpleQuerySorts.newBuilder().sort("price", true).sort("createdAt", true).build())
+                .build()
+        ).stream().filter(dto -> !Times.isExpired(dto.getExpireAt())).findFirst();
+        if(nftOffer.isPresent()){
+            profileBuilder.setBestOffer(NftOfferDTO.from(nftOffer.get()));
+        }
+
         return profileBuilder.build();
     }
 
@@ -377,20 +395,25 @@ public class NftExchangeService {
         NftExchange.NftCollectionProfileDTO.Builder collectionProfileDTOBuilder = NftExchange.NftCollectionProfileDTO.newBuilder();
         Set<Long> ownerLists = new HashSet<>();
 
-        request.getAssetsIdsList().stream().map(assetId -> profile(assetId, true, null)).forEach(profile -> {
+        request.getAssetsIdsList().stream().forEach(assetsId -> {
 
-            if(profile.hasCurrentListing()){
-                if(!collectionProfileDTOBuilder.hasCurrentListing() || (profile.getCurrentListing().getPrice() < collectionProfileDTOBuilder.getCurrentListing().getPrice())){
-                    collectionProfileDTOBuilder.setCurrentListing(profile.getCurrentListing());
+            NftAssetsStats stats = nftAssetsStatsDao.findOne(NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build());
+            if(null != stats){
+                if(stats.getTotalVolume() > 0){
+                    collectionProfileDTOBuilder.setTotalVolume(stats.getTotalVolume());
+                    collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
+                }
+                if(stats.getFloorPrice() > 0){
+                    collectionProfileDTOBuilder.setFloorPrice(stats.getFloorPrice());
+                    collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
                 }
             }
 
-            if(profile.hasTotalVolume()){
-                collectionProfileDTOBuilder.setTotalVolume(collectionProfileDTOBuilder.getTotalVolume() + profile.getTotalVolume());
-                collectionProfileDTOBuilder.setCurrency(profile.getCurrency());
-            }
-
-            ownerLists.addAll(profile.getOwnerListsList());
+            //ownerUids
+            ownerLists.addAll(nftBelongDao.find(NftBelongQuery.newBuilder().assetsId(assetsId).build())
+                    .stream()
+                    .map(belong -> belong.getOwner())
+                    .collect(Collectors.toList()));
 
         });
 
@@ -419,7 +442,7 @@ public class NftExchangeService {
         nftActivityDao.insert(activity);
     }
 
-    private void sendListingEvent(NftListing listing) {
+    private Long sendListingEvent(NftListing listing) {
 
         NftActivity activity = new NftActivity();
         activity.setAssetsId(listing.getAssetsId());
@@ -432,11 +455,24 @@ public class NftExchangeService {
         listEvent.setPrice(listing.getPrice());
         listEvent.setQuantity(listing.getQuantity());
         listEvent.setCurrency(listing.getCurrency());
+        listEvent.setExpireAt(listing.getExpireAt());
         activity.setList(listEvent);
 
-        nftActivityDao.insert(activity);
+        return nftActivityDao.insert(activity).getId();
 
     }
+
+    private void freezeListingEvent(NftListing nftListing) {
+
+        if(null != nftListing.getActivityId()){
+            nftActivityDao.update(
+                    NftActivityQuery.newBuilder().id(nftListing.getActivityId()).build(),
+                    NftActivityUpdate.newBuilder().freeze(true).build()
+            );
+        }
+
+    }
+
 
     private void sendTransferEvent(NftOrder nftOrder) {
 
@@ -452,6 +488,7 @@ public class NftExchangeService {
         transfer.setQuantity(nftOrder.getQuantity());
         transfer.setPrice(nftOrder.getPrice());
         transfer.setCurrency(nftOrder.getCurrency());
+
         activity.setTransfer(transfer);
 
         nftActivityDao.insert(activity);
@@ -524,8 +561,29 @@ public class NftExchangeService {
         sendSaleEvent(nftOrder);
 
         //refresh owner belongs
-        refreshBelong(nftOrder.getOwner(), nftOrder.getAssetsId());
+        decBelongQuantity(nftOrder.getOwner(), nftOrder.getAssetsId(), nftOrder.getQuantity());
+
+        sendExchangeRouteEvent(nftOrder.getAssetsId());
+
+    }
 
 
+    public void expireCheck(NftExchange.LISTING_EXPIRE_CHECK_IC request) {
+        nftListingDao.remove(NftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).build());
+        sendListingRouteEvent(request.getAssetsId());
+    }
+
+    private void sendListingRouteEvent(Long assetsId) {
+        routeClient.send(
+                NftExchange.LISTING_EVENT_IC.newBuilder().setAssetsId(assetsId).build(),
+                ListingEventRouteRequest.class
+        );
+    }
+
+    private void sendExchangeRouteEvent(Long assetsId) {
+        routeClient.send(
+                NftExchange.EXCHANGE_EVENT_IC.newBuilder().setAssetsId(assetsId).build(),
+                ExchangeEventRouteRequest.class
+        );
     }
 }

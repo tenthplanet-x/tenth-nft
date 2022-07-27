@@ -17,6 +17,8 @@ public class ListEvent implements NftActivityEvent {
 
     private String currency;
 
+    private Long expireAt;
+
     public Long getFrom() {
         return from;
     }
@@ -57,4 +59,11 @@ public class ListEvent implements NftActivityEvent {
         this.to = to;
     }
 
+    public Long getExpireAt() {
+        return expireAt;
+    }
+
+    public void setExpireAt(Long expireAt) {
+        this.expireAt = expireAt;
+    }
 }

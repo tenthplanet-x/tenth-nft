@@ -23,6 +23,7 @@ public enum NftInnerCmdTypes implements CmdType {
     NFT_CURRENCY_RATE_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_RATE_REBUILD_IC, NftSearch.NFT_CURRENCY_RATE_REBUILD_IC.newBuilder()),
 
     ASSETS_IC(NftCmdGroup.SEARCH, NftInnerCmds.ASSETS_IC, NftSearch.ASSETS_IC.newBuilder()),
+    NFT_CURRENCY_RATES_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_RATES_IC, NftSearch.NFT_CURRENCY_RATES_IC.newBuilder()),
 
     BUY_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUY_IC, NftExchange.BUY_IC.newBuilder()),
     SELL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.SELL_IC, NftExchange.SELL_IC.newBuilder()),
@@ -37,6 +38,12 @@ public enum NftInnerCmdTypes implements CmdType {
     OFFER_ACCEPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_ACCEPT_IC, NftExchange.OFFER_ACCEPT_IC.newBuilder()),
     OFFER_CANCEL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_CANCEL_IC, NftExchange.OFFER_CANCEL_IC.newBuilder()),
     OFFER_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_LIST_IC, NftExchange.OFFER_LIST_IC.newBuilder()),
+
+    LISTING_EVENT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.LISTING_EVENT_IC, NftExchange.LISTING_EVENT_IC.newBuilder()),
+    EXCHANGE_EVENT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.EXCHANGE_EVENT_IC, NftExchange.EXCHANGE_EVENT_IC.newBuilder()),
+    OFFER_EXPIRE_CHECK_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_EXPIRE_CHECK_IC, NftExchange.OFFER_EXPIRE_CHECK_IC.newBuilder()),
+    LISTING_EXPIRE_CHECK_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.LISTING_EXPIRE_CHECK_IC, NftExchange.LISTING_EXPIRE_CHECK_IC.newBuilder()),
+
 
     ;
 

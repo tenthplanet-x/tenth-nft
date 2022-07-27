@@ -46,13 +46,14 @@ message NftAssetsProfileDTO{
   repeated int64 ownerLists = 5;
   optional int32 owns = 6;
   optional NftListingDTO currentListing = 7;
+  optional NftOfferDTO bestOffer = 8;
 }
 
 message NftCollectionProfileDTO{
   optional float totalVolume = 2;
   optional string currency = 3;
   required int64 owners = 4;
-  optional NftListingDTO currentListing = 5;
+  optional float floorPrice = 6;
 }
 
 message NftOfferDTO{
@@ -138,6 +139,7 @@ message MINT_IS{
 message ASSETS_EXCHANGE_PROFILE_IC{
   required int64 assetsId = 1;
   optional int64 observer = 2;
+  optional bool needOwners = 3;
 }
 message ASSETS_EXCHANGE_PROFILE_IS{
   required NftAssetsProfileDTO profile = 1;
@@ -185,4 +187,22 @@ message OFFER_ACCEPT_IC{
 }
 message OFFER_ACCEPT_IS{
 
+}
+
+message LISTING_EVENT_IC{
+  required int64 assetsId = 1;
+}
+
+message EXCHANGE_EVENT_IC{
+  required int64 assetsId = 1;
+}
+
+message LISTING_EXPIRE_CHECK_IC{
+  required int64 assetsId = 1;
+  required int64 listingId = 2;
+}
+
+message OFFER_EXPIRE_CHECK_IC{
+  required int64 assetsId = 1;
+  required int64 offerId = 2;
 }

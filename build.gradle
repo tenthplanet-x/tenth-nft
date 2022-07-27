@@ -31,7 +31,7 @@ ext {
     versions = [
         springboot: '2.1.6.RELEASE',
         commons: '0.4.0_003-SNAPSHOT',
-        gs: '0.11.0_20220714_001-SNAPSHOT',
+        gs: '0.12.0_20220720_002-SNAPSHOT',
         operation: '0.3.0_20220228_007-SNAPSHOT',
         tpulse: '0.0.20220704_005-SNAPSHOT'
     ]
@@ -91,7 +91,7 @@ ext {
 
 allprojects{
     group 'com.tenth.nft'
-    version "0.0.1_20220718_001-SNAPSHOT"
+    version "0.0.1_20220727_004-SNAPSHOT"
 
     repositories {
         maven {

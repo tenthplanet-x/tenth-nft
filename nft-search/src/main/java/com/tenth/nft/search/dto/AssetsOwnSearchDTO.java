@@ -23,6 +23,14 @@ public class AssetsOwnSearchDTO implements SimpleResponse {
 
     private AssetsDetailSearchDTO.ListingDTO currentListing;
 
+    @SimpleField
+    private String name;
+
+    @SimpleField
+    private Long collectionId;
+
+    private String collectionName;
+
     public Long getId() {
         return id;
     }
@@ -61,5 +69,29 @@ public class AssetsOwnSearchDTO implements SimpleResponse {
 
     public void setCurrentListing(AssetsDetailSearchDTO.ListingDTO currentListing) {
         this.currentListing = currentListing;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getCollectionId() {
+        return collectionId;
+    }
+
+    public void setCollectionId(Long collectionId) {
+        this.collectionId = collectionId;
+    }
+
+    public String getCollectionName() {
+        return collectionName;
+    }
+
+    public void setCollectionName(String collectionName) {
+        this.collectionName = collectionName;
     }
 }

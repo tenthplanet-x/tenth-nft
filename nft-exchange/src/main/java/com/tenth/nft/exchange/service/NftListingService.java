@@ -4,6 +4,7 @@ import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.ListingListRouteRequest;
+import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.exchange.controller.vo.NftListingListRequest;
 import com.tenth.nft.exchange.dto.NftListingDTO;
 import com.tenth.nft.orm.marketplace.dao.NftListingDao;
@@ -79,7 +80,7 @@ public class NftListingService {
                         .setSortField("_id")
                         .setReverse(true)
                         .build()
-        ).getData().stream().map(NftListingDTO::toProto).collect(Collectors.toList());
+        ).getData().stream().filter(dto -> !Times.isExpired(dto.getExpireAt())).map(NftListingDTO::toProto).collect(Collectors.toList());
         return NftExchange.LISTING_LIST_IS.newBuilder()
                 .addAllListings(dtos)
                 .build();

@@ -1,6 +1,7 @@
 package com.tenth.nft.search.lucenedao;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.NftBelongDao;
 import com.tenth.nft.orm.marketplace.dao.NftBelongNoCacheDao;
@@ -8,11 +9,13 @@ import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftBelongQuery;
 import com.tenth.nft.orm.marketplace.dto.NftBelongIdDTO;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
+import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.search.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.lucenedb.dao.SimpleLuceneDao;
 import com.tpulse.gs.lucenedb.dao.SimpleLucenedbProperties;
+import com.tpulse.gs.router.client.RouteClient;
 import org.apache.lucene.document.LongPoint;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.*;
@@ -36,14 +39,18 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
     private static ExecutorService executor = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("lucenedb-nftassets-init").setDaemon(true).build());
 
     private NftAssetsNoCacheDao nftAssetsNoCacheDao;
+    private RouteClient routeClient;
 
-    private NftBelongNoCacheDao nftBelongNoCacheDao;
-
-    public NftAssetsLuceneDao(SimpleLucenedbProperties properties, NftAssetsNoCacheDao nftAssetsNoCacheDao, NftBelongNoCacheDao nftBelongNoCacheDao) {
+    public NftAssetsLuceneDao(
+            SimpleLucenedbProperties properties,
+            NftAssetsNoCacheDao nftAssetsNoCacheDao,
+            NftBelongNoCacheDao nftBelongNoCacheDao,
+            RouteClient routeClient
+    ) {
         super(NftAssetsLuceneDTO.class, properties);
         this.nftAssetsNoCacheDao = nftAssetsNoCacheDao;
-        this.nftBelongNoCacheDao = nftBelongNoCacheDao;
-        init();
+        this.routeClient = routeClient;
+        //init();
     }
 
     public List<Long> list(AssetsSearchRequest request) {
@@ -76,7 +83,7 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
         return output;
     }
 
-    private void init() {
+    public void init() {
 
         boolean empty = false;
         int page = 1;
@@ -96,13 +103,21 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
     }
 
     private NftAssetsLuceneDTO toLuceneDTO(NftAssets assets){
+
+        NftExchange.NftAssetsProfileDTO assetsProfile = routeClient.send(
+                NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
+                        .setAssetsId(assets.getId())
+                        .setNeedOwners(true)
+                        .build(),
+                AssetsExchangeProfileRouteRequest.class
+        ).getProfile();
+
         NftAssetsLuceneDTO dto = new NftAssetsLuceneDTO();
         dto.setId(assets.getId());
         dto.setCreatedAt(assets.getCreatedAt());
         dto.setCollectionId(assets.getCollectionId());
         //获取拥有者信息
-        List<NftBelongIdDTO> belongs = nftBelongNoCacheDao.find(NftBelongQuery.newBuilder().assetsId(assets.getId()).build(), NftBelongIdDTO.class);
-        List<Long> belongUids = belongs.stream().map(belong -> belong.getOwner()).collect(Collectors.toList());
+        List<Long> belongUids = assetsProfile.getOwnerListsList();
         dto.setOwners(belongUids);
 
         return dto;

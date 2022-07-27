@@ -8,9 +8,14 @@ import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
+import com.tenth.nft.orm.marketplace.dao.NftCollectionDao;
+import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
+import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
 import com.tenth.nft.search.lucenedao.NftAssetsLuceneDao;
@@ -39,6 +44,13 @@ public class AssetsSearchService {
     private NftAssetsDao nftAssetsDao;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private NftOfferDao nftOfferDao;
+    @Autowired
+    private NftCollectionDao nftCollectionDao;
+    @Autowired
+    private CurrencySearchService currencySearchService;
+
 
     public Page<AssetsSearchDTO> list(AssetsSearchRequest request) {
 
@@ -58,6 +70,16 @@ public class AssetsSearchService {
                 ).getProfile();
                 if(exchangeProfile.hasCurrentListing()){
                     assetsSearchDTO.setCurrentListing(AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
+                    assetsSearchDTO.getCurrentListing().setSellerProfile(
+                            NftUserProfileDTO.from(
+                                    routeClient.send(
+                                            Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                                                    .addUids(assetsSearchDTO.getCurrentListing().getSeller())
+                                                    .build(),
+                                            SearchUserProfileRouteRequest.class
+                                    ).getProfiles(0)
+                            )
+                    );
                 }
 
                 return assetsSearchDTO;
@@ -107,6 +129,16 @@ public class AssetsSearchService {
         ).getProfile();
         if(exchangeProfile.hasCurrentListing()){
             AssetsDetailSearchDTO.ListingDTO listingDTO = AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing());
+            listingDTO.setSellerProfile(
+                    NftUserProfileDTO.from(
+                            routeClient.send(
+                                    Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                                            .addUids(listingDTO.getSeller())
+                                            .build(),
+                                    SearchUserProfileRouteRequest.class
+                            ).getProfiles(0)
+                    )
+            );
             dto.setCurrentListing(listingDTO);
         }
         if(exchangeProfile.hasTotalVolume()){
@@ -114,15 +146,17 @@ public class AssetsSearchService {
             dto.setCurrency(exchangeProfile.getCurrency());
         }
         dto.setOwners(exchangeProfile.getOwners());
-
         dto.setOwns(exchangeProfile.getOwns());
-
-        if(dto.getSupply() == 1){
+        if(dto.getSupply() == 1 || dto.getOwners() == 1){
             Search.SearchUserDTO ownerUserDTO = routeClient.send(
                     Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(exchangeProfile.getOwnerListsList()).build(),
                     SearchUserProfileRouteRequest.class
             ).getProfiles(0);
             dto.setOwnerProfile(NftUserProfileDTO.from(ownerUserDTO));
+        }
+        //current offer
+        if(exchangeProfile.hasBestOffer()){
+            dto.setBestOffer(AssetsDetailSearchDTO.NftOfferDTO.from(exchangeProfile.getBestOffer()));
         }
 
         return dto;
@@ -139,6 +173,10 @@ public class AssetsSearchService {
                         AssetsOwnSearchDTO.class
                 );
 
+                //collection Name
+                NftCollection nftCollection = nftCollectionDao.findOne(NftCollectionQuery.newBuilder().id(dto.getCollectionId()).build());
+                dto.setCollectionName(nftCollection.getName());
+
                 NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
                         NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
                                 .setAssetsId(id)
@@ -147,6 +185,16 @@ public class AssetsSearchService {
                 ).getProfile();
                 if(exchangeProfile.hasCurrentListing()){
                     dto.setCurrentListing(AssetsDetailSearchDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
+                    dto.getCurrentListing().setSellerProfile(
+                            NftUserProfileDTO.from(
+                                    routeClient.send(
+                                            Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                                                    .addUids(dto.getCurrentListing().getSeller())
+                                                    .build(),
+                                            SearchUserProfileRouteRequest.class
+                                    ).getProfiles(0)
+                            )
+                    );
                 }
 
                 return dto;
@@ -158,5 +206,25 @@ public class AssetsSearchService {
         }
 
         return new Page<>();
+    }
+
+    public NftSearch.ASSETS_IS assetsProfile(NftSearch.ASSETS_IC request) {
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
+        NftAssets nftAssets = nftAssetsDao.findOne(
+                NftAssetsQuery.newBuilder().id(request.getAssetsId()).build()
+        );
+
+        String mainCurrency = currencySearchService.getMainCurrency(nftAssets.getBlockchain());
+
+        return NftSearch.ASSETS_IS.newBuilder()
+                .setAssets(NftSearch.AssetsDTO.newBuilder()
+                        .setCollectionId(nftAssets.getCollectionId())
+                        .setBlockchain(nftAssets.getBlockchain())
+                        .setCurrency(mainCurrency)
+                        .setCreator(nftAssets.getCreator())
+                        .build())
+                .build();
+
     }
 }

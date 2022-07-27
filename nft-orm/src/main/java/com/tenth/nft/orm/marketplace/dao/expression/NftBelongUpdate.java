@@ -88,6 +88,7 @@ public class NftBelongUpdate extends SimpleUpdate {
             update.quantityInc = quantity;
             return this;
         }
+
     }
 
 }

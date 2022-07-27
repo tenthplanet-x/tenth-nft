@@ -4,7 +4,9 @@ import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.utils.Prices;
+import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.orm.marketplace.entity.NftActivity;
+import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
 import com.tenth.nft.orm.marketplace.entity.event.*;
 import com.tenth.nft.protobuf.NftExchange;
 
@@ -167,11 +169,14 @@ public class NftActivityDTO {
             dto.setExpired(true);
         }
         if(nftActivityDTO.hasCanceled()){
-            dto.setCanceled(true);
+            dto.setCanceled(nftActivityDTO.getCanceled());
         }
 
         dto.setCreatedAt(nftActivityDTO.getCreatedAt());
         dto.setReason(nftActivityDTO.getReason());
+        if(nftActivityDTO.hasExpired()){
+            dto.setExpired(nftActivityDTO.getExpired());
+        }
         return dto;
     }
 
@@ -197,6 +202,9 @@ public class NftActivityDTO {
                 builder.setCurrency(listEvent.getCurrency());
                 builder.setPrice(listEvent.getPrice());
                 builder.setQuantity(listEvent.getQuantity());
+                if(!nftActivity.getFreeze() && null != listEvent.getExpireAt() && Times.isExpired(listEvent.getExpireAt())){
+                    builder.setExpired(true);
+                }
                 break;
             case Sale:
                 SaleEvent saleEvent = nftActivity.getSale();
@@ -235,6 +243,9 @@ public class NftActivityDTO {
                 builder.setCanceled(null != offerEvent.getCancel()? offerEvent.getCancel(): false);
                 if(!Strings.isNullOrEmpty(offerEvent.getReason())){
                     builder.setReason(offerEvent.getReason());
+                }
+                if(!nftActivity.getFreeze() && nftActivity.getType() == NftActivityEventType.OFFER && null != offerEvent.getExpireAt() && Times.isExpired(offerEvent.getExpireAt())){
+                    builder.setExpired(true);
                 }
         }
 

@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author shijie
  */
 @Document("tpulse.nft_exchange_activity")
-@SimpleCache(cacheField = "assetsId")
 public class NftActivity {
 
     @Id
@@ -36,6 +35,8 @@ public class NftActivity {
     private SaleEvent sale;
 
     private ListCancelEvent cancel;
+
+    private Boolean freeze = false;
 
     public Long getId() {
         return id;
@@ -123,5 +124,13 @@ public class NftActivity {
 
     public void setCancel(ListCancelEvent cancel) {
         this.cancel = cancel;
+    }
+
+    public Boolean getFreeze() {
+        return freeze;
+    }
+
+    public void setFreeze(Boolean freeze) {
+        this.freeze = freeze;
     }
 }

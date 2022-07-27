@@ -5,22 +5,48 @@ import com.wallan.router.exception.ErrorCode;
 public enum NftExchangeErrorCodes implements ErrorCode {
 
     /**
+     * 20100
      * opensea sdk
      */
-    OPEANSEASDK_EXCEPTION("7001", "opeanseasdk exception"),
+    OPEANSEASDK_EXCEPTION("20101", "opeanseasdk exception"),
 
-    EXCHANGE_EXCEPTION_NO_ENOUGH_QUANTITY("8001", "no enough quantity"),
-    SELL_EXCEPTION_CREATE_CONTRACT_ERROR("8002", "create contract error"),
-    BUY_EXCEPTION_NOT_START("8003", "not start"),
-    BUY_EXCEPTION_EXPIRED("8004", "expired"),
-    BUY_EXCEPTION_CANCELED("8005", "canceled"),
-    BUY_EXCEPTION_NO_ENOUGH_QUANTITY("8006", "no enough quantity"),
-    MINT_EXCEPTION("8007", "mint excepiton"),
-    SELL_CANCEL_EXCEPTION_NOT_EXIST("8008", "listing not exist"),
-    OFFER_EXCEPTION_INSUFFICIENT("8009", "insufficient"),
-    OFFER_EXCEPTION_NOT_EXIST("8010", "offer not exist"),
-    OFFER_EXCEPTION_OFFER_EXPIRED("8011", "offer expired")
+    /**
+     * 20200 mint
+     */
+    MINT_EXCEPTION("20201", "mint excepiton"),
+    MINT_EXCEPTION_INVALID_PARAMS("20202", "invalid mint params"),
+    /**
+     * 20300 sell
+     */
+    SELL_EXCEPTION_INVALID_PARAMS("20301", "invalid params"),
+    SELL_EXCEPTION_CREATE_CONTRACT_ERROR("20302", "create contract error"),
+    SELL_CANCEL_EXCEPTION_NOT_EXIST("20303", "does not exist"),
+    SELL_CANCEL_EXCEPTION_EXPIRED("20304", "expire"),
+    /**
+     * 20400 buy
+     */
+    BUY_EXCEPTION_NOT_START("20401", "not start"),
+    BUY_EXCEPTION_EXPIRED("20402", "expired"),
+    BUY_EXCEPTION_NO_EXIST("20403", "does not exist"),
+    BUY_EXCEPTION_NO_ENOUGH_QUANTITY("20404", "no enough quantity"),
+    BUY_EXCEPTION_BELONGS_TO_YOU("20405", "belongs to you"),
+    /**
+     * 20500 offer
+     */
+    OFFER_EXCEPTION_INVALID_PARAMS("20501", "invalid params"),
+    OFFER_EXCEPTION_BELONGS_TO_YOU("20502", "belongs to you"),
+    OFFER_EXCEPTION_EXPIRED("20503", "expired"),
+    OFFER_EXCEPTION_NOT_EXIST("20504", "does not exist"),
+
+    /**
+     * 20600 accept
+     */
+    ACCEPT_EXCEPTION_OWNS("20601", "offer belongs to you")
+
+
     ;
+
+
 
     private String code;
     private String desc;
