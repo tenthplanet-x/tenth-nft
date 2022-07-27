@@ -33,7 +33,7 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
     public NftCollectionLuceneDao(SimpleLucenedbProperties properties, NftCollectionNoCacheDao nftCollectionNoCacheDao) {
         super(NftCollectionLuceneDTO.class, properties);
         this.nftCollectionNoCacheDao = nftCollectionNoCacheDao;
-        init();
+        //init();
     }
 
     /**
@@ -72,7 +72,7 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
     /**
      * load histories
      */
-    private void init() {
+    public void init() {
         //NO-OP
         boolean empty = false;
         int page = 1;

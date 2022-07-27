@@ -139,6 +139,7 @@ message MINT_IS{
 message ASSETS_EXCHANGE_PROFILE_IC{
   required int64 assetsId = 1;
   optional int64 observer = 2;
+  optional bool needOwners = 3;
 }
 message ASSETS_EXCHANGE_PROFILE_IS{
   required NftAssetsProfileDTO profile = 1;

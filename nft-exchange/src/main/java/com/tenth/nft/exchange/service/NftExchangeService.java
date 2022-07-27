@@ -301,7 +301,7 @@ public class NftExchangeService {
 
     public NftExchange.ASSETS_EXCHANGE_PROFILE_IS profile(NftExchange.ASSETS_EXCHANGE_PROFILE_IC request) {
 
-        NftExchange.NftAssetsProfileDTO assetsProfileDTO = profile(request.getAssetsId(), false, request.getObserver());
+        NftExchange.NftAssetsProfileDTO assetsProfileDTO = profile(request.getAssetsId(), request.getNeedOwners(), request.getObserver());
         return NftExchange.ASSETS_EXCHANGE_PROFILE_IS.newBuilder()
                 .setProfile(assetsProfileDTO)
                 .build();
