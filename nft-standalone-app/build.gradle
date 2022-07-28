@@ -6,5 +6,6 @@ dependencies {
     implementation project(":nft-operation")
     implementation libs.starter_web
     implementation libs.tpulse_convention
+    testImplementation libs.gs_report
 
 }
