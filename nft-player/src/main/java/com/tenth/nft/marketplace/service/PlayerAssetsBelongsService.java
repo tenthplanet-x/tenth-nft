@@ -58,7 +58,7 @@ public class PlayerAssetsBelongsService {
     public Page<AssetsOwnSearchDTO> list(AssetsOwnSearchRequest request) {
 
         Page<PlayerAssetsBelongs> page = playerAssetsBelongsDao.findPage(
-                PlayerAssetsBelongsQuery.newBuilder().uid(request.getUid()).build()
+                PlayerAssetsBelongsQuery.newBuilder().uid(request.getUid()).setSortField("updatedAt").setReverse(true).build()
         );
         if(!page.getData().isEmpty()){
             List<AssetsOwnSearchDTO> assets = page.getData().stream().map(belongs -> {
