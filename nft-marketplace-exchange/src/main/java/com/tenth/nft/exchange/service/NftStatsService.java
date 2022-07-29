@@ -1,5 +1,6 @@
 package com.tenth.nft.exchange.service;
 
+import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.operation.BlockchainRouteRequest;
 import com.tenth.nft.convention.routes.search.CurrencyRatesRouteRequest;
@@ -44,12 +45,13 @@ public class NftStatsService {
 
         Long assetsId = request.getAssetsId();
         //get assetsProfile
-        String blockchain = routeClient.send(
+        NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                         .setId(assetsId)
                         .build(),
                 AssetsDetailRouteRequest.class
-        ).getAssets().getBlockchain();
+        ).getAssets();
+        String blockchain = assetsDTO.getBlockchain();
         String currency = routeClient.send(
                 NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()
                         .setBlockchain(blockchain)
@@ -90,6 +92,15 @@ public class NftStatsService {
                     UpdateOptions.options().upsert(true)
             );
         }
+
+
+        //rebuild cache
+        routeClient.send(
+                NftSearch.NFT_COLLECTION_REBUILD_IC.newBuilder()
+                        .setCollectionId(assetsDTO.getCollectionId())
+                        .build(),
+                CollectionRebuildRouteRequest.class
+        );
 
     }
 

@@ -69,18 +69,14 @@ public class NftCollectionService {
         nftCollection.setItems(0);
         nftCollection = nftCollectionDao.insert(nftCollection);
 
-        routeClient.send(
-                NftSearch.NFT_COLLECTION_REBUILD_IC.newBuilder()
-                        .setCollectionId(request.getId())
-                        .build(),
-                CollectionRebuildRouteRequest.class
-        );
+        rebuild(nftCollection.getId());
 
         NftMarketplace.CollectionDTO dto = NftCollectionDetailDTO.toProto(nftCollection);
         return NftMarketplace.COLLECTION_CREATE_IS.newBuilder()
                 .setCollection(dto)
                 .build();
     }
+
 
     public NftMarketplace.COLLECTION_DETAIL_IS detail(NftMarketplace.COLLECTION_DETAIL_IC request) {
 
@@ -100,10 +96,20 @@ public class NftCollectionService {
                 NftCollectionQuery.newBuilder().id(collectionId).build(),
                 NftCollectionUpdate.newBuilder().items(items).build()
         );
+        rebuild(collectionId);
     }
 
     public NftCollection detail(Long collectionId) {
         return nftCollectionDao.findOne(NftCollectionQuery.newBuilder().id(collectionId).build());
+    }
+
+    private void rebuild(Long collectionId) {
+        routeClient.send(
+                NftSearch.NFT_COLLECTION_REBUILD_IC.newBuilder()
+                        .setCollectionId(collectionId)
+                        .build(),
+                CollectionRebuildRouteRequest.class
+        );
     }
 
 }

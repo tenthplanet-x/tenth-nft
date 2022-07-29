@@ -7,7 +7,7 @@ message CollectionDTO{
   required int64 id = 1;
   required int64 creator = 2;
   required string name = 3;
-  required string desc = 4;
+  optional string desc = 4;
   optional string logoImage = 5;
   optional string featuredImage = 6;
   optional int64 createdAt = 7;

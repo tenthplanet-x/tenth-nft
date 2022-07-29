@@ -1,10 +1,7 @@
 package com.tenth.nft.convention.cmd;
 
 import com.google.protobuf.Message;
-import com.tenth.nft.protobuf.NftExchange;
-import com.tenth.nft.protobuf.NftMarketplace;
-import com.tenth.nft.protobuf.NftOperation;
-import com.tenth.nft.protobuf.NftSearch;
+import com.tenth.nft.protobuf.*;
 import com.tpulse.gs.convention.cmd.CmdGroup;
 import com.tpulse.gs.convention.cmd.CmdType;
 
@@ -49,6 +46,9 @@ public enum NftInnerCmdTypes implements CmdType {
     COLLECTION_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_CREATE_IC, NftMarketplace.COLLECTION_CREATE_IC.newBuilder()),
     COLLECTION_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()),
     NFT_BLOCKCHAIN_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.NFT_BLOCKCHAIN_IC, NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()),
+
+    //player
+    ASSETS_BELONGS_UPDATE_IC(NftCmdGroup.PLAYER, NftInnerCmds.ASSETS_BELONGS_UPDATE_IC, NftPlayer.ASSETS_BELONGS_UPDATE_IC.newBuilder()),
 
     ;
 

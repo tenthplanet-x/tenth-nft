@@ -1,6 +1,9 @@
-package com.tenth.nft.marketplace.controller;
+package com.tenth.nft.marketplace.controller.web;
 
 import com.tenth.nft.marketplace.NftAssetsPaths;
+import com.tenth.nft.marketplace.dto.AssetsOwnSearchDTO;
+import com.tenth.nft.marketplace.service.PlayerAssetsBelongsService;
+import com.tenth.nft.marketplace.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.service.PlayerAssetsService;
 import com.tenth.nft.marketplace.vo.NftAssetsCreateRequest;
@@ -20,10 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @HttpRoute(userAuth = true)
-public class NftAssetsWebController {
+public class PlayerAssetsWebController {
 
     @Autowired
     private PlayerAssetsService nftAssetsService;
+    @Autowired
+    private PlayerAssetsBelongsService playerAssetsBelongsService;
 
     @RequestMapping(NftAssetsPaths.NFTASSETS_LIST)
     public Response list(@RequestBody NftAssetsListRequest request){
@@ -39,5 +44,11 @@ public class NftAssetsWebController {
         return Response.successBuilder().data(assetsDTO).build();
     }
 
+    @RequestMapping(NftAssetsPaths.ASSETS_OWN_LIST)
+    public Response list(@RequestBody AssetsOwnSearchRequest request){
+        Validations.check(request);
+        Page<AssetsOwnSearchDTO> collections = playerAssetsBelongsService.list(request);
+        return Response.successBuilder().data(collections).build();
+    }
 
 }

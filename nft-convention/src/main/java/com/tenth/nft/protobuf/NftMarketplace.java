@@ -58,17 +58,17 @@ public final class NftMarketplace {
         getNameBytes();
 
     /**
-     * <code>required string desc = 4;</code>
+     * <code>optional string desc = 4;</code>
      * @return Whether the desc field is set.
      */
     boolean hasDesc();
     /**
-     * <code>required string desc = 4;</code>
+     * <code>optional string desc = 4;</code>
      * @return The desc.
      */
     java.lang.String getDesc();
     /**
-     * <code>required string desc = 4;</code>
+     * <code>optional string desc = 4;</code>
      * @return The bytes for desc.
      */
     com.google.protobuf.ByteString
@@ -402,7 +402,7 @@ public final class NftMarketplace {
     public static final int DESC_FIELD_NUMBER = 4;
     private volatile java.lang.Object desc_;
     /**
-     * <code>required string desc = 4;</code>
+     * <code>optional string desc = 4;</code>
      * @return Whether the desc field is set.
      */
     @java.lang.Override
@@ -410,7 +410,7 @@ public final class NftMarketplace {
       return ((bitField0_ & 0x00000008) != 0);
     }
     /**
-     * <code>required string desc = 4;</code>
+     * <code>optional string desc = 4;</code>
      * @return The desc.
      */
     @java.lang.Override
@@ -429,7 +429,7 @@ public final class NftMarketplace {
       }
     }
     /**
-     * <code>required string desc = 4;</code>
+     * <code>optional string desc = 4;</code>
      * @return The bytes for desc.
      */
     @java.lang.Override
@@ -683,10 +683,6 @@ public final class NftMarketplace {
         return false;
       }
       if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDesc()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1252,9 +1248,6 @@ public final class NftMarketplace {
         if (!hasName()) {
           return false;
         }
-        if (!hasDesc()) {
-          return false;
-        }
         if (!hasBlockchain()) {
           return false;
         }
@@ -1448,14 +1441,14 @@ public final class NftMarketplace {
 
       private java.lang.Object desc_ = "";
       /**
-       * <code>required string desc = 4;</code>
+       * <code>optional string desc = 4;</code>
        * @return Whether the desc field is set.
        */
       public boolean hasDesc() {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>required string desc = 4;</code>
+       * <code>optional string desc = 4;</code>
        * @return The desc.
        */
       public java.lang.String getDesc() {
@@ -1473,7 +1466,7 @@ public final class NftMarketplace {
         }
       }
       /**
-       * <code>required string desc = 4;</code>
+       * <code>optional string desc = 4;</code>
        * @return The bytes for desc.
        */
       public com.google.protobuf.ByteString
@@ -1490,7 +1483,7 @@ public final class NftMarketplace {
         }
       }
       /**
-       * <code>required string desc = 4;</code>
+       * <code>optional string desc = 4;</code>
        * @param value The desc to set.
        * @return This builder for chaining.
        */
@@ -1505,7 +1498,7 @@ public final class NftMarketplace {
         return this;
       }
       /**
-       * <code>required string desc = 4;</code>
+       * <code>optional string desc = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearDesc() {
@@ -1515,7 +1508,7 @@ public final class NftMarketplace {
         return this;
       }
       /**
-       * <code>required string desc = 4;</code>
+       * <code>optional string desc = 4;</code>
        * @param value The bytes for desc to set.
        * @return This builder for chaining.
        */
@@ -9607,7 +9600,7 @@ public final class NftMarketplace {
       "\n\021marketplace.proto\022\033com.ruixi.tpulse.co" +
       "nvention\"\316\001\n\rCollectionDTO\022\n\n\002id\030\001 \002(\003\022\017" +
       "\n\007creator\030\002 \002(\003\022\014\n\004name\030\003 \002(\t\022\014\n\004desc\030\004 " +
-      "\002(\t\022\021\n\tlogoImage\030\005 \001(\t\022\025\n\rfeaturedImage\030" +
+      "\001(\t\022\021\n\tlogoImage\030\005 \001(\t\022\025\n\rfeaturedImage\030" +
       "\006 \001(\t\022\021\n\tcreatedAt\030\007 \001(\003\022\022\n\nblockchain\030\010" +
       " \002(\t\022\022\n\ncreatorFee\030\t \002(\002\022\020\n\010category\030\n \001" +
       "(\003\022\r\n\005items\030\013 \001(\005\"\377\001\n\tAssetsDTO\022\n\n\002id\030\001 " +

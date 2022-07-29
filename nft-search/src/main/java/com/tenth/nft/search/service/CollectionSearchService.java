@@ -8,6 +8,7 @@ import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteR
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
 import com.tenth.nft.convention.utils.Prices;
+import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
@@ -186,7 +187,7 @@ public class CollectionSearchService {
         List<Long> page = nftCollectionLuceneDao.recommendList(CollectionLuceneSearchParams.newBuilder()
                 .page(request.getPage())
                 .pageSize(request.getPageSize())
-                        .categoryId(request.getCategoryId())
+                .categoryId(request.getCategoryId())
                 .build());
 
         if(!page.isEmpty()){

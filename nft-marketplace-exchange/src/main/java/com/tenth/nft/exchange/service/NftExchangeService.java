@@ -11,6 +11,7 @@ import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
 import com.tenth.nft.convention.routes.exchange.*;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.operation.BlockchainRouteRequest;
+import com.tenth.nft.convention.routes.player.AssetsBelongsUpdateRouteRequest;
 import com.tenth.nft.convention.routes.search.CurrencyRatesRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.exchange.controller.vo.NftBuyRequest;
@@ -22,10 +23,7 @@ import com.tenth.nft.orm.marketplace.dao.*;
 import com.tenth.nft.orm.marketplace.dao.expression.*;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.orm.marketplace.entity.event.*;
-import com.tenth.nft.protobuf.NftExchange;
-import com.tenth.nft.protobuf.NftMarketplace;
-import com.tenth.nft.protobuf.NftOperation;
-import com.tenth.nft.protobuf.NftSearch;
+import com.tenth.nft.protobuf.*;
 import com.tpulse.gs.convention.dao.SimpleQuery;
 import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
@@ -253,8 +251,10 @@ public class NftExchangeService {
             belong.setCreatedAt(System.currentTimeMillis());
             belong.setUpdatedAt(belong.getCreatedAt());
             nftBelongDao.insert(belong);
+            //Sync to player
+            syncToPlayer(belong);
 
-            //send mint event
+            //Send mint event
             sendMintEvent(request);
 
             return NftExchange.MINT_IS.newBuilder()
@@ -283,6 +283,8 @@ public class NftExchangeService {
         if(belong.getQuantity() <= 0){
             nftBelongDao.remove(NftBelongQuery.newBuilder().assetsId(assetsId).owner(owner).build());
         }
+        //Sync to player
+        syncToPlayer(belong);
     }
 
     private void refrehListing(Long owner, Long assetsId) {
@@ -561,14 +563,16 @@ public class NftExchangeService {
         nftOrder.setStatus(NftOrderStatus.COMPLETE);
         nftOrderDao.insert(nftOrder);
         //change belongs
-        nftBelongDao.findAndModify(
+        nftBelong = nftBelongDao.findAndModify(
                 NftBelongQuery.newBuilder().assetsId(nftOrder.getAssetsId()).owner(nftOrder.getBuyer()).build(),
                 NftBelongUpdate.newBuilder()
                         .quantityInc(nftOrder.getQuantity())
                         .createdAtOnInsert()
                         .build(),
-                UpdateOptions.options().upsert(true)
+                UpdateOptions.options().upsert(true).returnNew(true)
         );
+        //sync to player
+        syncToPlayer(nftBelong);
 
         //send events
         sendTransferEvent(nftOrder);
@@ -598,6 +602,17 @@ public class NftExchangeService {
         routeClient.send(
                 NftExchange.EXCHANGE_EVENT_IC.newBuilder().setAssetsId(assetsId).build(),
                 ExchangeEventRouteRequest.class
+        );
+    }
+
+    private void syncToPlayer(NftBelong belong) {
+        routeClient.send(
+                NftPlayer.ASSETS_BELONGS_UPDATE_IC.newBuilder()
+                        .setUid(belong.getOwner())
+                        .setAssetsId(belong.getAssetsId())
+                        .setOwns(belong.getQuantity())
+                        .build(),
+                AssetsBelongsUpdateRouteRequest.class
         );
     }
 }

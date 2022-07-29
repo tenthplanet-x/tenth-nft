@@ -101,27 +101,8 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
             page++;
         }while (!empty);
 
-    }
 
-    private NftAssetsLuceneDTO toLuceneDTO(NftAssets assets){
 
-        NftExchange.NftAssetsProfileDTO assetsProfile = routeClient.send(
-                NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
-                        .setAssetsId(assets.getId())
-                        .setNeedOwners(true)
-                        .build(),
-                AssetsExchangeProfileRouteRequest.class
-        ).getProfile();
-
-        NftAssetsLuceneDTO dto = new NftAssetsLuceneDTO();
-        dto.setId(assets.getId());
-        dto.setCreatedAt(assets.getCreatedAt());
-        dto.setCollectionId(assets.getCollectionId());
-        //获取拥有者信息
-        List<Long> belongUids = assetsProfile.getOwnerListsList();
-        dto.setOwners(belongUids);
-
-        return dto;
     }
 
     public void rebuild(NftAssets nftAssets) {
@@ -181,5 +162,30 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
         dto.setOwners(belongUids);
 
         return dto;
+    }
+
+    private NftAssetsLuceneDTO toLuceneDTO(NftAssets assets){
+
+        NftExchange.NftAssetsProfileDTO assetsProfile = routeClient.send(
+                NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
+                        .setAssetsId(assets.getId())
+                        .setNeedOwners(true)
+                        .build(),
+                AssetsExchangeProfileRouteRequest.class
+        ).getProfile();
+
+        NftAssetsLuceneDTO dto = new NftAssetsLuceneDTO();
+        dto.setId(assets.getId());
+        dto.setCreatedAt(assets.getCreatedAt());
+        dto.setCollectionId(assets.getCollectionId());
+        //获取拥有者信息
+        List<Long> belongUids = assetsProfile.getOwnerListsList();
+        dto.setOwners(belongUids);
+
+        return dto;
+    }
+
+    public void updateReader() {
+        luceneDatasource.updateReaderImmidiately();
     }
 }

@@ -1,6 +1,7 @@
 package com.tenth.nft.marketplace;
 
 import com.tenth.nft.marketplace.entity.PlayerAssets;
+import com.tenth.nft.marketplace.entity.PlayerAssetsBelongs;
 import com.tenth.nft.marketplace.entity.PlayerCollection;
 import com.tpulse.gs.convention.dao.generate.OrmGenerator;
 import org.junit.Test;
@@ -11,13 +12,12 @@ import org.junit.Test;
 public class OrmGenerateTest {
 
 
-    @Test
+//    @Test
     public void generate() throws Exception{
 
         OrmGenerator.newBuilder()
                 .dist("/Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-player/src/main/java")
-                .entity(PlayerAssets.class)
-                .entity(PlayerCollection.class)
+                .entity(PlayerAssetsBelongs.class)
                 .build()
                 .start();
 

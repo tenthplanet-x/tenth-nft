@@ -42,4 +42,7 @@ public class NftInnerCmds {
     public static final int COLLECTION_CREATE_IC = -40003;
     public static final int COLLECTION_DETAIL_IC = -40004;
     public static final int NFT_BLOCKCHAIN_IC = -40005;
+
+    //player
+    public static final int ASSETS_BELONGS_UPDATE_IC = -50001;
 }

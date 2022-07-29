@@ -1,4 +1,4 @@
-package com.tenth.nft.marketplace.controller;
+package com.tenth.nft.marketplace.controller.web;
 
 import com.tenth.nft.marketplace.NftCollectionPaths;
 import com.tenth.nft.orm.marketplace.dto.NftCollectionDTO;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @HttpRoute(userAuth = true)
-public class NftCollectionWebController {
+public class PlayerCollectionWebController {
 
     @Autowired
     private PlayerCollectionService nftCollectionService;

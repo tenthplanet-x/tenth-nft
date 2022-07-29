@@ -43,11 +43,4 @@ public class AssetsSearchController {
         return Response.successBuilder().data(dto).build();
     }
 
-    @RequestMapping(NftSearchPaths.ASSETS_OWN_LIST)
-    public Response list(@RequestBody AssetsOwnSearchRequest request){
-        Validations.check(request);
-        Page<AssetsOwnSearchDTO> collections = assetsSearchService.list(request);
-        return Response.successBuilder().data(collections).build();
-    }
-
 }
