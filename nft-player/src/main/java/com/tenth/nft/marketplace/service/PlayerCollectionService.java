@@ -6,6 +6,7 @@ import com.ruixi.tpulse.convention.TpulseIdModules;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
+import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.CollectionCreateRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
@@ -25,6 +26,7 @@ import com.tenth.nft.orm.marketplace.dto.NftCollectionDetailDTO;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftMarketplace;
+import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -231,6 +233,12 @@ public class PlayerCollectionService {
                 PlayerCollectionUpdate.newBuilder().setItems(items).build()
         );
         //rebuildCache(collectionId);
+        routeClient.send(
+                NftSearch.NFT_COLLECTION_REBUILD_IC.newBuilder()
+                        .setCollectionId(collectionId)
+                        .build(),
+                CollectionRebuildRouteRequest.class
+        );
     }
 
     public PlayerCollection detail(Long uid, Long collectionId) {
