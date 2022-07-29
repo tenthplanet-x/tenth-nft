@@ -180,9 +180,9 @@ public class NftCollectionDTO implements SimpleResponse {
             nftCollectionDTO.setCategory(collectionDTO.getCategory());
         }
         nftCollectionDTO.setName(collectionDTO.getName());
-        nftCollectionDTO.setDesc(collectionDTO.getDesc());
-        nftCollectionDTO.setLogoImage(collectionDTO.getLogoImage());
-        nftCollectionDTO.setFeaturedImage(collectionDTO.getFeaturedImage());
+        nftCollectionDTO.setDesc(Strings.emptyToNull(collectionDTO.getDesc()));
+        nftCollectionDTO.setLogoImage(Strings.emptyToNull(collectionDTO.getLogoImage()));
+        nftCollectionDTO.setFeaturedImage(Strings.emptyToNull(collectionDTO.getFeaturedImage()));
         nftCollectionDTO.setBlockchain(collectionDTO.getBlockchain());
         nftCollectionDTO.setCreatorFee(Prices.toString(collectionDTO.getCreatorFee()));
         nftCollectionDTO.setItems(collectionDTO.getItems());

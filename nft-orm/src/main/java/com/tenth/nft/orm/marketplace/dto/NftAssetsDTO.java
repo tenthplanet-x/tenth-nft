@@ -267,15 +267,15 @@ public class NftAssetsDTO implements SimpleResponse {
         }
         nftAssetsDTO.setCollectionId(proto.getCollectionId());
         nftAssetsDTO.setUrl(proto.getUrl());
-        nftAssetsDTO.setPreviewUrl(proto.getPreviewUrl());
+        nftAssetsDTO.setPreviewUrl(Strings.emptyToNull(proto.getPreviewUrl()));
         nftAssetsDTO.setName(proto.getName());
-        nftAssetsDTO.setDesc(proto.getDesc());
+        nftAssetsDTO.setDesc(Strings.emptyToNull(proto.getDesc()));
         nftAssetsDTO.setSupply(proto.getSupply());
 
-        nftAssetsDTO.setBlockchain(proto.getBlockchain());
-        nftAssetsDTO.setContractAddress(proto.getContractAddress());
-        nftAssetsDTO.setTokenStandard(proto.getTokenStandard());
-        nftAssetsDTO.setToken(proto.getToken());
+        nftAssetsDTO.setBlockchain(Strings.emptyToNull(proto.getBlockchain()));
+        nftAssetsDTO.setContractAddress(Strings.emptyToNull(proto.getContractAddress()));
+        nftAssetsDTO.setTokenStandard(Strings.emptyToNull(proto.getTokenStandard()));
+        nftAssetsDTO.setToken(Strings.emptyToNull(proto.getToken()));
 
         return nftAssetsDTO;
     }

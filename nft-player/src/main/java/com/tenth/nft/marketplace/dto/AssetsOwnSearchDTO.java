@@ -1,5 +1,6 @@
 package com.tenth.nft.marketplace.dto;
 
+import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
@@ -106,7 +107,7 @@ public class AssetsOwnSearchDTO implements SimpleResponse {
         output.setType(NftAssetsType.valueOf(assets.getType()));
         output.setCollectionId(assets.getCollectionId());
         output.setUrl(assets.getUrl());
-        output.setPreviewUrl(assets.getPreviewUrl());
+        output.setPreviewUrl(Strings.emptyToNull(assets.getPreviewUrl()));
         output.setName(assets.getName());
         return output;
 
