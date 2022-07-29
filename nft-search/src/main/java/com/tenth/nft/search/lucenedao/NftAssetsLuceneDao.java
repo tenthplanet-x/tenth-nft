@@ -116,7 +116,7 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
 
             BooleanQuery.Builder builder = new BooleanQuery.Builder();
             builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", collectionId), BooleanClause.Occur.MUST));
-            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, false));
+            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
             return find(builder.build(), 1, Integer.MAX_VALUE, sort).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
         }catch (Exception e){
             LOGGER.error("", e);
