@@ -119,7 +119,7 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
             Query query = IntPoint.newRangeQuery("items", 1, Integer.MAX_VALUE);
             builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
 
-            Sort sort = new Sort(new SortField("totalVolume", SortField.Type.DOUBLE, true), new SortField("items", SortField.Type.INT, true), new SortField("createdAt", SortField.Type.LONG, true));
+            Sort sort = new Sort(new SortField("totalVolume", SortField.Type.FLOAT, true), new SortField("items", SortField.Type.INT, true), new SortField("createdAt", SortField.Type.LONG, true));
             return find(builder.build(), request.getPage(), request.getPageSize(), sort).stream()
                     .map(document -> Long.valueOf(document.get("id")))
                     .collect(Collectors.toList());
