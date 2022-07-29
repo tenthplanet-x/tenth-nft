@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.search.vo.CollectionLuceneSearchParams;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.lucenedb.dao.SimpleLuceneDao;
@@ -124,5 +125,20 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
             LOGGER.error("", e);
         }
         return output;
+    }
+
+    public void rebuild(NftMarketplace.CollectionDTO collection) {
+        remove(collection.getId());
+        insert(toLuceneDTO(collection));
+    }
+
+    private NftCollectionLuceneDTO toLuceneDTO(NftMarketplace.CollectionDTO nftCollection) {
+        NftCollectionLuceneDTO nftCollectionLuceneDTO = new NftCollectionLuceneDTO();
+        nftCollectionLuceneDTO.setId(nftCollection.getId());
+        nftCollectionLuceneDTO.setCategoryNull(0l);
+        nftCollectionLuceneDTO.setUid(nftCollection.getCreator());
+        nftCollectionLuceneDTO.setCreatedAt(nftCollection.getCreatedAt());
+        nftCollectionLuceneDTO.setCategory(nftCollection.getCategory());
+        return nftCollectionLuceneDTO;
     }
 }

@@ -3,7 +3,7 @@ package com.ruixi.tpulse.convention;
 option java_package="com.tenth.nft.protobuf";
 option java_outer_classname = "NftSearch";
 
-message AssetsDTO{
+message AssetsSearchDTO{
   required int64 collectionId = 1;
   required int64 creator = 2;
   required string blockchain = 3;
@@ -46,7 +46,7 @@ message ASSETS_IC{
   required int64 assetsId = 2;
 }
 message ASSETS_IS{
-  required AssetsDTO assets = 1;
+  required AssetsSearchDTO assets = 1;
 }
 
 message NFT_CURRENCY_RATE_REBUILD_IC{

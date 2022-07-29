@@ -10,12 +10,15 @@ import com.tenth.nft.convention.routes.exchange.MintRouteRequest;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsUpdate;
-import com.tenth.nft.marketplace.dto.NftAssetsDTO;
+import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.marketplace.vo.*;
+import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftSearch;
+import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -46,93 +49,45 @@ public class NftAssetsService {
     @Autowired
     private RouteClient routeClient;
 
+    public NftMarketplace.ASSETS_CREATE_IS create(NftMarketplace.ASSETS_CREATE_IC _request) {
 
-    public Page<NftAssetsDTO> list(NftAssetsListRequest request) {
+        NftMarketplace.AssetsDTO request = _request.getAssets();
 
-        String sortField = request.getSortField();
-        boolean reverse = request.isReverse();
-        if(Strings.isNullOrEmpty(sortField)){
-            sortField = "_id";
-            reverse = true;
-        }
-
-        Page<NftAssetsDTO> dataPage = nftAssetsDao.findPage(
-                NftAssetsQuery.newBuilder()
-                        .setCollectionId(request.getCollectionId())
-                        .setPage(request.getPage())
-                        .setPageSize(request.getPageSize())
-                        .setSortField(sortField)
-                        .setReverse(reverse)
-                        .build(),
-                NftAssetsDTO.class
-        );
-
-        for(NftAssetsDTO dto: dataPage.getData()){
-            NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
-                    NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
-                            .setAssetsId(dto.getId())
-                            .build(),
-                    AssetsExchangeProfileRouteRequest.class
-            ).getProfile();
-            if(exchangeProfile.hasCurrentListing()){
-                dto.setCurrentListing(NftAssetsDTO.ListingDTO.from(exchangeProfile.getCurrentListing()));
-            }
-        }
-
-        return dataPage;
-    }
-
-    public NftAssetsDTO create(NftAssetsCreateRequest request) {
-
-        GameUserContext context = GameUserContext.get();
-        Long uid = context.getLong(TpulseHeaders.UID);
-
-        //合集归属判定
-        NftCollection collection = nftCollectionService.detail(request.getCollectionId());
-        if(null == collection || !collection.getUid().equals(uid)){
-            throw BizException.newInstance(NftExchangeErrorCodes.MINT_EXCEPTION_INVALID_PARAMS);
-        }
-
-        Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
         //create
         NftAssets nftAssets = new NftAssets();
-        nftAssets.setId(assetsId);
-        nftAssets.setCreator(uid);
-        nftAssets.setType(request.getType());
+        nftAssets.setId(request.getId());
+        nftAssets.setCreator(request.getCreator());
+        nftAssets.setType(NftAssetsType.valueOf(request.getType()));
         nftAssets.setCollectionId(request.getCollectionId());
-        String dir = request.getUrl().substring(request.getUrl().indexOf("tmp/") + 4, request.getUrl().lastIndexOf("/"));
-        String url = gsOssService.changeDir(request.getUrl(), dir);
-        if(!Strings.isNullOrEmpty(request.getPreviewUrl())){
-            String previewDir = request.getUrl().substring(request.getUrl().indexOf("tmp/") + 4, request.getUrl().lastIndexOf("/"));
-            String previewUrl = gsOssService.changeDir(request.getPreviewUrl(), previewDir);
-            nftAssets.setPreviewUrl(previewUrl);
-        }
-        nftAssets.setUrl(url);
+        nftAssets.setUrl(request.getUrl());
+        nftAssets.setPreviewUrl(request.getPreviewUrl());
         nftAssets.setName(request.getName());
         nftAssets.setDesc(request.getDesc());
         nftAssets.setSupply(request.getSupply());
         nftAssets.setBlockchain(request.getBlockchain());
         nftAssets.setCreatedAt(System.currentTimeMillis());
         nftAssets.setUpdatedAt(System.currentTimeMillis());
+
         nftAssets = nftAssetsDao.insert(nftAssets);
 
         //mint
         NftExchange.NftMintDTO mintDTO = routeClient.send(
                 NftExchange.MINT_IC.newBuilder()
-                        .setAssetsId(assetsId)
+                        .setAssetsId(request.getId())
                         .setBlockchain(request.getBlockchain())
-                        .setOwner(uid)
+                        .setOwner(request.getCreator())
                         .setQuantity(request.getSupply())
                         .build(),
                 MintRouteRequest.class
         ).getMint();
-        nftAssetsDao.update(
+        nftAssets = nftAssetsDao.findAndModify(
                 NftAssetsQuery.newBuilder().id(nftAssets.getId()).build(),
                 NftAssetsUpdate.newBuilder()
                         .setContractAddress(mintDTO.getContractAddress())
                         .setTokenStandard(mintDTO.getTokenStandard())
                         .setToken(mintDTO.getToken())
-                        .build()
+                        .build(),
+                UpdateOptions.options().returnNew(true)
         );
 
         //更新总数量
@@ -141,42 +96,18 @@ public class NftAssetsService {
 
         rebuildCache(nftAssets.getId());
 
-        NftAssetsDetailRequest detailRequest = new NftAssetsDetailRequest();
-        detailRequest.setId(nftAssets.getId());
-        return detail(detailRequest);
-
-
+        return NftMarketplace.ASSETS_CREATE_IS.newBuilder()
+                .setAssets(NftAssetsDTO.toProto(nftAssets))
+                .build();
     }
 
-    public void edit(NftAssetsEditRequest request) {
 
-        nftAssetsDao.update(
-                NftAssetsQuery.newBuilder().id(request.getId()).build(),
-                NftAssetsUpdate.newBuilder()
-                        .setType(request.getType())
-                        .setUrl(request.getUrl())
-                        .setPreviewUrl(request.getPreviewUrl())
-                        .setName(request.getName())
-                        .setDesc(request.getDesc())
-                        .setSupply(request.getSupply())
-                        .setBlockchain(request.getBlockchain())
-                        .build()
-        );
+    public NftMarketplace.ASSETS_DETAIL_IS detail(NftMarketplace.ASSETS_DETAIL_IC request) {
 
-        rebuildCache(request.getId());
-    }
-
-    public void delete(NftAssetsDeleteRequest request) {
-        nftAssetsDao.remove(NftAssetsQuery.newBuilder().id(request.getId()).build());
-    }
-
-    public NftAssetsDTO detail(NftAssetsDetailRequest request) {
-
-        NftAssetsDTO dto = nftAssetsDao.findOne(NftAssetsQuery.newBuilder()
-                .id(request.getId())
-                .build(), NftAssetsDTO.class);
-
-        return dto;
+        NftAssets dto = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(request.getId()).build());
+        return NftMarketplace.ASSETS_DETAIL_IS.newBuilder()
+                .setAssets(NftAssetsDTO.toProto(dto))
+                .build();
     }
 
     public void rebuildCache(Long assetsId){
@@ -187,6 +118,4 @@ public class NftAssetsService {
                 AssetsRebuildRouteRequest.class
         );
     }
-
-
 }

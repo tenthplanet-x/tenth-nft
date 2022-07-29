@@ -14,8 +14,8 @@ public final class NftSearch {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface AssetsDTOOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.AssetsDTO)
+  public interface AssetsSearchDTOOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.AssetsSearchDTO)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -75,18 +75,18 @@ public final class NftSearch {
         getCurrencyBytes();
   }
   /**
-   * Protobuf type {@code com.ruixi.tpulse.convention.AssetsDTO}
+   * Protobuf type {@code com.ruixi.tpulse.convention.AssetsSearchDTO}
    */
-  public static final class AssetsDTO extends
+  public static final class AssetsSearchDTO extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.AssetsDTO)
-      AssetsDTOOrBuilder {
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.AssetsSearchDTO)
+      AssetsSearchDTOOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use AssetsDTO.newBuilder() to construct.
-    private AssetsDTO(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use AssetsSearchDTO.newBuilder() to construct.
+    private AssetsSearchDTO(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private AssetsDTO() {
+    private AssetsSearchDTO() {
       blockchain_ = "";
       currency_ = "";
     }
@@ -95,7 +95,7 @@ public final class NftSearch {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new AssetsDTO();
+      return new AssetsSearchDTO();
     }
 
     @java.lang.Override
@@ -103,7 +103,7 @@ public final class NftSearch {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private AssetsDTO(
+    private AssetsSearchDTO(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -165,15 +165,15 @@ public final class NftSearch {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsDTO_descriptor;
+      return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsDTO_fieldAccessorTable
+      return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.tenth.nft.protobuf.NftSearch.AssetsDTO.class, com.tenth.nft.protobuf.NftSearch.AssetsDTO.Builder.class);
+              com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.class, com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.Builder.class);
     }
 
     private int bitField0_;
@@ -386,10 +386,10 @@ public final class NftSearch {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.tenth.nft.protobuf.NftSearch.AssetsDTO)) {
+      if (!(obj instanceof com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO)) {
         return super.equals(obj);
       }
-      com.tenth.nft.protobuf.NftSearch.AssetsDTO other = (com.tenth.nft.protobuf.NftSearch.AssetsDTO) obj;
+      com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO other = (com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO) obj;
 
       if (hasCollectionId() != other.hasCollectionId()) return false;
       if (hasCollectionId()) {
@@ -445,69 +445,69 @@ public final class NftSearch {
       return hash;
     }
 
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(byte[] data)
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseDelimitedFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseDelimitedFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO parseFrom(
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -520,7 +520,7 @@ public final class NftSearch {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.tenth.nft.protobuf.NftSearch.AssetsDTO prototype) {
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -536,26 +536,26 @@ public final class NftSearch {
       return builder;
     }
     /**
-     * Protobuf type {@code com.ruixi.tpulse.convention.AssetsDTO}
+     * Protobuf type {@code com.ruixi.tpulse.convention.AssetsSearchDTO}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.AssetsDTO)
-        com.tenth.nft.protobuf.NftSearch.AssetsDTOOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.AssetsSearchDTO)
+        com.tenth.nft.protobuf.NftSearch.AssetsSearchDTOOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsDTO_descriptor;
+        return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsDTO_fieldAccessorTable
+        return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.tenth.nft.protobuf.NftSearch.AssetsDTO.class, com.tenth.nft.protobuf.NftSearch.AssetsDTO.Builder.class);
+                com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.class, com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.Builder.class);
       }
 
-      // Construct using com.tenth.nft.protobuf.NftSearch.AssetsDTO.newBuilder()
+      // Construct using com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -587,17 +587,17 @@ public final class NftSearch {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsDTO_descriptor;
+        return com.tenth.nft.protobuf.NftSearch.internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_descriptor;
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftSearch.AssetsDTO getDefaultInstanceForType() {
-        return com.tenth.nft.protobuf.NftSearch.AssetsDTO.getDefaultInstance();
+      public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftSearch.AssetsDTO build() {
-        com.tenth.nft.protobuf.NftSearch.AssetsDTO result = buildPartial();
+      public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO build() {
+        com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -605,8 +605,8 @@ public final class NftSearch {
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftSearch.AssetsDTO buildPartial() {
-        com.tenth.nft.protobuf.NftSearch.AssetsDTO result = new com.tenth.nft.protobuf.NftSearch.AssetsDTO(this);
+      public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO buildPartial() {
+        com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO result = new com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -664,16 +664,16 @@ public final class NftSearch {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.tenth.nft.protobuf.NftSearch.AssetsDTO) {
-          return mergeFrom((com.tenth.nft.protobuf.NftSearch.AssetsDTO)other);
+        if (other instanceof com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO) {
+          return mergeFrom((com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.tenth.nft.protobuf.NftSearch.AssetsDTO other) {
-        if (other == com.tenth.nft.protobuf.NftSearch.AssetsDTO.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO other) {
+        if (other == com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.getDefaultInstance()) return this;
         if (other.hasCollectionId()) {
           setCollectionId(other.getCollectionId());
         }
@@ -717,11 +717,11 @@ public final class NftSearch {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.tenth.nft.protobuf.NftSearch.AssetsDTO parsedMessage = null;
+        com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.tenth.nft.protobuf.NftSearch.AssetsDTO) e.getUnfinishedMessage();
+          parsedMessage = (com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -990,41 +990,41 @@ public final class NftSearch {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.AssetsDTO)
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.AssetsSearchDTO)
     }
 
-    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.AssetsDTO)
-    private static final com.tenth.nft.protobuf.NftSearch.AssetsDTO DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.AssetsSearchDTO)
+    private static final com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftSearch.AssetsDTO();
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO();
     }
 
-    public static com.tenth.nft.protobuf.NftSearch.AssetsDTO getDefaultInstance() {
+    public static com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<AssetsDTO>
-        PARSER = new com.google.protobuf.AbstractParser<AssetsDTO>() {
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<AssetsSearchDTO>
+        PARSER = new com.google.protobuf.AbstractParser<AssetsSearchDTO>() {
       @java.lang.Override
-      public AssetsDTO parsePartialFrom(
+      public AssetsSearchDTO parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AssetsDTO(input, extensionRegistry);
+        return new AssetsSearchDTO(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<AssetsDTO> parser() {
+    public static com.google.protobuf.Parser<AssetsSearchDTO> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<AssetsDTO> getParserForType() {
+    public com.google.protobuf.Parser<AssetsSearchDTO> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftSearch.AssetsDTO getDefaultInstanceForType() {
+    public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5896,19 +5896,19 @@ public final class NftSearch {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+     * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
      * @return Whether the assets field is set.
      */
     boolean hasAssets();
     /**
-     * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+     * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
      * @return The assets.
      */
-    com.tenth.nft.protobuf.NftSearch.AssetsDTO getAssets();
+    com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO getAssets();
     /**
-     * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+     * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
      */
-    com.tenth.nft.protobuf.NftSearch.AssetsDTOOrBuilder getAssetsOrBuilder();
+    com.tenth.nft.protobuf.NftSearch.AssetsSearchDTOOrBuilder getAssetsOrBuilder();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.ASSETS_IS}
@@ -5957,11 +5957,11 @@ public final class NftSearch {
               done = true;
               break;
             case 10: {
-              com.tenth.nft.protobuf.NftSearch.AssetsDTO.Builder subBuilder = null;
+              com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.Builder subBuilder = null;
               if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = assets_.toBuilder();
               }
-              assets_ = input.readMessage(com.tenth.nft.protobuf.NftSearch.AssetsDTO.PARSER, extensionRegistry);
+              assets_ = input.readMessage(com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.PARSER, extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(assets_);
                 assets_ = subBuilder.buildPartial();
@@ -6003,9 +6003,9 @@ public final class NftSearch {
 
     private int bitField0_;
     public static final int ASSETS_FIELD_NUMBER = 1;
-    private com.tenth.nft.protobuf.NftSearch.AssetsDTO assets_;
+    private com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO assets_;
     /**
-     * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+     * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
      * @return Whether the assets field is set.
      */
     @java.lang.Override
@@ -6013,19 +6013,19 @@ public final class NftSearch {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+     * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
      * @return The assets.
      */
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftSearch.AssetsDTO getAssets() {
-      return assets_ == null ? com.tenth.nft.protobuf.NftSearch.AssetsDTO.getDefaultInstance() : assets_;
+    public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO getAssets() {
+      return assets_ == null ? com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.getDefaultInstance() : assets_;
     }
     /**
-     * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+     * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
      */
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftSearch.AssetsDTOOrBuilder getAssetsOrBuilder() {
-      return assets_ == null ? com.tenth.nft.protobuf.NftSearch.AssetsDTO.getDefaultInstance() : assets_;
+    public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTOOrBuilder getAssetsOrBuilder() {
+      return assets_ == null ? com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.getDefaultInstance() : assets_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6365,31 +6365,31 @@ public final class NftSearch {
       }
       private int bitField0_;
 
-      private com.tenth.nft.protobuf.NftSearch.AssetsDTO assets_;
+      private com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO assets_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.tenth.nft.protobuf.NftSearch.AssetsDTO, com.tenth.nft.protobuf.NftSearch.AssetsDTO.Builder, com.tenth.nft.protobuf.NftSearch.AssetsDTOOrBuilder> assetsBuilder_;
+          com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO, com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.Builder, com.tenth.nft.protobuf.NftSearch.AssetsSearchDTOOrBuilder> assetsBuilder_;
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        * @return Whether the assets field is set.
        */
       public boolean hasAssets() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        * @return The assets.
        */
-      public com.tenth.nft.protobuf.NftSearch.AssetsDTO getAssets() {
+      public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO getAssets() {
         if (assetsBuilder_ == null) {
-          return assets_ == null ? com.tenth.nft.protobuf.NftSearch.AssetsDTO.getDefaultInstance() : assets_;
+          return assets_ == null ? com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.getDefaultInstance() : assets_;
         } else {
           return assetsBuilder_.getMessage();
         }
       }
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        */
-      public Builder setAssets(com.tenth.nft.protobuf.NftSearch.AssetsDTO value) {
+      public Builder setAssets(com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO value) {
         if (assetsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6403,10 +6403,10 @@ public final class NftSearch {
         return this;
       }
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        */
       public Builder setAssets(
-          com.tenth.nft.protobuf.NftSearch.AssetsDTO.Builder builderForValue) {
+          com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.Builder builderForValue) {
         if (assetsBuilder_ == null) {
           assets_ = builderForValue.build();
           onChanged();
@@ -6417,15 +6417,15 @@ public final class NftSearch {
         return this;
       }
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        */
-      public Builder mergeAssets(com.tenth.nft.protobuf.NftSearch.AssetsDTO value) {
+      public Builder mergeAssets(com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO value) {
         if (assetsBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0) &&
               assets_ != null &&
-              assets_ != com.tenth.nft.protobuf.NftSearch.AssetsDTO.getDefaultInstance()) {
+              assets_ != com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.getDefaultInstance()) {
             assets_ =
-              com.tenth.nft.protobuf.NftSearch.AssetsDTO.newBuilder(assets_).mergeFrom(value).buildPartial();
+              com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.newBuilder(assets_).mergeFrom(value).buildPartial();
           } else {
             assets_ = value;
           }
@@ -6437,7 +6437,7 @@ public final class NftSearch {
         return this;
       }
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        */
       public Builder clearAssets() {
         if (assetsBuilder_ == null) {
@@ -6450,33 +6450,33 @@ public final class NftSearch {
         return this;
       }
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        */
-      public com.tenth.nft.protobuf.NftSearch.AssetsDTO.Builder getAssetsBuilder() {
+      public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.Builder getAssetsBuilder() {
         bitField0_ |= 0x00000001;
         onChanged();
         return getAssetsFieldBuilder().getBuilder();
       }
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        */
-      public com.tenth.nft.protobuf.NftSearch.AssetsDTOOrBuilder getAssetsOrBuilder() {
+      public com.tenth.nft.protobuf.NftSearch.AssetsSearchDTOOrBuilder getAssetsOrBuilder() {
         if (assetsBuilder_ != null) {
           return assetsBuilder_.getMessageOrBuilder();
         } else {
           return assets_ == null ?
-              com.tenth.nft.protobuf.NftSearch.AssetsDTO.getDefaultInstance() : assets_;
+              com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.getDefaultInstance() : assets_;
         }
       }
       /**
-       * <code>required .com.ruixi.tpulse.convention.AssetsDTO assets = 1;</code>
+       * <code>required .com.ruixi.tpulse.convention.AssetsSearchDTO assets = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.tenth.nft.protobuf.NftSearch.AssetsDTO, com.tenth.nft.protobuf.NftSearch.AssetsDTO.Builder, com.tenth.nft.protobuf.NftSearch.AssetsDTOOrBuilder> 
+          com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO, com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.Builder, com.tenth.nft.protobuf.NftSearch.AssetsSearchDTOOrBuilder> 
           getAssetsFieldBuilder() {
         if (assetsBuilder_ == null) {
           assetsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.tenth.nft.protobuf.NftSearch.AssetsDTO, com.tenth.nft.protobuf.NftSearch.AssetsDTO.Builder, com.tenth.nft.protobuf.NftSearch.AssetsDTOOrBuilder>(
+              com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO, com.tenth.nft.protobuf.NftSearch.AssetsSearchDTO.Builder, com.tenth.nft.protobuf.NftSearch.AssetsSearchDTOOrBuilder>(
                   getAssets(),
                   getParentForChildren(),
                   isClean());
@@ -8920,10 +8920,10 @@ public final class NftSearch {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_ruixi_tpulse_convention_AssetsDTO_descriptor;
+    internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_ruixi_tpulse_convention_AssetsDTO_fieldAccessorTable;
+      internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ruixi_tpulse_convention_EXTERNAL_NFT_CATEGORY_REBUILD_IC_descriptor;
   private static final 
@@ -9009,39 +9009,39 @@ public final class NftSearch {
   static {
     java.lang.String[] descriptorData = {
       "\n\020search-nft.proto\022\033com.ruixi.tpulse.con" +
-      "vention\"X\n\tAssetsDTO\022\024\n\014collectionId\030\001 \002" +
-      "(\003\022\017\n\007creator\030\002 \002(\003\022\022\n\nblockchain\030\003 \002(\t\022" +
-      "\020\n\010currency\030\004 \002(\t\"3\n EXTERNAL_NFT_CATEGO" +
-      "RY_REBUILD_IC\022\017\n\007version\030\001 \002(\003\":\n\"EXTERN" +
-      "AL_NFT_COLLECTION_REBUILD_IC\022\024\n\014collecti" +
-      "onId\030\001 \002(\003\"4\n\034EXTERNAL_NFT_ITEM_REBUILD_" +
-      "IC\022\024\n\014collectionId\030\001 \002(\003\"*\n\027NFT_CATEGORY" +
-      "_REBUILD_IC\022\017\n\007version\030\001 \002(\003\"1\n\031NFT_COLL" +
-      "ECTION_REBUILD_IC\022\024\n\014collectionId\030\001 \002(\003\"" +
-      ")\n\025NFT_ASSETS_REBUILD_IC\022\020\n\010assetsId\030\001 \002" +
-      "(\003\",\n\031NFT_BLOCKCHAIN_REBUILD_IC\022\017\n\007versi" +
-      "on\030\001 \002(\003\"-\n\027NFT_CURRENCY_REBUILD_IC\022\022\n\nb" +
-      "lockchain\030\001 \002(\t\"\035\n\tASSETS_IC\022\020\n\010assetsId" +
-      "\030\002 \002(\003\"C\n\tASSETS_IS\0226\n\006assets\030\001 \002(\0132&.co" +
-      "m.ruixi.tpulse.convention.AssetsDTO\"-\n\034N" +
-      "FT_CURRENCY_RATE_REBUILD_IC\022\r\n\005token\030\001 \002" +
-      "(\t\"\036\n\034NFT_CURRENCY_RATE_REBUILD_IS\"+\n\025NF" +
-      "T_CURRENCY_RATES_IC\022\022\n\nblockchain\030\001 \002(\t\"" +
-      "\223\001\n\025NFT_CURRENCY_RATES_IS\022L\n\005rates\030\001 \003(\013" +
-      "2=.com.ruixi.tpulse.convention.NFT_CURRE" +
-      "NCY_RATES_IS.RatesEntry\032,\n\nRatesEntry\022\013\n" +
-      "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\002:\0028\001B#\n\026com.ten" +
-      "th.nft.protobufB\tNftSearch"
+      "vention\"^\n\017AssetsSearchDTO\022\024\n\014collection" +
+      "Id\030\001 \002(\003\022\017\n\007creator\030\002 \002(\003\022\022\n\nblockchain\030" +
+      "\003 \002(\t\022\020\n\010currency\030\004 \002(\t\"3\n EXTERNAL_NFT_" +
+      "CATEGORY_REBUILD_IC\022\017\n\007version\030\001 \002(\003\":\n\"" +
+      "EXTERNAL_NFT_COLLECTION_REBUILD_IC\022\024\n\014co" +
+      "llectionId\030\001 \002(\003\"4\n\034EXTERNAL_NFT_ITEM_RE" +
+      "BUILD_IC\022\024\n\014collectionId\030\001 \002(\003\"*\n\027NFT_CA" +
+      "TEGORY_REBUILD_IC\022\017\n\007version\030\001 \002(\003\"1\n\031NF" +
+      "T_COLLECTION_REBUILD_IC\022\024\n\014collectionId\030" +
+      "\001 \002(\003\")\n\025NFT_ASSETS_REBUILD_IC\022\020\n\010assets" +
+      "Id\030\001 \002(\003\",\n\031NFT_BLOCKCHAIN_REBUILD_IC\022\017\n" +
+      "\007version\030\001 \002(\003\"-\n\027NFT_CURRENCY_REBUILD_I" +
+      "C\022\022\n\nblockchain\030\001 \002(\t\"\035\n\tASSETS_IC\022\020\n\010as" +
+      "setsId\030\002 \002(\003\"I\n\tASSETS_IS\022<\n\006assets\030\001 \002(" +
+      "\0132,.com.ruixi.tpulse.convention.AssetsSe" +
+      "archDTO\"-\n\034NFT_CURRENCY_RATE_REBUILD_IC\022" +
+      "\r\n\005token\030\001 \002(\t\"\036\n\034NFT_CURRENCY_RATE_REBU" +
+      "ILD_IS\"+\n\025NFT_CURRENCY_RATES_IC\022\022\n\nblock" +
+      "chain\030\001 \002(\t\"\223\001\n\025NFT_CURRENCY_RATES_IS\022L\n" +
+      "\005rates\030\001 \003(\0132=.com.ruixi.tpulse.conventi" +
+      "on.NFT_CURRENCY_RATES_IS.RatesEntry\032,\n\nR" +
+      "atesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\002:\0028" +
+      "\001B#\n\026com.tenth.nft.protobufB\tNftSearch"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_com_ruixi_tpulse_convention_AssetsDTO_descriptor =
+    internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_com_ruixi_tpulse_convention_AssetsDTO_fieldAccessorTable = new
+    internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_ruixi_tpulse_convention_AssetsDTO_descriptor,
+        internal_static_com_ruixi_tpulse_convention_AssetsSearchDTO_descriptor,
         new java.lang.String[] { "CollectionId", "Creator", "Blockchain", "Currency", });
     internal_static_com_ruixi_tpulse_convention_EXTERNAL_NFT_CATEGORY_REBUILD_IC_descriptor =
       getDescriptor().getMessageTypes().get(1);

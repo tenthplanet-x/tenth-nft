@@ -1,0 +1,16 @@
+syntax = "proto2";
+package com.ruixi.tpulse.convention;
+option java_package="com.tenth.nft.protobuf";
+option java_outer_classname = "NftOperation";
+
+message BlockchainDTO{
+  required string mainCurrency = 1;
+}
+
+message NFT_BLOCKCHAIN_IC{
+  required string blockchain = 1;
+}
+message NFT_BLOCKCHAIN_IS{
+  required BlockchainDTO blockchain = 1;
+}
+

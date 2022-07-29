@@ -52,8 +52,9 @@ message NftAssetsProfileDTO{
 message NftCollectionProfileDTO{
   optional float totalVolume = 2;
   optional string currency = 3;
-  required int64 owners = 4;
+  required int32 owners = 4;
   optional float floorPrice = 6;
+  optional bool owned = 7;
 }
 
 message NftOfferDTO{
@@ -146,6 +147,7 @@ message ASSETS_EXCHANGE_PROFILE_IS{
 }
 message COLLECTION_EXCHANGE_PROFILE_IC{
   repeated int64 assetsIds = 1;
+  optional int64 observer = 2;
 }
 message COLLECTION_EXCHANGE_PROFILE_IS{
   required NftCollectionProfileDTO profile = 1;

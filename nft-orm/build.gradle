@@ -1,4 +1,6 @@
 dependencies{
+
     api project(":nft-convention")
     api libs.gs_mongodb
+    api libs.tpulse_convention
 }

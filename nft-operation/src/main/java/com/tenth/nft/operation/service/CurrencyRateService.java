@@ -3,6 +3,7 @@ package com.tenth.nft.operation.service;
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.routes.search.CurrencyRateRebuildRouteRequest;
 import com.tenth.nft.operation.dto.CurrencyRateDTO;
+import com.tenth.nft.operation.dto.CurrencyRateSearchDTO;
 import com.tenth.nft.operation.vo.*;
 import com.tenth.nft.orm.marketplace.dao.CurrencyRateDao;
 import com.tenth.nft.orm.marketplace.dao.CurrencyRateNoCacheDao;
@@ -105,6 +106,13 @@ public class CurrencyRateService {
                         .setToken(token)
                         .build(),
                 CurrencyRateRebuildRouteRequest.class
+        );
+    }
+
+    public CurrencyRateSearchDTO rate(CurrenyRateRequest request) {
+        return currencyRateDao.findOne(
+                CurrencyRateQuery.newBuilder().token(request.getToken()).country(request.getCountry()).build(),
+                CurrencyRateSearchDTO.class
         );
     }
 }

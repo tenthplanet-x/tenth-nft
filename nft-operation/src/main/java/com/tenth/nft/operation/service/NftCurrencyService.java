@@ -2,11 +2,10 @@ package com.tenth.nft.operation.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.routes.CurrencyRebuildRouteRequest;
+import com.tenth.nft.operation.dto.BlockchainSearchDTO;
+import com.tenth.nft.operation.dto.CurrencySearchDTO;
 import com.tenth.nft.operation.dto.NftCurrencyDTO;
-import com.tenth.nft.operation.vo.NftCurrencyCreateRequest;
-import com.tenth.nft.operation.vo.NftCurrencyDeleteRequest;
-import com.tenth.nft.operation.vo.NftCurrencyEditRequest;
-import com.tenth.nft.operation.vo.NftCurrencyListRequest;
+import com.tenth.nft.operation.vo.*;
 import com.tenth.nft.orm.external.NftCurrencyVersions;
 import com.tenth.nft.orm.marketplace.dao.NftCurrencyNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCurrencyQuery;
@@ -16,7 +15,13 @@ import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author gs-orm-generator
@@ -29,6 +34,9 @@ public class NftCurrencyService {
     private NftCurrencyNoCacheDao nftCurrencyDao;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    @Lazy
+    private NftBlockchainService nftBlockchainService;
 
     public Page<NftCurrencyDTO> list(NftCurrencyListRequest request) {
 
@@ -69,6 +77,7 @@ public class NftCurrencyService {
         nftCurrency.setIcon(request.getIcon());
         nftCurrency.setMin(request.getMin());
         nftCurrency.setMax(request.getMax());
+        nftCurrency.setMain(request.getMain());
         nftCurrencyDao.insert(nftCurrency);
 
         rebuildCache(request.getBlockchain());
@@ -120,5 +129,45 @@ public class NftCurrencyService {
                         .build(),
                 CurrencyRebuildRouteRequest.class
         );
+    }
+
+    public String getMainCurrency(String blockchain) {
+        NftCurrency currency = nftCurrencyDao.findOne(NftCurrencyQuery.newBuilder().version(NftCurrencyVersions.VERSION).blockchain(blockchain).main(true).build());
+        return currency.getCode();
+    }
+
+    public List<CurrencySearchDTO> listByBlockchain(CurrenySearchRequest request) {
+
+        Map<String, BlockchainSearchDTO> blockchainMapping = nftBlockchainService.listAll().stream().collect(Collectors.toMap(BlockchainSearchDTO::getCode, Function.identity()));
+
+        List<CurrencySearchDTO> dtos = nftCurrencyDao.find(NftCurrencyQuery.newBuilder()
+                        .version(NftCurrencyVersions.VERSION)
+                        .blockchain(request.getBlockchain())
+                        .setSortField("order")
+                        .setReverse(false)
+                        .build(),
+                CurrencySearchDTO.class
+        );
+
+        dtos.forEach(dto -> {
+            String blockchain = dto.getBlockchain();
+            BlockchainSearchDTO blockchainSearchDTO = blockchainMapping.get(blockchain);
+            dto.setBlockchainLabel(blockchainSearchDTO.getLabel());
+            dto.setBlockchainIcon(blockchainSearchDTO.getIcon());
+        });
+
+        return dtos;
+    }
+
+    public NftSearch.NFT_CURRENCY_RATES_IS currencyRates(NftSearch.NFT_CURRENCY_RATES_IC request) {
+        Map<String, Float> rates = nftCurrencyDao.find(NftCurrencyQuery.newBuilder()
+                .version(NftCurrencyVersions.VERSION)
+                .blockchain(request.getBlockchain())
+                .build()
+        ).stream().collect(Collectors.toMap(NftCurrency::getCode, NftCurrency::getExchangeRate));
+
+        return NftSearch.NFT_CURRENCY_RATES_IS.newBuilder()
+                .putAllRates(rates)
+                .build();
     }
 }

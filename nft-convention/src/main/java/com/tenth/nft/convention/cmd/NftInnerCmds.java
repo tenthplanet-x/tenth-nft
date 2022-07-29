@@ -37,7 +37,9 @@ public class NftInnerCmds {
     public static final int EXCHANGE_EVENT_IC = -30015;
     public static final int OFFER_EXPIRE_CHECK_IC = -30016;
     public static final int LISTING_EXPIRE_CHECK_IC = -30017;
-
-
-
+    public static final int ASSETS_CREATE_IC = -40001;
+    public static final int ASSETS_DETAIL_IC = -40002;
+    public static final int COLLECTION_CREATE_IC = -40003;
+    public static final int COLLECTION_DETAIL_IC = -40004;
+    public static final int NFT_BLOCKCHAIN_IC = -40005;
 }

@@ -6757,15 +6757,15 @@ public final class NftExchange {
         getCurrencyBytes();
 
     /**
-     * <code>required int64 owners = 4;</code>
+     * <code>required int32 owners = 4;</code>
      * @return Whether the owners field is set.
      */
     boolean hasOwners();
     /**
-     * <code>required int64 owners = 4;</code>
+     * <code>required int32 owners = 4;</code>
      * @return The owners.
      */
-    long getOwners();
+    int getOwners();
 
     /**
      * <code>optional float floorPrice = 6;</code>
@@ -6777,6 +6777,17 @@ public final class NftExchange {
      * @return The floorPrice.
      */
     float getFloorPrice();
+
+    /**
+     * <code>optional bool owned = 7;</code>
+     * @return Whether the owned field is set.
+     */
+    boolean hasOwned();
+    /**
+     * <code>optional bool owned = 7;</code>
+     * @return The owned.
+     */
+    boolean getOwned();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.NftCollectionProfileDTO}
@@ -6838,12 +6849,17 @@ public final class NftExchange {
             }
             case 32: {
               bitField0_ |= 0x00000004;
-              owners_ = input.readInt64();
+              owners_ = input.readInt32();
               break;
             }
             case 53: {
               bitField0_ |= 0x00000008;
               floorPrice_ = input.readFloat();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000010;
+              owned_ = input.readBool();
               break;
             }
             default: {
@@ -6947,9 +6963,9 @@ public final class NftExchange {
     }
 
     public static final int OWNERS_FIELD_NUMBER = 4;
-    private long owners_;
+    private int owners_;
     /**
-     * <code>required int64 owners = 4;</code>
+     * <code>required int32 owners = 4;</code>
      * @return Whether the owners field is set.
      */
     @java.lang.Override
@@ -6957,11 +6973,11 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>required int64 owners = 4;</code>
+     * <code>required int32 owners = 4;</code>
      * @return The owners.
      */
     @java.lang.Override
-    public long getOwners() {
+    public int getOwners() {
       return owners_;
     }
 
@@ -6982,6 +6998,25 @@ public final class NftExchange {
     @java.lang.Override
     public float getFloorPrice() {
       return floorPrice_;
+    }
+
+    public static final int OWNED_FIELD_NUMBER = 7;
+    private boolean owned_;
+    /**
+     * <code>optional bool owned = 7;</code>
+     * @return Whether the owned field is set.
+     */
+    @java.lang.Override
+    public boolean hasOwned() {
+      return ((bitField0_ & 0x00000010) != 0);
+    }
+    /**
+     * <code>optional bool owned = 7;</code>
+     * @return The owned.
+     */
+    @java.lang.Override
+    public boolean getOwned() {
+      return owned_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -7009,10 +7044,13 @@ public final class NftExchange {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, currency_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        output.writeInt64(4, owners_);
+        output.writeInt32(4, owners_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         output.writeFloat(6, floorPrice_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        output.writeBool(7, owned_);
       }
       unknownFields.writeTo(output);
     }
@@ -7032,11 +7070,15 @@ public final class NftExchange {
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, owners_);
+          .computeInt32Size(4, owners_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(6, floorPrice_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(7, owned_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7075,6 +7117,11 @@ public final class NftExchange {
             != java.lang.Float.floatToIntBits(
                 other.getFloorPrice())) return false;
       }
+      if (hasOwned() != other.hasOwned()) return false;
+      if (hasOwned()) {
+        if (getOwned()
+            != other.getOwned()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -7097,13 +7144,17 @@ public final class NftExchange {
       }
       if (hasOwners()) {
         hash = (37 * hash) + OWNERS_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOwners());
+        hash = (53 * hash) + getOwners();
       }
       if (hasFloorPrice()) {
         hash = (37 * hash) + FLOORPRICE_FIELD_NUMBER;
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getFloorPrice());
+      }
+      if (hasOwned()) {
+        hash = (37 * hash) + OWNED_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getOwned());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -7242,10 +7293,12 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000001);
         currency_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        owners_ = 0L;
+        owners_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
         floorPrice_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000008);
+        owned_ = false;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -7289,6 +7342,10 @@ public final class NftExchange {
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.floorPrice_ = floorPrice_;
           to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.owned_ = owned_;
+          to_bitField0_ |= 0x00000010;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -7352,6 +7409,9 @@ public final class NftExchange {
         }
         if (other.hasFloorPrice()) {
           setFloorPrice(other.getFloorPrice());
+        }
+        if (other.hasOwned()) {
+          setOwned(other.getOwned());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -7509,9 +7569,9 @@ public final class NftExchange {
         return this;
       }
 
-      private long owners_ ;
+      private int owners_ ;
       /**
-       * <code>required int64 owners = 4;</code>
+       * <code>required int32 owners = 4;</code>
        * @return Whether the owners field is set.
        */
       @java.lang.Override
@@ -7519,31 +7579,31 @@ public final class NftExchange {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>required int64 owners = 4;</code>
+       * <code>required int32 owners = 4;</code>
        * @return The owners.
        */
       @java.lang.Override
-      public long getOwners() {
+      public int getOwners() {
         return owners_;
       }
       /**
-       * <code>required int64 owners = 4;</code>
+       * <code>required int32 owners = 4;</code>
        * @param value The owners to set.
        * @return This builder for chaining.
        */
-      public Builder setOwners(long value) {
+      public Builder setOwners(int value) {
         bitField0_ |= 0x00000004;
         owners_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 owners = 4;</code>
+       * <code>required int32 owners = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearOwners() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        owners_ = 0L;
+        owners_ = 0;
         onChanged();
         return this;
       }
@@ -7583,6 +7643,45 @@ public final class NftExchange {
       public Builder clearFloorPrice() {
         bitField0_ = (bitField0_ & ~0x00000008);
         floorPrice_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private boolean owned_ ;
+      /**
+       * <code>optional bool owned = 7;</code>
+       * @return Whether the owned field is set.
+       */
+      @java.lang.Override
+      public boolean hasOwned() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <code>optional bool owned = 7;</code>
+       * @return The owned.
+       */
+      @java.lang.Override
+      public boolean getOwned() {
+        return owned_;
+      }
+      /**
+       * <code>optional bool owned = 7;</code>
+       * @param value The owned to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOwned(boolean value) {
+        bitField0_ |= 0x00000010;
+        owned_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool owned = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOwned() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        owned_ = false;
         onChanged();
         return this;
       }
@@ -21398,6 +21497,17 @@ public final class NftExchange {
      * @return The assetsIds at the given index.
      */
     long getAssetsIds(int index);
+
+    /**
+     * <code>optional int64 observer = 2;</code>
+     * @return Whether the observer field is set.
+     */
+    boolean hasObserver();
+    /**
+     * <code>optional int64 observer = 2;</code>
+     * @return The observer.
+     */
+    long getObserver();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.COLLECTION_EXCHANGE_PROFILE_IC}
@@ -21467,6 +21577,11 @@ public final class NftExchange {
               input.popLimit(limit);
               break;
             }
+            case 16: {
+              bitField0_ |= 0x00000001;
+              observer_ = input.readInt64();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -21502,6 +21617,7 @@ public final class NftExchange {
               com.tenth.nft.protobuf.NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.class, com.tenth.nft.protobuf.NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.Builder.class);
     }
 
+    private int bitField0_;
     public static final int ASSETSIDS_FIELD_NUMBER = 1;
     private com.google.protobuf.Internal.LongList assetsIds_;
     /**
@@ -21529,6 +21645,25 @@ public final class NftExchange {
       return assetsIds_.getLong(index);
     }
 
+    public static final int OBSERVER_FIELD_NUMBER = 2;
+    private long observer_;
+    /**
+     * <code>optional int64 observer = 2;</code>
+     * @return Whether the observer field is set.
+     */
+    @java.lang.Override
+    public boolean hasObserver() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>optional int64 observer = 2;</code>
+     * @return The observer.
+     */
+    @java.lang.Override
+    public long getObserver() {
+      return observer_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -21545,6 +21680,9 @@ public final class NftExchange {
                         throws java.io.IOException {
       for (int i = 0; i < assetsIds_.size(); i++) {
         output.writeInt64(1, assetsIds_.getLong(i));
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(2, observer_);
       }
       unknownFields.writeTo(output);
     }
@@ -21564,6 +21702,10 @@ public final class NftExchange {
         size += dataSize;
         size += 1 * getAssetsIdsList().size();
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, observer_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -21581,6 +21723,11 @@ public final class NftExchange {
 
       if (!getAssetsIdsList()
           .equals(other.getAssetsIdsList())) return false;
+      if (hasObserver() != other.hasObserver()) return false;
+      if (hasObserver()) {
+        if (getObserver()
+            != other.getObserver()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -21595,6 +21742,11 @@ public final class NftExchange {
       if (getAssetsIdsCount() > 0) {
         hash = (37 * hash) + ASSETSIDS_FIELD_NUMBER;
         hash = (53 * hash) + getAssetsIdsList().hashCode();
+      }
+      if (hasObserver()) {
+        hash = (37 * hash) + OBSERVER_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getObserver());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -21731,6 +21883,8 @@ public final class NftExchange {
         super.clear();
         assetsIds_ = emptyLongList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        observer_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -21758,11 +21912,17 @@ public final class NftExchange {
       public com.tenth.nft.protobuf.NftExchange.COLLECTION_EXCHANGE_PROFILE_IC buildPartial() {
         com.tenth.nft.protobuf.NftExchange.COLLECTION_EXCHANGE_PROFILE_IC result = new com.tenth.nft.protobuf.NftExchange.COLLECTION_EXCHANGE_PROFILE_IC(this);
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (((bitField0_ & 0x00000001) != 0)) {
           assetsIds_.makeImmutable();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.assetsIds_ = assetsIds_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.observer_ = observer_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -21820,6 +21980,9 @@ public final class NftExchange {
             assetsIds_.addAll(other.assetsIds_);
           }
           onChanged();
+        }
+        if (other.hasObserver()) {
+          setObserver(other.getObserver());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -21926,6 +22089,45 @@ public final class NftExchange {
       public Builder clearAssetsIds() {
         assetsIds_ = emptyLongList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+
+      private long observer_ ;
+      /**
+       * <code>optional int64 observer = 2;</code>
+       * @return Whether the observer field is set.
+       */
+      @java.lang.Override
+      public boolean hasObserver() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>optional int64 observer = 2;</code>
+       * @return The observer.
+       */
+      @java.lang.Override
+      public long getObserver() {
+        return observer_;
+      }
+      /**
+       * <code>optional int64 observer = 2;</code>
+       * @param value The observer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setObserver(long value) {
+        bitField0_ |= 0x00000002;
+        observer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 observer = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearObserver() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        observer_ = 0L;
         onChanged();
         return this;
       }
@@ -31029,66 +31231,67 @@ public final class NftExchange {
       "B\n\016currentListing\030\007 \001(\0132*.com.ruixi.tpul" +
       "se.convention.NftListingDTO\022;\n\tbestOffer" +
       "\030\010 \001(\0132(.com.ruixi.tpulse.convention.Nft" +
-      "OfferDTO\"d\n\027NftCollectionProfileDTO\022\023\n\013t" +
+      "OfferDTO\"s\n\027NftCollectionProfileDTO\022\023\n\013t" +
       "otalVolume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016\n\006ow" +
-      "ners\030\004 \002(\003\022\022\n\nfloorPrice\030\006 \001(\002\"\220\001\n\013NftOf" +
-      "ferDTO\022\n\n\002id\030\001 \002(\003\022\013\n\003uid\030\002 \002(\003\022\020\n\010asset" +
-      "sId\030\003 \002(\003\022\020\n\010quantity\030\004 \002(\005\022\r\n\005price\030\005 \002" +
-      "(\002\022\020\n\010currency\030\006 \002(\t\022\021\n\tcreatedAt\030\007 \002(\003\022" +
-      "\020\n\010expireAt\030\010 \002(\003\"~\n\007SELL_IC\022\020\n\010assetsId" +
-      "\030\001 \002(\003\022\013\n\003uid\030\002 \002(\003\022\020\n\010quantity\030\003 \002(\005\022\020\n" +
-      "\010currency\030\004 \002(\t\022\r\n\005price\030\005 \002(\002\022\017\n\007startA" +
-      "t\030\006 \002(\003\022\020\n\010expireAt\030\007 \002(\003\"F\n\007SELL_IS\022;\n\007" +
-      "listing\030\001 \002(\0132*.com.ruixi.tpulse.convent" +
-      "ion.NftListingDTO\":\n\006BUY_IC\022\013\n\003uid\030\001 \002(\003" +
-      "\022\020\n\010assetsId\030\002 \002(\003\022\021\n\tlistingId\030\003 \002(\003\"\010\n" +
-      "\006BUY_IS\"U\n\016SELL_CANCEL_IC\022\020\n\010assetsId\030\001 " +
-      "\002(\003\022\021\n\tlistingId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022\016" +
-      "\n\006reason\030\004 \002(\t\"\020\n\016SELL_CANCEL_IS\"C\n\017LIST" +
-      "ING_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 " +
-      "\002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017LISTING_LIST_IS" +
-      "\022<\n\010listings\030\001 \003(\0132*.com.ruixi.tpulse.co" +
-      "nvention.NftListingDTO\"A\n\rOWNER_LIST_IC\022" +
+      "ners\030\004 \002(\005\022\022\n\nfloorPrice\030\006 \001(\002\022\r\n\005owned\030" +
+      "\007 \001(\010\"\220\001\n\013NftOfferDTO\022\n\n\002id\030\001 \002(\003\022\013\n\003uid" +
+      "\030\002 \002(\003\022\020\n\010assetsId\030\003 \002(\003\022\020\n\010quantity\030\004 \002" +
+      "(\005\022\r\n\005price\030\005 \002(\002\022\020\n\010currency\030\006 \002(\t\022\021\n\tc" +
+      "reatedAt\030\007 \002(\003\022\020\n\010expireAt\030\010 \002(\003\"~\n\007SELL" +
+      "_IC\022\020\n\010assetsId\030\001 \002(\003\022\013\n\003uid\030\002 \002(\003\022\020\n\010qu" +
+      "antity\030\003 \002(\005\022\020\n\010currency\030\004 \002(\t\022\r\n\005price\030" +
+      "\005 \002(\002\022\017\n\007startAt\030\006 \002(\003\022\020\n\010expireAt\030\007 \002(\003" +
+      "\"F\n\007SELL_IS\022;\n\007listing\030\001 \002(\0132*.com.ruixi" +
+      ".tpulse.convention.NftListingDTO\":\n\006BUY_" +
+      "IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 \002(\003\022\021\n\tlis" +
+      "tingId\030\003 \002(\003\"\010\n\006BUY_IS\"U\n\016SELL_CANCEL_IC" +
+      "\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlistingId\030\002 \002(\003\022\016\n" +
+      "\006seller\030\003 \002(\003\022\016\n\006reason\030\004 \002(\t\"\020\n\016SELL_CA" +
+      "NCEL_IS\"C\n\017LISTING_LIST_IC\022\020\n\010assetsId\030\001" +
+      " \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"O\n\017" +
+      "LISTING_LIST_IS\022<\n\010listings\030\001 \003(\0132*.com." +
+      "ruixi.tpulse.convention.NftListingDTO\"A\n" +
+      "\rOWNER_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page" +
+      "\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"I\n\rOWNER_LIST_I" +
+      "S\0228\n\006owners\030\001 \003(\0132(.com.ruixi.tpulse.con" +
+      "vention.NftOwnerDTO\"S\n\020ACTIVITY_LIST_IC\022" +
       "\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageS" +
-      "ize\030\003 \002(\005\"I\n\rOWNER_LIST_IS\0228\n\006owners\030\001 \003" +
-      "(\0132(.com.ruixi.tpulse.convention.NftOwne" +
-      "rDTO\"S\n\020ACTIVITY_LIST_IC\022\020\n\010assetsId\030\001 \002" +
-      "(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\022\r\n\005ev" +
-      "ent\030\004 \001(\t\"S\n\020ACTIVITY_LIST_IS\022?\n\nactivit" +
-      "ies\030\001 \003(\0132+.com.ruixi.tpulse.convention." +
-      "NftActivityDTO\"i\n\007MINT_IC\022\022\n\nblockchain\030" +
-      "\001 \002(\t\022\027\n\017contractAddress\030\002 \001(\t\022\020\n\010assets" +
-      "Id\030\003 \002(\003\022\r\n\005owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002(" +
-      "\005\"@\n\007MINT_IS\0225\n\004mint\030\001 \002(\0132\'.com.ruixi.t" +
-      "pulse.convention.NftMintDTO\"T\n\032ASSETS_EX" +
-      "CHANGE_PROFILE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010o" +
-      "bserver\030\002 \001(\003\022\022\n\nneedOwners\030\003 \001(\010\"_\n\032ASS" +
-      "ETS_EXCHANGE_PROFILE_IS\022A\n\007profile\030\001 \002(\013" +
-      "20.com.ruixi.tpulse.convention.NftAssets" +
-      "ProfileDTO\"3\n\036COLLECTION_EXCHANGE_PROFIL" +
-      "E_IC\022\021\n\tassetsIds\030\001 \003(\003\"g\n\036COLLECTION_EX" +
-      "CHANGE_PROFILE_IS\022E\n\007profile\030\001 \002(\01324.com" +
-      ".ruixi.tpulse.convention.NftCollectionPr" +
-      "ofileDTO\"s\n\rOFFER_MAKE_IC\022\020\n\010assetsId\030\001 " +
-      "\002(\003\022\020\n\010quantity\030\002 \002(\005\022\r\n\005price\030\003 \002(\002\022\020\n\010" +
-      "currency\030\004 \002(\t\022\020\n\010expireAt\030\005 \002(\003\022\013\n\003uid\030" +
-      "\006 \002(\003\"H\n\rOFFER_MAKE_IS\0227\n\005offer\030\001 \002(\0132(." +
-      "com.ruixi.tpulse.convention.NftOfferDTO\"" +
-      "Q\n\017OFFER_CANCEL_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010asset" +
-      "sId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\022\016\n\006reason\030\004 \001" +
-      "(\t\"\021\n\017OFFER_CANCEL_IS\"A\n\rOFFER_LIST_IC\022\020" +
-      "\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSi" +
-      "ze\030\003 \002(\005\"I\n\rOFFER_LIST_IS\0228\n\006offers\030\001 \003(" +
-      "\0132(.com.ruixi.tpulse.convention.NftOffer" +
-      "DTO\"A\n\017OFFER_ACCEPT_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010a" +
-      "ssetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\"\021\n\017OFFER_" +
-      "ACCEPT_IS\"$\n\020LISTING_EVENT_IC\022\020\n\010assetsI" +
-      "d\030\001 \002(\003\"%\n\021EXCHANGE_EVENT_IC\022\020\n\010assetsId" +
-      "\030\001 \002(\003\">\n\027LISTING_EXPIRE_CHECK_IC\022\020\n\010ass" +
-      "etsId\030\001 \002(\003\022\021\n\tlistingId\030\002 \002(\003\":\n\025OFFER_" +
-      "EXPIRE_CHECK_IC\022\020\n\010assetsId\030\001 \002(\003\022\017\n\007off" +
-      "erId\030\002 \002(\003B%\n\026com.tenth.nft.protobufB\013Nf" +
-      "tExchange"
+      "ize\030\003 \002(\005\022\r\n\005event\030\004 \001(\t\"S\n\020ACTIVITY_LIS" +
+      "T_IS\022?\n\nactivities\030\001 \003(\0132+.com.ruixi.tpu" +
+      "lse.convention.NftActivityDTO\"i\n\007MINT_IC" +
+      "\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017contractAddress\030" +
+      "\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r\n\005owner\030\004 \002(\003\022\020" +
+      "\n\010quantity\030\005 \002(\005\"@\n\007MINT_IS\0225\n\004mint\030\001 \002(" +
+      "\0132\'.com.ruixi.tpulse.convention.NftMintD" +
+      "TO\"T\n\032ASSETS_EXCHANGE_PROFILE_IC\022\020\n\010asse" +
+      "tsId\030\001 \002(\003\022\020\n\010observer\030\002 \001(\003\022\022\n\nneedOwne" +
+      "rs\030\003 \001(\010\"_\n\032ASSETS_EXCHANGE_PROFILE_IS\022A" +
+      "\n\007profile\030\001 \002(\01320.com.ruixi.tpulse.conve" +
+      "ntion.NftAssetsProfileDTO\"E\n\036COLLECTION_" +
+      "EXCHANGE_PROFILE_IC\022\021\n\tassetsIds\030\001 \003(\003\022\020" +
+      "\n\010observer\030\002 \001(\003\"g\n\036COLLECTION_EXCHANGE_" +
+      "PROFILE_IS\022E\n\007profile\030\001 \002(\01324.com.ruixi." +
+      "tpulse.convention.NftCollectionProfileDT" +
+      "O\"s\n\rOFFER_MAKE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010" +
+      "quantity\030\002 \002(\005\022\r\n\005price\030\003 \002(\002\022\020\n\010currenc" +
+      "y\030\004 \002(\t\022\020\n\010expireAt\030\005 \002(\003\022\013\n\003uid\030\006 \002(\003\"H" +
+      "\n\rOFFER_MAKE_IS\0227\n\005offer\030\001 \002(\0132(.com.rui" +
+      "xi.tpulse.convention.NftOfferDTO\"Q\n\017OFFE" +
+      "R_CANCEL_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 \002" +
+      "(\003\022\017\n\007offerId\030\003 \002(\003\022\016\n\006reason\030\004 \001(\t\"\021\n\017O" +
+      "FFER_CANCEL_IS\"A\n\rOFFER_LIST_IC\022\020\n\010asset" +
+      "sId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(" +
+      "\005\"I\n\rOFFER_LIST_IS\0228\n\006offers\030\001 \003(\0132(.com" +
+      ".ruixi.tpulse.convention.NftOfferDTO\"A\n\017" +
+      "OFFER_ACCEPT_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId" +
+      "\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\"\021\n\017OFFER_ACCEPT_" +
+      "IS\"$\n\020LISTING_EVENT_IC\022\020\n\010assetsId\030\001 \002(\003" +
+      "\"%\n\021EXCHANGE_EVENT_IC\022\020\n\010assetsId\030\001 \002(\003\"" +
+      ">\n\027LISTING_EXPIRE_CHECK_IC\022\020\n\010assetsId\030\001" +
+      " \002(\003\022\021\n\tlistingId\030\002 \002(\003\":\n\025OFFER_EXPIRE_" +
+      "CHECK_IC\022\020\n\010assetsId\030\001 \002(\003\022\017\n\007offerId\030\002 " +
+      "\002(\003B%\n\026com.tenth.nft.protobufB\013NftExchan" +
+      "ge"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -31129,7 +31332,7 @@ public final class NftExchange {
     internal_static_com_ruixi_tpulse_convention_NftCollectionProfileDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_NftCollectionProfileDTO_descriptor,
-        new java.lang.String[] { "TotalVolume", "Currency", "Owners", "FloorPrice", });
+        new java.lang.String[] { "TotalVolume", "Currency", "Owners", "FloorPrice", "Owned", });
     internal_static_com_ruixi_tpulse_convention_NftOfferDTO_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_com_ruixi_tpulse_convention_NftOfferDTO_fieldAccessorTable = new
@@ -31237,7 +31440,7 @@ public final class NftExchange {
     internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IC_descriptor,
-        new java.lang.String[] { "AssetsIds", });
+        new java.lang.String[] { "AssetsIds", "Observer", });
     internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IS_descriptor =
       getDescriptor().getMessageTypes().get(24);
     internal_static_com_ruixi_tpulse_convention_COLLECTION_EXCHANGE_PROFILE_IS_fieldAccessorTable = new

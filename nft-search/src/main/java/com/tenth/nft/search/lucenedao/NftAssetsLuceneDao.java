@@ -10,6 +10,7 @@ import com.tenth.nft.orm.marketplace.dao.expression.NftBelongQuery;
 import com.tenth.nft.orm.marketplace.dto.NftBelongIdDTO;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.search.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
@@ -154,5 +155,31 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
             LOGGER.error("", e);
         }
         return output;
+    }
+
+    public void rebuild(NftMarketplace.AssetsDTO assets) {
+        remove(assets.getId());
+        insert(toLuceneDTO(assets));
+    }
+
+    private NftAssetsLuceneDTO toLuceneDTO(NftMarketplace.AssetsDTO assets){
+
+        NftExchange.NftAssetsProfileDTO assetsProfile = routeClient.send(
+                NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
+                        .setAssetsId(assets.getId())
+                        .setNeedOwners(true)
+                        .build(),
+                AssetsExchangeProfileRouteRequest.class
+        ).getProfile();
+
+        NftAssetsLuceneDTO dto = new NftAssetsLuceneDTO();
+        dto.setId(assets.getId());
+        dto.setCreatedAt(assets.getCreatedAt());
+        dto.setCollectionId(assets.getCollectionId());
+        //获取拥有者信息
+        List<Long> belongUids = assetsProfile.getOwnerListsList();
+        dto.setOwners(belongUids);
+
+        return dto;
     }
 }
