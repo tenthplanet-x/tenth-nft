@@ -195,9 +195,9 @@ public class CollectionSearchService {
                 CollectionSearchDTO collectionDTO = toSearchDTO(uid, id);
 
                 //assets
-                List<Long> assetsIds = nftAssetsLuceneDao.listByCollectionId(collectionDTO.getId(), 1, 5);
-                if(!assetsIds.isEmpty()){
-                    List<AssetsSearchDTO> assets = assetsIds.stream().map(assetsId -> {
+                List<Long> recommendAssetsIds = nftAssetsLuceneDao.listByCollectionId(collectionDTO.getId(), 1, 5);
+                if(!recommendAssetsIds.isEmpty()){
+                    List<AssetsSearchDTO> assets = recommendAssetsIds.stream().map(assetsId -> {
                         return AssetsSearchDTO.from(
                                 routeClient.send(
                                         NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
@@ -208,20 +208,22 @@ public class CollectionSearchService {
                         );
                     }).collect(Collectors.toList());
                     Map<Long, AssetsSearchDTO> assetsMapping = assets.stream().collect(Collectors.toMap(AssetsSearchDTO::getId, Function.identity()));
-                    collectionDTO.setRecommendAssets(assetsIds.stream().map(assetsId -> assetsMapping.get(assetsId)).collect(Collectors.toList()));
-
-                    //totalVolume
-                    NftExchange.NftCollectionProfileDTO exchangeProfile = routeClient.send(
-                            NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()
-                                    .addAllAssetsIds(assetsIds)
-                                    .build(),
-                            CollectionsExchangeProfileRouteRequest.class
-                    ).getProfile();
-                    if(exchangeProfile.hasTotalVolume()){
-                        collectionDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
-                        collectionDTO.setCurrency(exchangeProfile.getCurrency());
-                    }
+                    collectionDTO.setRecommendAssets(recommendAssetsIds.stream().map(assetsId -> assetsMapping.get(assetsId)).collect(Collectors.toList()));
                 }
+
+                //totalVolume
+                List<Long> assetsIds = nftAssetsLuceneDao.listByCollectionId(collectionDTO.getId());
+                NftExchange.NftCollectionProfileDTO exchangeProfile = routeClient.send(
+                        NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()
+                                .addAllAssetsIds(assetsIds)
+                                .build(),
+                        CollectionsExchangeProfileRouteRequest.class
+                ).getProfile();
+                if(exchangeProfile.hasTotalVolume()){
+                    collectionDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                    collectionDTO.setCurrency(exchangeProfile.getCurrency());
+                }
+
                 return collectionDTO;
             }).collect(Collectors.toList());
             return new Page<>(
