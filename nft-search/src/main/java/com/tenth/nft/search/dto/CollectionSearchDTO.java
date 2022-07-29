@@ -1,6 +1,7 @@
 package com.tenth.nft.search.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.protobuf.NftMarketplace;
@@ -200,13 +201,13 @@ public class CollectionSearchDTO implements SimpleResponse {
         }
         output.setId(collection.getId());
         output.setName(collection.getName());
-        output.setDesc(collection.getDesc());
+        output.setDesc(Strings.emptyToNull(collection.getDesc()));
         output.setBlockchain(collection.getBlockchain());
         output.setUid(collection.getCreator());
         output.setItems(collection.getItems());
 
-        output.setLogoImage(collection.getLogoImage());
-        output.setFeaturedImage(collection.getFeaturedImage());
+        output.setLogoImage(Strings.emptyToNull(collection.getLogoImage()));
+        output.setFeaturedImage(Strings.emptyToNull(collection.getFeaturedImage()));
         output.setCreatorFee(Prices.toString(collection.getCreatorFee()));
 
         return (T)output;

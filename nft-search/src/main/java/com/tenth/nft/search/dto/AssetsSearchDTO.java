@@ -1,5 +1,6 @@
 package com.tenth.nft.search.dto;
 
+import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.protobuf.app.AppChat;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tenth.nft.protobuf.NftMarketplace;
@@ -179,15 +180,15 @@ public class AssetsSearchDTO implements SimpleResponse {
         output.setType(NftAssetsType.valueOf(assets.getType()));
         output.setCollectionId(assets.getCollectionId());
         output.setUrl(assets.getUrl());
-        output.setPreviewUrl(assets.getPreviewUrl());
+        output.setPreviewUrl(Strings.emptyToNull(assets.getPreviewUrl()));
         output.setBlockchain(assets.getBlockchain());
-        output.setContractAddress(assets.getContractAddress());
-        output.setTokenStandard(assets.getTokenStandard());
-        output.setToken(assets.getToken());
+        output.setContractAddress(Strings.emptyToNull(assets.getContractAddress()));
+        output.setTokenStandard(Strings.emptyToNull(assets.getTokenStandard()));
+        output.setToken(Strings.emptyToNull(assets.getToken()));
         output.setCreator(assets.getCreator());
         output.setName(assets.getName());
         output.setSupply(assets.getSupply());
-        output.setDesc(assets.getDesc());
+        output.setDesc(Strings.emptyToNull(assets.getDesc()));
         return (T)output;
     }
 }
