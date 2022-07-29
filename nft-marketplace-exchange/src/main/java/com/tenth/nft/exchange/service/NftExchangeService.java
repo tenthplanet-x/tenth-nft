@@ -413,11 +413,11 @@ public class NftExchangeService {
             NftAssetsStats stats = nftAssetsStatsDao.findOne(NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build());
             if(null != stats){
                 if(stats.getTotalVolume() > 0){
-                    collectionProfileDTOBuilder.setTotalVolume(stats.getTotalVolume());
+                    collectionProfileDTOBuilder.setTotalVolume(collectionProfileDTOBuilder.getTotalVolume() + stats.getTotalVolume());
                     collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
                 }
                 if(stats.getFloorPrice() > 0){
-                    collectionProfileDTOBuilder.setFloorPrice(stats.getFloorPrice());
+                    collectionProfileDTOBuilder.setFloorPrice(collectionProfileDTOBuilder.getFloorPrice() + stats.getFloorPrice());
                     collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
                 }
             }
