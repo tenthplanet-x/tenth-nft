@@ -4,6 +4,7 @@ dependencies{
     compileOnly libs.tpulse_convention
     compileOnly libs.starter_web
     testImplementation libs.gs_report
+    implementation libs.tpulse_commons_validation
 }
 
 //protobuf

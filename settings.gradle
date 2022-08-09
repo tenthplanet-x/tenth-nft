@@ -10,4 +10,5 @@ include 'app:nft-app'
 include 'nft-marketplace'
 include 'nft-marketplace-exchange'
 include 'nft-player'
+include 'nft-wallet'
 

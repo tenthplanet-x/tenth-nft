@@ -1,6 +1,7 @@
 package com.tenth.nft.operation.controller.routes;
 
 import com.tenth.nft.convention.routes.operation.BlockchainRouteRequest;
+import com.tenth.nft.convention.routes.operation.NftCurrencyRouteRequest;
 import com.tenth.nft.convention.routes.search.CurrencyRatesRouteRequest;
 import com.tenth.nft.operation.service.NftBlockchainService;
 import com.tenth.nft.operation.service.NftCurrencyService;
@@ -31,5 +32,10 @@ public class NftOpsRoutesController {
     @RouteRequestMapping(CurrencyRatesRouteRequest.class)
     public NftSearch.NFT_CURRENCY_RATES_IS currencyRates(NftSearch.NFT_CURRENCY_RATES_IC request){
         return nftCurrencyService.currencyRates(request);
+    }
+
+    @RouteRequestMapping(NftCurrencyRouteRequest.class)
+    public NftOperation.NFT_CURRENCY_IS currency(NftOperation.NFT_CURRENCY_IC request){
+        return nftCurrencyService.currency(request);
     }
 }

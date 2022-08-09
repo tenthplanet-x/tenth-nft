@@ -9,6 +9,7 @@ public enum NftCmdGroup implements CmdGroup {
 
     SEARCH,
     EXCHANGE,
-    PLAYER
+    PLAYER,
+    WALLET
 
 }

@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
+import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tenth.nft.orm.marketplace.entity.NftOrderStatus;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
@@ -25,6 +26,9 @@ public class NftOrderUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private Long updatedAt = System.currentTimeMillis();
 
+    @SimpleWriteParam
+    private String remark;
+
     public Long getUpdatedAt() {
         return updatedAt;
     }
@@ -43,6 +47,10 @@ public class NftOrderUpdate extends SimpleUpdate {
 
     public NftOrderStatus getStatus(){
         return status;
+    }
+
+    public String getRemark() {
+        return remark;
     }
 
     public static Builder newBuilder(){
@@ -77,6 +85,10 @@ public class NftOrderUpdate extends SimpleUpdate {
             return update;
         }
 
+        public Builder remark(String remark) {
+            update.remark = remark;
+            return this;
+        }
     }
 
 }

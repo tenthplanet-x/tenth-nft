@@ -11,6 +11,7 @@ import com.tenth.nft.orm.marketplace.dao.NftCurrencyNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCurrencyQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCurrencyUpdate;
 import com.tenth.nft.orm.marketplace.entity.NftCurrency;
+import com.tenth.nft.protobuf.NftOperation;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
@@ -168,6 +169,18 @@ public class NftCurrencyService {
 
         return NftSearch.NFT_CURRENCY_RATES_IS.newBuilder()
                 .putAllRates(rates)
+                .build();
+    }
+
+    public NftOperation.NFT_CURRENCY_IS currency(NftOperation.NFT_CURRENCY_IC request) {
+
+        NftCurrency nftCurrency = nftCurrencyDao.findOne(NftCurrencyQuery.newBuilder().version(NftCurrencyVersions.VERSION).code(request.getCurrency()).build());
+        NftOperation.CurrencyDTO currencyDTO = NftOperation.CurrencyDTO.newBuilder()
+                .setBlockchain(nftCurrency.getBlockchain())
+                .setCurrency(nftCurrency.getCode())
+                .build();
+        return NftOperation.NFT_CURRENCY_IS.newBuilder()
+                .setCurrency(currencyDTO)
                 .build();
     }
 }

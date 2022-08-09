@@ -6,6 +6,7 @@ dependencies {
     implementation project(":nft-operation")
     implementation project(":nft-marketplace-exchange")
     implementation project(":nft-player")
+    implementation project(":nft-wallet")
     implementation libs.tpulse_convention
     implementation libs.starter_web
 

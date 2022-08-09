@@ -5,6 +5,6 @@ package com.tenth.nft.orm.marketplace.entity;
  */
 public enum NftOrderStatus {
     CREATE,
-    WAITING,
-    COMPLETE
+    COMPLETE,
+    CANCEL
 }

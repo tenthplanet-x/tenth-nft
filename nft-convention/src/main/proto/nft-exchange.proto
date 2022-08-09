@@ -87,7 +87,19 @@ message BUY_IC{
   required int64 listingId = 3;
 }
 message BUY_IS{
+  optional string channel = 1;
+  optional string token = 2;
+  optional string currency = 3;
+  optional string value = 4;
+}
 
+message PAY_RECEIPT_PUSH_IC{
+  required int64 assetsId = 1;
+  required int64 orderId = 2;
+  required string state = 3;
+}
+message PAY_RECEIPT_PUSH_IS{
+  required bool ok = 1;
 }
 
 message SELL_CANCEL_IC{
@@ -208,3 +220,9 @@ message OFFER_EXPIRE_CHECK_IC{
   required int64 assetsId = 1;
   required int64 offerId = 2;
 }
+
+//message WALLET_PAYMENT_NOTIFICATION_IC{
+//  required int64 assetsId = 1;
+//}
+
+
