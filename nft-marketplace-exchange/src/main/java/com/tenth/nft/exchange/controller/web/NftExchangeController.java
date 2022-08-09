@@ -49,8 +49,8 @@ public class NftExchangeController {
     @RequestMapping(ExchangePaths.BUY)
     public Response buy(@RequestBody NftBuyRequest request){
         Validations.check(request);
-        nftExchangeService.buy(request);
-        return Response.successBuilder().build();
+        NftBuyResponse response = nftExchangeService.buy(request);
+        return Response.successBuilder().data(response).build();
     }
 
     @RequestMapping(ExchangePaths.OWNER_LIST)

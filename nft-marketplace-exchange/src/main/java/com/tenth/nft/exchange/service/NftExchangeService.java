@@ -4,21 +4,27 @@ import com.google.common.base.Strings;
 import com.tenth.nft.blockchain.BlockchainContract;
 import com.tenth.nft.blockchain.BlockchainGateway;
 import com.tenth.nft.blockchain.BlockchainRouter;
+import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
+import com.tenth.nft.convention.wallet.*;
+import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
+import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.blockchain.NullAddress;
-import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
 import com.tenth.nft.convention.routes.exchange.*;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.operation.BlockchainRouteRequest;
 import com.tenth.nft.convention.routes.player.AssetsBelongsUpdateRouteRequest;
-import com.tenth.nft.convention.routes.search.CurrencyRatesRouteRequest;
 import com.tenth.nft.convention.utils.Times;
+import com.tenth.nft.convention.wallet.utils.WalletTimes;
 import com.tenth.nft.exchange.controller.vo.NftBuyRequest;
+import com.tenth.nft.exchange.controller.vo.NftBuyResponse;
 import com.tenth.nft.exchange.dto.NftListingDTO;
 import com.tenth.nft.exchange.dto.NftOfferDTO;
 import com.tenth.nft.exchange.vo.NftSellRequest;
 import com.tenth.nft.exchange.vo.SellCancelRequest;
+import com.tenth.nft.exchange.wallet.IWalletProvider;
+import com.tenth.nft.exchange.wallet.WalletProviderFactory;
 import com.tenth.nft.orm.marketplace.dao.*;
 import com.tenth.nft.orm.marketplace.dao.expression.*;
 import com.tenth.nft.orm.marketplace.entity.*;
@@ -27,6 +33,7 @@ import com.tenth.nft.protobuf.*;
 import com.tpulse.gs.convention.dao.SimpleQuery;
 import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
+import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.router.exception.BizException;
@@ -67,6 +74,10 @@ public class NftExchangeService {
     private NftOfferDao nftOfferDao;
     @Autowired
     private NftAssetsStatsDao nftAssetsStatsDao;
+    @Autowired
+    private WalletProviderFactory walletProviderFactory;
+    @Autowired
+    private GsCollectionIdService gsCollectionIdService;
 
 
     public NftListingDTO sell(NftSellRequest request) {
@@ -159,10 +170,10 @@ public class NftExchangeService {
         return NftExchange.SELL_CANCEL_IS.newBuilder().build();
     }
 
-    public void buy(NftBuyRequest request) {
+    public NftBuyResponse buy(NftBuyRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
-        routeClient.send(
+        NftExchange.BUY_IS payInfo = routeClient.send(
                 NftExchange.BUY_IC.newBuilder()
                         .setUid(uid)
                         .setListingId(request.getListingId())
@@ -170,9 +181,16 @@ public class NftExchangeService {
                         .build(),
                 BuyRouteRequest.class
         );
+        NftBuyResponse response = new NftBuyResponse();
+        response.setChannel(payInfo.getChannel());
+        response.setToken(payInfo.getToken());
+        response.setCurrency(payInfo.getCurrency());
+        response.setValue(payInfo.getValue());
+        return response;
+
     }
 
-    public void buy(NftExchange.BUY_IC request){
+    public NftExchange.BUY_IS buy(NftExchange.BUY_IC request){
 
         //listing check
         NftListing nftListing = nftListingDao.findOne(
@@ -191,42 +209,85 @@ public class NftExchangeService {
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_BELONGS_TO_YOU);
         }
 
-
-        //TODO wallet check
-
         NftOrder nftOrder = new NftOrder();
-        try{
-            nftOrder.setOwner(nftListing.getUid());
-            nftOrder.setBuyer(request.getUid());
-            nftOrder.setAssetsId(request.getAssetsId());
-            nftOrder.setListingId(request.getListingId());
-            nftOrder.setCreatedAt(System.currentTimeMillis());
-            nftOrder.setUpdatedAt(nftOrder.getCreatedAt());
-            nftOrder.setCurrency(nftListing.getCurrency());
-            nftOrder.setPrice(nftListing.getPrice());
-            nftOrder.setQuantity(nftListing.getQuantity());
-            buy(nftOrder);
-        }finally {
-            freezeListingEvent(nftListing);
-            //
-            nftListingDao.remove(
-                    NftListingQuery.newBuilder().assetsId(nftListing.getAssetsId()).id(nftListing.getId()).build()
-            );
-            //owner listing refresh
-            refrehListing(nftOrder.getOwner(), nftOrder.getAssetsId());
-            sendListingRouteEvent(nftOrder.getAssetsId());
+        Long orderId = gsCollectionIdService.incrementAndGet(NftIdModule.EXCHANGE.name());
+        Long expiredAt = WalletTimes.getExpiredAt();
 
-            //rebuild assets
-            routeClient.send(
-                    NftSearch.NFT_ASSETS_REBUILD_IC.newBuilder()
-                            .setAssetsId(nftOrder.getAssetsId())
-                            .build(),
-                    AssetsRebuildRouteRequest.class
-            );
-        }
+        //Get pay channel and token
+        IWalletProvider walletProvider = walletProviderFactory.getByCurrency(nftListing.getCurrency());
+        String channel = walletProvider.getChannel();
+        WalletOrderBizContent walletOrder = WalletOrderBizContent.newBuilder()
+                .type(WalletOrderType.PAY.name())
+                .productCode(WalletProductCode.NFT.name())
+                .productId(nftListing.getAssetsId())
+                .outOrderId(orderId)
+                .merchantType(WalletMerchantType.PERSONAL.name())
+                .merchantId(nftListing.getUid())
+                .currency(nftListing.getCurrency())
+                .value(BigNumberUtils.from(nftListing.getPrice()))
+                .expiredAt(expiredAt)
+                .remark("")
+                .build();
+        String token = walletProvider.createToken(walletOrder);
+
+        nftOrder.setId(orderId);
+        nftOrder.setOwner(nftListing.getUid());
+        nftOrder.setBuyer(request.getUid());
+        nftOrder.setAssetsId(request.getAssetsId());
+        nftOrder.setListingId(request.getListingId());
+        nftOrder.setCreatedAt(System.currentTimeMillis());
+        nftOrder.setUpdatedAt(nftOrder.getCreatedAt());
+        nftOrder.setCurrency(nftListing.getCurrency());
+        nftOrder.setPrice(nftListing.getPrice());
+        nftOrder.setQuantity(nftListing.getQuantity());
+        nftOrder.setStatus(NftOrderStatus.CREATE);
+        nftOrder.setExpiredAt(expiredAt);
+        nftOrderDao.insert(nftOrder);
+
+        return NftExchange.BUY_IS.newBuilder()
+                .setChannel(channel)
+                .setToken(token)
+                .setCurrency(nftListing.getCurrency())
+                .setValue(BigNumberUtils.from(nftListing.getPrice()))
+                .build();
 
     }
 
+    public NftExchange.PAY_RECEIPT_PUSH_IS payReceiptHandle(NftExchange.PAY_RECEIPT_PUSH_IC request){
+
+        NftExchange.PAY_RECEIPT_PUSH_IS.Builder builder = NftExchange.PAY_RECEIPT_PUSH_IS.newBuilder();
+
+        Long orderId = request.getOrderId();
+        SimpleQuery orderQuery = NftOrderQuery.newBuilder().assetsId(request.getAssetsId()).id(orderId).build();
+        NftOrder nftOrder = nftOrderDao.findOne(orderQuery);
+        if(null != nftOrder && NftOrderStatus.CREATE.equals(nftOrder.getStatus())){
+            WalletBillState state = WalletBillState.valueOf(request.getState());
+            switch (state){
+                case PAYED:
+                    try {
+                        listingBuyConfirm(nftOrder);
+                        builder.setOk(true);
+                    }catch (BizException e){
+                        LOGGER.error("", e);
+                        builder.setOk(false);
+                    }
+                    break;
+                case FAIL:
+                    nftOrderDao.update(
+                            orderQuery,
+                            NftOrderUpdate.newBuilder().setStatus(NftOrderStatus.CANCEL).remark("pay failed").build()
+                    );
+                    builder.setOk(false);
+                    break;
+                default:
+                    builder.setOk(true);
+            }
+            return builder.build();
+        }else{
+            return builder.setOk(false).build();
+        }
+
+    }
 
     public NftExchange.MINT_IS mint(NftExchange.MINT_IC request){
 
@@ -550,18 +611,63 @@ public class NftExchangeService {
         nftActivityDao.insert(activity);
     }
 
+    public void listingBuyConfirm(NftOrder nftOrder){
 
-    public void buy(NftOrder nftOrder) {
+        try{
+            _buyConfirm(nftOrder);
+        }finally {
+            NftListing nftListing = nftListingDao.findOne(
+                    NftListingQuery.newBuilder().assetsId(nftOrder.getAssetsId()).id(nftOrder.getListingId()).build()
+            );
+            freezeListingEvent(nftListing);
+            //
+            nftListingDao.remove(
+                    NftListingQuery.newBuilder().assetsId(nftListing.getAssetsId()).id(nftListing.getId()).build()
+            );
+            //owner listing refresh
+            refrehListing(nftOrder.getOwner(), nftOrder.getAssetsId());
+            sendListingRouteEvent(nftOrder.getAssetsId());
+
+            //rebuild assets
+            routeClient.send(
+                    NftSearch.NFT_ASSETS_REBUILD_IC.newBuilder()
+                            .setAssetsId(nftOrder.getAssetsId())
+                            .build(),
+                    AssetsRebuildRouteRequest.class
+            );
+        }
+
+    }
+
+
+    public void _buyConfirm(NftOrder nftOrder) {
+
+        //listing check
+        NftListing nftListing = nftListingDao.findOne(
+                NftListingQuery.newBuilder().assetsId(nftOrder.getAssetsId()).id(nftOrder.getListingId()).build()
+        );
+        if(null == nftListing || nftListing.getCanceled()){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NO_EXIST);
+        }
+        if(Times.earlierThan(nftListing.getStartAt())){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NOT_START);
+        }
+        if(Times.isExpired(nftListing.getExpireAt())){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_EXPIRED);
+        }
 
         NftBelong nftBelong = nftBelongDao.findOne(NftBelongQuery.newBuilder().assetsId(nftOrder.getAssetsId()).owner(nftOrder.getOwner()).build());
         if(null == nftBelong || nftBelong.getQuantity() < nftOrder.getQuantity()){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NO_ENOUGH_QUANTITY);
         }
 
-        //TODO wallet check
-
         nftOrder.setStatus(NftOrderStatus.COMPLETE);
-        nftOrderDao.insert(nftOrder);
+        nftOrderDao.update(
+                NftOrderQuery.newBuilder().assetsId(nftOrder.getAssetsId()).id(nftOrder.getId()).build(),
+                NftOrderUpdate.newBuilder().setStatus(NftOrderStatus.COMPLETE).build()
+        );
+
+
         //change belongs
         nftBelong = nftBelongDao.findAndModify(
                 NftBelongQuery.newBuilder().assetsId(nftOrder.getAssetsId()).owner(nftOrder.getBuyer()).build(),

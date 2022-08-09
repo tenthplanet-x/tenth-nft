@@ -47,8 +47,12 @@ public class NftExchangeRoutesController {
 
     @RouteRequestMapping(BuyRouteRequest.class)
     public NftExchange.BUY_IS buy(NftExchange.BUY_IC request){
-        nftExchangeService.buy(request);
-        return NftExchange.BUY_IS.newBuilder().build();
+        return nftExchangeService.buy(request);
+    }
+
+    @RouteRequestMapping(BuyReceiptPushRouteRequest.class)
+    public NftExchange.PAY_RECEIPT_PUSH_IS buyReceiptPush(NftExchange.PAY_RECEIPT_PUSH_IC request){
+        return nftExchangeService.payReceiptHandle(request);
     }
 
     @RouteRequestMapping(ListingListRouteRequest.class)

@@ -283,7 +283,7 @@ public class NftOfferService {
             order.setCurrency(nftOffer.getCurrency());
             order.setCreatedAt(System.currentTimeMillis());
             order.setUpdatedAt(order.getCreatedAt());
-            nftExchangeService.buy(order);
+            nftExchangeService._buyConfirm(order);
             nftOfferDao.remove(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).build());
 
             //freeze offer even
