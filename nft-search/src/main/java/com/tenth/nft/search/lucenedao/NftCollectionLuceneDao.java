@@ -1,13 +1,18 @@
 package com.tenth.nft.search.lucenedao;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
+import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.search.vo.CollectionLuceneSearchParams;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.lucenedb.dao.SimpleLuceneDao;
 import com.tpulse.gs.lucenedb.dao.SimpleLucenedbProperties;
+import com.tpulse.gs.router.client.RouteClient;
+import org.apache.lucene.document.IntPoint;
 import org.apache.lucene.document.LongPoint;
 import org.apache.lucene.search.*;
 import org.slf4j.Logger;
@@ -29,10 +34,14 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
     private static ExecutorService executor = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("lucenedb-nftcollection-init").setDaemon(true).build());
     private static final Logger LOGGER = LoggerFactory.getLogger(NftCollectionLuceneDao.class);
     private NftCollectionNoCacheDao nftCollectionNoCacheDao;
+    private RouteClient routeClient;
+    private NftAssetsLuceneDao nftAssetsLuceneDao;
 
-    public NftCollectionLuceneDao(SimpleLucenedbProperties properties, NftCollectionNoCacheDao nftCollectionNoCacheDao) {
+    public NftCollectionLuceneDao(SimpleLucenedbProperties properties, NftCollectionNoCacheDao nftCollectionNoCacheDao, RouteClient routeClient, NftAssetsLuceneDao nftAssetsLuceneDao) {
         super(NftCollectionLuceneDTO.class, properties);
         this.nftCollectionNoCacheDao = nftCollectionNoCacheDao;
+        this.routeClient = routeClient;
+        this.nftAssetsLuceneDao = nftAssetsLuceneDao;
         //init();
     }
 
@@ -89,16 +98,6 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
         }while (!empty);
     }
 
-    private NftCollectionLuceneDTO toLuceneDTO(NftCollection nftCollection) {
-        NftCollectionLuceneDTO nftCollectionLuceneDTO = new NftCollectionLuceneDTO();
-        nftCollectionLuceneDTO.setId(nftCollection.getId());
-        nftCollectionLuceneDTO.setCategoryNull(0l);
-        nftCollectionLuceneDTO.setUid(nftCollection.getUid());
-        nftCollectionLuceneDTO.setCreatedAt(nftCollection.getCreatedAt());
-        nftCollectionLuceneDTO.setCategory(nftCollection.getCategory());
-        return nftCollectionLuceneDTO;
-    }
-
     public void rebuild(NftCollection collection) {
         remove(collection.getId());
         insert(toLuceneDTO(collection));
@@ -116,7 +115,11 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
                 Query query = LongPoint.newExactQuery("categoryNull", 0);
                 builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
             }
-            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
+
+            Query query = IntPoint.newRangeQuery("items", 1, Integer.MAX_VALUE);
+            builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
+
+            Sort sort = new Sort(new SortField("totalVolume", SortField.Type.FLOAT, true), new SortField("items", SortField.Type.INT, true), new SortField("createdAt", SortField.Type.LONG, true));
             return find(builder.build(), request.getPage(), request.getPageSize(), sort).stream()
                     .map(document -> Long.valueOf(document.get("id")))
                     .collect(Collectors.toList());
@@ -124,5 +127,69 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
             LOGGER.error("", e);
         }
         return output;
+    }
+
+    public void rebuild(NftMarketplace.CollectionDTO collection) {
+        remove(collection.getId());
+        insert(toLuceneDTO(collection));
+    }
+
+    private NftCollectionLuceneDTO toLuceneDTO(NftMarketplace.CollectionDTO nftCollection) {
+        NftCollectionLuceneDTO nftCollectionLuceneDTO = new NftCollectionLuceneDTO();
+
+        nftCollectionLuceneDTO.setId(nftCollection.getId());
+        nftCollectionLuceneDTO.setCategoryNull(0l);
+        nftCollectionLuceneDTO.setUid(nftCollection.getCreator());
+        nftCollectionLuceneDTO.setCreatedAt(nftCollection.getCreatedAt());
+        nftCollectionLuceneDTO.setCategory(nftCollection.getCategory());
+        nftCollectionLuceneDTO.setItems(nftCollection.getItems());
+
+        nftAssetsLuceneDao.updateReader();
+        List<Long> assetsIds = nftAssetsLuceneDao.listByCollectionId(nftCollection.getId());
+        if(!assetsIds.isEmpty()){
+            NftExchange.NftCollectionProfileDTO nftCollectionProfileDTO = routeClient.send(
+                    NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()
+                            .addAllAssetsIds(assetsIds)
+                            .build(),
+                    CollectionsExchangeProfileRouteRequest.class
+            ).getProfile();
+            if(nftCollectionProfileDTO.hasTotalVolume()){
+                nftCollectionLuceneDTO.setTotalVolume(nftCollectionProfileDTO.getTotalVolume());
+            }else{
+                nftCollectionLuceneDTO.setTotalVolume(0f);
+            }
+
+        }
+
+        return nftCollectionLuceneDTO;
+    }
+
+    private NftCollectionLuceneDTO toLuceneDTO(NftCollection nftCollection) {
+
+        NftCollectionLuceneDTO nftCollectionLuceneDTO = new NftCollectionLuceneDTO();
+        nftCollectionLuceneDTO.setId(nftCollection.getId());
+        nftCollectionLuceneDTO.setCategoryNull(0l);
+        nftCollectionLuceneDTO.setUid(nftCollection.getUid());
+        nftCollectionLuceneDTO.setCreatedAt(nftCollection.getCreatedAt());
+        nftCollectionLuceneDTO.setCategory(nftCollection.getCategory());
+        nftCollectionLuceneDTO.setItems(nftCollection.getItems());
+
+        nftAssetsLuceneDao.updateReader();
+        List<Long> assetsIds = nftAssetsLuceneDao.listByCollectionId(nftCollection.getId());
+        if(!assetsIds.isEmpty()){
+            NftExchange.NftCollectionProfileDTO nftCollectionProfileDTO = routeClient.send(
+                    NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()
+                            .addAllAssetsIds(assetsIds)
+                            .build(),
+                    CollectionsExchangeProfileRouteRequest.class
+            ).getProfile();
+            if(nftCollectionProfileDTO.hasTotalVolume()){
+                nftCollectionLuceneDTO.setTotalVolume(nftCollectionProfileDTO.getTotalVolume());
+            }else{
+                nftCollectionLuceneDTO.setTotalVolume(0f);
+            }
+
+        }
+        return nftCollectionLuceneDTO;
     }
 }

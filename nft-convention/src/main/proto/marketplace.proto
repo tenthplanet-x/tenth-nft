@@ -3,6 +3,60 @@ package com.ruixi.tpulse.convention;
 option java_package="com.tenth.nft.protobuf";
 option java_outer_classname = "NftMarketplace";
 
+message CollectionDTO{
+  required int64 id = 1;
+  required int64 creator = 2;
+  required string name = 3;
+  optional string desc = 4;
+  optional string logoImage = 5;
+  optional string featuredImage = 6;
+  optional int64 createdAt = 7;
+  required string blockchain = 8;
+  required float creatorFee = 9;
+  optional int64 category = 10;
+  optional int32 items = 11;
+}
 
+message AssetsDTO{
+  required int64 id = 1;
+  optional string type = 2;
+  required int64 collectionId = 3;
+  required string url = 4;
+  optional string previewUrl = 5;
+  required string name = 6;
+  optional string desc = 7;
+  required int32 supply = 8;
+  required int64 createdAt = 9;
+  required string blockchain = 10;
+  optional string contractAddress = 11;
+  optional string tokenStandard = 12;
+  optional string token = 13;
+  required int64 creator = 14;
+}
 
+message COLLECTION_CREATE_IC{
+  required CollectionDTO collection = 1;
+}
+message COLLECTION_CREATE_IS{
+  required CollectionDTO collection = 1;
+}
+message COLLECTION_DETAIL_IC{
+  required int64 id = 1;
+}
+message COLLECTION_DETAIL_IS{
+  required CollectionDTO collection = 1;
+}
+
+message ASSETS_CREATE_IC{
+  required AssetsDTO assets = 1;
+}
+message ASSETS_CREATE_IS{
+  required AssetsDTO assets = 1;
+}
+message ASSETS_DETAIL_IC{
+  required int64 id = 1;
+}
+message ASSETS_DETAIL_IS{
+  required AssetsDTO assets = 1;
+}
 

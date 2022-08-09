@@ -52,8 +52,9 @@ message NftAssetsProfileDTO{
 message NftCollectionProfileDTO{
   optional float totalVolume = 2;
   optional string currency = 3;
-  required int64 owners = 4;
+  required int32 owners = 4;
   optional float floorPrice = 6;
+  optional bool owned = 7;
 }
 
 message NftOfferDTO{
@@ -86,7 +87,19 @@ message BUY_IC{
   required int64 listingId = 3;
 }
 message BUY_IS{
+  optional string channel = 1;
+  optional string token = 2;
+  optional string currency = 3;
+  optional string value = 4;
+}
 
+message PAY_RECEIPT_PUSH_IC{
+  required int64 assetsId = 1;
+  required int64 orderId = 2;
+  required string state = 3;
+}
+message PAY_RECEIPT_PUSH_IS{
+  required bool ok = 1;
 }
 
 message SELL_CANCEL_IC{
@@ -146,6 +159,7 @@ message ASSETS_EXCHANGE_PROFILE_IS{
 }
 message COLLECTION_EXCHANGE_PROFILE_IC{
   repeated int64 assetsIds = 1;
+  optional int64 observer = 2;
 }
 message COLLECTION_EXCHANGE_PROFILE_IS{
   required NftCollectionProfileDTO profile = 1;
@@ -206,3 +220,9 @@ message OFFER_EXPIRE_CHECK_IC{
   required int64 assetsId = 1;
   required int64 offerId = 2;
 }
+
+//message WALLET_PAYMENT_NOTIFICATION_IC{
+//  required int64 assetsId = 1;
+//}
+
+

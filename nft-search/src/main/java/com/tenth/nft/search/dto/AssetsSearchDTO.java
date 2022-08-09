@@ -1,7 +1,9 @@
 package com.tenth.nft.search.dto;
 
+import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.protobuf.app.AppChat;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -161,5 +163,32 @@ public class AssetsSearchDTO implements SimpleResponse {
 
     public void setCurrentListing(AssetsDetailSearchDTO.ListingDTO currentListing) {
         this.currentListing = currentListing;
+    }
+
+    public static AssetsSearchDTO from(NftMarketplace.AssetsDTO assets) {
+        return from(assets, AssetsSearchDTO.class);
+    }
+
+    public static <T extends AssetsSearchDTO> T from(NftMarketplace.AssetsDTO assets, Class<T> collection) {
+        AssetsSearchDTO output = null;
+        try {
+            output = collection.getDeclaredConstructor().newInstance();
+        }catch (Exception e){
+            throw new RuntimeException("", e);
+        }
+        output.setId(assets.getId());
+        output.setType(NftAssetsType.valueOf(assets.getType()));
+        output.setCollectionId(assets.getCollectionId());
+        output.setUrl(assets.getUrl());
+        output.setPreviewUrl(Strings.emptyToNull(assets.getPreviewUrl()));
+        output.setBlockchain(assets.getBlockchain());
+        output.setContractAddress(Strings.emptyToNull(assets.getContractAddress()));
+        output.setTokenStandard(Strings.emptyToNull(assets.getTokenStandard()));
+        output.setToken(Strings.emptyToNull(assets.getToken()));
+        output.setCreator(assets.getCreator());
+        output.setName(assets.getName());
+        output.setSupply(assets.getSupply());
+        output.setDesc(Strings.emptyToNull(assets.getDesc()));
+        return (T)output;
     }
 }

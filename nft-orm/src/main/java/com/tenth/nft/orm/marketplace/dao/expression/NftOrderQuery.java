@@ -82,6 +82,8 @@ public class NftOrderQuery extends SimplePageQuery {
             query.owner = owner;
             return this;
         }
+
+
     }
 
 }

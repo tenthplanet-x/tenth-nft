@@ -18,6 +18,7 @@ public class NftInnerCmds {
     public static final int NFT_CURRENCY_RATE_REBUILD_IC = -20006;
     public static final int NFT_CURRENCY_RATES_IC = -20007;
     public static final int ASSETS_IC = -20008;
+    public static final int NFT_CURRENCY_IC = -20009;
 
     //exchange
     public static final int BUY_IC = -30001;
@@ -37,7 +38,19 @@ public class NftInnerCmds {
     public static final int EXCHANGE_EVENT_IC = -30015;
     public static final int OFFER_EXPIRE_CHECK_IC = -30016;
     public static final int LISTING_EXPIRE_CHECK_IC = -30017;
+    public static final int ASSETS_CREATE_IC = -40001;
+    public static final int ASSETS_DETAIL_IC = -40002;
+    public static final int COLLECTION_CREATE_IC = -40003;
+    public static final int COLLECTION_DETAIL_IC = -40004;
+    public static final int NFT_BLOCKCHAIN_IC = -40005;
+    public static final int PAY_RECEIPT_PUSH_IC = -40006;
 
+    //player
+    public static final int ASSETS_BELONGS_UPDATE_IC = -50001;
+
+    //wallet
+    public static final int BILL_PAY_IC = -60001;
+    public static final int BILL_DETAIL_IC = -60002;
 
 
 }

@@ -22,4 +22,9 @@ public class AssetsSearchRequest extends PageRequest {
     public void setCollectionId(Long collectionId) {
         this.collectionId = collectionId;
     }
+
+    @Override
+    public int getPageSize() {
+        return 10;
+    }
 }

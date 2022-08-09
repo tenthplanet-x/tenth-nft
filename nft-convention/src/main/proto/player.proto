@@ -1,0 +1,13 @@
+syntax = "proto2";
+package com.ruixi.tpulse.convention;
+option java_package="com.tenth.nft.protobuf";
+option java_outer_classname = "NftPlayer";
+
+message ASSETS_BELONGS_UPDATE_IC{
+  required int64 uid = 1;
+  required int64 assetsId = 2;
+  required int64 owns = 3;
+}
+
+
+

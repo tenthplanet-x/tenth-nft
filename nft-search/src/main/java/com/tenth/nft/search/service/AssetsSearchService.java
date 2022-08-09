@@ -6,6 +6,8 @@ import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
 import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionDao;
@@ -15,6 +17,7 @@ import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
@@ -41,27 +44,25 @@ public class AssetsSearchService {
     @Autowired
     private NftAssetsLuceneDao nftAssetsLuceneDao;
     @Autowired
-    private NftAssetsDao nftAssetsDao;
-    @Autowired
     private RouteClient routeClient;
-    @Autowired
-    private NftOfferDao nftOfferDao;
-    @Autowired
-    private NftCollectionDao nftCollectionDao;
-    @Autowired
-    private CurrencySearchService currencySearchService;
-
 
     public Page<AssetsSearchDTO> list(AssetsSearchRequest request) {
 
         List<Long> page = nftAssetsLuceneDao.list(request);
         if(!page.isEmpty()){
             List<AssetsSearchDTO> assets = page.stream().map(id -> {
-                AssetsSearchDTO assetsSearchDTO = nftAssetsDao.findOne(
-                        NftAssetsQuery.newBuilder().id(id).build(),
-                        AssetsSearchDTO.class
+
+                //detail
+                AssetsSearchDTO assetsSearchDTO = AssetsSearchDTO.from(
+                        routeClient.send(
+                                NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
+                                        .setId(id)
+                                        .build(),
+                                AssetsDetailRouteRequest.class
+                        ).getAssets()
                 );
 
+                //exchange profile
                 NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
                         NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
                                 .setAssetsId(id)
@@ -95,19 +96,28 @@ public class AssetsSearchService {
     }
 
     public void rebuild(Long assetsId){
-
-        nftAssetsDao.clearCache(assetsId);
-
-        NftAssets nftAssets = nftAssetsDao.findOne(NftAssetsQuery.newBuilder().id(assetsId).build());
-        nftAssetsLuceneDao.rebuild(nftAssets);
+        nftAssetsLuceneDao.rebuild(
+                routeClient.send(
+                        NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
+                                .setId(assetsId)
+                                .build(),
+                        AssetsDetailRouteRequest.class
+                ).getAssets()
+        );
     }
 
     public AssetsDetailSearchDTO detail(AssetsDetailSearchRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
-        AssetsDetailSearchDTO dto = nftAssetsDao.findOne(
-                NftAssetsQuery.newBuilder().id(request.getAssetsId()).build(),
+        //detail
+        AssetsDetailSearchDTO dto = AssetsSearchDTO.from(
+                routeClient.send(
+                        NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
+                                .setId(request.getAssetsId())
+                                .build(),
+                        AssetsDetailRouteRequest.class
+                ).getAssets(),
                 AssetsDetailSearchDTO.class
         );
 
@@ -120,6 +130,7 @@ public class AssetsSearchService {
         UserProfileDTO userProfileDTO = NftUserProfileDTO.from(searchUserDTO);
         dto.setCreatorProfile(userProfileDTO);
 
+        //exchange profile
         NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
                 NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
                         .setAssetsId(request.getAssetsId())
@@ -168,15 +179,26 @@ public class AssetsSearchService {
         if(!page.isEmpty()){
             List<AssetsOwnSearchDTO> assets = page.stream().map(id -> {
 
-                AssetsOwnSearchDTO dto = nftAssetsDao.findOne(
-                        NftAssetsQuery.newBuilder().id(id).build(),
-                        AssetsOwnSearchDTO.class
+                //detail
+                AssetsOwnSearchDTO dto = AssetsOwnSearchDTO.from(
+                        routeClient.send(
+                                NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
+                                        .setId(id)
+                                        .build(),
+                                AssetsDetailRouteRequest.class
+                        ).getAssets()
                 );
 
                 //collection Name
-                NftCollection nftCollection = nftCollectionDao.findOne(NftCollectionQuery.newBuilder().id(dto.getCollectionId()).build());
-                dto.setCollectionName(nftCollection.getName());
+                String collectionName = routeClient.send(
+                        NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()
+                                .setId(dto.getCollectionId())
+                                .build(),
+                        CollectionDetailRouteRequest.class
+                ).getCollection().getName();
+                dto.setCollectionName(collectionName);
 
+                //exchange profile
                 NftExchange.NftAssetsProfileDTO exchangeProfile = routeClient.send(
                         NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
                                 .setAssetsId(id)
@@ -208,23 +230,4 @@ public class AssetsSearchService {
         return new Page<>();
     }
 
-    public NftSearch.ASSETS_IS assetsProfile(NftSearch.ASSETS_IC request) {
-        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
-
-        NftAssets nftAssets = nftAssetsDao.findOne(
-                NftAssetsQuery.newBuilder().id(request.getAssetsId()).build()
-        );
-
-        String mainCurrency = currencySearchService.getMainCurrency(nftAssets.getBlockchain());
-
-        return NftSearch.ASSETS_IS.newBuilder()
-                .setAssets(NftSearch.AssetsDTO.newBuilder()
-                        .setCollectionId(nftAssets.getCollectionId())
-                        .setBlockchain(nftAssets.getBlockchain())
-                        .setCurrency(mainCurrency)
-                        .setCreator(nftAssets.getCreator())
-                        .build())
-                .build();
-
-    }
 }

@@ -1,6 +1,7 @@
 package com.tenth.nft.search.dto;
 
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -93,5 +94,18 @@ public class AssetsOwnSearchDTO implements SimpleResponse {
 
     public void setCollectionName(String collectionName) {
         this.collectionName = collectionName;
+    }
+
+    public static AssetsOwnSearchDTO from(NftMarketplace.AssetsDTO assets) {
+
+        AssetsOwnSearchDTO output = new AssetsOwnSearchDTO();
+        output.setId(assets.getId());
+        output.setType(NftAssetsType.valueOf(assets.getType()));
+        output.setCollectionId(assets.getCollectionId());
+        output.setUrl(assets.getUrl());
+        output.setPreviewUrl(assets.getPreviewUrl());
+        output.setName(assets.getName());
+        return output;
+
     }
 }

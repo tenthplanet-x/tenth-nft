@@ -1,6 +1,5 @@
 package com.tenth.nft.orm.marketplace.entity;
 
-import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author shijie
  */
 @Document("tpulse.nft_exchange_order")
-@SimpleCache(cacheField = "assetsId")
+//@SimpleCache(cacheField = "assetsId")
 public class NftOrder {
 
     @Id
@@ -37,6 +36,10 @@ public class NftOrder {
     private Long createdAt;
 
     private Long updatedAt;
+
+    private Long expiredAt;
+
+    private String remark;
 
     public Long getId() {
         return id;
@@ -132,5 +135,21 @@ public class NftOrder {
 
     public void setOfferId(Long offerId) {
         this.offerId = offerId;
+    }
+
+    public void setExpiredAt(Long expiredAt) {
+        this.expiredAt = expiredAt;
+    }
+
+    public Long getExpiredAt() {
+        return expiredAt;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

@@ -10,6 +10,7 @@ import com.tenth.nft.orm.marketplace.dao.expression.NftBelongQuery;
 import com.tenth.nft.orm.marketplace.dto.NftBelongIdDTO;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.search.vo.AssetsOwnSearchRequest;
 import com.tenth.nft.search.vo.AssetsSearchRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
@@ -100,6 +101,67 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
             page++;
         }while (!empty);
 
+
+
+    }
+
+    public void rebuild(NftAssets nftAssets) {
+        remove(nftAssets.getId());
+        insert(toLuceneDTO(nftAssets));
+    }
+
+    public List<Long> listByCollectionId(Long collectionId) {
+        List<Long> output = new ArrayList<>();
+        try{
+
+            BooleanQuery.Builder builder = new BooleanQuery.Builder();
+            builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", collectionId), BooleanClause.Occur.MUST));
+            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
+            return find(builder.build(), 1, Integer.MAX_VALUE, sort).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
+        }catch (Exception e){
+            LOGGER.error("", e);
+        }
+        return output;
+    }
+
+    public List<Long> listByCollectionId(Long collectionId, Integer page, Integer pageSize) {
+        List<Long> output = new ArrayList<>();
+        try{
+
+            BooleanQuery.Builder builder = new BooleanQuery.Builder();
+            builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", collectionId), BooleanClause.Occur.MUST));
+            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
+            return find(builder.build(), page, pageSize, sort).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
+        }catch (Exception e){
+            LOGGER.error("", e);
+        }
+        return output;
+    }
+
+    public void rebuild(NftMarketplace.AssetsDTO assets) {
+        remove(assets.getId());
+        insert(toLuceneDTO(assets));
+    }
+
+    private NftAssetsLuceneDTO toLuceneDTO(NftMarketplace.AssetsDTO assets){
+
+        NftExchange.NftAssetsProfileDTO assetsProfile = routeClient.send(
+                NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()
+                        .setAssetsId(assets.getId())
+                        .setNeedOwners(true)
+                        .build(),
+                AssetsExchangeProfileRouteRequest.class
+        ).getProfile();
+
+        NftAssetsLuceneDTO dto = new NftAssetsLuceneDTO();
+        dto.setId(assets.getId());
+        dto.setCreatedAt(assets.getCreatedAt());
+        dto.setCollectionId(assets.getCollectionId());
+        //获取拥有者信息
+        List<Long> belongUids = assetsProfile.getOwnerListsList();
+        dto.setOwners(belongUids);
+
+        return dto;
     }
 
     private NftAssetsLuceneDTO toLuceneDTO(NftAssets assets){
@@ -123,36 +185,7 @@ public class NftAssetsLuceneDao extends SimpleLuceneDao<NftAssetsLuceneDTO> {
         return dto;
     }
 
-    public void rebuild(NftAssets nftAssets) {
-        remove(nftAssets.getId());
-        insert(toLuceneDTO(nftAssets));
-    }
-
-    public List<Long> listByCollectionId(Long collectionId) {
-        List<Long> output = new ArrayList<>();
-        try{
-
-            BooleanQuery.Builder builder = new BooleanQuery.Builder();
-            builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", collectionId), BooleanClause.Occur.MUST));
-            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, false));
-            return find(builder.build(), 1, Integer.MAX_VALUE, sort).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
-        }catch (Exception e){
-            LOGGER.error("", e);
-        }
-        return output;
-    }
-
-    public List<Long> listByCollectionId(Long collectionId, Integer page, Integer pageSize) {
-        List<Long> output = new ArrayList<>();
-        try{
-
-            BooleanQuery.Builder builder = new BooleanQuery.Builder();
-            builder.add(new BooleanClause(LongPoint.newExactQuery("collectionId", collectionId), BooleanClause.Occur.MUST));
-            Sort sort = new Sort(new SortField("createdAt", SortField.Type.LONG, true));
-            return find(builder.build(), page, pageSize, sort).stream().map(document -> Long.valueOf(document.get("id"))).collect(Collectors.toList());
-        }catch (Exception e){
-            LOGGER.error("", e);
-        }
-        return output;
+    public void updateReader() {
+        luceneDatasource.updateReaderImmidiately();
     }
 }

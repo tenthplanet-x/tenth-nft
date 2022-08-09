@@ -3,7 +3,7 @@ dependencies {
     api project(":nft-convention")
     api project(":nft-orm")
     api project(":nft-operation")
-    implementation libs.tpulse_convention
+    compileOnly libs.tpulse_convention
 
     api libs.gs_httprouter
     api libs.gs_router

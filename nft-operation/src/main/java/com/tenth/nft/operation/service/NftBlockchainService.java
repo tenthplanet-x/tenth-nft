@@ -2,6 +2,7 @@ package com.tenth.nft.operation.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.routes.BlockchainRebuildRouteRequest;
+import com.tenth.nft.operation.dto.BlockchainSearchDTO;
 import com.tenth.nft.orm.marketplace.dao.NftBlockchainNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftBlockchainQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftBlockchainUpdate;
@@ -12,11 +13,14 @@ import com.tenth.nft.operation.vo.NftBlockchainDeleteRequest;
 import com.tenth.nft.operation.vo.NftBlockchainEditRequest;
 import com.tenth.nft.operation.vo.NftBlockchainListRequest;
 import com.tenth.nft.orm.external.NftBlockchainVersions;
+import com.tenth.nft.protobuf.NftOperation;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author gs-orm-generator
@@ -29,6 +33,8 @@ public class NftBlockchainService {
     private NftBlockchainNoCacheDao nftBlockchainDao;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private NftCurrencyService nftCurrencyService;
 
     public Page<NftBlockchainDTO> list(NftBlockchainListRequest request) {
 
@@ -104,6 +110,25 @@ public class NftBlockchainService {
                         .setVersion(NftBlockchainVersions.VERSION)
                         .build(),
                 BlockchainRebuildRouteRequest.class
+        );
+    }
+
+    public NftOperation.NFT_BLOCKCHAIN_IS detail(NftOperation.NFT_BLOCKCHAIN_IC request) {
+
+        String mainCurrency = nftCurrencyService.getMainCurrency(request.getBlockchain());
+        return NftOperation.NFT_BLOCKCHAIN_IS.newBuilder()
+                .setBlockchain(NftOperation.BlockchainDTO.newBuilder().setMainCurrency(mainCurrency).build())
+                .build();
+
+    }
+
+    public List<BlockchainSearchDTO> listAll() {
+        return nftBlockchainDao.find(NftBlockchainQuery.newBuilder()
+                        .version(NftBlockchainVersions.VERSION)
+                        .setSortField("order")
+                        .setReverse(false)
+                        .build(),
+                BlockchainSearchDTO.class
         );
     }
 }

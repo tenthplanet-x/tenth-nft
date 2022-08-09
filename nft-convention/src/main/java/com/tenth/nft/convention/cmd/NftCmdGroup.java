@@ -8,6 +8,8 @@ import com.tpulse.gs.convention.cmd.CmdGroup;
 public enum NftCmdGroup implements CmdGroup {
 
     SEARCH,
-    EXCHANGE
+    EXCHANGE,
+    PLAYER,
+    WALLET
 
 }

@@ -1,8 +1,7 @@
 package com.tenth.nft.convention.cmd;
 
 import com.google.protobuf.Message;
-import com.tenth.nft.protobuf.NftExchange;
-import com.tenth.nft.protobuf.NftSearch;
+import com.tenth.nft.protobuf.*;
 import com.tpulse.gs.convention.cmd.CmdGroup;
 import com.tpulse.gs.convention.cmd.CmdType;
 
@@ -24,6 +23,7 @@ public enum NftInnerCmdTypes implements CmdType {
 
     ASSETS_IC(NftCmdGroup.SEARCH, NftInnerCmds.ASSETS_IC, NftSearch.ASSETS_IC.newBuilder()),
     NFT_CURRENCY_RATES_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_RATES_IC, NftSearch.NFT_CURRENCY_RATES_IC.newBuilder()),
+    NFT_CURRENCY_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_IC, NftOperation.NFT_CURRENCY_IC.newBuilder()),
 
     BUY_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUY_IC, NftExchange.BUY_IC.newBuilder()),
     SELL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.SELL_IC, NftExchange.SELL_IC.newBuilder()),
@@ -38,13 +38,23 @@ public enum NftInnerCmdTypes implements CmdType {
     OFFER_ACCEPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_ACCEPT_IC, NftExchange.OFFER_ACCEPT_IC.newBuilder()),
     OFFER_CANCEL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_CANCEL_IC, NftExchange.OFFER_CANCEL_IC.newBuilder()),
     OFFER_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_LIST_IC, NftExchange.OFFER_LIST_IC.newBuilder()),
-
     LISTING_EVENT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.LISTING_EVENT_IC, NftExchange.LISTING_EVENT_IC.newBuilder()),
     EXCHANGE_EVENT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.EXCHANGE_EVENT_IC, NftExchange.EXCHANGE_EVENT_IC.newBuilder()),
     OFFER_EXPIRE_CHECK_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_EXPIRE_CHECK_IC, NftExchange.OFFER_EXPIRE_CHECK_IC.newBuilder()),
     LISTING_EXPIRE_CHECK_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.LISTING_EXPIRE_CHECK_IC, NftExchange.LISTING_EXPIRE_CHECK_IC.newBuilder()),
+    ASSETS_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_CREATE_IC, NftMarketplace.ASSETS_CREATE_IC.newBuilder()),
+    ASSETS_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_DETAIL_IC, NftMarketplace.ASSETS_DETAIL_IC.newBuilder()),
+    COLLECTION_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_CREATE_IC, NftMarketplace.COLLECTION_CREATE_IC.newBuilder()),
+    COLLECTION_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()),
+    NFT_BLOCKCHAIN_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.NFT_BLOCKCHAIN_IC, NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()),
+    BUY_RECEIPT_PUSH_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.PAY_RECEIPT_PUSH_IC, NftExchange.PAY_RECEIPT_PUSH_IC.newBuilder()),
 
+    //player
+    ASSETS_BELONGS_UPDATE_IC(NftCmdGroup.PLAYER, NftInnerCmds.ASSETS_BELONGS_UPDATE_IC, NftPlayer.ASSETS_BELONGS_UPDATE_IC.newBuilder()),
 
+    //wallet
+    BILL_PAY_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_PAY_IC, NftWallet.BILL_PAY_IC.newBuilder()),
+    BILL_DETAIL_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_DETAIL_IC, NftWallet.BILL_DETAIL_IC.newBuilder())
     ;
 
 

@@ -1,7 +1,10 @@
 package com.tenth.nft.search.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.convention.utils.Prices;
+import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -47,8 +50,6 @@ public class CollectionSearchDTO implements SimpleResponse {
     private Integer owners = 1;
 
     private boolean owned;
-
-    private String creatorName;
 
     private UserProfileDTO creatorProfile;
 
@@ -138,14 +139,6 @@ public class CollectionSearchDTO implements SimpleResponse {
         this.items = items;
     }
 
-    public String getCreatorName() {
-        return creatorName;
-    }
-
-    public void setCreatorName(String creatorName) {
-        this.creatorName = creatorName;
-    }
-
     public boolean isOwned() {
         return owned;
     }
@@ -192,5 +185,31 @@ public class CollectionSearchDTO implements SimpleResponse {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public static CollectionSearchDTO from(NftMarketplace.CollectionDTO collection) {
+        return from(collection, CollectionSearchDTO.class);
+    }
+
+    public static <T extends CollectionSearchDTO> T from(NftMarketplace.CollectionDTO collection, Class<T> reflectionDTO) {
+
+        CollectionSearchDTO output = null;
+        try {
+            output = reflectionDTO.getDeclaredConstructor().newInstance();
+        }catch (Exception e){
+            throw new RuntimeException("", e);
+        }
+        output.setId(collection.getId());
+        output.setName(collection.getName());
+        output.setDesc(Strings.emptyToNull(collection.getDesc()));
+        output.setBlockchain(collection.getBlockchain());
+        output.setUid(collection.getCreator());
+        output.setItems(collection.getItems());
+
+        output.setLogoImage(Strings.emptyToNull(collection.getLogoImage()));
+        output.setFeaturedImage(Strings.emptyToNull(collection.getFeaturedImage()));
+        output.setCreatorFee(Prices.toString(collection.getCreatorFee()));
+
+        return (T)output;
     }
 }

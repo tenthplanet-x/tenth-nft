@@ -2,6 +2,7 @@ package com.tenth.nft.operation.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.routes.CategoryRebuildRouteRequest;
+import com.tenth.nft.operation.dto.CategorySearchDTO;
 import com.tenth.nft.orm.marketplace.dao.NftCategoryNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCategoryQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCategoryUpdate;
@@ -17,6 +18,8 @@ import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author gs-orm-generator
@@ -97,6 +100,16 @@ public class NftCategoryOpsService {
                         .setVersion(NftCategoryVersions.VERSION)
                         .build(),
                 CategoryRebuildRouteRequest.class
+        );
+    }
+
+    public List<CategorySearchDTO> getAll() {
+        return nftCategoryDao.find(NftCategoryQuery.newBuilder()
+                        .setVersion(NftCategoryVersions.VERSION)
+                        .setSortField("order")
+                        .setReverse(false)
+                        .build(),
+                CategorySearchDTO.class
         );
     }
 }
