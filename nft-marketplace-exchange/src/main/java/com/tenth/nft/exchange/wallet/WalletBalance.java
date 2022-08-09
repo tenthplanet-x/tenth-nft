@@ -1,4 +1,4 @@
-package com.tenth.nft.wallet.wallet;
+package com.tenth.nft.exchange.wallet;
 
 /**
  * @author shijie

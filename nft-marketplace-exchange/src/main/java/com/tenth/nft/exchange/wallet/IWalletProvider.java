@@ -1,14 +1,30 @@
-package com.tenth.nft.wallet.wallet;
+package com.tenth.nft.exchange.wallet;
 
-import java.util.List;
+import com.tenth.nft.convention.wallet.WalletOrderBizContent;
 
 /**
  * @author shijie
  */
 public interface IWalletProvider {
 
-    WalletBalance getBalance(Long uid, String currency);
+    /**
+     * token for pay
+     * @param walletOrder
+     * @return
+     */
+    String createToken(WalletOrderBizContent walletOrder);
 
-    List<WalletBalance> getBalances(Long uid, List<String> currency);
+    /**
+     * pay channel
+     * @return
+     */
+    String getChannel();
+
+    /**
+     *
+     * @return
+     */
+    String getBlockchain();
+
 
 }
