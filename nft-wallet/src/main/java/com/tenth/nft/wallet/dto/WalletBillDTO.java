@@ -1,5 +1,6 @@
 package com.tenth.nft.wallet.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.wallet.WalletOrderType;
 import com.tenth.nft.protobuf.NftWallet;
@@ -12,6 +13,9 @@ import org.apache.logging.log4j.util.Strings;
 public class WalletBillDTO {
 
     private Long id;
+
+    @JsonIgnore
+    private Integer activityCfgId;
 
     private String type;
 
@@ -83,6 +87,10 @@ public class WalletBillDTO {
         this.value = value;
     }
 
+    public Integer getActivityCfgId() {
+        return activityCfgId;
+    }
+
     public String getType() {
         return type;
     }
@@ -91,12 +99,15 @@ public class WalletBillDTO {
         this.type = type;
     }
 
+    public void setActivityCfgId(Integer activityCfgId) {
+        this.activityCfgId = activityCfgId;
+    }
 
     public static NftWallet.BillDTO toProto(WalletBill walletBill) {
         NftWallet.BillDTO.Builder builder = NftWallet.BillDTO.newBuilder();
         builder.setUid(walletBill.getUid());
         builder.setBillId(walletBill.getId());
-        builder.setType(walletBill.getType());
+        builder.setActivityCfgId(walletBill.getActivityCfgId());
         builder.setProductCode(walletBill.getProductCode());
         builder.setOutOrderId(walletBill.getOutOrderId());
         builder.setProductId(walletBill.getProductId());
@@ -115,7 +126,7 @@ public class WalletBillDTO {
     public static WalletBillDTO from(NftWallet.BillDTO bill) {
         WalletBillDTO walletBillDTO = new WalletBillDTO();
         walletBillDTO.setId(bill.getBillId());
-        walletBillDTO.setType(bill.getType());
+        walletBillDTO.setActivityCfgId(bill.getActivityCfgId());
         walletBillDTO.setProductId(bill.getProductId());
         walletBillDTO.setCurrency(bill.getCurrency());
         walletBillDTO.setValue(bill.getValue());
@@ -126,7 +137,7 @@ public class WalletBillDTO {
     public static WalletBillDTO from(WalletBill walletBill) {
         WalletBillDTO walletBillDTO = new WalletBillDTO();
         walletBillDTO.setId(walletBill.getId());
-        walletBillDTO.setType(walletBillDTO.getType());
+        walletBillDTO.setActivityCfgId(walletBill.getActivityCfgId());
         walletBillDTO.setProductId(walletBill.getProductId());
         walletBillDTO.setCurrency(walletBill.getCurrency());
         walletBillDTO.setValue(walletBill.getValue());

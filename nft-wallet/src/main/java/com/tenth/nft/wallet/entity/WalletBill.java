@@ -19,7 +19,7 @@ public class WalletBill {
     @Indexed
     private Long uid;
 
-    private String type;
+    private Integer activityCfgId;
 
     @SimpleColumnTypeText
     private String remark;
@@ -168,12 +168,11 @@ public class WalletBill {
         this.productId = productId;
     }
 
-    public String getType() {
-        return type;
+    public Integer getActivityCfgId() {
+        return activityCfgId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setActivityCfgId(Integer activityCfgId) {
+        this.activityCfgId = activityCfgId;
     }
-
 }

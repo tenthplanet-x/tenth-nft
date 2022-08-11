@@ -29,7 +29,7 @@ public class BuildinWalletProviderTest {
     public void createToken(){
 
         WalletOrderBizContent content = WalletOrderBizContent.newBuilder()
-                .type(WalletOrderType.PAY.name())
+                .activityCfgId(WalletOrderType.PAY.getActivityCfgId())
                 .productCode(WalletProductCode.NFT.name())
                 .productId(1l)
                 .outOrderId(1l)

@@ -30,21 +30,15 @@ public final class NftWallet {
     long getBillId();
 
     /**
-     * <code>required string type = 2;</code>
-     * @return Whether the type field is set.
+     * <code>required int32 activityCfgId = 2;</code>
+     * @return Whether the activityCfgId field is set.
      */
-    boolean hasType();
+    boolean hasActivityCfgId();
     /**
-     * <code>required string type = 2;</code>
-     * @return The type.
+     * <code>required int32 activityCfgId = 2;</code>
+     * @return The activityCfgId.
      */
-    java.lang.String getType();
-    /**
-     * <code>required string type = 2;</code>
-     * @return The bytes for type.
-     */
-    com.google.protobuf.ByteString
-        getTypeBytes();
+    int getActivityCfgId();
 
     /**
      * <code>required int64 uid = 3;</code>
@@ -199,7 +193,6 @@ public final class NftWallet {
       super(builder);
     }
     private BillDTO() {
-      type_ = "";
       productCode_ = "";
       value_ = "";
       currency_ = "";
@@ -243,10 +236,9 @@ public final class NftWallet {
               billId_ = input.readInt64();
               break;
             }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 16: {
               bitField0_ |= 0x00000002;
-              type_ = bs;
+              activityCfgId_ = input.readInt32();
               break;
             }
             case 24: {
@@ -356,52 +348,23 @@ public final class NftWallet {
       return billId_;
     }
 
-    public static final int TYPE_FIELD_NUMBER = 2;
-    private volatile java.lang.Object type_;
+    public static final int ACTIVITYCFGID_FIELD_NUMBER = 2;
+    private int activityCfgId_;
     /**
-     * <code>required string type = 2;</code>
-     * @return Whether the type field is set.
+     * <code>required int32 activityCfgId = 2;</code>
+     * @return Whether the activityCfgId field is set.
      */
     @java.lang.Override
-    public boolean hasType() {
+    public boolean hasActivityCfgId() {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>required string type = 2;</code>
-     * @return The type.
+     * <code>required int32 activityCfgId = 2;</code>
+     * @return The activityCfgId.
      */
     @java.lang.Override
-    public java.lang.String getType() {
-      java.lang.Object ref = type_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          type_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string type = 2;</code>
-     * @return The bytes for type.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getTypeBytes() {
-      java.lang.Object ref = type_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        type_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getActivityCfgId() {
+      return activityCfgId_;
     }
 
     public static final int UID_FIELD_NUMBER = 3;
@@ -750,7 +713,7 @@ public final class NftWallet {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasType()) {
+      if (!hasActivityCfgId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -797,7 +760,7 @@ public final class NftWallet {
         output.writeInt64(1, billId_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, type_);
+        output.writeInt32(2, activityCfgId_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         output.writeInt64(3, uid_);
@@ -843,7 +806,8 @@ public final class NftWallet {
           .computeInt64Size(1, billId_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, type_);
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, activityCfgId_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
@@ -900,10 +864,10 @@ public final class NftWallet {
         if (getBillId()
             != other.getBillId()) return false;
       }
-      if (hasType() != other.hasType()) return false;
-      if (hasType()) {
-        if (!getType()
-            .equals(other.getType())) return false;
+      if (hasActivityCfgId() != other.hasActivityCfgId()) return false;
+      if (hasActivityCfgId()) {
+        if (getActivityCfgId()
+            != other.getActivityCfgId()) return false;
       }
       if (hasUid() != other.hasUid()) return false;
       if (hasUid()) {
@@ -971,9 +935,9 @@ public final class NftWallet {
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getBillId());
       }
-      if (hasType()) {
-        hash = (37 * hash) + TYPE_FIELD_NUMBER;
-        hash = (53 * hash) + getType().hashCode();
+      if (hasActivityCfgId()) {
+        hash = (37 * hash) + ACTIVITYCFGID_FIELD_NUMBER;
+        hash = (53 * hash) + getActivityCfgId();
       }
       if (hasUid()) {
         hash = (37 * hash) + UID_FIELD_NUMBER;
@@ -1155,7 +1119,7 @@ public final class NftWallet {
         super.clear();
         billId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = "";
+        activityCfgId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
         uid_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1210,9 +1174,9 @@ public final class NftWallet {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.activityCfgId_ = activityCfgId_;
           to_bitField0_ |= 0x00000002;
         }
-        result.type_ = type_;
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.uid_ = uid_;
           to_bitField0_ |= 0x00000004;
@@ -1305,10 +1269,8 @@ public final class NftWallet {
         if (other.hasBillId()) {
           setBillId(other.getBillId());
         }
-        if (other.hasType()) {
-          bitField0_ |= 0x00000002;
-          type_ = other.type_;
-          onChanged();
+        if (other.hasActivityCfgId()) {
+          setActivityCfgId(other.getActivityCfgId());
         }
         if (other.hasUid()) {
           setUid(other.getUid());
@@ -1360,7 +1322,7 @@ public final class NftWallet {
         if (!hasBillId()) {
           return false;
         }
-        if (!hasType()) {
+        if (!hasActivityCfgId()) {
           return false;
         }
         if (!hasUid()) {
@@ -1449,86 +1411,41 @@ public final class NftWallet {
         return this;
       }
 
-      private java.lang.Object type_ = "";
+      private int activityCfgId_ ;
       /**
-       * <code>required string type = 2;</code>
-       * @return Whether the type field is set.
+       * <code>required int32 activityCfgId = 2;</code>
+       * @return Whether the activityCfgId field is set.
        */
-      public boolean hasType() {
+      @java.lang.Override
+      public boolean hasActivityCfgId() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>required string type = 2;</code>
-       * @return The type.
+       * <code>required int32 activityCfgId = 2;</code>
+       * @return The activityCfgId.
        */
-      public java.lang.String getType() {
-        java.lang.Object ref = type_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            type_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      @java.lang.Override
+      public int getActivityCfgId() {
+        return activityCfgId_;
       }
       /**
-       * <code>required string type = 2;</code>
-       * @return The bytes for type.
-       */
-      public com.google.protobuf.ByteString
-          getTypeBytes() {
-        java.lang.Object ref = type_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          type_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string type = 2;</code>
-       * @param value The type to set.
+       * <code>required int32 activityCfgId = 2;</code>
+       * @param value The activityCfgId to set.
        * @return This builder for chaining.
        */
-      public Builder setType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        type_ = value;
+      public Builder setActivityCfgId(int value) {
+        bitField0_ |= 0x00000002;
+        activityCfgId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string type = 2;</code>
+       * <code>required int32 activityCfgId = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearType() {
+      public Builder clearActivityCfgId() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        type_ = getDefaultInstance().getType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string type = 2;</code>
-       * @param value The bytes for type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        type_ = value;
+        activityCfgId_ = 0;
         onChanged();
         return this;
       }
@@ -5263,20 +5180,20 @@ public final class NftWallet {
   static {
     java.lang.String[] descriptorData = {
       "\n\014wallet.proto\022\033com.ruixi.tpulse.convent" +
-      "ion\"\335\001\n\007BillDTO\022\016\n\006billId\030\001 \002(\003\022\014\n\004type\030" +
-      "\002 \002(\t\022\013\n\003uid\030\003 \002(\003\022\023\n\013productCode\030\004 \002(\t\022" +
-      "\021\n\tproductId\030\005 \002(\003\022\022\n\noutOrderId\030\006 \002(\003\022\r" +
-      "\n\005value\030\007 \002(\t\022\020\n\010currency\030\010 \002(\t\022\r\n\005state" +
-      "\030\t \002(\t\022\021\n\tcreatedAt\030\n \002(\003\022\024\n\014merchantTyp" +
-      "e\030\013 \001(\t\022\022\n\nmerchantId\030\014 \001(\003\";\n\013BILL_PAY_" +
-      "IC\022\013\n\003uid\030\001 \002(\003\022\r\n\005token\030\002 \002(\t\022\020\n\010passwo" +
-      "rd\030\003 \002(\t\"A\n\013BILL_PAY_IS\0222\n\004bill\030\001 \002(\0132$." +
-      "com.ruixi.tpulse.convention.BillDTO\"F\n\016B" +
-      "ILL_DETAIL_IC\022\013\n\003uid\030\001 \002(\003\022\023\n\013productCod" +
-      "e\030\002 \002(\t\022\022\n\noutOrderId\030\003 \002(\003\"E\n\016BILL_DETA" +
-      "IL_IS\0223\n\005bills\030\001 \002(\0132$.com.ruixi.tpulse." +
-      "convention.BillDTOB#\n\026com.tenth.nft.prot" +
-      "obufB\tNftWallet"
+      "ion\"\346\001\n\007BillDTO\022\016\n\006billId\030\001 \002(\003\022\025\n\ractiv" +
+      "ityCfgId\030\002 \002(\005\022\013\n\003uid\030\003 \002(\003\022\023\n\013productCo" +
+      "de\030\004 \002(\t\022\021\n\tproductId\030\005 \002(\003\022\022\n\noutOrderI" +
+      "d\030\006 \002(\003\022\r\n\005value\030\007 \002(\t\022\020\n\010currency\030\010 \002(\t" +
+      "\022\r\n\005state\030\t \002(\t\022\021\n\tcreatedAt\030\n \002(\003\022\024\n\014me" +
+      "rchantType\030\013 \001(\t\022\022\n\nmerchantId\030\014 \001(\003\";\n\013" +
+      "BILL_PAY_IC\022\013\n\003uid\030\001 \002(\003\022\r\n\005token\030\002 \002(\t\022" +
+      "\020\n\010password\030\003 \002(\t\"A\n\013BILL_PAY_IS\0222\n\004bill" +
+      "\030\001 \002(\0132$.com.ruixi.tpulse.convention.Bil" +
+      "lDTO\"F\n\016BILL_DETAIL_IC\022\013\n\003uid\030\001 \002(\003\022\023\n\013p" +
+      "roductCode\030\002 \002(\t\022\022\n\noutOrderId\030\003 \002(\003\"E\n\016" +
+      "BILL_DETAIL_IS\0223\n\005bills\030\001 \002(\0132$.com.ruix" +
+      "i.tpulse.convention.BillDTOB#\n\026com.tenth" +
+      ".nft.protobufB\tNftWallet"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5287,7 +5204,7 @@ public final class NftWallet {
     internal_static_com_ruixi_tpulse_convention_BillDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_BillDTO_descriptor,
-        new java.lang.String[] { "BillId", "Type", "Uid", "ProductCode", "ProductId", "OutOrderId", "Value", "Currency", "State", "CreatedAt", "MerchantType", "MerchantId", });
+        new java.lang.String[] { "BillId", "ActivityCfgId", "Uid", "ProductCode", "ProductId", "OutOrderId", "Value", "Currency", "State", "CreatedAt", "MerchantType", "MerchantId", });
     internal_static_com_ruixi_tpulse_convention_BILL_PAY_IC_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_ruixi_tpulse_convention_BILL_PAY_IC_fieldAccessorTable = new

@@ -9,5 +9,6 @@ dependencies {
     implementation project(":nft-wallet")
     implementation libs.tpulse_convention
     implementation libs.starter_web
+    implementation libs.gs_config
 
 }

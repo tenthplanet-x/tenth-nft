@@ -5,7 +5,7 @@ option java_outer_classname = "NftWallet";
 
 message BillDTO{
   required int64 billId = 1;
-  required string type = 2;
+  required int32 activityCfgId = 2;
   required int64 uid = 3;
   required string productCode = 4;
   required int64 productId = 5;

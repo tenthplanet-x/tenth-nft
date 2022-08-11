@@ -11,7 +11,13 @@ import com.tenth.nft.orm.NftOrmConfiguration;
 import com.tenth.nft.search.NftSearchConfiguration;
 import com.tenth.nft.wallet.NftWalletConfiguration;
 import com.tpulse.gs.GsRoutesConfiguration;
+import com.tpulse.gs.config2.client.GsConfig2ClientConfiguration;
+import com.tpulse.gs.config2.client.GsConfig2ClientRegengConfiguration;
+import com.tpulse.gs.config2.server.GsConfig2ServerConfiguration;
 import com.tpulse.gs.convention.GsConventionConfiguration;
+import com.tpulse.gs.router.client.remote.RemoteRouteClientConfiguration;
+import com.tpulse.gs.router.server.RemoteRouteServerConfiguration;
+import com.tpulse.gs.router.tribe.client.RouteTribeClientConfiguration;
 import com.tpulse.gs.scheduer.GsSchedulerConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +29,9 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({
+        RouteTribeClientConfiguration.class,
+        RemoteRouteClientConfiguration.class,
+        RemoteRouteServerConfiguration.class,
         GsSchedulerConfiguration.class,
         GsConventionConfiguration.class,
         GsRoutesConfiguration.class,
@@ -34,7 +43,10 @@ import org.springframework.context.annotation.Import;
         NftBlockchainConfiguration.class,
         NftExchangeConfiguration.class,
         NftOperationConfiguration.class,
-        NftWalletConfiguration.class
+        NftWalletConfiguration.class,
+        GsConfig2ClientConfiguration.class,
+        GsConfig2ServerConfiguration.class
+
 })
 public class NftConfiguration {
 
