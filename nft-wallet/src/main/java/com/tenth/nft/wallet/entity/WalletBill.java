@@ -26,7 +26,7 @@ public class WalletBill {
 
     private String productCode;
 
-    private Long productId;
+    private String productId;
 
     private Long outOrderId;
 
@@ -160,11 +160,11 @@ public class WalletBill {
         this.expiredAt = expiredAt;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

@@ -8,7 +8,7 @@ message BillDTO{
   required int32 activityCfgId = 2;
   required int64 uid = 3;
   required string productCode = 4;
-  required int64 productId = 5;
+  required string productId = 5;
   required int64 outOrderId = 6;
   required string value = 7;
   required string currency = 8;
@@ -35,4 +35,14 @@ message BILL_DETAIL_IC{
 message BILL_DETAIL_IS{
   required BillDTO bills = 1;
 }
+
+message RECHARGE_IC{
+  required int64 uid = 1;
+  required string token = 2;
+}
+message RECHARGE_IS{
+  required BillDTO bill = 1;
+}
+
+
 

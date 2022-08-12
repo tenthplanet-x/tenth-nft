@@ -125,7 +125,7 @@ public class WalletService {
     public void decBalance(Long uid, String currency, String value) {
 
         String current = _getBalance(uid, currency).getValue();
-        String now = BigNumberUtils.add(current, value);
+        String now = BigNumberUtils.minus(current, value);
 
         walletDao.findAndModify(
                 WalletQuery.newBuilder().uid(uid).currency(currency).build(),
@@ -133,5 +133,17 @@ public class WalletService {
                 UpdateOptions.options().upsert(true)
         );
 
+    }
+
+    public void incBalance(Long uid, String currency, String value) {
+
+        String current = _getBalance(uid, currency).getValue();
+        String now = BigNumberUtils.add(current, value);
+
+        walletDao.findAndModify(
+                WalletQuery.newBuilder().uid(uid).currency(currency).build(),
+                WalletUpdate.newBuilder().setValue(now).build(),
+                UpdateOptions.options().upsert(true)
+        );
     }
 }

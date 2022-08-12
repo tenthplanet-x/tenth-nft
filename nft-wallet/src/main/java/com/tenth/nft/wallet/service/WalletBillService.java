@@ -123,7 +123,7 @@ public class WalletBillService {
         }catch (Exception e){
             routeClient.send(
                     NftExchange.PAY_RECEIPT_PUSH_IC.newBuilder()
-                            .setAssetsId(bizContent.getProductId())
+                            .setAssetsId(Long.valueOf(bizContent.getProductId()))
                             .setOrderId(bizContent.getOutOrderId())
                             .setState(WalletBillState.FAIL.name())
                             .build()
@@ -137,7 +137,7 @@ public class WalletBillService {
         try{
             result = routeClient.send(
                     NftExchange.PAY_RECEIPT_PUSH_IC.newBuilder()
-                            .setAssetsId(bizContent.getProductId())
+                            .setAssetsId(Long.valueOf(bizContent.getProductId()))
                             .setOrderId(bizContent.getOutOrderId())
                             .setState(WalletBillState.PAYED.name())
                             .build(),
@@ -191,7 +191,7 @@ public class WalletBillService {
             walletBillDTO.setProductName(
                     routeClient.send(
                             NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
-                                    .setId(walletBill.getProductId())
+                                    .setId(Long.valueOf(walletBill.getProductId()))
                                     .build(),
                             AssetsDetailRouteRequest.class
                     ).getAssets().getName()
@@ -265,5 +265,58 @@ public class WalletBillService {
                         .setRemark(remark)
                         .build()
         );
+    }
+
+    public NftWallet.RECHARGE_IS recharge(NftWallet.RECHARGE_IC request) {
+
+        //token verify
+        WalletToken walletToken = WalletToken.decode(request.getToken());
+        if(!walletToken.verify(publicKey)){
+            throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
+        }
+
+        WalletOrderBizContent bizContent = walletToken.getBizContent();
+        //exist check
+        WalletBill walletBill = walletBillDao.findOne(WalletBillQuery.newBuilder()
+                .uid(request.getUid())
+                .productCode(bizContent.getProductCode())
+                .outOrderId(bizContent.getOutOrderId()).build()
+        );
+        if(null == walletBill){
+            walletBill = new WalletBill();
+            walletBill.setActivityCfgId(bizContent.getActivityCfgId());
+            walletBill.setUid(request.getUid());
+            walletBill.setProductCode(bizContent.getProductCode());
+            walletBill.setProductId(bizContent.getProductId());
+            walletBill.setOutOrderId(bizContent.getOutOrderId());
+            walletBill.setMerchantType(bizContent.getMerchantType());
+            walletBill.setMerchantId(bizContent.getMerchantId());
+            walletBill.setExpiredAt(bizContent.getExpiredAt());
+            walletBill.setCurrency(bizContent.getCurrency());
+            walletBill.setValue(bizContent.getValue());
+            walletBill.setCreatedAt(System.currentTimeMillis());
+            walletBill.setUpdatedAt(walletBill.getCreatedAt());
+            walletBill.setState(WalletBillState.CREATE.name());
+            walletBill.setRemark(bizContent.getRemark());
+            walletBillDao.insert(walletBill);
+        }
+
+        WalletBillState currentState = WalletBillState.valueOf(walletBill.getState());
+        if(WalletBillState.PAYED.equals(currentState) || WalletBillState.FAIL.equals(currentState)){
+            throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
+        }
+
+        //do pay
+        walletService.incBalance(walletBill.getUid(), walletBill.getCurrency(), walletBill.getValue());
+        changeState(walletBill, WalletBillState.PAYED, "");
+
+        return NftWallet.RECHARGE_IS.newBuilder()
+                .setBill(detail(NftWallet.BILL_DETAIL_IC.newBuilder()
+                        .setUid(walletBill.getUid())
+                        .setProductCode(walletBill.getProductCode())
+                        .setOutOrderId(walletBill.getOutOrderId())
+                        .build()).getBills())
+                .build();
+
     }
 }

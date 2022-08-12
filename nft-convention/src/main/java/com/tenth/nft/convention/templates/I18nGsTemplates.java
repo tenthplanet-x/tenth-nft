@@ -21,6 +21,7 @@ public class I18nGsTemplates {
     @Autowired
     private GsConfigTemplateFactory gsConfigTemplateFactory;
 
+
     public <T> T get(TemplateType templateType) {
 
         String language = getLanguage();

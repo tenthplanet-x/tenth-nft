@@ -19,7 +19,7 @@ public class WalletBillDTO {
 
     private String type;
 
-    private Long productId;
+    private String productId;
 
     private String productName;
 
@@ -39,11 +39,11 @@ public class WalletBillDTO {
         this.id = id;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

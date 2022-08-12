@@ -54,7 +54,8 @@ public enum NftInnerCmdTypes implements CmdType {
 
     //wallet
     BILL_PAY_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_PAY_IC, NftWallet.BILL_PAY_IC.newBuilder()),
-    BILL_DETAIL_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_DETAIL_IC, NftWallet.BILL_DETAIL_IC.newBuilder())
+    BILL_DETAIL_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_DETAIL_IC, NftWallet.BILL_DETAIL_IC.newBuilder()),
+    RECHARGE_IC(NftCmdGroup.WALLET, NftInnerCmds.RECHARGE_IC, NftWallet.RECHARGE_IC.newBuilder()),
     ;
 
 

@@ -9,7 +9,7 @@ public class WalletOrderBizContent {
 
     private Integer activityCfgId;
     private String productCode;
-    private Long productId;
+    private String productId;
     private Long outOrderId;
     private String merchantType;
     private Long merchantId;
@@ -82,11 +82,11 @@ public class WalletOrderBizContent {
         this.value = value;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -116,7 +116,7 @@ public class WalletOrderBizContent {
             return this;
         }
 
-        public Builder productId(Long productId) {
+        public Builder productId(String productId) {
             content.productId = productId;
             return this;
         }

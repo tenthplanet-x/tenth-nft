@@ -4,5 +4,6 @@ package com.tenth.nft.convention.wallet;
  * @author shijie
  */
 public enum WalletProductCode {
-    NFT
+    NFT,
+    WALLET_RECHARGE
 }
