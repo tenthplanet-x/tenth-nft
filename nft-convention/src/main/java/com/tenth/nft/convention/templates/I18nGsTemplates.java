@@ -21,7 +21,12 @@ public class I18nGsTemplates {
     @Autowired
     private GsConfigTemplateFactory gsConfigTemplateFactory;
 
-
+    /**
+     * get the i18n template
+     * @param templateType cfg template type without i18n
+     * @param <T>
+     * @return
+     */
     public <T> T get(TemplateType templateType) {
 
         String language = getLanguage();
@@ -30,7 +35,12 @@ public class I18nGsTemplates {
 
     }
 
-    private String getLanguage() {
+    /**
+     * 1. first get value form context
+     * 2. use the default language
+     * @return
+     */
+    public String getLanguage() {
         String language = GameUserContext.get().get(NftHeaders.LANGUAGE);
         if(Strings.isNullOrEmpty(language)){
             language = defaultLanguage;
