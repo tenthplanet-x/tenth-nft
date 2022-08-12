@@ -16,7 +16,7 @@ import java.util.Map;
 @Component
 public class RechargeTemplate extends AbsTemplate<RechargeConfig> implements GsConfigTemplate {
 
-    private Map<Integer, RechargeConfig> cache = new HashMap<>();
+    private Map<String, RechargeConfig> cache = new HashMap<>();
 
     public RechargeTemplate() {
         super(JsonConfigCodec.INSTANCE, RechargeConfig.class);
@@ -29,7 +29,7 @@ public class RechargeTemplate extends AbsTemplate<RechargeConfig> implements GsC
 
     @Override
     protected void afterParseRecord(RechargeConfig record) throws HuaqianguConfigException {
-        cache.put(record.getId(), record);
+        cache.put(record.getProductId(), record);
     }
 
     @Override
@@ -45,5 +45,10 @@ public class RechargeTemplate extends AbsTemplate<RechargeConfig> implements GsC
     @Override
     public TemplateType getType() {
         return NftTemplateTypes.recharge;
+    }
+
+
+    public RechargeConfig findOneByProductId(String productId){
+        return optionalOf(productId, cache).get();
     }
 }
