@@ -20,6 +20,8 @@ public class WalletActivityConfig {
 
     private String icon;
 
+    private String incomeExpense;
+
     public Integer getId() {
         return id;
     }
@@ -38,6 +40,10 @@ public class WalletActivityConfig {
 
     public String getIcon() {
         return icon;
+    }
+
+    public String getIncomeExpense() {
+        return incomeExpense;
     }
 
     @JsonPOJOBuilder(withPrefix = "set")
@@ -63,6 +69,10 @@ public class WalletActivityConfig {
 
         public void setIcon(String icon) {
             config.icon = icon;
+        }
+
+        public void setIncomeExpense(String incomeExpense) {
+            config.incomeExpense = incomeExpense;
         }
 
         public WalletActivityConfig build(){

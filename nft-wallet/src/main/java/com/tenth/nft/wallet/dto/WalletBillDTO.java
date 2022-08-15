@@ -19,6 +19,8 @@ public class WalletBillDTO {
 
     private String type;
 
+    private String productCode;
+
     private String productId;
 
     private String productName;
@@ -30,6 +32,8 @@ public class WalletBillDTO {
     private String currency;
 
     private String value;
+
+    private String incomeExpense;
 
     public Long getId() {
         return id;
@@ -103,6 +107,22 @@ public class WalletBillDTO {
         this.activityCfgId = activityCfgId;
     }
 
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getIncomeExpense() {
+        return incomeExpense;
+    }
+
+    public void setIncomeExpense(String incomeExpense) {
+        this.incomeExpense = incomeExpense;
+    }
+
     public static NftWallet.BillDTO toProto(WalletBill walletBill) {
         NftWallet.BillDTO.Builder builder = NftWallet.BillDTO.newBuilder();
         builder.setUid(walletBill.getUid());
@@ -127,6 +147,7 @@ public class WalletBillDTO {
         WalletBillDTO walletBillDTO = new WalletBillDTO();
         walletBillDTO.setId(bill.getBillId());
         walletBillDTO.setActivityCfgId(bill.getActivityCfgId());
+        walletBillDTO.setProductCode(bill.getProductCode());
         walletBillDTO.setProductId(bill.getProductId());
         walletBillDTO.setCurrency(bill.getCurrency());
         walletBillDTO.setValue(bill.getValue());
@@ -138,6 +159,7 @@ public class WalletBillDTO {
         WalletBillDTO walletBillDTO = new WalletBillDTO();
         walletBillDTO.setId(walletBill.getId());
         walletBillDTO.setActivityCfgId(walletBill.getActivityCfgId());
+        walletBillDTO.setProductCode(walletBill.getProductCode());
         walletBillDTO.setProductId(walletBill.getProductId());
         walletBillDTO.setCurrency(walletBill.getCurrency());
         walletBillDTO.setValue(walletBill.getValue());

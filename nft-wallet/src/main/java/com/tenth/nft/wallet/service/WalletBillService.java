@@ -203,6 +203,7 @@ public class WalletBillService {
             WalletActivityConfig walletActivityConfig = walletActivityTemplate.findOne(walletBill.getActivityCfgId());
             if(null != walletActivityConfig){
                 walletBillDTO.setType(walletActivityConfig.getType());
+                walletBillDTO.setIncomeExpense(walletActivityConfig.getIncomeExpense());
             }
         }
 
