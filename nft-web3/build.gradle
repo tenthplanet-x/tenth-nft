@@ -1,0 +1,8 @@
+dependencies {
+
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    // https://mvnrepository.com/artifact/org.web3j/core
+    implementation 'org.web3j:core:5.0.0'
+
+}

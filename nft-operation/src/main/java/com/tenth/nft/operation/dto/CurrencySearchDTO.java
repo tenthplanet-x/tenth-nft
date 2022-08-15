@@ -1,5 +1,6 @@
 package com.tenth.nft.operation.dto;
 
+import com.tenth.nft.protobuf.NftOperation;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -127,5 +128,12 @@ public class CurrencySearchDTO implements SimpleResponse {
 
     public void setBlockchainIcon(String blockchainIcon) {
         this.blockchainIcon = blockchainIcon;
+    }
+
+    public NftOperation.CurrencyDTO toProto() {
+        return NftOperation.CurrencyDTO.newBuilder()
+                .setCurrency(this.code)
+                .setBlockchain(this.blockchain)
+                .build();
     }
 }

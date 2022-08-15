@@ -70,16 +70,32 @@ public class WalletService {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
-        List<Wallet> wallets = walletDao.find(
-                WalletQuery.newBuilder().uid(uid).build()
-        );
-        if(wallets.isEmpty()){
-            initWallet(uid);
-        }
-        wallets = walletDao.find(
-                WalletQuery.newBuilder().uid(uid).build()
-        );
-        return wallets.stream().map(WalletBalanceDTO::from).collect(Collectors.toList());
+
+        NftOperation.BlockchainDTO blockchain = routeClient.send(
+                NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()
+                        .setBlockchain(walletBlockchain)
+                        .build(),
+                BlockchainRouteRequest.class
+        ).getBlockchain();
+        return blockchain.getCurrenciesList().stream().map(currency -> {
+            Wallet wallet = walletDao.findOne(WalletQuery.newBuilder().uid(uid).currency(currency.getCurrency()).build());
+            if(null != wallet){
+                return WalletBalanceDTO.from(wallet);
+            }else{
+                return WalletBalanceDTO.emptyOf(currency.getCurrency());
+            }
+        }).collect(Collectors.toList());
+
+//        List<Wallet> wallets = walletDao.find(
+//                WalletQuery.newBuilder().uid(uid).build()
+//        );
+//        if(wallets.isEmpty()){
+//            initWallet(uid);
+//        }
+//        wallets = walletDao.find(
+//                WalletQuery.newBuilder().uid(uid).build()
+//        );
+//        return wallets.stream().map(WalletBalanceDTO::from).collect(Collectors.toList());
 
     }
 

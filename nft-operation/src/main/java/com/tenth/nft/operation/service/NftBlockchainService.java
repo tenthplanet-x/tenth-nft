@@ -3,15 +3,13 @@ package com.tenth.nft.operation.service;
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.routes.BlockchainRebuildRouteRequest;
 import com.tenth.nft.operation.dto.BlockchainSearchDTO;
+import com.tenth.nft.operation.dto.CurrencySearchDTO;
+import com.tenth.nft.operation.vo.*;
 import com.tenth.nft.orm.marketplace.dao.NftBlockchainNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftBlockchainQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftBlockchainUpdate;
 import com.tenth.nft.operation.dto.NftBlockchainDTO;
 import com.tenth.nft.orm.marketplace.entity.NftBlockchain;
-import com.tenth.nft.operation.vo.NftBlockchainCreateRequest;
-import com.tenth.nft.operation.vo.NftBlockchainDeleteRequest;
-import com.tenth.nft.operation.vo.NftBlockchainEditRequest;
-import com.tenth.nft.operation.vo.NftBlockchainListRequest;
 import com.tenth.nft.orm.external.NftBlockchainVersions;
 import com.tenth.nft.protobuf.NftOperation;
 import com.tenth.nft.protobuf.NftSearch;
@@ -21,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author gs-orm-generator
@@ -116,8 +115,15 @@ public class NftBlockchainService {
     public NftOperation.NFT_BLOCKCHAIN_IS detail(NftOperation.NFT_BLOCKCHAIN_IC request) {
 
         String mainCurrency = nftCurrencyService.getMainCurrency(request.getBlockchain());
+
+        CurrenySearchRequest currenySearchRequest = new CurrenySearchRequest();
+        currenySearchRequest.setBlockchain(request.getBlockchain());
+        List<NftOperation.CurrencyDTO> currencyDTOS = nftCurrencyService.listByBlockchain(currenySearchRequest).stream().map(CurrencySearchDTO::toProto).collect(Collectors.toList());
         return NftOperation.NFT_BLOCKCHAIN_IS.newBuilder()
-                .setBlockchain(NftOperation.BlockchainDTO.newBuilder().setMainCurrency(mainCurrency).build())
+                .setBlockchain(NftOperation.BlockchainDTO.newBuilder()
+                        .setMainCurrency(mainCurrency)
+                        .addAllCurrencies(currencyDTOS)
+                        .build())
                 .build();
 
     }
