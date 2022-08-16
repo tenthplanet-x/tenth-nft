@@ -245,6 +245,7 @@ public class WalletBillService {
                         if(null != walletActivityConfig){
                             walletBillSimpleDTO.setTitle(walletActivityConfig.getName());
                             walletBillSimpleDTO.setIcon(walletActivityConfig.getIcon());
+                            walletBillSimpleDTO.setIncomeExpense(walletActivityConfig.getIncomeExpense());
                         }
                     }
 

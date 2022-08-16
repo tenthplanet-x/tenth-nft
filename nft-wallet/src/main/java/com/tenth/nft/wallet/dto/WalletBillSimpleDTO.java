@@ -19,6 +19,8 @@ public class WalletBillSimpleDTO {
 
     private String value;
 
+    private String incomeExpense;
+
     public Long getId() {
         return id;
     }
@@ -67,5 +69,11 @@ public class WalletBillSimpleDTO {
         this.value = value;
     }
 
+    public String getIncomeExpense() {
+        return incomeExpense;
+    }
 
+    public void setIncomeExpense(String incomeExpense) {
+        this.incomeExpense = incomeExpense;
+    }
 }
