@@ -11,4 +11,5 @@ include 'nft-marketplace'
 include 'nft-marketplace-exchange'
 include 'nft-player'
 include 'nft-wallet'
+include 'nft-web3'
 

@@ -13,8 +13,8 @@ public class WalletBillUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private Long uid;
 
-    @SimpleWriteParam
-    private String type;
+//    @SimpleWriteParam
+//    private String type;
 
     @SimpleWriteParam
     private String remark;
@@ -23,7 +23,7 @@ public class WalletBillUpdate extends SimpleUpdate {
     private String productCode;
 
     @SimpleWriteParam
-    private Long productId;
+    private String productId;
 
     @SimpleWriteParam
     private Long outOrderId;
@@ -60,9 +60,9 @@ public class WalletBillUpdate extends SimpleUpdate {
         return uid;
     }
 
-    public String getType(){
-        return type;
-    }
+//    public String getType(){
+//        return type;
+//    }
 
     public String getRemark(){
         return remark;
@@ -72,7 +72,7 @@ public class WalletBillUpdate extends SimpleUpdate {
         return productCode;
     }
 
-    public Long getProductId(){
+    public String getProductId(){
         return productId;
     }
 
@@ -121,10 +121,10 @@ public class WalletBillUpdate extends SimpleUpdate {
             return this;
         }
 
-        public Builder setType(String type){
-            update.type = type;
-            return this;
-        }
+//        public Builder setType(String type){
+//            update.type = type;
+//            return this;
+//        }
 
         public Builder setRemark(String remark){
             update.remark = remark;
@@ -136,7 +136,7 @@ public class WalletBillUpdate extends SimpleUpdate {
             return this;
         }
 
-        public Builder setProductId(Long productId){
+        public Builder setProductId(String productId){
             update.productId = productId;
             return this;
         }

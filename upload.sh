@@ -8,4 +8,6 @@
 ./gradlew :nft-search:clean :nft-search:publish -x test
 ./gradlew :nft-orm:clean :nft-orm:publish -x test
 ./gradlew :nft-player:clean :nft-player:publish -x test
+./gradlew :nft-wallet:clean :nft-wallet:publish -x test
+./gradlew :nft-web3:clean :nft-web3:publish -x test
 

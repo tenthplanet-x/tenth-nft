@@ -7,9 +7,9 @@ import com.ruixi.tpulse.convention.utils.Validations;
  */
 public class WalletOrderBizContent {
 
-    private String type;
+    private Integer activityCfgId;
     private String productCode;
-    private Long productId;
+    private String productId;
     private Long outOrderId;
     private String merchantType;
     private Long merchantId;
@@ -82,20 +82,20 @@ public class WalletOrderBizContent {
         this.value = value;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public String getType() {
-        return type;
+    public Integer getActivityCfgId() {
+        return activityCfgId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setActivityCfgId(Integer activityCfgId) {
+        this.activityCfgId = activityCfgId;
     }
 
     public static Builder newBuilder() {
@@ -106,8 +106,8 @@ public class WalletOrderBizContent {
 
         private WalletOrderBizContent content = new WalletOrderBizContent();
 
-        public Builder type(String type){
-            content.type = type;
+        public Builder activityCfgId(Integer activityCfgId){
+            content.activityCfgId = activityCfgId;
             return this;
         }
 
@@ -116,7 +116,7 @@ public class WalletOrderBizContent {
             return this;
         }
 
-        public Builder productId(Long productId) {
+        public Builder productId(String productId) {
             content.productId = productId;
             return this;
         }
