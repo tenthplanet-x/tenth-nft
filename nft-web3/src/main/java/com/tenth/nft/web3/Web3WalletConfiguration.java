@@ -12,7 +12,7 @@ import org.web3j.protocol.http.HttpService;
  */
 @Configuration
 @ComponentScan("com.tenth.nft.web3")
-public class Web3jConfiguration {
+public class Web3WalletConfiguration {
 
     @Value("${web3.network}")
     private String network;

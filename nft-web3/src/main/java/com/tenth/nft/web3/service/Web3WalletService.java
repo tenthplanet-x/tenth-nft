@@ -35,8 +35,10 @@ public class Web3WalletService {
 
     public void bind(Web3WalletBindRequest request) {
 
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
         walletDao.findAndModify(
-                Web3WalletQuery.newBuilder().uid(request.getUid()).build(),
+                Web3WalletQuery.newBuilder().uid(uid).build(),
                 Web3WalletUpdate.newBuilder()
                         .setWalletAccountId(request.getAccountId())
                         .setCreatedAtOnInsert()

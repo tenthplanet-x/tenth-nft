@@ -29,7 +29,6 @@ public class Web3WalletController {
     }
 
     @RequestMapping(Web3WalletPaths.WALLET_BIND)
-    @HttpRoute(userAuth = false)
     public Response bind(@RequestBody Web3WalletBindRequest request) throws Exception{
 
         Validations.check(request);
