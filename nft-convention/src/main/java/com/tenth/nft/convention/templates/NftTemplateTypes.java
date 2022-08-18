@@ -8,13 +8,15 @@ import com.tpulse.gs.config.TemplateType;
 public enum NftTemplateTypes implements TemplateType {
 
     wallet_activity,
-    recharge,
     wallet_activity_en,
     wallet_activity_zh_cn("wallet_activity_zh-cn"),
+    recharge,
     recharge_en,
-    recharge_zh_cn("recharge_zh-cn")
+    recharge_zh_cn("recharge_zh-cn"),
+    wallet_currency,
+    wallet_currency_en,
+    wallet_currency_zh_cn("wallet_currency_zh-cn"),
     ;
-
 
     private String name;
     NftTemplateTypes(String name) {

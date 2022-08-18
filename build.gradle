@@ -20,6 +20,7 @@ plugins {
     id 'maven-publish'
     id 'application'
     id 'java-library'
+    id 'org.web3j' version '4.7.0'
 }
 ext {
     if (!project.hasProperty("env")) {
@@ -125,6 +126,7 @@ subprojects{
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'maven-publish'
     apply plugin: 'java-library'
+    apply plugin: 'org.web3j'
 
     jar {
         enabled = true
@@ -138,6 +140,10 @@ subprojects{
         implementation libs.starter_logging
         testImplementation libs.junit
         testImplementation libs.starter_test
+//        testImplementation "org.web3j:web3j-unit:4.5.12"
+//        testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2",
+//                "org.junit.jupiter:junit-jupiter-api:5.5.2",
+//                "org.junit.jupiter:junit-jupiter-params:5.5.2"
     }
 
     java {

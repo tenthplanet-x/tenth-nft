@@ -1,0 +1,1 @@
+solcjs /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-web3/src/main/sol/tpulse-v2.sol --bin --abi --optimize -o /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-web3/src/main/sol/
