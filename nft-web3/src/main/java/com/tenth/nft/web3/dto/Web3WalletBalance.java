@@ -5,6 +5,8 @@ package com.tenth.nft.web3.dto;
  */
 public class Web3WalletBalance {
 
+    private String wallet;
+
     private String currency;
 
     private String balance;
@@ -23,5 +25,13 @@ public class Web3WalletBalance {
 
     public void setBalance(String balance) {
         this.balance = balance;
+    }
+
+    public String getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(String wallet) {
+        this.wallet = wallet;
     }
 }

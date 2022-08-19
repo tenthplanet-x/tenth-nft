@@ -18,6 +18,8 @@ public class Web3Wallet {
 
     private String blockchain;
 
+    private String wallet;
+
     private String walletAccountId;
 
     private Long createdAt;
@@ -70,5 +72,13 @@ public class Web3Wallet {
 
     public void setBlockchain(String blockchain) {
         this.blockchain = blockchain;
+    }
+
+    public String getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(String wallet) {
+        this.wallet = wallet;
     }
 }

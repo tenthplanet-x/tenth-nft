@@ -44,6 +44,7 @@ public class Web3WalletService {
                 Web3WalletQuery.newBuilder().uid(uid).build(),
                 Web3WalletUpdate.newBuilder()
                         .setBlockchain(blockchain)
+                        .wallet(request.getWallet())
                         .setWalletAccountId(request.getAccountId())
                         .setCreatedAtOnInsert()
                         .build(),
@@ -61,6 +62,7 @@ public class Web3WalletService {
             EthBlockNumber blockNumber = web3j.ethBlockNumber().send();
             BigInteger balance = web3j.ethGetBalance(web3Wallet.getWalletAccountId(), DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
             EthWeb3WalletBalance output = new EthWeb3WalletBalance(Convert.fromWei(balance.toString(), Convert.Unit.ETHER).toString());
+            output.setWallet(web3Wallet.getWallet());
             return output;
         }
 

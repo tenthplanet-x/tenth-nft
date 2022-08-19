@@ -21,6 +21,8 @@ public class Web3WalletUpdate extends SimpleUpdate {
     private Long createdAtOnInsert;
     @SimpleWriteParam
     private String blockchain;
+    @SimpleWriteParam
+    private String wallet;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -40,6 +42,10 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
     public String getBlockchain() {
         return blockchain;
+    }
+
+    public String getWallet() {
+        return wallet;
     }
 
     public static Builder newBuilder(){
@@ -71,6 +77,11 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
         public Builder setBlockchain(String blockchain) {
             update.blockchain = blockchain;
+            return this;
+        }
+
+        public Builder wallet(String wallet) {
+            update.wallet = wallet;
             return this;
         }
     }
