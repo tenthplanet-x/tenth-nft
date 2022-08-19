@@ -2,6 +2,7 @@ package com.tenth.nft.web3;
 
 import com.tenth.nft.contract.TpulseV2Contract;
 import com.wallan.json.JsonUtil;
+import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.datatypes.Function;
@@ -10,6 +11,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Convert;
 
@@ -17,6 +19,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -267,5 +270,57 @@ public class TpulseV2ContractTest {
         BigInteger owns = contract.balanceOf(owner, BigInteger.valueOf(ITEM_ID)).send();
         System.out.println(owns);
 
+    }
+
+    @Test
+    public void receipt() throws Exception{
+
+        Web3j web3j = Web3j.build(new HttpService(NETWORK));
+        Credentials credentials = Credentials.create(CONTRACT_BUYER_PRIVATEKEY);
+        TpulseV2Contract contract = TpulseV2Contract.load(
+                CONTRACT_ADDRESS,
+                web3j,
+                credentials,
+                //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
+                new DefaultGasProvider()
+        );
+        //BigInteger integer = contract.getGasPrice();
+        //System.out.println(integer);
+
+        BigInteger gasPrice = web3j.ethGetTransactionByHash("0x4cd83deb1cc431e9b442ed62fa9b5b01bd513c605fe49030973f67bfeba9bc9e").send().getResult().getGasPrice();
+        System.out.println(gasPrice);
+
+        EthGetTransactionReceipt receipt = web3j.ethGetTransactionReceipt("0x4cd83deb1cc431e9b442ed62fa9b5b01bd513c605fe49030973f67bfeba9bc9e").send();
+        System.out.println(receipt);
+        List<Log> logs = receipt.getResult().getLogs();
+        for(Log log: logs){
+            System.out.println(log.getType());
+        }
+
+        List<TpulseV2Contract.ReceivedEventResponse> responses = contract.getReceivedEvents(receipt.getResult());
+        System.out.println(responses);
+
+    }
+
+    @Test
+    public void convert() throws Exception{
+        //0x9ed37f
+        //0x138d2
+//        BigInteger val = new BigInteger("138d2", 16);
+//        System.out.println(val);
+
+        BigInteger gasUsed = new BigInteger("138d2", 16);
+        System.out.println(gasUsed);
+        //Long val = Long.valueOf("0x138d2", 16);
+
+        //80082
+        //10408831
+
+        BigDecimal gasPrice = Convert.toWei("0.000000001881796271", Convert.Unit.ETHER);
+        String price = gasPrice.multiply(new BigDecimal(gasUsed)).toString();
+        String ether = Convert.fromWei(price, Convert.Unit.ETHER).toString();
+        System.out.println(ether);
+//        BigDecimal decimal = new BigDecimal("0.000000001881796271");
+//        decimal.multiply(val2);
     }
 }

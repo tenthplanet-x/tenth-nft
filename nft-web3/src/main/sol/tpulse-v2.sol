@@ -4,9 +4,8 @@ pragma solidity ^0.8.0;
 
 import "node_modules/@openzeppelin/contracts/token/ERC1155/presets/ERC1155PresetMinterPauser.sol";
 import "node_modules/@openzeppelin/contracts/access/Ownable.sol";
-import "node_modules/@openzeppelin/contracts/security/PullPayment.sol";
 
-contract TpulseV2 is ERC1155PresetMinterPauser, Ownable, PullPayment {
+contract TpulseV2 is ERC1155PresetMinterPauser, Ownable {
 
     event Received(address receiver, uint value);
 

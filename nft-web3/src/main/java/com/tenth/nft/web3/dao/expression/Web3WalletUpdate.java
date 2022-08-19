@@ -1,5 +1,6 @@
 package com.tenth.nft.web3.dao.expression;
 
+import com.tenth.nft.web3.entity.Web3Wallet;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 import com.tpulse.gs.convention.dao.defination.WriteOpt;
@@ -12,13 +13,14 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
     private Long uid;
-
     @SimpleWriteParam
     private String walletAccountId;
     @SimpleWriteParam
     private Long updatedAt = System.currentTimeMillis();
     @SimpleWriteParam(name = "createdAt", opt = WriteOpt.SET_ON_INSERT)
     private Long createdAtOnInsert;
+    @SimpleWriteParam
+    private String blockchain;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -34,6 +36,10 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
     public Long getCreatedAtOnInsert() {
         return createdAtOnInsert;
+    }
+
+    public String getBlockchain() {
+        return blockchain;
     }
 
     public static Builder newBuilder(){
@@ -60,6 +66,11 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
         public Builder setCreatedAtOnInsert() {
             update.createdAtOnInsert = System.currentTimeMillis();
+            return this;
+        }
+
+        public Builder setBlockchain(String blockchain) {
+            update.blockchain = blockchain;
             return this;
         }
     }

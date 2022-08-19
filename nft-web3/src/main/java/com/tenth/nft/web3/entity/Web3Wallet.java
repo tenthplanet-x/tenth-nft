@@ -16,6 +16,8 @@ public class Web3Wallet {
     @Indexed
     private Long uid;
 
+    private String blockchain;
+
     private String walletAccountId;
 
     private Long createdAt;
@@ -60,5 +62,13 @@ public class Web3Wallet {
 
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getBlockchain() {
+        return blockchain;
+    }
+
+    public void setBlockchain(String blockchain) {
+        this.blockchain = blockchain;
     }
 }

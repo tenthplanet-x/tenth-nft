@@ -12,6 +12,7 @@ import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
@@ -32,6 +33,8 @@ public class Web3WalletService {
     private Web3WalletDao walletDao;
     @Autowired
     private RouteClient routeClient;
+    @Value("${web3.blockchain}")
+    private String blockchain;
 
     public void bind(Web3WalletBindRequest request) {
 
@@ -40,6 +43,7 @@ public class Web3WalletService {
         walletDao.findAndModify(
                 Web3WalletQuery.newBuilder().uid(uid).build(),
                 Web3WalletUpdate.newBuilder()
+                        .setBlockchain(blockchain)
                         .setWalletAccountId(request.getAccountId())
                         .setCreatedAtOnInsert()
                         .build(),
