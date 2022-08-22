@@ -7,12 +7,12 @@ import com.ruixi.tpulse.convention.utils.Validations;
  */
 public class WalletOrderBizContent {
 
-    private String type;
+    private Integer activityCfgId;
     private String productCode;
-    private Long productId;
-    private Long outOrderId;
+    private String productId;
+    private String outOrderId;
     private String merchantType;
-    private Long merchantId;
+    private String merchantId;
     private Long expiredAt;
     private String currency;
     private String value;
@@ -34,11 +34,11 @@ public class WalletOrderBizContent {
         this.productCode = productCode;
     }
 
-    public Long getOutOrderId() {
+    public String getOutOrderId() {
         return outOrderId;
     }
 
-    public void setOutOrderId(Long outOrderId) {
+    public void setOutOrderId(String outOrderId) {
         this.outOrderId = outOrderId;
     }
 
@@ -50,11 +50,11 @@ public class WalletOrderBizContent {
         this.merchantType = merchantType;
     }
 
-    public Long getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(Long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 
@@ -82,20 +82,20 @@ public class WalletOrderBizContent {
         this.value = value;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public String getType() {
-        return type;
+    public Integer getActivityCfgId() {
+        return activityCfgId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setActivityCfgId(Integer activityCfgId) {
+        this.activityCfgId = activityCfgId;
     }
 
     public static Builder newBuilder() {
@@ -106,8 +106,8 @@ public class WalletOrderBizContent {
 
         private WalletOrderBizContent content = new WalletOrderBizContent();
 
-        public Builder type(String type){
-            content.type = type;
+        public Builder activityCfgId(Integer activityCfgId){
+            content.activityCfgId = activityCfgId;
             return this;
         }
 
@@ -116,12 +116,12 @@ public class WalletOrderBizContent {
             return this;
         }
 
-        public Builder productId(Long productId) {
+        public Builder productId(String productId) {
             content.productId = productId;
             return this;
         }
 
-        public Builder outOrderId(Long outOrderId) {
+        public Builder outOrderId(String outOrderId) {
             content.outOrderId = outOrderId;
             return this;
         }
@@ -131,7 +131,7 @@ public class WalletOrderBizContent {
             return this;
         }
 
-        public Builder merchantId(Long merchantId) {
+        public Builder merchantId(String merchantId) {
             content.merchantId = merchantId;
             return this;
         }

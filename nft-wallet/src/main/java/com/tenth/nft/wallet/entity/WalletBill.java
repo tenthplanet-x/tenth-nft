@@ -19,20 +19,20 @@ public class WalletBill {
     @Indexed
     private Long uid;
 
-    private String type;
+    private Integer activityCfgId;
 
     @SimpleColumnTypeText
     private String remark;
 
     private String productCode;
 
-    private Long productId;
+    private String productId;
 
-    private Long outOrderId;
+    private String outOrderId;
 
     private String merchantType;
 
-    private Long merchantId;
+    private String merchantId;
 
     private String currency;
 
@@ -80,11 +80,11 @@ public class WalletBill {
         this.productCode = productCode;
     }
 
-    public Long getOutOrderId() {
+    public String getOutOrderId() {
         return outOrderId;
     }
 
-    public void setOutOrderId(Long outOrderId) {
+    public void setOutOrderId(String outOrderId) {
         this.outOrderId = outOrderId;
     }
 
@@ -96,11 +96,11 @@ public class WalletBill {
         this.merchantType = merchantType;
     }
 
-    public Long getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(Long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 
@@ -160,20 +160,19 @@ public class WalletBill {
         this.expiredAt = expiredAt;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public String getType() {
-        return type;
+    public Integer getActivityCfgId() {
+        return activityCfgId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setActivityCfgId(Integer activityCfgId) {
+        this.activityCfgId = activityCfgId;
     }
-
 }

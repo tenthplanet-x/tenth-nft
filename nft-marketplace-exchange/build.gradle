@@ -4,6 +4,7 @@ dependencies {
     api project(":nft-orm")
     compileOnly libs.tpulse_convention
 
+    api libs.web3j
     api libs.gs_httprouter
     api libs.gs_router
     api libs.gs_mongodb

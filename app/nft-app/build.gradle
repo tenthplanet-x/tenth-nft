@@ -1,5 +1,8 @@
 dependencies {
 
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
     implementation project(":nft-crawler")
     implementation project(":nft-search")
     implementation project(":nft-marketplace")
@@ -7,7 +10,9 @@ dependencies {
     implementation project(":nft-marketplace-exchange")
     implementation project(":nft-player")
     implementation project(":nft-wallet")
+    implementation project(":nft-web3")
     implementation libs.tpulse_convention
     implementation libs.starter_web
+    implementation libs.gs_config
 
 }

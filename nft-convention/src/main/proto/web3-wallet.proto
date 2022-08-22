@@ -1,0 +1,34 @@
+syntax = "proto2";
+package com.ruixi.tpulse.convention;
+option java_package="com.tenth.nft.protobuf";
+option java_outer_classname = "NftWeb3Wallet";
+
+message Web3BillDTO{
+  required int64 billId = 1;
+  required int32 activityCfgId = 2;
+  required int64 uid = 3;
+  required string accountId = 4;
+  required string productCode = 5;
+  required string productId = 6;
+  required string outOrderId = 7;
+  required string value = 8;
+  required string currency = 9;
+  required string state = 10;
+  required int64 createdAt = 11;
+  optional string merchantType = 12;
+  optional string merchantId = 13;
+
+}
+
+message WEB3_BILL_PAY_IC{
+  required int64 uid = 1;
+  required string token = 2;
+  required string txn = 3;
+}
+message WEB3_BILL_PAY_IS{
+    required Web3BillDTO bill = 1;
+}
+
+
+
+

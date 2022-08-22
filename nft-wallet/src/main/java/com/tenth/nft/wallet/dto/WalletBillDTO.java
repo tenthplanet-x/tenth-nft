@@ -1,5 +1,6 @@
 package com.tenth.nft.wallet.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.wallet.WalletOrderType;
 import com.tenth.nft.protobuf.NftWallet;
@@ -13,9 +14,14 @@ public class WalletBillDTO {
 
     private Long id;
 
+    @JsonIgnore
+    private Integer activityCfgId;
+
     private String type;
 
-    private Long productId;
+    private String productCode;
+
+    private String productId;
 
     private String productName;
 
@@ -27,6 +33,8 @@ public class WalletBillDTO {
 
     private String value;
 
+    private String incomeExpense;
+
     public Long getId() {
         return id;
     }
@@ -35,11 +43,11 @@ public class WalletBillDTO {
         this.id = id;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -83,6 +91,10 @@ public class WalletBillDTO {
         this.value = value;
     }
 
+    public Integer getActivityCfgId() {
+        return activityCfgId;
+    }
+
     public String getType() {
         return type;
     }
@@ -91,12 +103,31 @@ public class WalletBillDTO {
         this.type = type;
     }
 
+    public void setActivityCfgId(Integer activityCfgId) {
+        this.activityCfgId = activityCfgId;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getIncomeExpense() {
+        return incomeExpense;
+    }
+
+    public void setIncomeExpense(String incomeExpense) {
+        this.incomeExpense = incomeExpense;
+    }
 
     public static NftWallet.BillDTO toProto(WalletBill walletBill) {
         NftWallet.BillDTO.Builder builder = NftWallet.BillDTO.newBuilder();
         builder.setUid(walletBill.getUid());
         builder.setBillId(walletBill.getId());
-        builder.setType(walletBill.getType());
+        builder.setActivityCfgId(walletBill.getActivityCfgId());
         builder.setProductCode(walletBill.getProductCode());
         builder.setOutOrderId(walletBill.getOutOrderId());
         builder.setProductId(walletBill.getProductId());
@@ -115,7 +146,8 @@ public class WalletBillDTO {
     public static WalletBillDTO from(NftWallet.BillDTO bill) {
         WalletBillDTO walletBillDTO = new WalletBillDTO();
         walletBillDTO.setId(bill.getBillId());
-        walletBillDTO.setType(bill.getType());
+        walletBillDTO.setActivityCfgId(bill.getActivityCfgId());
+        walletBillDTO.setProductCode(bill.getProductCode());
         walletBillDTO.setProductId(bill.getProductId());
         walletBillDTO.setCurrency(bill.getCurrency());
         walletBillDTO.setValue(bill.getValue());
@@ -126,7 +158,8 @@ public class WalletBillDTO {
     public static WalletBillDTO from(WalletBill walletBill) {
         WalletBillDTO walletBillDTO = new WalletBillDTO();
         walletBillDTO.setId(walletBill.getId());
-        walletBillDTO.setType(walletBillDTO.getType());
+        walletBillDTO.setActivityCfgId(walletBill.getActivityCfgId());
+        walletBillDTO.setProductCode(walletBill.getProductCode());
         walletBillDTO.setProductId(walletBill.getProductId());
         walletBillDTO.setCurrency(walletBill.getCurrency());
         walletBillDTO.setValue(walletBill.getValue());

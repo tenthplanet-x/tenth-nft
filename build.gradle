@@ -63,6 +63,7 @@ ext {
             lombok_1_18_2: 'org.projectlombok:lombok:1.18.2',
             joda: 'joda-time:joda-time:2.10.5',
             junit: 'junit:junit:4.13.2',
+            web3j: 'org.web3j:core:4.7.0',
 
             gs_im: "com.tpulse.gs:gs-entrance:${versions.gs}",
             gs_config: "com.tpulse.gs:gs-config:${versions.gs}",
@@ -92,7 +93,7 @@ ext {
 
 allprojects{
     group 'com.tenth.nft'
-    version "0.0.1_20220801_001-SNAPSHOT"
+    version "0.0.1_202208019_001-SNAPSHOT"
 
     repositories {
         maven {
@@ -138,6 +139,10 @@ subprojects{
         implementation libs.starter_logging
         testImplementation libs.junit
         testImplementation libs.starter_test
+//        testImplementation "org.web3j:web3j-unit:4.5.12"
+//        testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2",
+//                "org.junit.jupiter:junit-jupiter-api:5.5.2",
+//                "org.junit.jupiter:junit-jupiter-params:5.5.2"
     }
 
     java {

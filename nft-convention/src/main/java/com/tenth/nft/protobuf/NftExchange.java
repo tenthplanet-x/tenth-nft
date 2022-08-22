@@ -12914,15 +12914,21 @@ public final class NftExchange {
     long getAssetsId();
 
     /**
-     * <code>required int64 orderId = 2;</code>
+     * <code>required string orderId = 2;</code>
      * @return Whether the orderId field is set.
      */
     boolean hasOrderId();
     /**
-     * <code>required int64 orderId = 2;</code>
+     * <code>required string orderId = 2;</code>
      * @return The orderId.
      */
-    long getOrderId();
+    java.lang.String getOrderId();
+    /**
+     * <code>required string orderId = 2;</code>
+     * @return The bytes for orderId.
+     */
+    com.google.protobuf.ByteString
+        getOrderIdBytes();
 
     /**
      * <code>required string state = 3;</code>
@@ -12954,6 +12960,7 @@ public final class NftExchange {
       super(builder);
     }
     private PAY_RECEIPT_PUSH_IC() {
+      orderId_ = "";
       state_ = "";
     }
 
@@ -12993,9 +13000,10 @@ public final class NftExchange {
               assetsId_ = input.readInt64();
               break;
             }
-            case 16: {
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              orderId_ = input.readInt64();
+              orderId_ = bs;
               break;
             }
             case 26: {
@@ -13057,9 +13065,9 @@ public final class NftExchange {
     }
 
     public static final int ORDERID_FIELD_NUMBER = 2;
-    private long orderId_;
+    private volatile java.lang.Object orderId_;
     /**
-     * <code>required int64 orderId = 2;</code>
+     * <code>required string orderId = 2;</code>
      * @return Whether the orderId field is set.
      */
     @java.lang.Override
@@ -13067,12 +13075,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>required int64 orderId = 2;</code>
+     * <code>required string orderId = 2;</code>
      * @return The orderId.
      */
     @java.lang.Override
-    public long getOrderId() {
-      return orderId_;
+    public java.lang.String getOrderId() {
+      java.lang.Object ref = orderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          orderId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string orderId = 2;</code>
+     * @return The bytes for orderId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOrderIdBytes() {
+      java.lang.Object ref = orderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        orderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int STATE_FIELD_NUMBER = 3;
@@ -13153,7 +13190,7 @@ public final class NftExchange {
         output.writeInt64(1, assetsId_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeInt64(2, orderId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, orderId_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, state_);
@@ -13172,8 +13209,7 @@ public final class NftExchange {
           .computeInt64Size(1, assetsId_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, orderId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, orderId_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, state_);
@@ -13200,8 +13236,8 @@ public final class NftExchange {
       }
       if (hasOrderId() != other.hasOrderId()) return false;
       if (hasOrderId()) {
-        if (getOrderId()
-            != other.getOrderId()) return false;
+        if (!getOrderId()
+            .equals(other.getOrderId())) return false;
       }
       if (hasState() != other.hasState()) return false;
       if (hasState()) {
@@ -13226,8 +13262,7 @@ public final class NftExchange {
       }
       if (hasOrderId()) {
         hash = (37 * hash) + ORDERID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOrderId());
+        hash = (53 * hash) + getOrderId().hashCode();
       }
       if (hasState()) {
         hash = (37 * hash) + STATE_FIELD_NUMBER;
@@ -13368,7 +13403,7 @@ public final class NftExchange {
         super.clear();
         assetsId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        orderId_ = 0L;
+        orderId_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         state_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -13405,9 +13440,9 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.orderId_ = orderId_;
           to_bitField0_ |= 0x00000002;
         }
+        result.orderId_ = orderId_;
         if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -13465,7 +13500,9 @@ public final class NftExchange {
           setAssetsId(other.getAssetsId());
         }
         if (other.hasOrderId()) {
-          setOrderId(other.getOrderId());
+          bitField0_ |= 0x00000002;
+          orderId_ = other.orderId_;
+          onChanged();
         }
         if (other.hasState()) {
           bitField0_ |= 0x00000004;
@@ -13550,41 +13587,86 @@ public final class NftExchange {
         return this;
       }
 
-      private long orderId_ ;
+      private java.lang.Object orderId_ = "";
       /**
-       * <code>required int64 orderId = 2;</code>
+       * <code>required string orderId = 2;</code>
        * @return Whether the orderId field is set.
        */
-      @java.lang.Override
       public boolean hasOrderId() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>required int64 orderId = 2;</code>
+       * <code>required string orderId = 2;</code>
        * @return The orderId.
        */
-      @java.lang.Override
-      public long getOrderId() {
-        return orderId_;
+      public java.lang.String getOrderId() {
+        java.lang.Object ref = orderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            orderId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 orderId = 2;</code>
+       * <code>required string orderId = 2;</code>
+       * @return The bytes for orderId.
+       */
+      public com.google.protobuf.ByteString
+          getOrderIdBytes() {
+        java.lang.Object ref = orderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          orderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string orderId = 2;</code>
        * @param value The orderId to set.
        * @return This builder for chaining.
        */
-      public Builder setOrderId(long value) {
-        bitField0_ |= 0x00000002;
+      public Builder setOrderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         orderId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 orderId = 2;</code>
+       * <code>required string orderId = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearOrderId() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        orderId_ = 0L;
+        orderId_ = getDefaultInstance().getOrderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string orderId = 2;</code>
+       * @param value The bytes for orderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        orderId_ = value;
         onChanged();
         return this;
       }
@@ -33349,7 +33431,7 @@ public final class NftExchange {
       "tingId\030\003 \002(\003\"I\n\006BUY_IS\022\017\n\007channel\030\001 \001(\t\022" +
       "\r\n\005token\030\002 \001(\t\022\020\n\010currency\030\003 \001(\t\022\r\n\005valu" +
       "e\030\004 \001(\t\"G\n\023PAY_RECEIPT_PUSH_IC\022\020\n\010assets" +
-      "Id\030\001 \002(\003\022\017\n\007orderId\030\002 \002(\003\022\r\n\005state\030\003 \002(\t" +
+      "Id\030\001 \002(\003\022\017\n\007orderId\030\002 \002(\t\022\r\n\005state\030\003 \002(\t" +
       "\"!\n\023PAY_RECEIPT_PUSH_IS\022\n\n\002ok\030\001 \002(\010\"U\n\016S" +
       "ELL_CANCEL_IC\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlisti" +
       "ngId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022\016\n\006reason\030\004 \002" +

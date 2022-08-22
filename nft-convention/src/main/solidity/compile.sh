@@ -1,0 +1,1 @@
+solcjs /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-convention/src/main/solidity/tpulse.sol --bin --abi --optimize -o /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-convention/build/solidity

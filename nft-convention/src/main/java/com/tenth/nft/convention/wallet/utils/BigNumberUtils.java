@@ -24,4 +24,10 @@ public class BigNumberUtils {
         BigDecimal _delta = new BigDecimal(delta);
         return _current.add(_delta).toString();
     }
+
+    public static String minus(String current, String delta) {
+        BigDecimal _current = new BigDecimal(current);
+        BigDecimal _delta = new BigDecimal(delta);
+        return _current.subtract(_delta).toString();
+    }
 }

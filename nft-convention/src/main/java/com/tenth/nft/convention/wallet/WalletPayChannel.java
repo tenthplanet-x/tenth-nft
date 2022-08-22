@@ -5,6 +5,8 @@ package com.tenth.nft.convention.wallet;
  */
 public enum WalletPayChannel {
 
-    BUILDIN
+    BUILDIN,
+    WEB3
+    ;
 
 }

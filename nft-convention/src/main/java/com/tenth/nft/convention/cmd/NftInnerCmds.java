@@ -51,6 +51,9 @@ public class NftInnerCmds {
     //wallet
     public static final int BILL_PAY_IC = -60001;
     public static final int BILL_DETAIL_IC = -60002;
+    public static final int RECHARGE_IC = -60003;
 
+    //web3-wallet
+    public static final int WEB3_BILL_PAY_IC = -70001;
 
 }
