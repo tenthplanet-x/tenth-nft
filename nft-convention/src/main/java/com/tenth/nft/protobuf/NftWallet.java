@@ -86,15 +86,21 @@ public final class NftWallet {
         getProductIdBytes();
 
     /**
-     * <code>required int64 outOrderId = 6;</code>
+     * <code>required string outOrderId = 6;</code>
      * @return Whether the outOrderId field is set.
      */
     boolean hasOutOrderId();
     /**
-     * <code>required int64 outOrderId = 6;</code>
+     * <code>required string outOrderId = 6;</code>
      * @return The outOrderId.
      */
-    long getOutOrderId();
+    java.lang.String getOutOrderId();
+    /**
+     * <code>required string outOrderId = 6;</code>
+     * @return The bytes for outOrderId.
+     */
+    com.google.protobuf.ByteString
+        getOutOrderIdBytes();
 
     /**
      * <code>required string value = 7;</code>
@@ -176,15 +182,21 @@ public final class NftWallet {
         getMerchantTypeBytes();
 
     /**
-     * <code>optional int64 merchantId = 12;</code>
+     * <code>optional string merchantId = 12;</code>
      * @return Whether the merchantId field is set.
      */
     boolean hasMerchantId();
     /**
-     * <code>optional int64 merchantId = 12;</code>
+     * <code>optional string merchantId = 12;</code>
      * @return The merchantId.
      */
-    long getMerchantId();
+    java.lang.String getMerchantId();
+    /**
+     * <code>optional string merchantId = 12;</code>
+     * @return The bytes for merchantId.
+     */
+    com.google.protobuf.ByteString
+        getMerchantIdBytes();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.BillDTO}
@@ -201,10 +213,12 @@ public final class NftWallet {
     private BillDTO() {
       productCode_ = "";
       productId_ = "";
+      outOrderId_ = "";
       value_ = "";
       currency_ = "";
       state_ = "";
       merchantType_ = "";
+      merchantId_ = "";
     }
 
     @java.lang.Override
@@ -265,9 +279,10 @@ public final class NftWallet {
               productId_ = bs;
               break;
             }
-            case 48: {
+            case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000020;
-              outOrderId_ = input.readInt64();
+              outOrderId_ = bs;
               break;
             }
             case 58: {
@@ -299,9 +314,10 @@ public final class NftWallet {
               merchantType_ = bs;
               break;
             }
-            case 96: {
+            case 98: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000800;
-              merchantId_ = input.readInt64();
+              merchantId_ = bs;
               break;
             }
             default: {
@@ -491,9 +507,9 @@ public final class NftWallet {
     }
 
     public static final int OUTORDERID_FIELD_NUMBER = 6;
-    private long outOrderId_;
+    private volatile java.lang.Object outOrderId_;
     /**
-     * <code>required int64 outOrderId = 6;</code>
+     * <code>required string outOrderId = 6;</code>
      * @return Whether the outOrderId field is set.
      */
     @java.lang.Override
@@ -501,12 +517,41 @@ public final class NftWallet {
       return ((bitField0_ & 0x00000020) != 0);
     }
     /**
-     * <code>required int64 outOrderId = 6;</code>
+     * <code>required string outOrderId = 6;</code>
      * @return The outOrderId.
      */
     @java.lang.Override
-    public long getOutOrderId() {
-      return outOrderId_;
+    public java.lang.String getOutOrderId() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          outOrderId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string outOrderId = 6;</code>
+     * @return The bytes for outOrderId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOutOrderIdBytes() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        outOrderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int VALUE_FIELD_NUMBER = 7;
@@ -721,9 +766,9 @@ public final class NftWallet {
     }
 
     public static final int MERCHANTID_FIELD_NUMBER = 12;
-    private long merchantId_;
+    private volatile java.lang.Object merchantId_;
     /**
-     * <code>optional int64 merchantId = 12;</code>
+     * <code>optional string merchantId = 12;</code>
      * @return Whether the merchantId field is set.
      */
     @java.lang.Override
@@ -731,12 +776,41 @@ public final class NftWallet {
       return ((bitField0_ & 0x00000800) != 0);
     }
     /**
-     * <code>optional int64 merchantId = 12;</code>
+     * <code>optional string merchantId = 12;</code>
      * @return The merchantId.
      */
     @java.lang.Override
-    public long getMerchantId() {
-      return merchantId_;
+    public java.lang.String getMerchantId() {
+      java.lang.Object ref = merchantId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          merchantId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string merchantId = 12;</code>
+     * @return The bytes for merchantId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMerchantIdBytes() {
+      java.lang.Object ref = merchantId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        merchantId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -809,7 +883,7 @@ public final class NftWallet {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, productId_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
-        output.writeInt64(6, outOrderId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, outOrderId_);
       }
       if (((bitField0_ & 0x00000040) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 7, value_);
@@ -827,7 +901,7 @@ public final class NftWallet {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 11, merchantType_);
       }
       if (((bitField0_ & 0x00000800) != 0)) {
-        output.writeInt64(12, merchantId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, merchantId_);
       }
       unknownFields.writeTo(output);
     }
@@ -857,8 +931,7 @@ public final class NftWallet {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, productId_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, outOrderId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, outOrderId_);
       }
       if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, value_);
@@ -877,8 +950,7 @@ public final class NftWallet {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, merchantType_);
       }
       if (((bitField0_ & 0x00000800) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(12, merchantId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, merchantId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -922,8 +994,8 @@ public final class NftWallet {
       }
       if (hasOutOrderId() != other.hasOutOrderId()) return false;
       if (hasOutOrderId()) {
-        if (getOutOrderId()
-            != other.getOutOrderId()) return false;
+        if (!getOutOrderId()
+            .equals(other.getOutOrderId())) return false;
       }
       if (hasValue() != other.hasValue()) return false;
       if (hasValue()) {
@@ -952,8 +1024,8 @@ public final class NftWallet {
       }
       if (hasMerchantId() != other.hasMerchantId()) return false;
       if (hasMerchantId()) {
-        if (getMerchantId()
-            != other.getMerchantId()) return false;
+        if (!getMerchantId()
+            .equals(other.getMerchantId())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -990,8 +1062,7 @@ public final class NftWallet {
       }
       if (hasOutOrderId()) {
         hash = (37 * hash) + OUTORDERID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOutOrderId());
+        hash = (53 * hash) + getOutOrderId().hashCode();
       }
       if (hasValue()) {
         hash = (37 * hash) + VALUE_FIELD_NUMBER;
@@ -1016,8 +1087,7 @@ public final class NftWallet {
       }
       if (hasMerchantId()) {
         hash = (37 * hash) + MERCHANTID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getMerchantId());
+        hash = (53 * hash) + getMerchantId().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1162,7 +1232,7 @@ public final class NftWallet {
         bitField0_ = (bitField0_ & ~0x00000008);
         productId_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
-        outOrderId_ = 0L;
+        outOrderId_ = "";
         bitField0_ = (bitField0_ & ~0x00000020);
         value_ = "";
         bitField0_ = (bitField0_ & ~0x00000040);
@@ -1174,7 +1244,7 @@ public final class NftWallet {
         bitField0_ = (bitField0_ & ~0x00000200);
         merchantType_ = "";
         bitField0_ = (bitField0_ & ~0x00000400);
-        merchantId_ = 0L;
+        merchantId_ = "";
         bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
@@ -1225,9 +1295,9 @@ public final class NftWallet {
         }
         result.productId_ = productId_;
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.outOrderId_ = outOrderId_;
           to_bitField0_ |= 0x00000020;
         }
+        result.outOrderId_ = outOrderId_;
         if (((from_bitField0_ & 0x00000040) != 0)) {
           to_bitField0_ |= 0x00000040;
         }
@@ -1249,9 +1319,9 @@ public final class NftWallet {
         }
         result.merchantType_ = merchantType_;
         if (((from_bitField0_ & 0x00000800) != 0)) {
-          result.merchantId_ = merchantId_;
           to_bitField0_ |= 0x00000800;
         }
+        result.merchantId_ = merchantId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1321,7 +1391,9 @@ public final class NftWallet {
           onChanged();
         }
         if (other.hasOutOrderId()) {
-          setOutOrderId(other.getOutOrderId());
+          bitField0_ |= 0x00000020;
+          outOrderId_ = other.outOrderId_;
+          onChanged();
         }
         if (other.hasValue()) {
           bitField0_ |= 0x00000040;
@@ -1347,7 +1419,9 @@ public final class NftWallet {
           onChanged();
         }
         if (other.hasMerchantId()) {
-          setMerchantId(other.getMerchantId());
+          bitField0_ |= 0x00000800;
+          merchantId_ = other.merchantId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1694,41 +1768,86 @@ public final class NftWallet {
         return this;
       }
 
-      private long outOrderId_ ;
+      private java.lang.Object outOrderId_ = "";
       /**
-       * <code>required int64 outOrderId = 6;</code>
+       * <code>required string outOrderId = 6;</code>
        * @return Whether the outOrderId field is set.
        */
-      @java.lang.Override
       public boolean hasOutOrderId() {
         return ((bitField0_ & 0x00000020) != 0);
       }
       /**
-       * <code>required int64 outOrderId = 6;</code>
+       * <code>required string outOrderId = 6;</code>
        * @return The outOrderId.
        */
-      @java.lang.Override
-      public long getOutOrderId() {
-        return outOrderId_;
+      public java.lang.String getOutOrderId() {
+        java.lang.Object ref = outOrderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            outOrderId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 outOrderId = 6;</code>
+       * <code>required string outOrderId = 6;</code>
+       * @return The bytes for outOrderId.
+       */
+      public com.google.protobuf.ByteString
+          getOutOrderIdBytes() {
+        java.lang.Object ref = outOrderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          outOrderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string outOrderId = 6;</code>
        * @param value The outOrderId to set.
        * @return This builder for chaining.
        */
-      public Builder setOutOrderId(long value) {
-        bitField0_ |= 0x00000020;
+      public Builder setOutOrderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
         outOrderId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 outOrderId = 6;</code>
+       * <code>required string outOrderId = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearOutOrderId() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        outOrderId_ = 0L;
+        outOrderId_ = getDefaultInstance().getOutOrderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string outOrderId = 6;</code>
+       * @param value The bytes for outOrderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOutOrderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        outOrderId_ = value;
         onChanged();
         return this;
       }
@@ -2108,41 +2227,86 @@ public final class NftWallet {
         return this;
       }
 
-      private long merchantId_ ;
+      private java.lang.Object merchantId_ = "";
       /**
-       * <code>optional int64 merchantId = 12;</code>
+       * <code>optional string merchantId = 12;</code>
        * @return Whether the merchantId field is set.
        */
-      @java.lang.Override
       public boolean hasMerchantId() {
         return ((bitField0_ & 0x00000800) != 0);
       }
       /**
-       * <code>optional int64 merchantId = 12;</code>
+       * <code>optional string merchantId = 12;</code>
        * @return The merchantId.
        */
-      @java.lang.Override
-      public long getMerchantId() {
-        return merchantId_;
+      public java.lang.String getMerchantId() {
+        java.lang.Object ref = merchantId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            merchantId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional int64 merchantId = 12;</code>
+       * <code>optional string merchantId = 12;</code>
+       * @return The bytes for merchantId.
+       */
+      public com.google.protobuf.ByteString
+          getMerchantIdBytes() {
+        java.lang.Object ref = merchantId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          merchantId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string merchantId = 12;</code>
        * @param value The merchantId to set.
        * @return This builder for chaining.
        */
-      public Builder setMerchantId(long value) {
-        bitField0_ |= 0x00000800;
+      public Builder setMerchantId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000800;
         merchantId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 merchantId = 12;</code>
+       * <code>optional string merchantId = 12;</code>
        * @return This builder for chaining.
        */
       public Builder clearMerchantId() {
         bitField0_ = (bitField0_ & ~0x00000800);
-        merchantId_ = 0L;
+        merchantId_ = getDefaultInstance().getMerchantId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string merchantId = 12;</code>
+       * @param value The bytes for merchantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMerchantIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000800;
+        merchantId_ = value;
         onChanged();
         return this;
       }
@@ -3787,15 +3951,21 @@ public final class NftWallet {
         getProductCodeBytes();
 
     /**
-     * <code>required int64 outOrderId = 3;</code>
+     * <code>required string outOrderId = 3;</code>
      * @return Whether the outOrderId field is set.
      */
     boolean hasOutOrderId();
     /**
-     * <code>required int64 outOrderId = 3;</code>
+     * <code>required string outOrderId = 3;</code>
      * @return The outOrderId.
      */
-    long getOutOrderId();
+    java.lang.String getOutOrderId();
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return The bytes for outOrderId.
+     */
+    com.google.protobuf.ByteString
+        getOutOrderIdBytes();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.BILL_DETAIL_IC}
@@ -3811,6 +3981,7 @@ public final class NftWallet {
     }
     private BILL_DETAIL_IC() {
       productCode_ = "";
+      outOrderId_ = "";
     }
 
     @java.lang.Override
@@ -3855,9 +4026,10 @@ public final class NftWallet {
               productCode_ = bs;
               break;
             }
-            case 24: {
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              outOrderId_ = input.readInt64();
+              outOrderId_ = bs;
               break;
             }
             default: {
@@ -3961,9 +4133,9 @@ public final class NftWallet {
     }
 
     public static final int OUTORDERID_FIELD_NUMBER = 3;
-    private long outOrderId_;
+    private volatile java.lang.Object outOrderId_;
     /**
-     * <code>required int64 outOrderId = 3;</code>
+     * <code>required string outOrderId = 3;</code>
      * @return Whether the outOrderId field is set.
      */
     @java.lang.Override
@@ -3971,12 +4143,41 @@ public final class NftWallet {
       return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>required int64 outOrderId = 3;</code>
+     * <code>required string outOrderId = 3;</code>
      * @return The outOrderId.
      */
     @java.lang.Override
-    public long getOutOrderId() {
-      return outOrderId_;
+    public java.lang.String getOutOrderId() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          outOrderId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return The bytes for outOrderId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOutOrderIdBytes() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        outOrderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4012,7 +4213,7 @@ public final class NftWallet {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, productCode_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        output.writeInt64(3, outOrderId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, outOrderId_);
       }
       unknownFields.writeTo(output);
     }
@@ -4031,8 +4232,7 @@ public final class NftWallet {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, productCode_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, outOrderId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, outOrderId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4061,8 +4261,8 @@ public final class NftWallet {
       }
       if (hasOutOrderId() != other.hasOutOrderId()) return false;
       if (hasOutOrderId()) {
-        if (getOutOrderId()
-            != other.getOutOrderId()) return false;
+        if (!getOutOrderId()
+            .equals(other.getOutOrderId())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -4086,8 +4286,7 @@ public final class NftWallet {
       }
       if (hasOutOrderId()) {
         hash = (37 * hash) + OUTORDERID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOutOrderId());
+        hash = (53 * hash) + getOutOrderId().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -4226,7 +4425,7 @@ public final class NftWallet {
         bitField0_ = (bitField0_ & ~0x00000001);
         productCode_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        outOrderId_ = 0L;
+        outOrderId_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -4265,9 +4464,9 @@ public final class NftWallet {
         }
         result.productCode_ = productCode_;
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.outOrderId_ = outOrderId_;
           to_bitField0_ |= 0x00000004;
         }
+        result.outOrderId_ = outOrderId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4326,7 +4525,9 @@ public final class NftWallet {
           onChanged();
         }
         if (other.hasOutOrderId()) {
-          setOutOrderId(other.getOutOrderId());
+          bitField0_ |= 0x00000004;
+          outOrderId_ = other.outOrderId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4490,41 +4691,86 @@ public final class NftWallet {
         return this;
       }
 
-      private long outOrderId_ ;
+      private java.lang.Object outOrderId_ = "";
       /**
-       * <code>required int64 outOrderId = 3;</code>
+       * <code>required string outOrderId = 3;</code>
        * @return Whether the outOrderId field is set.
        */
-      @java.lang.Override
       public boolean hasOutOrderId() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>required int64 outOrderId = 3;</code>
+       * <code>required string outOrderId = 3;</code>
        * @return The outOrderId.
        */
-      @java.lang.Override
-      public long getOutOrderId() {
-        return outOrderId_;
+      public java.lang.String getOutOrderId() {
+        java.lang.Object ref = outOrderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            outOrderId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 outOrderId = 3;</code>
+       * <code>required string outOrderId = 3;</code>
+       * @return The bytes for outOrderId.
+       */
+      public com.google.protobuf.ByteString
+          getOutOrderIdBytes() {
+        java.lang.Object ref = outOrderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          outOrderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
        * @param value The outOrderId to set.
        * @return This builder for chaining.
        */
-      public Builder setOutOrderId(long value) {
-        bitField0_ |= 0x00000004;
+      public Builder setOutOrderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
         outOrderId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 outOrderId = 3;</code>
+       * <code>required string outOrderId = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearOutOrderId() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        outOrderId_ = 0L;
+        outOrderId_ = getDefaultInstance().getOutOrderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
+       * @param value The bytes for outOrderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOutOrderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        outOrderId_ = value;
         onChanged();
         return this;
       }
@@ -6641,14 +6887,14 @@ public final class NftWallet {
       "ion\"\346\001\n\007BillDTO\022\016\n\006billId\030\001 \002(\003\022\025\n\ractiv" +
       "ityCfgId\030\002 \002(\005\022\013\n\003uid\030\003 \002(\003\022\023\n\013productCo" +
       "de\030\004 \002(\t\022\021\n\tproductId\030\005 \002(\t\022\022\n\noutOrderI" +
-      "d\030\006 \002(\003\022\r\n\005value\030\007 \002(\t\022\020\n\010currency\030\010 \002(\t" +
+      "d\030\006 \002(\t\022\r\n\005value\030\007 \002(\t\022\020\n\010currency\030\010 \002(\t" +
       "\022\r\n\005state\030\t \002(\t\022\021\n\tcreatedAt\030\n \002(\003\022\024\n\014me" +
-      "rchantType\030\013 \001(\t\022\022\n\nmerchantId\030\014 \001(\003\";\n\013" +
+      "rchantType\030\013 \001(\t\022\022\n\nmerchantId\030\014 \001(\t\";\n\013" +
       "BILL_PAY_IC\022\013\n\003uid\030\001 \002(\003\022\r\n\005token\030\002 \002(\t\022" +
       "\020\n\010password\030\003 \002(\t\"A\n\013BILL_PAY_IS\0222\n\004bill" +
       "\030\001 \002(\0132$.com.ruixi.tpulse.convention.Bil" +
       "lDTO\"F\n\016BILL_DETAIL_IC\022\013\n\003uid\030\001 \002(\003\022\023\n\013p" +
-      "roductCode\030\002 \002(\t\022\022\n\noutOrderId\030\003 \002(\003\"E\n\016" +
+      "roductCode\030\002 \002(\t\022\022\n\noutOrderId\030\003 \002(\t\"E\n\016" +
       "BILL_DETAIL_IS\0223\n\005bills\030\001 \002(\0132$.com.ruix" +
       "i.tpulse.convention.BillDTO\")\n\013RECHARGE_" +
       "IC\022\013\n\003uid\030\001 \002(\003\022\r\n\005token\030\002 \002(\t\"A\n\013RECHAR" +

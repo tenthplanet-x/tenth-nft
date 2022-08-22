@@ -1,8 +1,7 @@
 package com.tenth.nft.web3;
 
-import com.tenth.nft.contract.TpulseV2Contract;
+import com.tenth.nft.solidity.TpulseContract;
 import com.wallan.json.JsonUtil;
-import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.datatypes.Function;
@@ -11,7 +10,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.gas.ContractGasProvider;
+import org.web3j.tuples.generated.Tuple2;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Convert;
 
@@ -25,7 +24,7 @@ import java.util.Map;
 /**
  * @author shijie
  */
-public class TpulseV2ContractTest {
+public class TpulseContractTest {
 
     public static final String NETWORK = "https://rinkeby.infura.io/v3/86b933b4f2754d4cb3bb906dbe9266d4";
     public static final String CONTRACT_OWNER = "0xfffcb195b4eb04F9E9676976b16c94aa12c31af3";
@@ -50,35 +49,40 @@ public class TpulseV2ContractTest {
         System.out.println("gasPrice: " + gasPrice.getGasPrice());
         Credentials credentials = Credentials.create(CONTRACT_OWNER_PRIVATEKEY);
         System.out.println("gasLimit: " + ethBlock.getBlock().getGasLimit());
-        TpulseV2Contract contract = TpulseV2Contract.deploy(
+        TpulseContract contract = TpulseContract.deploy(
                 web3j,
                 credentials,
                 new DefaultGasProvider(),
-                BigInteger.valueOf(25)
+                "https://nft.ruixi-sh.com/token/{id}",
+                BigInteger.valueOf(1000)
         ).send();
         System.out.println(contract.getContractAddress());
         //0x34c8e08651025f7e2194b1e9d365fc9c750d19ca
     }
 
-    public static final String CONTRACT_ADDRESS = "0x55ad059d00cb76f396720cadb9e915bc68271d5a";
+    public static final String CONTRACT_ADDRESS = "0x9811d25c2fb68e3767735e07644ced38aa18ec2c";
 
     @Test
     public void mint() throws Exception{
         Web3j web3j = Web3j.build(new HttpService(NETWORK));
         Credentials credentials = Credentials.create(CONTRACT_OWNER_PRIVATEKEY);
-        TpulseV2Contract contract = TpulseV2Contract.load(CONTRACT_ADDRESS,
+        TpulseContract contract = TpulseContract.load(CONTRACT_ADDRESS,
                 web3j,
                 credentials,
                 //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
                 new DefaultGasProvider()
         );
         final Long ITEM_COUNT = 10L;
-        TransactionReceipt receipt = contract.mint(CONTRACT_SELLER, BigInteger.valueOf(ITEM_ID), BigInteger.valueOf(ITEM_COUNT), new byte[0]).send();
+        TransactionReceipt receipt = contract.mintWithCreatorFeeRate(CONTRACT_SELLER, BigInteger.valueOf(ITEM_ID), BigInteger.valueOf(ITEM_COUNT), new byte[0], BigInteger.valueOf(5)).send();
         String hash = receipt.getTransactionHash();
         System.out.println("mint transaction: " + hash);
 
         BigInteger itemOwns = contract.balanceOf(CONTRACT_SELLER, BigInteger.valueOf(ITEM_ID)).send();
         System.out.println("item owns: " + itemOwns);
+
+        Tuple2<String, BigInteger> profile = contract.creatorProfileOf(BigInteger.valueOf(ITEM_ID)).send();
+        System.out.println("creator: " + profile.component1());
+        System.out.println("creatorFeeRate: " + profile.component2());
 
         EthBlockNumber blockNumber = web3j.ethBlockNumber().send();
         BigInteger balance = web3j.ethGetBalance(CONTRACT_SELLER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
@@ -93,7 +97,7 @@ public class TpulseV2ContractTest {
         //0xcc98Cf60b156a28625Ef3669f69Abc18F8cebcdc
         Web3j web3j = Web3j.build(new HttpService(NETWORK));
         Credentials credentials = Credentials.create(CONTRACT_OWNER_PRIVATEKEY);
-        TpulseV2Contract contract = TpulseV2Contract.load(CONTRACT_ADDRESS,
+        TpulseContract contract = TpulseContract.load(CONTRACT_ADDRESS,
                 web3j,
                 credentials,
                 //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
@@ -108,7 +112,7 @@ public class TpulseV2ContractTest {
     public void approve() throws Exception{
         Web3j web3j = Web3j.build(new HttpService(NETWORK));
         Credentials credentials = Credentials.create(CONTRACT_SELLER_PRIVATEKEY);
-        TpulseV2Contract contract = TpulseV2Contract.load(CONTRACT_ADDRESS,
+        TpulseContract contract = TpulseContract.load(CONTRACT_ADDRESS,
                 web3j,
                 credentials,
                 //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
@@ -125,7 +129,7 @@ public class TpulseV2ContractTest {
 
         Web3j web3j = Web3j.build(new HttpService(NETWORK));
         Credentials credentials = Credentials.create(CONTRACT_BUYER_PRIVATEKEY);
-        TpulseV2Contract contract = TpulseV2Contract.load(
+        TpulseContract contract = TpulseContract.load(
                 CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -137,12 +141,12 @@ public class TpulseV2ContractTest {
         BigInteger balance = web3j.ethGetBalance(CONTRACT_BUYER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
         System.out.println("current eth: " + balance);
 
-        TpulseV2Contract.Listing listing = new TpulseV2Contract.Listing(
+        TpulseContract.Listing listing = new TpulseContract.Listing(
                 CONTRACT_SELLER,
                 BigInteger.valueOf(ITEM_ID),
                 BigInteger.valueOf(1),
-                Convert.toWei(BigDecimal.valueOf(0.1), Convert.Unit.ETHER).toBigInteger(),
-                new TpulseV2Contract.Signature(
+                BigInteger.valueOf(0),
+                new TpulseContract.Signature(
                         new byte[32],
                         BigInteger.valueOf(1),
                         new byte[32],
@@ -152,13 +156,15 @@ public class TpulseV2ContractTest {
         String hash = contract.buy(listing).send().getTransactionHash();
         System.out.println("hash: " + hash);
         //0xd05cbdc69bd768c824d308efbdb6c325f34861d7ea2f5dbc857a1929af4d1299
+        BigInteger itemOwns = contract.balanceOf(CONTRACT_BUYER, BigInteger.valueOf(ITEM_ID)).send();
+        System.out.println("item owns: " + itemOwns);
     }
 
     @Test
     public void buyWithMoney() throws Exception{
         Web3j web3j = Web3j.build(new HttpService(NETWORK));
         Credentials credentials = Credentials.create(CONTRACT_OWNER_PRIVATEKEY);
-        TpulseV2Contract contract = TpulseV2Contract.load(
+        TpulseContract contract = TpulseContract.load(
                 CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -170,12 +176,12 @@ public class TpulseV2ContractTest {
         BigInteger balance = web3j.ethGetBalance(CONTRACT_BUYER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
         System.out.println("current eth: " + balance);
 
-        TpulseV2Contract.Listing listing = new TpulseV2Contract.Listing(
+        TpulseContract.Listing listing = new TpulseContract.Listing(
                 CONTRACT_SELLER,
                 BigInteger.valueOf(ITEM_ID),
                 BigInteger.valueOf(1),
-                BigInteger.valueOf(0),
-                new TpulseV2Contract.Signature(
+                BigInteger.valueOf(1),
+                new TpulseContract.Signature(
                         new byte[32],
                         BigInteger.valueOf(1),
                         new byte[32],
@@ -260,7 +266,7 @@ public class TpulseV2ContractTest {
 
         Web3j web3j = Web3j.build(new HttpService(NETWORK));
         Credentials credentials = Credentials.create(CONTRACT_OWNER_PRIVATEKEY);
-        TpulseV2Contract contract = TpulseV2Contract.load(
+        TpulseContract contract = TpulseContract.load(
                 CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -277,7 +283,7 @@ public class TpulseV2ContractTest {
 
         Web3j web3j = Web3j.build(new HttpService(NETWORK));
         Credentials credentials = Credentials.create(CONTRACT_BUYER_PRIVATEKEY);
-        TpulseV2Contract contract = TpulseV2Contract.load(
+        TpulseContract contract = TpulseContract.load(
                 CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -287,19 +293,27 @@ public class TpulseV2ContractTest {
         //BigInteger integer = contract.getGasPrice();
         //System.out.println(integer);
 
-        BigInteger gasPrice = web3j.ethGetTransactionByHash("0x4cd83deb1cc431e9b442ed62fa9b5b01bd513c605fe49030973f67bfeba9bc9e").send().getResult().getGasPrice();
+        BigInteger gasPrice = web3j.ethGetTransactionByHash("0x26b19d74b847ccd35309ae583f914d3e355ab5961ca30b20c9850c299a607055").send().getResult().getGasPrice();
         System.out.println(gasPrice);
 
-        EthGetTransactionReceipt receipt = web3j.ethGetTransactionReceipt("0x4cd83deb1cc431e9b442ed62fa9b5b01bd513c605fe49030973f67bfeba9bc9e").send();
+        EthGetTransactionReceipt receipt = web3j.ethGetTransactionReceipt("0x26b19d74b847ccd35309ae583f914d3e355ab5961ca30b20c9850c299a607055").send();
         System.out.println(receipt);
         List<Log> logs = receipt.getResult().getLogs();
         for(Log log: logs){
             System.out.println(log.getType());
         }
 
-        List<TpulseV2Contract.ReceivedEventResponse> responses = contract.getReceivedEvents(receipt.getResult());
-        System.out.println(responses);
+//        List<TpulseContract.ReceivedEventResponse> responses = contract.getReceivedEvents(receipt.getResult());
+//        System.out.println(responses);
 
+        List<TpulseContract.ExpenseEventResponse> events = contract.getExpenseEvents(receipt.getResult());
+        System.out.println(events);
+
+        List<TpulseContract.IncomeEventResponse> incomeEvents = contract.getIncomeEvents(receipt.getResult());
+        System.out.println(incomeEvents);
+
+        List<TpulseContract.CreatorIncomeEventResponse> creatorEvent = contract.getCreatorIncomeEvents(receipt.getResult());
+        System.out.println(creatorEvent);
     }
 
     @Test

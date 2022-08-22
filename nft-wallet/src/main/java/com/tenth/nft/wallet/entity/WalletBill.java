@@ -28,11 +28,11 @@ public class WalletBill {
 
     private String productId;
 
-    private Long outOrderId;
+    private String outOrderId;
 
     private String merchantType;
 
-    private Long merchantId;
+    private String merchantId;
 
     private String currency;
 
@@ -80,11 +80,11 @@ public class WalletBill {
         this.productCode = productCode;
     }
 
-    public Long getOutOrderId() {
+    public String getOutOrderId() {
         return outOrderId;
     }
 
-    public void setOutOrderId(Long outOrderId) {
+    public void setOutOrderId(String outOrderId) {
         this.outOrderId = outOrderId;
     }
 
@@ -96,11 +96,11 @@ public class WalletBill {
         this.merchantType = merchantType;
     }
 
-    public Long getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(Long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 

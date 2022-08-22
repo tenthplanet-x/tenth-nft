@@ -180,7 +180,7 @@ public class WalletBillService {
                     NftUserProfileDTO.from(
                             routeClient.send(
                                     Search.SEARCH_USER_PROFILE_IC.newBuilder()
-                                            .addUids(walletBill.getMerchantId())
+                                            .addUids(Long.valueOf(walletBill.getMerchantId()))
                                             .build(),
                                     SearchUserProfileRouteRequest.class
                             ).getProfiles(0)

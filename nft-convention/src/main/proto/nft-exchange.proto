@@ -95,7 +95,7 @@ message BUY_IS{
 
 message PAY_RECEIPT_PUSH_IC{
   required int64 assetsId = 1;
-  required int64 orderId = 2;
+  required string orderId = 2;
   required string state = 3;
 }
 message PAY_RECEIPT_PUSH_IS{

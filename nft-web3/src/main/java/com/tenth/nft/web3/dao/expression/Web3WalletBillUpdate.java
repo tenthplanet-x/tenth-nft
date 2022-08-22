@@ -1,5 +1,6 @@
 package com.tenth.nft.web3.dao.expression;
 
+import com.tenth.nft.web3.entity.Web3WalletBill;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 import com.tpulse.gs.convention.dao.defination.WriteOpt;
@@ -40,6 +41,12 @@ public class Web3WalletBillUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private Long updatedAt = System.currentTimeMillis();
 
+    @SimpleWriteParam
+    private String state;
+
+    @SimpleWriteParam
+    private String remark;
+
     public Long getUpdatedAt() {
         return updatedAt;
     }
@@ -78,6 +85,14 @@ public class Web3WalletBillUpdate extends SimpleUpdate {
 
     public String getTransactionId(){
         return transactionId;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getRemark() {
+        return remark;
     }
 
     public static Builder newBuilder(){
@@ -133,10 +148,19 @@ public class Web3WalletBillUpdate extends SimpleUpdate {
             return this;
         }
 
+        public Builder setState(String state) {
+            update.state = state;
+            return this;
+        }
+
         public Web3WalletBillUpdate build(){
             return update;
         }
 
+        public Builder setRemark(String remark) {
+            update.remark = remark;
+            return this;
+        }
     }
 
 }

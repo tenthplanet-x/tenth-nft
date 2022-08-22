@@ -28,7 +28,9 @@ public class Web3WalletBill {
 
     private String outOrderId;
 
-    private String fromAddress;
+    private String merchantType;
+
+    private String merchantId;
 
     private String transactionId;
 
@@ -37,6 +39,14 @@ public class Web3WalletBill {
     private Long updatedAt;
 
     private String state;
+
+    private Long expiredAt;
+
+    private String currency;
+
+    private String value;
+
+    private String remark;
 
     public Long getId() {
         return id;
@@ -94,14 +104,6 @@ public class Web3WalletBill {
         this.outOrderId = outOrderId;
     }
 
-    public String getFromAddress() {
-        return fromAddress;
-    }
-
-    public void setFromAddress(String fromAddress) {
-        this.fromAddress = fromAddress;
-    }
-
     public String getTransactionId() {
         return transactionId;
     }
@@ -140,5 +142,53 @@ public class Web3WalletBill {
 
     public void setUid(Long uid) {
         this.uid = uid;
+    }
+
+    public Long getExpiredAt() {
+        return expiredAt;
+    }
+
+    public void setExpiredAt(Long expiredAt) {
+        this.expiredAt = expiredAt;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getMerchantType() {
+        return merchantType;
+    }
+
+    public void setMerchantType(String merchantType) {
+        this.merchantType = merchantType;
+    }
+
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
     }
 }
