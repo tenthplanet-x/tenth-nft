@@ -93,7 +93,7 @@ ext {
 
 allprojects{
     group 'com.tenth.nft'
-    version "0.0.1_20220802_002-SNAPSHOT"
+    version "0.0.1_20220820_001-SNAPSHOT"
 
     repositories {
         maven {
