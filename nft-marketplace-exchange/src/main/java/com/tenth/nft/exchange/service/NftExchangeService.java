@@ -42,6 +42,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
@@ -112,6 +113,13 @@ public class NftExchangeService {
             throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
         }
 
+        NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
+                NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
+                        .setId(nftBelong.getAssetsId())
+                        .build(),
+                AssetsDetailRouteRequest.class
+        ).getAssets();
+
         NftListing listing = new NftListing();
         listing.setUid(request.getUid());
         listing.setAssetsId(request.getAssetsId());
@@ -123,6 +131,11 @@ public class NftExchangeService {
         listing.setCreatedAt(System.currentTimeMillis());
         listing.setUpdatedAt(listing.getCreatedAt());
         listing.setCanceled(false);
+        if(!listing.getUid().equals(assetsDTO.getCreator()) && !Strings.isNullOrEmpty(assetsDTO.getCreatorFeeRate())){
+            listing.setCreatorUid(assetsDTO.getCreator());
+            listing.setCreatorFeeRate(assetsDTO.getCreatorFeeRate());
+        }
+
         //send activity
         Long activityId = sendListingEvent(listing);
         listing.setActivityId(activityId);
@@ -217,16 +230,17 @@ public class NftExchangeService {
         IWalletProvider walletProvider = walletProviderFactory.getByCurrency(nftListing.getCurrency());
         String channel = walletProvider.getChannel();
         WalletOrderBizContent walletOrder = WalletOrderBizContent.newBuilder()
-                .type(WalletOrderType.PAY.name())
+                .activityCfgId(WalletOrderType.NftExpense.getActivityCfgId())
                 .productCode(WalletProductCode.NFT.name())
-                .productId(nftListing.getAssetsId())
-                .outOrderId(orderId)
+                .productId(String.valueOf(nftListing.getAssetsId()))
+                .outOrderId(String.valueOf(orderId))
                 .merchantType(WalletMerchantType.PERSONAL.name())
-                .merchantId(nftListing.getUid())
+                .merchantId(String.valueOf(nftListing.getUid()))
                 .currency(nftListing.getCurrency())
-                .value(BigNumberUtils.from(nftListing.getPrice()))
+                .value(nftListing.getPrice())
                 .expiredAt(expiredAt)
                 .remark("")
+                .profits(createProfits(nftListing))
                 .build();
         String token = walletProvider.createToken(walletOrder);
 
@@ -248,8 +262,44 @@ public class NftExchangeService {
                 .setChannel(channel)
                 .setToken(token)
                 .setCurrency(nftListing.getCurrency())
-                .setValue(BigNumberUtils.from(nftListing.getPrice()))
+                .setValue(nftListing.getPrice())
                 .build();
+
+    }
+
+    private List<WalletOrderBizContent.Profit> createProfits(NftListing nftListing) {
+
+        List<WalletOrderBizContent.Profit> profits = new ArrayList<>();
+
+        BigDecimal profitValue = new BigDecimal(nftListing.getPrice());
+        BigDecimal creatorFee = BigDecimal.ZERO;
+        if(!Strings.isNullOrEmpty(nftListing.getCreatorFeeRate())){
+            creatorFee = profitValue.multiply(new BigDecimal(nftListing.getCreatorFeeRate()).divide(new BigDecimal(100)));
+            profitValue = profitValue.subtract(creatorFee);
+        }
+        //seller
+        {
+            WalletOrderBizContent.Profit profit = new WalletOrderBizContent.Profit();
+            profit.setActivityCfgId(WalletOrderType.NftIncome.getActivityCfgId());
+            profit.setCurrency(nftListing.getCurrency());
+            profit.setValue(profitValue.toString());
+            profit.setTo(nftListing.getUid());
+            profits.add(profit);
+        }
+        //creator fee
+        {
+            if(creatorFee.compareTo(BigDecimal.ZERO) > 0){
+                WalletOrderBizContent.Profit profit = new WalletOrderBizContent.Profit();
+                profit.setActivityCfgId(WalletOrderType.CreatorIncome.getActivityCfgId());
+                profit.setCurrency(nftListing.getCurrency());
+                profit.setValue(creatorFee.toString());
+                profit.setTo(nftListing.getCreatorUid());
+                profits.add(profit);
+            }
+        }
+        //service fee
+
+        return profits;
 
     }
 
@@ -257,7 +307,7 @@ public class NftExchangeService {
 
         NftExchange.PAY_RECEIPT_PUSH_IS.Builder builder = NftExchange.PAY_RECEIPT_PUSH_IS.newBuilder();
 
-        Long orderId = request.getOrderId();
+        Long orderId = Long.valueOf(request.getOrderId());
         SimpleQuery orderQuery = NftOrderQuery.newBuilder().assetsId(request.getAssetsId()).id(orderId).build();
         NftOrder nftOrder = nftOrderDao.findOne(orderQuery);
         if(null != nftOrder && NftOrderStatus.CREATE.equals(nftOrder.getStatus())){
@@ -406,7 +456,8 @@ public class NftExchangeService {
                 .stream()
                 .filter(dto -> !Times.isExpired(dto.getExpireAt()))
                 .filter(dto -> dto.getCurrency().equals(currency))
-                .sorted(Comparator.comparingLong(NftListing::getCreatedAt)).min(Comparator.comparingDouble(listing -> listing.getPrice()));
+                .sorted(Comparator.comparingLong(NftListing::getCreatedAt))
+                .min(Comparator.comparing(listing -> new BigDecimal(listing.getPrice())));
         if(floor.isPresent()){
             profileBuilder.setCurrentListing(NftExchange.NftListingDTO.newBuilder()
                     .setId(floor.get().getId())
@@ -423,7 +474,7 @@ public class NftExchangeService {
 
         //total volume
         NftAssetsStats stats = nftAssetsStatsDao.findOne(NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build());
-        if(null != stats && stats.getTotalVolume() > 0){
+        if(null != stats && !Strings.isNullOrEmpty(stats.getTotalVolume()) &&  new BigDecimal(stats.getTotalVolume()).compareTo(BigDecimal.ZERO) > 0){
             profileBuilder.setTotalVolume(stats.getTotalVolume());
             profileBuilder.setCurrency(stats.getCurrency());
         }
@@ -473,11 +524,11 @@ public class NftExchangeService {
 
             NftAssetsStats stats = nftAssetsStatsDao.findOne(NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build());
             if(null != stats){
-                if(stats.getTotalVolume() > 0){
+                if(!Strings.isNullOrEmpty(stats.getTotalVolume()) && new BigDecimal(stats.getTotalVolume()).compareTo(BigDecimal.ZERO) > 0){
                     collectionProfileDTOBuilder.setTotalVolume(collectionProfileDTOBuilder.getTotalVolume() + stats.getTotalVolume());
                     collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
                 }
-                if(stats.getFloorPrice() > 0){
+                if(!Strings.isNullOrEmpty(stats.getFloorPrice()) && new BigDecimal(stats.getFloorPrice()).compareTo(BigDecimal.ZERO) > 0){
                     collectionProfileDTOBuilder.setFloorPrice(collectionProfileDTOBuilder.getFloorPrice() + stats.getFloorPrice());
                     collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
                 }

@@ -26,6 +26,8 @@ public class PlayerCollection {
 
     private Long updatedAt;
 
+    private String creatorFeeRate;
+
     public Long getId() {
         return id;
     }
@@ -72,5 +74,13 @@ public class PlayerCollection {
 
     public void setItems(Integer items) {
         this.items = items;
+    }
+
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
+    }
+
+    public void setCreatorFeeRate(String creatorFeeRate) {
+        this.creatorFeeRate = creatorFeeRate;
     }
 }

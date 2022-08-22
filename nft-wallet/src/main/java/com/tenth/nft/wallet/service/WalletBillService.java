@@ -7,6 +7,7 @@ import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.BuyReceiptPushRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.wallet.BillIncomeTriggerRouteRequest;
 import com.tenth.nft.convention.routes.wallet.WalletPayRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
@@ -22,10 +23,11 @@ import com.tenth.nft.wallet.dao.expression.WalletBillUpdate;
 import com.tenth.nft.wallet.dto.WalletBillDTO;
 import com.tenth.nft.wallet.dto.WalletBillSimpleDTO;
 import com.tenth.nft.wallet.entity.WalletBill;
+import com.tenth.nft.wallet.entity.WalletBillProfit;
 import com.tenth.nft.wallet.vo.BillDetailRequest;
-import com.tenth.nft.wallet.vo.BillListRequest;
+import com.tenth.nft.wallet.vo.BillEventListRequest;
 import com.tenth.nft.wallet.vo.BillPayRequest;
-import com.tpulse.gs.config2.client.GsConfigTemplateFactory;
+import com.tpulse.gs.convention.dao.SimpleQuery;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -107,11 +109,12 @@ public class WalletBillService {
             walletBill.setUpdatedAt(walletBill.getCreatedAt());
             walletBill.setState(WalletBillState.CREATE.name());
             walletBill.setRemark(bizContent.getRemark());
+            walletBill.setProfits(bizContent.getProfits().stream().map(this::from).toList());
             walletBillDao.insert(walletBill);
         }
 
         WalletBillState currentState = WalletBillState.valueOf(walletBill.getState());
-        if(WalletBillState.PAYED.equals(currentState) || WalletBillState.FAIL.equals(currentState)){
+        if(!WalletBillState.CREATE.equals(currentState)){
             throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
         }
 
@@ -150,8 +153,33 @@ public class WalletBillService {
 
         if(result.getOk()){
             //do pay
+            //createPayForBill
             walletService.decBalance(walletBill.getUid(), walletBill.getCurrency(), walletBill.getValue());
             changeState(walletBill, WalletBillState.PAYED, "ok");
+
+            //do profits
+            for(WalletBillProfit profit: walletBill.getProfits()){
+                WalletBill payForBill = copyWithBizContent(walletBill);
+                payForBill.setUid(profit.getTo());
+                payForBill.setActivityCfgId(profit.getActivityCfgId());
+                payForBill.setMerchantType(WalletMerchantType.PERSONAL.name());
+                payForBill.setMerchantId(String.valueOf(walletBill.getUid()));
+                payForBill.setCurrency(profit.getCurrency());
+                payForBill.setValue(profit.getValue());
+                walletBillDao.insert(payForBill);
+                routeClient.send(
+                        NftWallet.BILL_INCOME_TRIGGER_IC.newBuilder()
+                                .setUid(profit.getTo())
+                                .setProductCode(walletBill.getProductCode())
+                                .setOutOrderId(walletBill.getOutOrderId())
+                                .setBillId(payForBill.getId())
+                                .build(),
+                        BillIncomeTriggerRouteRequest.class
+                );
+            }
+
+            changeState(walletBill, WalletBillState.COMPLETE, "ok");
+
         }else{
             changeState(walletBill, WalletBillState.FAIL, "biz error");
             throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_BIZ_VERIFY_FAILED);
@@ -167,6 +195,31 @@ public class WalletBillService {
 
     }
 
+    private WalletBill copyWithBizContent(WalletBill walletBill) {
+
+        WalletBill copy = new WalletBill();
+        copy.setActivityCfgId(walletBill.getActivityCfgId());
+        copy.setProductCode(walletBill.getProductCode());
+        copy.setProductId(walletBill.getProductId());
+        copy.setOutOrderId(walletBill.getOutOrderId());
+        copy.setExpiredAt(walletBill.getExpiredAt());
+        copy.setCurrency(walletBill.getCurrency());
+        copy.setValue(walletBill.getValue());
+        copy.setCreatedAt(System.currentTimeMillis());
+        copy.setUpdatedAt(walletBill.getCreatedAt());
+        copy.setState(WalletBillState.CREATE.name());
+        copy.setRemark(walletBill.getRemark());
+        return copy;
+    }
+
+    private WalletBillProfit from(WalletOrderBizContent.Profit profit) {
+        WalletBillProfit walletBillProfit = new WalletBillProfit();
+        walletBillProfit.setActivityCfgId(profit.getActivityCfgId());
+        walletBillProfit.setTo(profit.getTo());
+        walletBillProfit.setCurrency(profit.getCurrency());
+        walletBillProfit.setValue(profit.getValue());
+        return walletBillProfit;
+    }
 
     public WalletBillDTO detail(BillDetailRequest request) {
 
@@ -202,7 +255,7 @@ public class WalletBillService {
         if(null != walletActivityTemplate){
             WalletActivityConfig walletActivityConfig = walletActivityTemplate.findOne(walletBill.getActivityCfgId());
             if(null != walletActivityConfig){
-                walletBillDTO.setType(walletActivityConfig.getDisplayType());
+                walletBillDTO.setDisplayType(walletActivityConfig.getDisplayType());
                 walletBillDTO.setIncomeExpense(walletActivityConfig.getIncomeExpense());
             }
         }
@@ -222,7 +275,7 @@ public class WalletBillService {
                 .build();
     }
 
-    public Page<WalletBillSimpleDTO> list(BillListRequest request) {
+    public Page<WalletBillSimpleDTO> list(BillEventListRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
@@ -319,6 +372,35 @@ public class WalletBillService {
                         .setOutOrderId(walletBill.getOutOrderId())
                         .build()).getBills())
                 .build();
+
+    }
+
+
+    /**
+     * do income
+     * @param request
+     */
+    public void incomeTrigger(NftWallet.BILL_INCOME_TRIGGER_IC request){
+
+        SimpleQuery query = WalletBillQuery.newBuilder()
+                .uid(request.getUid())
+                .productCode(request.getProductCode())
+                .outOrderId(request.getOutOrderId())
+                .id(request.getBillId())
+                .build();
+        WalletBill walletBill = walletBillDao.findOne(query);
+
+        if(null != walletBill && !walletBill.getState().equals(WalletBillState.CREATE)){
+            walletService.incBalance(
+                    walletBill.getUid(),
+                    walletBill.getCurrency(),
+                    walletBill.getValue()
+            );
+            walletBillDao.update(
+                    query,
+                    WalletBillUpdate.newBuilder().setState(WalletBillState.COMPLETE.name()).build()
+            );
+        }
 
     }
 }

@@ -4,7 +4,7 @@ import com.tenth.nft.wallet.WalletPaths;
 import com.tenth.nft.wallet.dto.WalletBillDTO;
 import com.tenth.nft.wallet.dto.WalletBillSimpleDTO;
 import com.tenth.nft.wallet.service.WalletBillService;
-import com.tenth.nft.wallet.vo.BillListRequest;
+import com.tenth.nft.wallet.vo.BillEventListRequest;
 import com.tenth.nft.wallet.vo.BillPayRequest;
 import com.tenth.nft.wallet.vo.BillDetailRequest;
 import com.tpulse.commons.validation.Validations;
@@ -42,7 +42,7 @@ public class WalletBillController {
     }
 
     @RequestMapping(WalletPaths.WALLET_BILL_LIST)
-    public Response list(@RequestBody BillListRequest request){
+    public Response list(@RequestBody BillEventListRequest request){
         Validations.check(request);
         Page<WalletBillSimpleDTO> walletBillDTO = walletBillService.list(request);
         return Response.successBuilder().data(walletBillDTO).build();

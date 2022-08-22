@@ -1,41 +1,18 @@
 package com.tenth.nft.marketplace.service;
 
-import com.google.common.base.Strings;
-import com.ruixi.tpulse.convention.TpulseHeaders;
-import com.ruixi.tpulse.convention.TpulseIdModules;
-import com.ruixi.tpulse.convention.protobuf.Search;
-import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
-import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
-import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
-import com.tenth.nft.convention.utils.Prices;
-import com.tenth.nft.marketplace.vo.*;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionNoCacheDao;
-import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionUpdate;
 import com.tenth.nft.orm.marketplace.dto.NftCollectionDTO;
 import com.tenth.nft.orm.marketplace.dto.NftCollectionDetailDTO;
-import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
-import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftSearch;
-import com.tpulse.gs.convention.dao.dto.Page;
-import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
-import com.tpulse.gs.convention.gamecontext.GameUserContext;
-import com.tpulse.gs.oss.IGsOssService;
-import com.tpulse.gs.oss.qiniu.QiniuProperties;
-import com.tpulse.gs.oss.vo.OSSToken;
-import com.tpulse.gs.oss.vo.OSSTokenCreateOption;
-import com.tpulse.gs.oss.vo.OSSTokenType;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author gs-orm-generator
@@ -64,7 +41,7 @@ public class NftCollectionService {
         nftCollection.setLogoImage(request.getLogoImage());
         nftCollection.setFeaturedImage(request.getFeaturedImage());
         nftCollection.setCategory(request.getCategory());
-        nftCollection.setCreatorFee(request.getCreatorFee());
+        nftCollection.setCreatorFeeRate(request.getCreatorFeeRate());
         nftCollection.setBlockchain(request.getBlockchain());
         nftCollection.setItems(0);
         nftCollection = nftCollectionDao.insert(nftCollection);

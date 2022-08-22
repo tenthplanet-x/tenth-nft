@@ -153,7 +153,7 @@ public class AssetsSearchService {
             dto.setCurrentListing(listingDTO);
         }
         if(exchangeProfile.hasTotalVolume()){
-            dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+            dto.setTotalVolume(exchangeProfile.getTotalVolume());
             dto.setCurrency(exchangeProfile.getCurrency());
         }
         dto.setOwners(exchangeProfile.getOwners());

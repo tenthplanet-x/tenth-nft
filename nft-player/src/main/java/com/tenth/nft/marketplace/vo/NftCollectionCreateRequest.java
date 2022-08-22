@@ -23,7 +23,7 @@ public class NftCollectionCreateRequest {
 
     private Long category;
 
-    private Float creatorFee = 0f;
+    private String creatorFeeRate;
 
     @NotEmpty
     private String blockchain;
@@ -68,12 +68,12 @@ public class NftCollectionCreateRequest {
         this.category = category;
     }
 
-    public Float getCreatorFee() {
-        return creatorFee;
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
     }
 
-    public void setCreatorFee(Float creatorFee) {
-        this.creatorFee = creatorFee;
+    public void setCreatorFeeRate(String creatorFeeRate) {
+        this.creatorFeeRate = creatorFeeRate;
     }
 
     public String getBlockchain() {

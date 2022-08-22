@@ -224,7 +224,7 @@ public class NftAssetsDTO implements SimpleResponse {
             dto.setId(listing.getId());
             dto.setCurrency(listing.getCurrency());
             dto.setExpireAt(listing.getExpireAt());
-            dto.setPrice(Prices.toString(listing.getPrice()));
+            dto.setPrice(listing.getPrice());
             dto.setQuantity(listing.getQuantity());
             dto.setStartAt(listing.getStartAt());
             return dto;
@@ -250,6 +250,9 @@ public class NftAssetsDTO implements SimpleResponse {
         builder.setCreatedAt(nftAssets.getCreatedAt());
         builder.setBlockchain(nftAssets.getBlockchain());
         builder.setCreator(nftAssets.getCreator());
+        if(!Strings.isNullOrEmpty(nftAssets.getCreatorFeeRate())){
+            builder.setCreatorFeeRate(nftAssets.getCreatorFeeRate());
+        }
         if(null != nftAssets.getContractAddress()){
             builder.setContractAddress(nftAssets.getContractAddress());
             builder.setTokenStandard(nftAssets.getTokenStandard());

@@ -188,7 +188,7 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
             dto.setId(listing.getId());
             dto.setCurrency(listing.getCurrency());
             dto.setExpireAt(listing.getExpireAt());
-            dto.setPrice(Prices.toString(listing.getPrice()));
+            dto.setPrice(listing.getPrice());
             dto.setQuantity(listing.getQuantity());
             dto.setStartAt(listing.getStartAt());
             dto.setExpireAt(listing.getExpireAt());
@@ -247,7 +247,7 @@ public class AssetsDetailSearchDTO extends AssetsSearchDTO {
         public static NftOfferDTO from(NftExchange.NftOfferDTO nftOffer) {
             AssetsDetailSearchDTO.NftOfferDTO nftOfferDTO = new AssetsDetailSearchDTO.NftOfferDTO();
             nftOfferDTO.setId(nftOffer.getId());
-            nftOfferDTO.setPrice(Prices.toString(nftOffer.getPrice()));
+            nftOfferDTO.setPrice(nftOffer.getPrice());
             nftOfferDTO.setCurrency(nftOffer.getCurrency());
             return nftOfferDTO;
         }

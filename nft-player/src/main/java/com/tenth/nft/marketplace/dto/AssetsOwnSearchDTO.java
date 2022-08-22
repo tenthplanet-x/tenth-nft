@@ -210,7 +210,7 @@ public class AssetsOwnSearchDTO implements SimpleResponse {
             dto.setId(listing.getId());
             dto.setCurrency(listing.getCurrency());
             dto.setExpireAt(listing.getExpireAt());
-            dto.setPrice(Prices.toString(listing.getPrice()));
+            dto.setPrice(listing.getPrice());
             dto.setQuantity(listing.getQuantity());
             dto.setStartAt(listing.getStartAt());
             dto.setExpireAt(listing.getExpireAt());

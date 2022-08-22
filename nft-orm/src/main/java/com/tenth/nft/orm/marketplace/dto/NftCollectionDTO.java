@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.orm.FloatToStringDecoder;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
-import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.SimpleResponse;
@@ -38,8 +37,7 @@ public class NftCollectionDTO implements SimpleResponse {
     @SimpleField
     private Long category;
 
-    @SimpleField(decoder = FloatToStringDecoder.class)
-    private String creatorFee;
+    private String creatorFeeRate;
 
     @SimpleField
     private String blockchain;
@@ -97,12 +95,12 @@ public class NftCollectionDTO implements SimpleResponse {
         this.category = category;
     }
 
-    public String getCreatorFee() {
-        return creatorFee;
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
     }
 
-    public void setCreatorFee(String creatorFee) {
-        this.creatorFee = creatorFee;
+    public void setCreatorFeeRate(String creatorFeeRate) {
+        this.creatorFeeRate = creatorFeeRate;
     }
 
     public String getBlockchain() {
@@ -155,7 +153,9 @@ public class NftCollectionDTO implements SimpleResponse {
         }
         builder.setCreatedAt(nftCollection.getCreatedAt());
         builder.setBlockchain(nftCollection.getBlockchain());
-        builder.setCreatorFee(nftCollection.getCreatorFee());
+        if(!Strings.isNullOrEmpty(nftCollection.getCreatorFeeRate())){
+            builder.setCreatorFeeRate(nftCollection.getCreatorFeeRate());
+        }
         builder.setItems(nftCollection.getItems());
 
         return builder.build();
@@ -184,7 +184,7 @@ public class NftCollectionDTO implements SimpleResponse {
         nftCollectionDTO.setLogoImage(Strings.emptyToNull(collectionDTO.getLogoImage()));
         nftCollectionDTO.setFeaturedImage(Strings.emptyToNull(collectionDTO.getFeaturedImage()));
         nftCollectionDTO.setBlockchain(collectionDTO.getBlockchain());
-        nftCollectionDTO.setCreatorFee(Prices.toString(collectionDTO.getCreatorFee()));
+        nftCollectionDTO.setCreatorFeeRate(collectionDTO.getCreatorFeeRate());
         nftCollectionDTO.setItems(collectionDTO.getItems());
 
         return nftCollectionDTO;

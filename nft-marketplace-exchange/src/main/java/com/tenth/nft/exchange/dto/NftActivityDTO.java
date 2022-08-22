@@ -157,7 +157,7 @@ public class NftActivityDTO {
         }
 
         if(nftActivityDTO.hasPrice()){
-            dto.setPrice(Prices.toString(nftActivityDTO.getPrice()));
+            dto.setPrice(nftActivityDTO.getPrice());
             dto.setQuantity(nftActivityDTO.getQuantity());
             dto.setCurrency(nftActivityDTO.getCurrency());
         }

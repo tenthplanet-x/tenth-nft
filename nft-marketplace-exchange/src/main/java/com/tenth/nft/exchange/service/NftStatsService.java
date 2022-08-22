@@ -22,6 +22,7 @@ import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
@@ -66,7 +67,7 @@ public class NftStatsService {
         ).getRatesMap();
 
         //total volume
-        Optional<Float> volumeOptional = nftOrderDao.find(NftOrderQuery.newBuilder().assetsId(assetsId).build())
+        Optional<BigDecimal> volumeOptional = nftOrderDao.find(NftOrderQuery.newBuilder().assetsId(assetsId).build())
                 .stream()
                 .map(nftOrder -> {
 
@@ -75,17 +76,17 @@ public class NftStatsService {
                         rate = currencyRates.getOrDefault(nftOrder.getCurrency(), 0f);
                     }
                     if(rate == 0){
-                        return 0f;
+                        return new BigDecimal(0);
                     }else{
-                        return nftOrder.getPrice() / rate * nftOrder.getQuantity();
+                        return new BigDecimal(nftOrder.getPrice()).divide(new BigDecimal(rate)).multiply(new BigDecimal(nftOrder.getQuantity()));
                     }
                 })
-                .reduce((a, b) -> a + b);
+                .reduce((a, b) -> a.add(b));
         if(volumeOptional.isPresent()){
             nftAssetsStatsDao.findAndModify(
                     NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build(),
                     NftAssetsStatsUpdate.newBuilder()
-                            .setTotalVolume(volumeOptional.get())
+                            .setTotalVolume(volumeOptional.get().toString())
                             .setCurrency(currency)
                             .createAtOnInsert()
                             .build(),
@@ -129,7 +130,7 @@ public class NftStatsService {
                 CurrencyRatesRouteRequest.class
         ).getRatesMap();
 
-        Optional<Float> floor = nftListingDao
+        Optional<BigDecimal> floor = nftListingDao
                 .find(NftListingQuery.newBuilder().assetsId(assetsId).build())
                 .stream()
                 .filter(dto -> !Times.isExpired(dto.getExpireAt()))
@@ -141,14 +142,14 @@ public class NftStatsService {
                         rate = currencyRates.getOrDefault(listing.getCurrency(), 0f);
                     }
                     if(rate == 0){
-                        return 0f;
+                        return new BigDecimal(0);
                     }else{
-                        return listing.getPrice() / rate;
+                        return new BigDecimal(listing.getPrice()).divide(new BigDecimal(rate));
                     }
                 })
-                .filter(price -> price != 0)
-                .min(Comparator.comparingDouble(price -> price));
-        float floorPrice = 0;
+                .filter(price -> !price.equals(new BigDecimal(0)))
+                .min(Comparator.comparing(price -> price));
+        BigDecimal floorPrice = new BigDecimal(0);
         if(floor.isPresent()){
             floorPrice = floor.get();
         }
@@ -157,7 +158,7 @@ public class NftStatsService {
         nftAssetsStatsDao.findAndModify(
                 NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build(),
                 NftAssetsStatsUpdate.newBuilder()
-                        .setFloorPrice(floorPrice)
+                        .setFloorPrice(floorPrice.toString())
                         .setCurrency(currency)
                         .createAtOnInsert()
                         .build(),

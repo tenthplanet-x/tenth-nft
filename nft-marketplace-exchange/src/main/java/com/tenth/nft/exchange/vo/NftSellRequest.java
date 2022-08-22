@@ -20,7 +20,7 @@ public class NftSellRequest {
     @NotNull
     private Integer quantity;
     @NotNull
-    private Float price;
+    private String price;
     @NotNull
     private Long startAt;
     @NotNull
@@ -50,11 +50,11 @@ public class NftSellRequest {
         this.quantity = quantity;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

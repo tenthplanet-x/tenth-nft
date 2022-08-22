@@ -67,6 +67,7 @@ public class NftAssetsService {
         nftAssets.setBlockchain(request.getBlockchain());
         nftAssets.setCreatedAt(System.currentTimeMillis());
         nftAssets.setUpdatedAt(System.currentTimeMillis());
+        nftAssets.setCreatorFeeRate(request.getCreatorFeeRate());
 
         nftAssets = nftAssetsDao.insert(nftAssets);
 

@@ -17,8 +17,8 @@ public class NftMakeOfferRequest {
     @Min(1)
     private int quantity;
 
-    @Min(0)
-    private Float price;
+    @NotEmpty
+    private String price;
 
     @NotEmpty
     private String currency;
@@ -42,11 +42,11 @@ public class NftMakeOfferRequest {
         this.quantity = quantity;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

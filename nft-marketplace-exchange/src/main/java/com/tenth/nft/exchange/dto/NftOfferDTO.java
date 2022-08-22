@@ -133,7 +133,7 @@ public class NftOfferDTO {
         dto.setUid(nftOffer.getUid());
         dto.setAssetsId(nftOffer.getAssetsId());
         dto.setQuantity(nftOffer.getQuantity());
-        dto.setPrice(Prices.toString(nftOffer.getPrice()));
+        dto.setPrice(nftOffer.getPrice());
         dto.setCurrency(nftOffer.getCurrency());
         dto.setCreatedAt(nftOffer.getCreatedAt());
         dto.setExpireAt(nftOffer.getExpireAt());

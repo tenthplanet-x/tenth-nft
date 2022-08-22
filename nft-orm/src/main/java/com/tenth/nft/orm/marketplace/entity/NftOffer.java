@@ -20,7 +20,7 @@ public class NftOffer {
 
     private Integer quantity;
 
-    private Float price;
+    private String price;
 
     private String currency;
 
@@ -56,11 +56,11 @@ public class NftOffer {
         this.uid = uid;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

@@ -103,7 +103,7 @@ public class CollectionSearchService {
             ).getProfile();
             //totalVolume
             if(exchangeProfile.hasTotalVolume()){
-                dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                dto.setTotalVolume(exchangeProfile.getTotalVolume());
                 dto.setCurrency(exchangeProfile.getCurrency());
             }
             dto.setOwned(exchangeProfile.getOwned());
@@ -160,11 +160,11 @@ public class CollectionSearchService {
             //floorPrice
             //totalVolume
             if(exchangeProfile.hasFloorPrice()){
-                collectionSearchDTO.setFloorPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+                collectionSearchDTO.setFloorPrice(exchangeProfile.getFloorPrice());
                 collectionSearchDTO.setCurrency(exchangeProfile.getCurrency());
             }
             if(exchangeProfile.hasTotalVolume()){
-                collectionSearchDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                collectionSearchDTO.setTotalVolume(exchangeProfile.getTotalVolume());
                 collectionSearchDTO.setCurrency(exchangeProfile.getCurrency());
             }
         }
@@ -220,7 +220,7 @@ public class CollectionSearchService {
                         CollectionsExchangeProfileRouteRequest.class
                 ).getProfile();
                 if(exchangeProfile.hasTotalVolume()){
-                    collectionDTO.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                    collectionDTO.setTotalVolume(exchangeProfile.getTotalVolume());
                     collectionDTO.setCurrency(exchangeProfile.getCurrency());
                 }
 

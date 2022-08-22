@@ -12,7 +12,7 @@ message CollectionDTO{
   optional string featuredImage = 6;
   optional int64 createdAt = 7;
   required string blockchain = 8;
-  required float creatorFee = 9;
+  optional string creatorFeeRate = 9;
   optional int64 category = 10;
   optional int32 items = 11;
 }
@@ -32,6 +32,7 @@ message AssetsDTO{
   optional string tokenStandard = 12;
   optional string token = 13;
   required int64 creator = 14;
+  optional string creatorFeeRate = 15;
 }
 
 message COLLECTION_CREATE_IC{

@@ -16,9 +16,9 @@ public class NftAssetsStats {
 
     private Long assetsId;
 
-    private Float totalVolume = 0f;
+    private String totalVolume;
 
-    private Float floorPrice = 0f;
+    private String floorPrice;
 
     private String currency;
 
@@ -42,19 +42,19 @@ public class NftAssetsStats {
         this.assetsId = assetsId;
     }
 
-    public Float getTotalVolume() {
+    public String getTotalVolume() {
         return totalVolume;
     }
 
-    public void setTotalVolume(Float totalVolume) {
+    public void setTotalVolume(String totalVolume) {
         this.totalVolume = totalVolume;
     }
 
-    public Float getFloorPrice() {
+    public String getFloorPrice() {
         return floorPrice;
     }
 
-    public void setFloorPrice(Float floorPrice) {
+    public void setFloorPrice(String floorPrice) {
         this.floorPrice = floorPrice;
     }
 

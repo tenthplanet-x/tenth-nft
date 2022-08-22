@@ -5,7 +5,7 @@ import com.tpulse.commons.biz.dto.PageRequest;
 /**
  * @author shijie
  */
-public class BillListRequest extends PageRequest {
+public class BillEventListRequest extends PageRequest {
 
 
 

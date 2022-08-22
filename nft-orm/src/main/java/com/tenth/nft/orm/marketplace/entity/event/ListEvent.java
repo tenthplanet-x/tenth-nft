@@ -13,7 +13,7 @@ public class ListEvent implements NftActivityEvent {
 
     private Integer quantity;
 
-    private Float price;
+    private String price;
 
     private String currency;
 
@@ -35,11 +35,11 @@ public class ListEvent implements NftActivityEvent {
         this.quantity = quantity;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

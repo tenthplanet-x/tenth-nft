@@ -154,9 +154,9 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
                     CollectionsExchangeProfileRouteRequest.class
             ).getProfile();
             if(nftCollectionProfileDTO.hasTotalVolume()){
-                nftCollectionLuceneDTO.setTotalVolume(nftCollectionProfileDTO.getTotalVolume());
+                nftCollectionLuceneDTO.setTotalVolume(Double.valueOf(nftCollectionProfileDTO.getTotalVolume()));
             }else{
-                nftCollectionLuceneDTO.setTotalVolume(0f);
+                nftCollectionLuceneDTO.setTotalVolume(0d);
             }
 
         }
@@ -184,9 +184,9 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
                     CollectionsExchangeProfileRouteRequest.class
             ).getProfile();
             if(nftCollectionProfileDTO.hasTotalVolume()){
-                nftCollectionLuceneDTO.setTotalVolume(nftCollectionProfileDTO.getTotalVolume());
+                nftCollectionLuceneDTO.setTotalVolume(Double.valueOf(nftCollectionProfileDTO.getTotalVolume()));
             }else{
-                nftCollectionLuceneDTO.setTotalVolume(0f);
+                nftCollectionLuceneDTO.setTotalVolume(0d);
             }
 
         }

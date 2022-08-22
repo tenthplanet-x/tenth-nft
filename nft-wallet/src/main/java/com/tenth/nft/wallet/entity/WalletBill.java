@@ -6,6 +6,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author shijie
  */
@@ -47,6 +50,8 @@ public class WalletBill {
     private Long updatedAt;
 
     private String notifyUri;
+
+    private List<WalletBillProfit> profits;
 
     public Long getId() {
         return id;
@@ -175,4 +180,14 @@ public class WalletBill {
     public void setActivityCfgId(Integer activityCfgId) {
         this.activityCfgId = activityCfgId;
     }
+
+    public List<WalletBillProfit> getProfits() {
+        return profits;
+    }
+
+    public void setProfits(List<WalletBillProfit> profits) {
+        this.profits = profits;
+    }
+
+
 }

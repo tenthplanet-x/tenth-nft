@@ -116,7 +116,7 @@ public class NftListingDTO {
         dto.setId(result.getId());
         dto.setAssetsId(result.getAssetsId());
         dto.setCurrency(result.getCurrency());
-        dto.setPrice(Prices.toString(result.getPrice()));
+        dto.setPrice(result.getPrice());
         dto.setQuantity(result.getQuantity());
         dto.setSeller(result.getSeller());
         dto.setStartAt(result.getStartAt());

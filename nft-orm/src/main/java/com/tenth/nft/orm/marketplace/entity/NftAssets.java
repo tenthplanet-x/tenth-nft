@@ -46,6 +46,8 @@ public class NftAssets {
 
     private Long creator;
 
+    private String creatorFeeRate;
+
     public Long getId() {
         return id;
     }
@@ -164,5 +166,13 @@ public class NftAssets {
 
     public void setCreator(Long creator) {
         this.creator = creator;
+    }
+
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
+    }
+
+    public void setCreatorFeeRate(String creatorFeeRate) {
+        this.creatorFeeRate = creatorFeeRate;
     }
 }

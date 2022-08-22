@@ -23,7 +23,7 @@ public class NftListing {
 
     private Integer quantity;
 
-    private Float price;
+    private String price;
 
     private String currency;
 
@@ -37,7 +37,12 @@ public class NftListing {
     private Long updatedAt;
 
     private Boolean canceled = false;
+
     private Long activityId;
+
+    private Long creatorUid;
+
+    private String creatorFeeRate;
 
     public Long getId() {
         return id;
@@ -63,11 +68,11 @@ public class NftListing {
         this.quantity = quantity;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -133,5 +138,21 @@ public class NftListing {
 
     public Long getActivityId() {
         return activityId;
+    }
+
+    public Long getCreatorUid() {
+        return creatorUid;
+    }
+
+    public void setCreatorUid(Long creatorUid) {
+        this.creatorUid = creatorUid;
+    }
+
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
+    }
+
+    public void setCreatorFeeRate(String creatorFeeRate) {
+        this.creatorFeeRate = creatorFeeRate;
     }
 }

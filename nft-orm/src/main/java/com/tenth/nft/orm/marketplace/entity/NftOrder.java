@@ -23,7 +23,7 @@ public class NftOrder {
 
     private String currency;
 
-    private Float price;
+    private String price;
 
     private Long owner;
 
@@ -121,11 +121,11 @@ public class NftOrder {
         this.currency = currency;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

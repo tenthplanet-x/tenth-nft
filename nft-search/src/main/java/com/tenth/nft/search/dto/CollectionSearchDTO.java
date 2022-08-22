@@ -3,7 +3,6 @@ package com.tenth.nft.search.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
-import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
@@ -38,8 +37,8 @@ public class CollectionSearchDTO implements SimpleResponse {
     @SimpleField
     private Long category;
 
-    @SimpleField(decoder = FloatToStringDecoder.class)
-    private String creatorFee;
+    @SimpleField
+    private String creatorFeeRate;
 
     @SimpleField
     private String blockchain;
@@ -115,12 +114,12 @@ public class CollectionSearchDTO implements SimpleResponse {
         this.category = category;
     }
 
-    public String getCreatorFee() {
-        return creatorFee;
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
     }
 
-    public void setCreatorFee(String creatorFee) {
-        this.creatorFee = creatorFee;
+    public void setCreatorFeeRate(String creatorFeeRate) {
+        this.creatorFeeRate = creatorFeeRate;
     }
 
     public String getBlockchain() {
@@ -208,7 +207,7 @@ public class CollectionSearchDTO implements SimpleResponse {
 
         output.setLogoImage(Strings.emptyToNull(collection.getLogoImage()));
         output.setFeaturedImage(Strings.emptyToNull(collection.getFeaturedImage()));
-        output.setCreatorFee(Prices.toString(collection.getCreatorFee()));
+        output.setCreatorFeeRate(collection.getCreatorFeeRate());
 
         return (T)output;
     }

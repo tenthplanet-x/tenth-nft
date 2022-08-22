@@ -10,7 +10,6 @@ import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.CollectionCreateRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
-import com.tenth.nft.convention.utils.Prices;
 import com.tenth.nft.marketplace.dao.PlayerAssetsDao;
 import com.tenth.nft.marketplace.dao.PlayerCollectionDao;
 import com.tenth.nft.marketplace.dao.expression.PlayerAssetsQuery;
@@ -39,9 +38,7 @@ import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -92,7 +89,7 @@ public class PlayerCollectionService {
         nftCollection.setLogoImage(logoImageUrl);
         nftCollection.setFeaturedImage(featuredImageUrl);
         nftCollection.setCategory(request.getCategory());
-        nftCollection.setCreatorFee(request.getCreatorFee());
+        nftCollection.setCreatorFeeRate(request.getCreatorFeeRate());
         nftCollection.setBlockchain(request.getBlockchain());
         NftMarketplace.CollectionDTO collectionDTO = routeClient.send(
                 NftMarketplace.COLLECTION_CREATE_IC.newBuilder()
@@ -108,6 +105,7 @@ public class PlayerCollectionService {
         playerCollection.setCreatedAt(System.currentTimeMillis());
         playerCollection.setUpdatedAt(playerCollection.getCreatedAt());
         playerCollection.setItems(0);
+        playerCollection.setCreatorFeeRate(request.getCreatorFeeRate());
         playerCollectionDao.insert(playerCollection);
 
         NftCollectionDTO nftCollectionDTO = NftCollectionDTO.from(collectionDTO);
@@ -210,11 +208,11 @@ public class PlayerCollectionService {
             ).getProfile();
 
             if(exchangeProfile.hasFloorPrice()){
-                dto.setFloorPrice(Prices.toString(exchangeProfile.getFloorPrice()));
+                dto.setFloorPrice(exchangeProfile.getFloorPrice());
                 dto.setCurrency(exchangeProfile.getCurrency());
             }
             if(exchangeProfile.hasTotalVolume()){
-                dto.setTotalVolume(Prices.toString(exchangeProfile.getTotalVolume()));
+                dto.setTotalVolume(exchangeProfile.getTotalVolume());
                 dto.setCurrency(exchangeProfile.getCurrency());
             }
             dto.setOwners(exchangeProfile.getOwners());

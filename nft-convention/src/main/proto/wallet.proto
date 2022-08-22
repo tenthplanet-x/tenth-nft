@@ -44,5 +44,15 @@ message RECHARGE_IS{
   required BillDTO bill = 1;
 }
 
+message BILL_INCOME_TRIGGER_IC{
+  required int64 uid = 1;
+  required string productCode = 2;
+  required string outOrderId = 3;
+  required int64 billId = 4;
+}
+message BILL_INCOME_TRIGGER_IS{
+
+}
+
 
 

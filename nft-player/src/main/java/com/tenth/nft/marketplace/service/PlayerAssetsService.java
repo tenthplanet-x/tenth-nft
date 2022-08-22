@@ -82,6 +82,7 @@ public class PlayerAssetsService {
         nftAssets.setBlockchain(request.getBlockchain());
         nftAssets.setCreatedAt(System.currentTimeMillis());
         nftAssets.setUpdatedAt(System.currentTimeMillis());
+        nftAssets.setCreatorFeeRate(collection.getCreatorFeeRate());
         NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
                 NftMarketplace.ASSETS_CREATE_IC.newBuilder()
                         .setAssets(NftAssetsDTO.toProto(nftAssets))
