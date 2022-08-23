@@ -2,7 +2,7 @@ package com.tenth.nft.wallet.service;
 
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
-import com.tenth.nft.convention.routes.operation.BlockchainRouteRequest;
+import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
 import com.tenth.nft.protobuf.NftOperation;
 import com.tenth.nft.wallet.dao.WalletDao;
@@ -36,6 +36,8 @@ public class WalletService {
     private WalletSettingService walletSettingService;
     @Autowired
     private WalletDao walletDao;
+    @Autowired
+    private I18nGsTemplates i18nGsTemplates;
 
     public WalletProfileDTO getProfile() {
 
@@ -70,19 +72,13 @@ public class WalletService {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
-
-        NftOperation.BlockchainDTO blockchain = routeClient.send(
-                NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()
-                        .setBlockchain(walletBlockchain)
-                        .build(),
-                BlockchainRouteRequest.class
-        ).getBlockchain();
-        return blockchain.getCurrenciesList().stream().map(currency -> {
-            Wallet wallet = walletDao.findOne(WalletQuery.newBuilder().uid(uid).currency(currency.getCurrency()).build());
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        return walletCurrencyTemplate.findByBlockchain(walletBlockchain).stream().map(currency -> {
+            Wallet wallet = walletDao.findOne(WalletQuery.newBuilder().uid(uid).currency(currency.getCode()).build());
             if(null != wallet){
                 return WalletBalanceDTO.from(wallet);
             }else{
-                return WalletBalanceDTO.emptyOf(currency.getCurrency());
+                return WalletBalanceDTO.emptyOf(currency.getCode());
             }
         }).collect(Collectors.toList());
 
@@ -105,13 +101,9 @@ public class WalletService {
      */
     private void initWallet(Long uid) {
 
-        NftOperation.BlockchainDTO blockchain = routeClient.send(
-            NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()
-                    .setBlockchain(walletBlockchain)
-                    .build(),
-                BlockchainRouteRequest.class
-        ).getBlockchain();
-        String currency = blockchain.getMainCurrency();
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        WalletCurrencyConfig walletCurrencyConfig = walletCurrencyTemplate.findMainCurrency(walletBlockchain);
+        String currency = walletCurrencyConfig.getCode();
 
         Wallet wallet = new Wallet();
         wallet.setUid(uid);

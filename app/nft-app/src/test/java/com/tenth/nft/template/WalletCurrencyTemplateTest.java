@@ -30,4 +30,11 @@ public class WalletCurrencyTemplateTest {
         Assert.assertTrue(!currencies.isEmpty());
     }
 
+    @Test
+    public void mainCurrency(){
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        WalletCurrencyConfig walletCurrencyConfig = walletCurrencyTemplate.findMainCurrency("T Planet");
+        Assert.assertTrue(null != walletCurrencyConfig);
+    }
+
 }

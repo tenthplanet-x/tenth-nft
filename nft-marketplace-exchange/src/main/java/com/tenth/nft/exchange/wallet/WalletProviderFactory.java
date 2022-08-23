@@ -1,7 +1,9 @@
 package com.tenth.nft.exchange.wallet;
 
-import com.tenth.nft.convention.routes.operation.NftCurrencyRouteRequest;
-import com.tenth.nft.convention.routes.search.CurrencyRatesRouteRequest;
+import com.tenth.nft.convention.templates.I18nGsTemplates;
+import com.tenth.nft.convention.templates.NftTemplateTypes;
+import com.tenth.nft.convention.templates.WalletCurrencyConfig;
+import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
 import com.tenth.nft.protobuf.NftOperation;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class WalletProviderFactory {
     private String appBlockchain;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private I18nGsTemplates i18nGsTemplates;
 
     private Map<String, IWalletProvider> providerMap;
 
@@ -39,13 +43,9 @@ public class WalletProviderFactory {
 
     public IWalletProvider getByCurrency(String currency){
 
-        NftOperation.CurrencyDTO currencyDTO = routeClient.send(
-                NftOperation.NFT_CURRENCY_IC.newBuilder()
-                        .setCurrency(currency)
-                        .build(),
-                NftCurrencyRouteRequest.class
-        ).getCurrency();
-        return get(currencyDTO.getBlockchain());
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        WalletCurrencyConfig walletCurrencyConfig = walletCurrencyTemplate.findOne(currency);
+        return get(walletCurrencyConfig.getBlockchain());
     }
 }
 

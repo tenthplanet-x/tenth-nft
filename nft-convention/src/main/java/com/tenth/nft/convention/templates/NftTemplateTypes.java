@@ -16,6 +16,9 @@ public enum NftTemplateTypes implements TemplateType {
     wallet_currency,
     wallet_currency_en,
     wallet_currency_zh_cn("wallet_currency_zh-cn"),
+    blockchain,
+    blockchain_en,
+    blockchain_zh_cn("blockchain_zh-cn"),
     ;
 
     private String name;

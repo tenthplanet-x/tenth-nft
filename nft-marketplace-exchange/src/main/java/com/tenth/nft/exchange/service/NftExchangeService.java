@@ -5,15 +5,16 @@ import com.tenth.nft.blockchain.BlockchainContract;
 import com.tenth.nft.blockchain.BlockchainGateway;
 import com.tenth.nft.blockchain.BlockchainRouter;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
+import com.tenth.nft.convention.templates.I18nGsTemplates;
+import com.tenth.nft.convention.templates.NftTemplateTypes;
+import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
 import com.tenth.nft.convention.wallet.*;
-import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.routes.exchange.*;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
-import com.tenth.nft.convention.routes.operation.BlockchainRouteRequest;
 import com.tenth.nft.convention.routes.player.AssetsBelongsUpdateRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
@@ -79,6 +80,8 @@ public class NftExchangeService {
     private WalletProviderFactory walletProviderFactory;
     @Autowired
     private GsCollectionIdService gsCollectionIdService;
+    @Autowired
+    private I18nGsTemplates i18nGsTemplates;
 
 
     public NftListingDTO sell(NftSellRequest request) {
@@ -445,10 +448,8 @@ public class NftExchangeService {
                 AssetsDetailRouteRequest.class
         ).getAssets();
         String blockchain = assetsDTO.getBlockchain();
-        String currency = routeClient.send(
-                NftOperation.NFT_BLOCKCHAIN_IC.newBuilder().setBlockchain(blockchain).build(),
-                BlockchainRouteRequest.class
-        ).getBlockchain().getMainCurrency();
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        String currency = walletCurrencyTemplate.findMainCurrency(blockchain).getCode();
 
         //current price
         Optional<NftListing> floor = nftListingDao

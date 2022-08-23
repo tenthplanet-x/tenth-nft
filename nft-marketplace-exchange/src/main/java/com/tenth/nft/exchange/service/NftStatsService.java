@@ -2,8 +2,11 @@ package com.tenth.nft.exchange.service;
 
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
-import com.tenth.nft.convention.routes.operation.BlockchainRouteRequest;
 import com.tenth.nft.convention.routes.search.CurrencyRatesRouteRequest;
+import com.tenth.nft.convention.templates.I18nGsTemplates;
+import com.tenth.nft.convention.templates.NftTemplateTypes;
+import com.tenth.nft.convention.templates.WalletCurrencyConfig;
+import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsStatsDao;
 import com.tenth.nft.orm.marketplace.dao.NftListingDao;
@@ -41,6 +44,8 @@ public class NftStatsService {
     private NftAssetsStatsDao nftAssetsStatsDao;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private I18nGsTemplates i18nGsTemplates;
 
     public void exchangeEventHandle(NftExchange.EXCHANGE_EVENT_IC request) {
 
@@ -53,12 +58,8 @@ public class NftStatsService {
                 AssetsDetailRouteRequest.class
         ).getAssets();
         String blockchain = assetsDTO.getBlockchain();
-        String currency = routeClient.send(
-                NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()
-                        .setBlockchain(blockchain)
-                        .build(),
-                BlockchainRouteRequest.class
-        ).getBlockchain().getMainCurrency();
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        String currency = walletCurrencyTemplate.findMainCurrency(blockchain).getCode();
 
         //currencyRates;
         Map<String, Float> currencyRates = routeClient.send(
@@ -117,12 +118,8 @@ public class NftStatsService {
                         .build(),
                 AssetsDetailRouteRequest.class
         ).getAssets().getBlockchain();
-        String currency = routeClient.send(
-                NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()
-                        .setBlockchain(blockchain)
-                        .build(),
-                BlockchainRouteRequest.class
-        ).getBlockchain().getMainCurrency();
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        String currency = walletCurrencyTemplate.findMainCurrency(blockchain).getCode();
 
         //currencyRates;
         Map<String, Float> currencyRates = routeClient.send(
