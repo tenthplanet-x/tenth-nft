@@ -2,7 +2,7 @@ package com.tenth.nft.web3.service;
 
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
-import com.tenth.nft.convention.routes.exchange.BuyReceiptPushRouteRequest;
+import com.tenth.nft.convention.routes.exchange.PaymentReceiveRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletPayRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.wallet.WalletBillState;
@@ -117,42 +117,10 @@ public class Web3WalletBillService {
             //verify balance
             //walletService.checkBalance(request.getUid(), bizContent.getCurrency(), bizContent.getValue());
             //TODO biz check
-        }catch (Exception e){
-            routeClient.send(
-                    NftExchange.PAY_RECEIPT_PUSH_IC.newBuilder()
-                            .setAssetsId(Long.valueOf(bizContent.getProductId()))
-                            .setOrderId(bizContent.getOutOrderId())
-                            .setState(WalletBillState.FAIL.name())
-                            .build()
-                    , BuyReceiptPushRouteRequest.class);
+            changeState(walletBill, WalletBillState.PAYED, "ok");
+        }catch (BizException e){
             changeState(walletBill, WalletBillState.FAIL, "verify error");
             throw e;
-        }
-
-        //Require biz to make confirm of this order
-        NftExchange.PAY_RECEIPT_PUSH_IS result = null;
-        try{
-            result = routeClient.send(
-                    NftExchange.PAY_RECEIPT_PUSH_IC.newBuilder()
-                            .setAssetsId(Long.valueOf(bizContent.getProductId()))
-                            .setOrderId(bizContent.getOutOrderId())
-                            .setState(WalletBillState.PAYED.name())
-                            .build(),
-                    BuyReceiptPushRouteRequest.class
-            );
-        }catch (Exception e){
-            changeState(walletBill, WalletBillState.RETRY, e.getMessage());
-            throw e;
-        }
-
-        if(result.getOk()){
-            //do pay
-            //walletService.decBalance(walletBill.getUid(), walletBill.getCurrency(), walletBill.getValue());
-            //TODO do pay
-            changeState(walletBill, WalletBillState.PAYED, "ok");
-        }else{
-            changeState(walletBill, WalletBillState.FAIL, "biz error");
-            throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_BIZ_VERIFY_FAILED);
         }
 
         NftWeb3Wallet.Web3BillDTO web3BillDTO = toWeb3BillDTO(walletBill);

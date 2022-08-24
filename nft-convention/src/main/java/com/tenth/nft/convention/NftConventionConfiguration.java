@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
  * @author shijie
  */
 @Configuration
-@ComponentScan("com.tenth.nft.convention")
+@ComponentScan({"com.tenth.nft.convention", "com.tenth.nft.solidity"})
 @Import(TpulseConventionConfiguration.class)
 public class NftConventionConfiguration {
 

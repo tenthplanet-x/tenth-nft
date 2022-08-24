@@ -1,9 +1,6 @@
 package com.tenth.nft.wallet.controller.routes;
 
-import com.tenth.nft.convention.routes.wallet.BillIncomeTriggerRouteRequest;
-import com.tenth.nft.convention.routes.wallet.WalletPayRouteRequest;
-import com.tenth.nft.convention.routes.wallet.WalletBillDetailRouteRequest;
-import com.tenth.nft.convention.routes.wallet.WalletRechargeRouteRequest;
+import com.tenth.nft.convention.routes.wallet.*;
 import com.tenth.nft.protobuf.NftWallet;
 import com.tenth.nft.wallet.service.WalletBillService;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
@@ -41,5 +38,9 @@ public class WalletBillRoutesController {
         walletBillService.incomeTrigger(request);
     }
 
+    @RouteRequestMapping(BillPaymentNotifyRouteRequest.class)
+    public void notifyRouteRequest(NftWallet.BILL_PAYMENT_NOTIFY_IC request){
+        walletBillService.notifyBillPayment(request);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.tenth.nft.wallet.dao.expression;
 
+import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 import com.tpulse.gs.convention.dao.defination.WriteOpt;
@@ -51,6 +52,11 @@ public class WalletBillUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
     private Long updatedAt = System.currentTimeMillis();
+
+    @SimpleWriteParam
+    private Boolean notified;
+    @SimpleWriteParam(name = "retry", opt = WriteOpt.INC)
+    private int retryInc;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -106,6 +112,14 @@ public class WalletBillUpdate extends SimpleUpdate {
 
     public String getNotifyUri(){
         return notifyUri;
+    }
+
+    public Boolean getNotified() {
+        return notified;
+    }
+
+    public int getRetryInc() {
+        return retryInc;
     }
 
     public static Builder newBuilder(){
@@ -185,6 +199,15 @@ public class WalletBillUpdate extends SimpleUpdate {
             return update;
         }
 
+        public Builder setNotified(Boolean notified) {
+            update.notified = notified;
+            return this;
+        }
+
+        public Builder setRetryInc(Integer inc) {
+            update.retryInc = inc;
+            return this;
+        }
     }
 
 }

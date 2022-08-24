@@ -4,7 +4,7 @@ import com.tenth.nft.app.security.SimpleLockManger;
 import com.tenth.nft.blockchain.NftBlockchainConfiguration;
 import com.tenth.nft.convention.NftConventionConfiguration;
 import com.tenth.nft.crawler.NftCrawlerConfiguration;
-import com.tenth.nft.exchange.NftExchangeConfiguration;
+import com.tenth.nft.exchange.buildin.NftExchangeConfiguration;
 import com.tenth.nft.marketplace.NftMarketplaceConfiguration;
 import com.tenth.nft.operation.NftOperationConfiguration;
 import com.tenth.nft.orm.NftOrmConfiguration;

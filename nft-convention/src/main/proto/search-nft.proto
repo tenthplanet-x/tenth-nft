@@ -34,13 +34,6 @@ message NFT_ASSETS_REBUILD_IC{
   required int64 assetsId = 1;
 }
 
-message NFT_BLOCKCHAIN_REBUILD_IC{
-  required int64 version = 1;
-}
-message NFT_CURRENCY_REBUILD_IC{
-  required string blockchain = 1;
-}
-
 
 message ASSETS_IC{
   required int64 assetsId = 2;
@@ -49,17 +42,4 @@ message ASSETS_IS{
   required AssetsSearchDTO assets = 1;
 }
 
-message NFT_CURRENCY_RATE_REBUILD_IC{
-  required string token = 1;
-}
-message NFT_CURRENCY_RATE_REBUILD_IS{
-
-}
-
-message NFT_CURRENCY_RATES_IC{
-  required string blockchain = 1;
-}
-message NFT_CURRENCY_RATES_IS{
-  map<string, float> rates = 1;
-}
 

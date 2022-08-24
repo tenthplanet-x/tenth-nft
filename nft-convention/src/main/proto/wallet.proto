@@ -54,5 +54,13 @@ message BILL_INCOME_TRIGGER_IS{
 
 }
 
+message BILL_PAYMENT_NOTIFY_IC{
+  required int64 uid = 1;
+  required int64 billId = 2;
+}
+message BILL_PAYMENT_NOTIFY_IS{
+
+}
+
 
 

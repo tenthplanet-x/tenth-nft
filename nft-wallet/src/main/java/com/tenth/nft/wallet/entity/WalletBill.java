@@ -53,6 +53,10 @@ public class WalletBill {
 
     private List<WalletBillProfit> profits;
 
+    private boolean notified;
+
+    private int retry;
+
     public Long getId() {
         return id;
     }
@@ -189,5 +193,19 @@ public class WalletBill {
         this.profits = profits;
     }
 
+    public boolean isNotified() {
+        return notified;
+    }
 
+    public void setNotified(boolean notified) {
+        this.notified = notified;
+    }
+
+    public int getRetry() {
+        return retry;
+    }
+
+    public void setRetry(int retry) {
+        this.retry = retry;
+    }
 }

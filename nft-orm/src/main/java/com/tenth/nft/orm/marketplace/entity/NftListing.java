@@ -1,7 +1,6 @@
 package com.tenth.nft.orm.marketplace.entity;
 
 import com.tpulse.gs.convention.dao.annotation.SimpleCache;
-import org.hibernate.validator.internal.constraintvalidators.bv.time.past.PastValidatorForReadableInstant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -43,6 +42,10 @@ public class NftListing {
     private Long creatorUid;
 
     private String creatorFeeRate;
+
+    private String signature;
+
+    private String payWalletAddress;
 
     public Long getId() {
         return id;
@@ -154,5 +157,21 @@ public class NftListing {
 
     public void setCreatorFeeRate(String creatorFeeRate) {
         this.creatorFeeRate = creatorFeeRate;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getPayWalletAddress() {
+        return payWalletAddress;
+    }
+
+    public void setPayWalletAddress(String payWalletAddress) {
+        this.payWalletAddress = payWalletAddress;
     }
 }

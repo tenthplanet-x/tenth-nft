@@ -3,7 +3,7 @@ package com.tenth.nft.wallet;
 import com.tenth.nft.app.NftApplicationTest;
 import com.tenth.nft.convention.routes.wallet.WalletRechargeRouteRequest;
 import com.tenth.nft.convention.wallet.*;
-import com.tenth.nft.exchange.wallet.BuildInWalletProvider;
+import com.tenth.nft.exchange.buildin.wallet.BuildInWalletProvider;
 import com.tenth.nft.protobuf.NftWallet;
 import com.tpulse.gs.router.client.RouteClient;
 import org.junit.Test;

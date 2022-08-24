@@ -13465,8 +13465,8 @@ public final class NftExchange {
 
   }
 
-  public interface PAY_RECEIPT_PUSH_ICOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
+  public interface PAYMENT_RECEIVE_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -13515,18 +13515,18 @@ public final class NftExchange {
         getStateBytes();
   }
   /**
-   * Protobuf type {@code com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC}
+   * Protobuf type {@code com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC}
    */
-  public static final class PAY_RECEIPT_PUSH_IC extends
+  public static final class PAYMENT_RECEIVE_IC extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
-      PAY_RECEIPT_PUSH_ICOrBuilder {
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
+      PAYMENT_RECEIVE_ICOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use PAY_RECEIPT_PUSH_IC.newBuilder() to construct.
-    private PAY_RECEIPT_PUSH_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use PAYMENT_RECEIVE_IC.newBuilder() to construct.
+    private PAYMENT_RECEIVE_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private PAY_RECEIPT_PUSH_IC() {
+    private PAYMENT_RECEIVE_IC() {
       orderId_ = "";
       state_ = "";
     }
@@ -13535,7 +13535,7 @@ public final class NftExchange {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new PAY_RECEIPT_PUSH_IC();
+      return new PAYMENT_RECEIVE_IC();
     }
 
     @java.lang.Override
@@ -13543,7 +13543,7 @@ public final class NftExchange {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private PAY_RECEIPT_PUSH_IC(
+    private PAYMENT_RECEIVE_IC(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -13600,15 +13600,15 @@ public final class NftExchange {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor;
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_fieldAccessorTable
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.class, com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.Builder.class);
+              com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.class, com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.Builder.class);
     }
 
     private int bitField0_;
@@ -13791,10 +13791,10 @@ public final class NftExchange {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC)) {
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC)) {
         return super.equals(obj);
       }
-      com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC other = (com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC) obj;
+      com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC other = (com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC) obj;
 
       if (hasAssetsId() != other.hasAssetsId()) return false;
       if (hasAssetsId()) {
@@ -13840,69 +13840,69 @@ public final class NftExchange {
       return hash;
     }
 
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(byte[] data)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseDelimitedFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseDelimitedFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -13915,7 +13915,7 @@ public final class NftExchange {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC prototype) {
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -13931,26 +13931,26 @@ public final class NftExchange {
       return builder;
     }
     /**
-     * Protobuf type {@code com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC}
+     * Protobuf type {@code com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_ICOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_ICOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor;
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_fieldAccessorTable
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.class, com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.Builder.class);
+                com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.class, com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.Builder.class);
       }
 
-      // Construct using com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.newBuilder()
+      // Construct using com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -13980,17 +13980,17 @@ public final class NftExchange {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor;
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor;
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC getDefaultInstanceForType() {
-        return com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.getDefaultInstance();
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC build() {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC result = buildPartial();
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC build() {
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -13998,8 +13998,8 @@ public final class NftExchange {
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC buildPartial() {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC result = new com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC(this);
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC result = new com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -14053,16 +14053,16 @@ public final class NftExchange {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC) {
-          return mergeFrom((com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC)other);
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC other) {
-        if (other == com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.getDefaultInstance()) return this;
         if (other.hasAssetsId()) {
           setAssetsId(other.getAssetsId());
         }
@@ -14100,11 +14100,11 @@ public final class NftExchange {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parsedMessage = null;
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC) e.getUnfinishedMessage();
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -14334,81 +14334,81 @@ public final class NftExchange {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
     }
 
-    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
-    private static final com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
+    private static final com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC();
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC();
     }
 
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC getDefaultInstance() {
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IC>
-        PARSER = new com.google.protobuf.AbstractParser<PAY_RECEIPT_PUSH_IC>() {
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<PAYMENT_RECEIVE_IC>
+        PARSER = new com.google.protobuf.AbstractParser<PAYMENT_RECEIVE_IC>() {
       @java.lang.Override
-      public PAY_RECEIPT_PUSH_IC parsePartialFrom(
+      public PAYMENT_RECEIVE_IC parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PAY_RECEIPT_PUSH_IC(input, extensionRegistry);
+        return new PAYMENT_RECEIVE_IC(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IC> parser() {
+    public static com.google.protobuf.Parser<PAYMENT_RECEIVE_IC> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IC> getParserForType() {
+    public com.google.protobuf.Parser<PAYMENT_RECEIVE_IC> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC getDefaultInstanceForType() {
+    public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface PAY_RECEIPT_PUSH_ISOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
+  public interface PAYMENT_RECEIVE_ISOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required bool ok = 1;</code>
-     * @return Whether the ok field is set.
+     * <code>required bool refund = 1;</code>
+     * @return Whether the refund field is set.
      */
-    boolean hasOk();
+    boolean hasRefund();
     /**
-     * <code>required bool ok = 1;</code>
-     * @return The ok.
+     * <code>required bool refund = 1;</code>
+     * @return The refund.
      */
-    boolean getOk();
+    boolean getRefund();
   }
   /**
-   * Protobuf type {@code com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS}
+   * Protobuf type {@code com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS}
    */
-  public static final class PAY_RECEIPT_PUSH_IS extends
+  public static final class PAYMENT_RECEIVE_IS extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
-      PAY_RECEIPT_PUSH_ISOrBuilder {
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
+      PAYMENT_RECEIVE_ISOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use PAY_RECEIPT_PUSH_IS.newBuilder() to construct.
-    private PAY_RECEIPT_PUSH_IS(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use PAYMENT_RECEIVE_IS.newBuilder() to construct.
+    private PAYMENT_RECEIVE_IS(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private PAY_RECEIPT_PUSH_IS() {
+    private PAYMENT_RECEIVE_IS() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new PAY_RECEIPT_PUSH_IS();
+      return new PAYMENT_RECEIVE_IS();
     }
 
     @java.lang.Override
@@ -14416,7 +14416,7 @@ public final class NftExchange {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private PAY_RECEIPT_PUSH_IS(
+    private PAYMENT_RECEIVE_IS(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -14437,7 +14437,7 @@ public final class NftExchange {
               break;
             case 8: {
               bitField0_ |= 0x00000001;
-              ok_ = input.readBool();
+              refund_ = input.readBool();
               break;
             }
             default: {
@@ -14461,35 +14461,35 @@ public final class NftExchange {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor;
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_fieldAccessorTable
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.class, com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.Builder.class);
+              com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.class, com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.Builder.class);
     }
 
     private int bitField0_;
-    public static final int OK_FIELD_NUMBER = 1;
-    private boolean ok_;
+    public static final int REFUND_FIELD_NUMBER = 1;
+    private boolean refund_;
     /**
-     * <code>required bool ok = 1;</code>
-     * @return Whether the ok field is set.
+     * <code>required bool refund = 1;</code>
+     * @return Whether the refund field is set.
      */
     @java.lang.Override
-    public boolean hasOk() {
+    public boolean hasRefund() {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>required bool ok = 1;</code>
-     * @return The ok.
+     * <code>required bool refund = 1;</code>
+     * @return The refund.
      */
     @java.lang.Override
-    public boolean getOk() {
-      return ok_;
+    public boolean getRefund() {
+      return refund_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -14499,7 +14499,7 @@ public final class NftExchange {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasOk()) {
+      if (!hasRefund()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -14511,7 +14511,7 @@ public final class NftExchange {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeBool(1, ok_);
+        output.writeBool(1, refund_);
       }
       unknownFields.writeTo(output);
     }
@@ -14524,7 +14524,7 @@ public final class NftExchange {
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, ok_);
+          .computeBoolSize(1, refund_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -14536,15 +14536,15 @@ public final class NftExchange {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS)) {
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS)) {
         return super.equals(obj);
       }
-      com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS other = (com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS) obj;
+      com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS other = (com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS) obj;
 
-      if (hasOk() != other.hasOk()) return false;
-      if (hasOk()) {
-        if (getOk()
-            != other.getOk()) return false;
+      if (hasRefund() != other.hasRefund()) return false;
+      if (hasRefund()) {
+        if (getRefund()
+            != other.getRefund()) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -14557,79 +14557,79 @@ public final class NftExchange {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasOk()) {
-        hash = (37 * hash) + OK_FIELD_NUMBER;
+      if (hasRefund()) {
+        hash = (37 * hash) + REFUND_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-            getOk());
+            getRefund());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(byte[] data)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseDelimitedFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseDelimitedFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -14642,7 +14642,7 @@ public final class NftExchange {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS prototype) {
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -14658,26 +14658,26 @@ public final class NftExchange {
       return builder;
     }
     /**
-     * Protobuf type {@code com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS}
+     * Protobuf type {@code com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_ISOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_ISOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor;
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_fieldAccessorTable
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.class, com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.Builder.class);
+                com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.class, com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.Builder.class);
       }
 
-      // Construct using com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.newBuilder()
+      // Construct using com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -14695,7 +14695,7 @@ public final class NftExchange {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        ok_ = false;
+        refund_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -14703,17 +14703,17 @@ public final class NftExchange {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor;
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor;
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS getDefaultInstanceForType() {
-        return com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.getDefaultInstance();
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS build() {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS result = buildPartial();
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS build() {
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -14721,12 +14721,12 @@ public final class NftExchange {
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS buildPartial() {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS result = new com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS(this);
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS result = new com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.ok_ = ok_;
+          result.refund_ = refund_;
           to_bitField0_ |= 0x00000001;
         }
         result.bitField0_ = to_bitField0_;
@@ -14768,18 +14768,18 @@ public final class NftExchange {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS) {
-          return mergeFrom((com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS)other);
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS other) {
-        if (other == com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.getDefaultInstance()) return this;
-        if (other.hasOk()) {
-          setOk(other.getOk());
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.getDefaultInstance()) return this;
+        if (other.hasRefund()) {
+          setRefund(other.getRefund());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -14788,7 +14788,7 @@ public final class NftExchange {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasOk()) {
+        if (!hasRefund()) {
           return false;
         }
         return true;
@@ -14799,11 +14799,11 @@ public final class NftExchange {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parsedMessage = null;
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS) e.getUnfinishedMessage();
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -14814,41 +14814,41 @@ public final class NftExchange {
       }
       private int bitField0_;
 
-      private boolean ok_ ;
+      private boolean refund_ ;
       /**
-       * <code>required bool ok = 1;</code>
-       * @return Whether the ok field is set.
+       * <code>required bool refund = 1;</code>
+       * @return Whether the refund field is set.
        */
       @java.lang.Override
-      public boolean hasOk() {
+      public boolean hasRefund() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>required bool ok = 1;</code>
-       * @return The ok.
+       * <code>required bool refund = 1;</code>
+       * @return The refund.
        */
       @java.lang.Override
-      public boolean getOk() {
-        return ok_;
+      public boolean getRefund() {
+        return refund_;
       }
       /**
-       * <code>required bool ok = 1;</code>
-       * @param value The ok to set.
+       * <code>required bool refund = 1;</code>
+       * @param value The refund to set.
        * @return This builder for chaining.
        */
-      public Builder setOk(boolean value) {
+      public Builder setRefund(boolean value) {
         bitField0_ |= 0x00000001;
-        ok_ = value;
+        refund_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bool ok = 1;</code>
+       * <code>required bool refund = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearOk() {
+      public Builder clearRefund() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        ok_ = false;
+        refund_ = false;
         onChanged();
         return this;
       }
@@ -14865,41 +14865,41 @@ public final class NftExchange {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
     }
 
-    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
-    private static final com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
+    private static final com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS();
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS();
     }
 
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS getDefaultInstance() {
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IS>
-        PARSER = new com.google.protobuf.AbstractParser<PAY_RECEIPT_PUSH_IS>() {
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<PAYMENT_RECEIVE_IS>
+        PARSER = new com.google.protobuf.AbstractParser<PAYMENT_RECEIVE_IS>() {
       @java.lang.Override
-      public PAY_RECEIPT_PUSH_IS parsePartialFrom(
+      public PAYMENT_RECEIVE_IS parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PAY_RECEIPT_PUSH_IS(input, extensionRegistry);
+        return new PAYMENT_RECEIVE_IS(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IS> parser() {
+    public static com.google.protobuf.Parser<PAYMENT_RECEIVE_IS> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IS> getParserForType() {
+    public com.google.protobuf.Parser<PAYMENT_RECEIVE_IS> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS getDefaultInstanceForType() {
+    public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -33895,15 +33895,15 @@ public final class NftExchange {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_ruixi_tpulse_convention_BUY_IS_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor;
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_fieldAccessorTable;
+      internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor;
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_fieldAccessorTable;
+      internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor;
   private static final 
@@ -34078,56 +34078,56 @@ public final class NftExchange {
       "IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 \002(\003\022\021\n\tlis" +
       "tingId\030\003 \002(\003\"I\n\006BUY_IS\022\017\n\007channel\030\001 \001(\t\022" +
       "\r\n\005token\030\002 \001(\t\022\020\n\010currency\030\003 \001(\t\022\r\n\005valu" +
-      "e\030\004 \001(\t\"G\n\023PAY_RECEIPT_PUSH_IC\022\020\n\010assets" +
-      "Id\030\001 \002(\003\022\017\n\007orderId\030\002 \002(\t\022\r\n\005state\030\003 \002(\t" +
-      "\"!\n\023PAY_RECEIPT_PUSH_IS\022\n\n\002ok\030\001 \002(\010\"U\n\016S" +
-      "ELL_CANCEL_IC\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlisti" +
-      "ngId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022\016\n\006reason\030\004 \002" +
-      "(\t\"\020\n\016SELL_CANCEL_IS\"C\n\017LISTING_LIST_IC\022" +
-      "\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageS" +
-      "ize\030\003 \002(\005\"O\n\017LISTING_LIST_IS\022<\n\010listings" +
-      "\030\001 \003(\0132*.com.ruixi.tpulse.convention.Nft" +
-      "ListingDTO\"A\n\rOWNER_LIST_IC\022\020\n\010assetsId\030" +
-      "\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"I\n" +
-      "\rOWNER_LIST_IS\0228\n\006owners\030\001 \003(\0132(.com.rui" +
-      "xi.tpulse.convention.NftOwnerDTO\"S\n\020ACTI" +
-      "VITY_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002" +
-      " \002(\005\022\020\n\010pageSize\030\003 \002(\005\022\r\n\005event\030\004 \001(\t\"S\n" +
-      "\020ACTIVITY_LIST_IS\022?\n\nactivities\030\001 \003(\0132+." +
-      "com.ruixi.tpulse.convention.NftActivityD" +
-      "TO\"i\n\007MINT_IC\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017con" +
-      "tractAddress\030\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r\n\005" +
-      "owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002(\005\"@\n\007MINT_IS" +
-      "\0225\n\004mint\030\001 \002(\0132\'.com.ruixi.tpulse.conven" +
-      "tion.NftMintDTO\"T\n\032ASSETS_EXCHANGE_PROFI" +
-      "LE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010observer\030\002 \001(" +
-      "\003\022\022\n\nneedOwners\030\003 \001(\010\"_\n\032ASSETS_EXCHANGE" +
-      "_PROFILE_IS\022A\n\007profile\030\001 \002(\01320.com.ruixi" +
-      ".tpulse.convention.NftAssetsProfileDTO\"E" +
-      "\n\036COLLECTION_EXCHANGE_PROFILE_IC\022\021\n\tasse" +
-      "tsIds\030\001 \003(\003\022\020\n\010observer\030\002 \001(\003\"g\n\036COLLECT" +
-      "ION_EXCHANGE_PROFILE_IS\022E\n\007profile\030\001 \002(\013" +
-      "24.com.ruixi.tpulse.convention.NftCollec" +
-      "tionProfileDTO\"s\n\rOFFER_MAKE_IC\022\020\n\010asset" +
-      "sId\030\001 \002(\003\022\020\n\010quantity\030\002 \002(\005\022\r\n\005price\030\003 \002" +
-      "(\t\022\020\n\010currency\030\004 \002(\t\022\020\n\010expireAt\030\005 \002(\003\022\013" +
-      "\n\003uid\030\006 \002(\003\"H\n\rOFFER_MAKE_IS\0227\n\005offer\030\001 " +
-      "\002(\0132(.com.ruixi.tpulse.convention.NftOff" +
-      "erDTO\"Q\n\017OFFER_CANCEL_IC\022\013\n\003uid\030\001 \002(\003\022\020\n" +
-      "\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\022\016\n\006reas" +
-      "on\030\004 \001(\t\"\021\n\017OFFER_CANCEL_IS\"A\n\rOFFER_LIS" +
-      "T_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010" +
-      "pageSize\030\003 \002(\005\"I\n\rOFFER_LIST_IS\0228\n\006offer" +
-      "s\030\001 \003(\0132(.com.ruixi.tpulse.convention.Nf" +
-      "tOfferDTO\"A\n\017OFFER_ACCEPT_IC\022\013\n\003uid\030\001 \002(" +
-      "\003\022\020\n\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\"\021\n\017" +
-      "OFFER_ACCEPT_IS\"$\n\020LISTING_EVENT_IC\022\020\n\010a" +
-      "ssetsId\030\001 \002(\003\"%\n\021EXCHANGE_EVENT_IC\022\020\n\010as" +
-      "setsId\030\001 \002(\003\">\n\027LISTING_EXPIRE_CHECK_IC\022" +
-      "\020\n\010assetsId\030\001 \002(\003\022\021\n\tlistingId\030\002 \002(\003\":\n\025" +
-      "OFFER_EXPIRE_CHECK_IC\022\020\n\010assetsId\030\001 \002(\003\022" +
-      "\017\n\007offerId\030\002 \002(\003B%\n\026com.tenth.nft.protob" +
-      "ufB\013NftExchange"
+      "e\030\004 \001(\t\"F\n\022PAYMENT_RECEIVE_IC\022\020\n\010assetsI" +
+      "d\030\001 \002(\003\022\017\n\007orderId\030\002 \002(\t\022\r\n\005state\030\003 \002(\t\"" +
+      "$\n\022PAYMENT_RECEIVE_IS\022\016\n\006refund\030\001 \002(\010\"U\n" +
+      "\016SELL_CANCEL_IC\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlis" +
+      "tingId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022\016\n\006reason\030\004" +
+      " \002(\t\"\020\n\016SELL_CANCEL_IS\"C\n\017LISTING_LIST_I" +
+      "C\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pag" +
+      "eSize\030\003 \002(\005\"O\n\017LISTING_LIST_IS\022<\n\010listin" +
+      "gs\030\001 \003(\0132*.com.ruixi.tpulse.convention.N" +
+      "ftListingDTO\"A\n\rOWNER_LIST_IC\022\020\n\010assetsI" +
+      "d\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"" +
+      "I\n\rOWNER_LIST_IS\0228\n\006owners\030\001 \003(\0132(.com.r" +
+      "uixi.tpulse.convention.NftOwnerDTO\"S\n\020AC" +
+      "TIVITY_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page" +
+      "\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\022\r\n\005event\030\004 \001(\t\"" +
+      "S\n\020ACTIVITY_LIST_IS\022?\n\nactivities\030\001 \003(\0132" +
+      "+.com.ruixi.tpulse.convention.NftActivit" +
+      "yDTO\"i\n\007MINT_IC\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017c" +
+      "ontractAddress\030\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r" +
+      "\n\005owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002(\005\"@\n\007MINT_" +
+      "IS\0225\n\004mint\030\001 \002(\0132\'.com.ruixi.tpulse.conv" +
+      "ention.NftMintDTO\"T\n\032ASSETS_EXCHANGE_PRO" +
+      "FILE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010observer\030\002 " +
+      "\001(\003\022\022\n\nneedOwners\030\003 \001(\010\"_\n\032ASSETS_EXCHAN" +
+      "GE_PROFILE_IS\022A\n\007profile\030\001 \002(\01320.com.rui" +
+      "xi.tpulse.convention.NftAssetsProfileDTO" +
+      "\"E\n\036COLLECTION_EXCHANGE_PROFILE_IC\022\021\n\tas" +
+      "setsIds\030\001 \003(\003\022\020\n\010observer\030\002 \001(\003\"g\n\036COLLE" +
+      "CTION_EXCHANGE_PROFILE_IS\022E\n\007profile\030\001 \002" +
+      "(\01324.com.ruixi.tpulse.convention.NftColl" +
+      "ectionProfileDTO\"s\n\rOFFER_MAKE_IC\022\020\n\010ass" +
+      "etsId\030\001 \002(\003\022\020\n\010quantity\030\002 \002(\005\022\r\n\005price\030\003" +
+      " \002(\t\022\020\n\010currency\030\004 \002(\t\022\020\n\010expireAt\030\005 \002(\003" +
+      "\022\013\n\003uid\030\006 \002(\003\"H\n\rOFFER_MAKE_IS\0227\n\005offer\030" +
+      "\001 \002(\0132(.com.ruixi.tpulse.convention.NftO" +
+      "fferDTO\"Q\n\017OFFER_CANCEL_IC\022\013\n\003uid\030\001 \002(\003\022" +
+      "\020\n\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\022\016\n\006re" +
+      "ason\030\004 \001(\t\"\021\n\017OFFER_CANCEL_IS\"A\n\rOFFER_L" +
+      "IST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020" +
+      "\n\010pageSize\030\003 \002(\005\"I\n\rOFFER_LIST_IS\0228\n\006off" +
+      "ers\030\001 \003(\0132(.com.ruixi.tpulse.convention." +
+      "NftOfferDTO\"A\n\017OFFER_ACCEPT_IC\022\013\n\003uid\030\001 " +
+      "\002(\003\022\020\n\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\"\021" +
+      "\n\017OFFER_ACCEPT_IS\"$\n\020LISTING_EVENT_IC\022\020\n" +
+      "\010assetsId\030\001 \002(\003\"%\n\021EXCHANGE_EVENT_IC\022\020\n\010" +
+      "assetsId\030\001 \002(\003\">\n\027LISTING_EXPIRE_CHECK_I" +
+      "C\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlistingId\030\002 \002(\003\":" +
+      "\n\025OFFER_EXPIRE_CHECK_IC\022\020\n\010assetsId\030\001 \002(" +
+      "\003\022\017\n\007offerId\030\002 \002(\003B%\n\026com.tenth.nft.prot" +
+      "obufB\013NftExchange"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -34199,18 +34199,18 @@ public final class NftExchange {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_BUY_IS_descriptor,
         new java.lang.String[] { "Channel", "Token", "Currency", "Value", });
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor =
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor =
       getDescriptor().getMessageTypes().get(11);
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_fieldAccessorTable = new
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor,
+        internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor,
         new java.lang.String[] { "AssetsId", "OrderId", "State", });
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor =
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor =
       getDescriptor().getMessageTypes().get(12);
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_fieldAccessorTable = new
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor,
-        new java.lang.String[] { "Ok", });
+        internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor,
+        new java.lang.String[] { "Refund", });
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_fieldAccessorTable = new

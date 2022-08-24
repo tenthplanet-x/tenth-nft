@@ -93,13 +93,13 @@ message BUY_IS{
   optional string value = 4;
 }
 
-message PAY_RECEIPT_PUSH_IC{
+message PAYMENT_RECEIVE_IC{
   required int64 assetsId = 1;
   required string orderId = 2;
   required string state = 3;
 }
-message PAY_RECEIPT_PUSH_IS{
-  required bool ok = 1;
+message PAYMENT_RECEIVE_IS{
+  required bool refund = 1;
 }
 
 message SELL_CANCEL_IC{
