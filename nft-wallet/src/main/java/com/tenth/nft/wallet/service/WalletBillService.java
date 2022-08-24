@@ -135,7 +135,7 @@ public class WalletBillService {
                             .setBillId(walletBill.getId())
                             .build()
                     , BillPaymentNotifyRouteRequest.class);
-            changeState(walletBill, WalletBillState.FAIL, "verify error");
+            //changeState(walletBill, WalletBillState.FAIL, "verify error");
             throw e;
         }
 
