@@ -77,15 +77,15 @@ public class NftAssetsService {
         nftAssets = nftAssetsDao.insert(nftAssets);
 
         //mint
-//        NftExchange.NftMintDTO mintDTO = routeClient.send(
-//                NftExchange.MINT_IC.newBuilder()
-//                        .setAssetsId(request.getId())
-//                        .setBlockchain(request.getBlockchain())
-//                        .setOwner(request.getCreator())
-//                        .setQuantity(request.getSupply())
-//                        .build(),
-//                MintRouteRequest.class
-//        ).getMint();
+        routeClient.send(
+                NftExchange.MINT_IC.newBuilder()
+                        .setAssetsId(request.getId())
+                        .setBlockchain(request.getBlockchain())
+                        .setOwner(request.getCreator())
+                        .setQuantity(request.getSupply())
+                        .build(),
+                MintRouteRequest.class
+        ).getMint();
         nftAssets = nftAssetsDao.findAndModify(
                 NftAssetsQuery.newBuilder().id(nftAssets.getId()).build(),
                 NftAssetsUpdate.newBuilder()

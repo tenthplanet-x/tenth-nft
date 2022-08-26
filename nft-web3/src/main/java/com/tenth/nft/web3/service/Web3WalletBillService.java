@@ -5,6 +5,7 @@ import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.exchange.Web3PaymentConfirmRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3TxnCheckRouteRequest;
+import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletPayRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.wallet.WalletBillState;
@@ -37,6 +38,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author shijie
@@ -104,10 +107,21 @@ public class Web3WalletBillService {
                 .outOrderId(bizContent.getOutOrderId())
                 .build()
         );
+
+        String address = routeClient.send(
+                NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
+                        .setUid(request.getUid())
+                        .setNeedBalance(false)
+                        .build(),
+                Web3WalletBalanceRouteRequest.class
+        ).getBalance().getAddress();
+
+
         if(null == walletBill){
             walletBill = new Web3WalletBill();
             walletBill.setActivityCfgId(bizContent.getActivityCfgId());
             walletBill.setUid(request.getUid());
+            walletBill.setAccountId(address);
             walletBill.setProductCode(bizContent.getProductCode());
             walletBill.setProductId(bizContent.getProductId());
             walletBill.setOutOrderId(bizContent.getOutOrderId());
@@ -120,6 +134,8 @@ public class Web3WalletBillService {
             walletBill.setUpdatedAt(walletBill.getCreatedAt());
             walletBill.setState(WalletBillState.CREATE.name());
             walletBill.setRemark(bizContent.getRemark());
+            walletBill.setTransactionId(request.getTxn());
+            walletBill.setProfits(convert(bizContent.getProfits()));
             web3WalletBillDao.insert(walletBill);
         }
 
@@ -146,6 +162,19 @@ public class Web3WalletBillService {
 
     }
 
+    private List<Web3WalletBillProfit> convert(List<WalletOrderBizContent.Profit> profits) {
+
+        return profits.stream().map(profit -> {
+            Web3WalletBillProfit web3WalletBillProfit = new Web3WalletBillProfit();
+            web3WalletBillProfit.setTo(profit.getTo());
+            web3WalletBillProfit.setToAddress(profit.getToAddress());
+            web3WalletBillProfit.setCurrency(profit.getCurrency());
+            web3WalletBillProfit.setValue(profit.getValue());
+            web3WalletBillProfit.setActivityCfgId(profit.getActivityCfgId());
+            return web3WalletBillProfit;
+        }).collect(Collectors.toList());
+    }
+
     private NftWeb3Wallet.Web3BillDTO toWeb3BillDTO(Web3WalletBill web3WalletBill) {
 
         NftWeb3Wallet.Web3BillDTO.Builder builder = NftWeb3Wallet.Web3BillDTO.newBuilder();
@@ -161,6 +190,7 @@ public class Web3WalletBillService {
         builder.setValue(web3WalletBill.getValue());
         builder.setCreatedAt(web3WalletBill.getCreatedAt());
         builder.setActivityCfgId(web3WalletBill.getActivityCfgId());
+        builder.setState(web3WalletBill.getState());
 
         return builder.build();
     }
@@ -215,7 +245,7 @@ public class Web3WalletBillService {
                 .build();
         Web3WalletBill web3WalletBill = web3WalletBillDao.findOne(web3WalletBillQuery);
         String txn = web3WalletBill.getTransactionId();
-        if(WalletBillState.CREATE.equals(web3WalletBill.getState())){
+        if(WalletBillState.CREATE.name().equals(web3WalletBill.getState())){
             ContractTransactionReceipt receipt = tpulseContractHelper.getTxn(txn);
             if(receipt.isSuccess()){
 
@@ -228,6 +258,7 @@ public class Web3WalletBillService {
                                     .setAssetsId(Long.valueOf(web3WalletBill.getProductId()))
                                     .setOrderId(web3WalletBill.getOutOrderId())
                                     .setState(WalletBillState.PAYED.name())
+                                    .setTxn(txn)
                                     .build()
                             , Web3PaymentConfirmRouteRequest.class);
 

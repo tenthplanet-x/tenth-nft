@@ -19,7 +19,6 @@ message WEB3_LISTING_CREATE_IS{
 
 message WEB3_LISTING_CONFIRM_IC{
   required int64 uid = 1;
-  required string address = 2;
   required string token = 3;
   required string signature = 4;
 }

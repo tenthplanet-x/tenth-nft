@@ -4,20 +4,18 @@ import com.google.common.base.Strings;
 import com.tenth.nft.blockchain.BlockchainContract;
 import com.tenth.nft.blockchain.BlockchainGateway;
 import com.tenth.nft.blockchain.BlockchainRouter;
-import com.tenth.nft.convention.BuildInProperties;
+import com.tenth.nft.convention.*;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
 import com.tenth.nft.convention.wallet.*;
-import com.tenth.nft.convention.NftExchangeErrorCodes;
-import com.tenth.nft.convention.NftIdModule;
-import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.convention.routes.exchange.*;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
+import com.tenth.nft.convention.web3.utils.HexAddresses;
 import com.tenth.nft.exchange.buildin.controller.vo.NftBuyRequest;
 import com.tenth.nft.exchange.buildin.controller.vo.NftBuyResponse;
 import com.tenth.nft.exchange.buildin.dto.NftListingDTO;
@@ -82,6 +80,8 @@ public class BuildInExchangeService {
     private NftBelongService nftBelongService;
     @Autowired
     private BuildInProperties buildInProperties;
+    @Autowired
+    private Web3Properties web3Properties;
 
     public NftListingDTO sell(NftSellRequest request) {
 
@@ -323,16 +323,16 @@ public class BuildInExchangeService {
     public NftExchange.MINT_IS mint(NftExchange.MINT_IC request){
 
         try{
-            BlockchainContract contract = null;
-            BlockchainGateway blockchainGateway = blockChainRouter.get(request.getBlockchain());
-            if(Strings.isNullOrEmpty(request.getContractAddress())){
-                contract = blockchainGateway.getGlobalNftContract().get();
-            }else{
-                contract = blockchainGateway.getContract(request.getContractAddress()).get();
-            }
-
-            Future<String> tokenFuture = blockchainGateway.mint(contract);
-            String token = tokenFuture.get();
+//            BlockchainContract contract = null;
+//            BlockchainGateway blockchainGateway = blockChainRouter.get(request.getBlockchain());
+//            if(Strings.isNullOrEmpty(request.getContractAddress())){
+//                contract = blockchainGateway.getGlobalNftContract().get();
+//            }else{
+//                contract = blockchainGateway.getContract(request.getContractAddress()).get();
+//            }
+//
+//            Future<String> tokenFuture = blockchainGateway.mint(contract);
+//            String token = tokenFuture.get();
             //belongs
             //refreshBelong(request.getOwner(), request.getAssetsId());
             nftBelongService.create(request.getAssetsId(), request.getOwner(), request.getQuantity());
@@ -342,9 +342,9 @@ public class BuildInExchangeService {
             return NftExchange.MINT_IS.newBuilder()
                     .setMint(NftExchange.NftMintDTO.newBuilder()
                             .setBlockchain(request.getBlockchain())
-                            .setContractAddress(contract.getAddress())
-                            .setTokenStandard(contract.getTokenStandard())
-                            .setToken(token)
+                            .setContractAddress(web3Properties.getContract().getAddress())
+                            .setTokenStandard(web3Properties.getContract().getTokenStandard())
+                            .setToken(HexAddresses.of(request.getAssetsId()))
                             .build())
                     .build();
         }catch (Exception e){

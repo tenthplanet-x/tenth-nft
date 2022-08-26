@@ -1,5 +1,7 @@
 package com.tenth.nft.convention.web3.utils;
 
+import com.google.common.base.Strings;
+
 import java.math.BigInteger;
 
 /**
@@ -8,6 +10,7 @@ import java.math.BigInteger;
 public class HexAddresses {
 
     public static String of(Long id) {
-        return BigInteger.valueOf(id).toString(16);
+        String hex = BigInteger.valueOf(id).toString(16);
+        return String.format("0x%s", Strings.padStart(hex, 16, '0'));
     }
 }

@@ -34,7 +34,7 @@ public class ContractTransactionReceipt {
 
     public String getUsedGasValue() {
         BigInteger usedGasValue = transaction.getGasPrice().multiply(receipt.getGasUsed());
-        return Convert.fromWei(new BigDecimal(usedGasValue), Convert.Unit.WEI).toString();
+        return Convert.fromWei(new BigDecimal(usedGasValue), Convert.Unit.ETHER).toString();
     }
 
 }

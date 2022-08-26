@@ -200,7 +200,16 @@ public class Web3ExchangeService extends AbsExchangeService {
 
         NftListing nftListing = new NftListing();
         nftListing.setUid(request.getUid());
-        nftListing.setUidAddress(request.getAddress());
+
+        String uidAddress = routeClient.send(
+                NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
+                        .setUid(request.getUid())
+                        .setNeedBalance(false)
+                        .build(),
+            Web3WalletBalanceRouteRequest.class
+        ).getBalance().getAddress();
+
+        nftListing.setUidAddress(uidAddress);
         nftListing.setAssetsId(listingDataForSign.getAssetsId());
         nftListing.setQuantity(listingDataForSign.getQuantity());
         nftListing.setCurrency(listingDataForSign.getCurrency());
@@ -297,7 +306,7 @@ public class Web3ExchangeService extends AbsExchangeService {
                 nftListing.getPrice(),
                 nftListing.getSignature()
         );
-        String txnValue = Convert.toWei(nftListing.getPrice(), Convert.Unit.ETHER).toString();
+        String txnValue = Convert.toWei(nftListing.getPrice(), Convert.Unit.ETHER).toBigInteger().toString();
         String txnTo = tpulseContractHelper.getContractAddress();
 
         //create payment order

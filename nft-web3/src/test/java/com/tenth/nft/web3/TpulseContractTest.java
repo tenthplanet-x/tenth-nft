@@ -94,19 +94,19 @@ public class TpulseContractTest {
                 new DefaultGasProvider()
         );
         final Long ITEM_COUNT = 1000l;
-        TransactionReceipt receipt = contract.mintWithCreatorFeeRate(CONTRACT_SELLER, BigInteger.valueOf(ITEM_ID), BigInteger.valueOf(ITEM_COUNT), BigInteger.valueOf(2500)).send();
+        TransactionReceipt receipt = contract.mintWithCreatorFeeRate(CONTRACT_BUYER, BigInteger.valueOf(47000), BigInteger.valueOf(ITEM_COUNT), BigInteger.valueOf(2500)).send();
         String hash = receipt.getTransactionHash();
         System.out.println("mint transaction: " + hash);
 
-        BigInteger itemOwns = contract.balanceOf(CONTRACT_SELLER, BigInteger.valueOf(ITEM_ID)).send();
+        BigInteger itemOwns = contract.balanceOf(CONTRACT_BUYER, BigInteger.valueOf(47000)).send();
         System.out.println("item owns: " + itemOwns);
 
-        Tuple2<String, BigInteger> profile = contract.creatorProfileOf(BigInteger.valueOf(ITEM_ID)).send();
+        Tuple2<String, BigInteger> profile = contract.creatorProfileOf(BigInteger.valueOf(47000)).send();
         System.out.println("creator: " + profile.component1());
         System.out.println("creatorFeeRate: " + profile.component2());
 
         EthBlockNumber blockNumber = web3j.ethBlockNumber().send();
-        BigInteger balance = web3j.ethGetBalance(CONTRACT_SELLER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
+        BigInteger balance = web3j.ethGetBalance(CONTRACT_BUYER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
         System.out.println("current eth: " + balance);
         //763063165127125783
 
@@ -132,7 +132,7 @@ public class TpulseContractTest {
     @Test
     public void approve() throws Exception{
         Web3j web3j = Web3j.build(new HttpService(NETWORK));
-        Credentials credentials = Credentials.create(CONTRACT_SELLER_PRIVATEKEY);
+        Credentials credentials = Credentials.create(CONTRACT_BUYER_PRIVATEKEY);
         TpulseContract contract = TpulseContract.load(CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -141,7 +141,7 @@ public class TpulseContractTest {
         );
         contract.setApprovalForAll(CONTRACT_OWNER, true).send();
 
-        boolean isApprove = contract.isApprovedForAll(CONTRACT_SELLER, CONTRACT_OWNER).send();
+        boolean isApprove = contract.isApprovedForAll(CONTRACT_BUYER, CONTRACT_OWNER).send();
         System.out.println("isApprove: " + isApprove);
     }
 
@@ -333,7 +333,7 @@ public class TpulseContractTest {
         //BigInteger integer = contract.getGasPrice();
         //System.out.println(integer);
 
-        String txn = "0x77021fcf0e65a674f868ee2322393230310f27231b22ac4de33ca2d5d8cad640";
+        String txn = "0xc9aea894ca7f11697d123a94909beafe725ed0b242f7eac76e49ec0a701682b4";
 
         BigInteger gasPrice = web3j.ethGetTransactionByHash(txn).send().getResult().getGasPrice();
         System.out.println(gasPrice);

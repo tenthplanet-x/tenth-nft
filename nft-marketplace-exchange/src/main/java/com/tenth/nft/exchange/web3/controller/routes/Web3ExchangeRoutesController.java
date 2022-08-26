@@ -1,5 +1,6 @@
 package com.tenth.nft.exchange.web3.controller.routes;
 
+import com.tenth.nft.convention.routes.exchange.Web3ListingConfirmRouteRequest;
 import com.tenth.nft.convention.routes.exchange.Web3ListingCreateRouteRequest;
 import com.tenth.nft.convention.routes.exchange.Web3PaymentConfirmRouteRequest;
 import com.tenth.nft.convention.routes.exchange.Web3PaymentCreateRouteRequest;
@@ -25,7 +26,7 @@ public class Web3ExchangeRoutesController {
         return web3ExchangeService.createListing(request);
     }
 
-    @RouteRequestMapping(Web3ListingCreateRouteRequest.class)
+    @RouteRequestMapping(Web3ListingConfirmRouteRequest.class)
     public NftWeb3Exchange.WEB3_LISTING_CONFIRM_IS confirmListing(NftWeb3Exchange.WEB3_LISTING_CONFIRM_IC request){
         return web3ExchangeService.confirmListing(request);
     }

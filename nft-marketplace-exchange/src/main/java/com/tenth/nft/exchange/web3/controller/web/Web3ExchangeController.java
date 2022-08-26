@@ -37,13 +37,15 @@ public class Web3ExchangeController {
     }
 
     @RequestMapping(Web3ExchangePaths.LISTING_CONFIRM)
-    public Response confirmListing(Web3ExchangeListingConfirmRequest request){
+    public Response confirmListing(@RequestBody Web3ExchangeListingConfirmRequest request){
+        Validations.check(request);
         web3ExchangeService.confirmListing(request);
         return Response.successBuilder().build();
     }
 
     @RequestMapping(Web3ExchangePaths.PAYMENT_CREATE)
-    public Response createPayment(Web3PaymentCreateRequest request){
+    public Response createPayment(@RequestBody Web3PaymentCreateRequest request){
+        Validations.check(request);
         PaymentCreateResponse result = web3ExchangeService.createPayment(request);
         return Response.successBuilder().data(result).build();
     }
@@ -55,7 +57,8 @@ public class Web3ExchangeController {
 //    }
 
     @RequestMapping(Web3ExchangePaths.PAYMENT_CHECK)
-    public Response checkPayment(Web3PaymentCheckRequest request){
+    public Response checkPayment(@RequestBody Web3PaymentCheckRequest request){
+        Validations.check(request);
         PaymentCheckResponse response = web3ExchangeService.getPaymentState(request);
         return Response.successBuilder().data(response).build();
     }
