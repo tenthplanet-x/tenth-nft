@@ -110,6 +110,16 @@ public class Web3ExchangeService extends AbsExchangeService {
         ListingCreateResponse createResponse = new ListingCreateResponse();
         createResponse.setDataForSign(routeResponse.getDataForSign());
         createResponse.setToken(routeResponse.getToken());
+
+        String address = routeClient.send(
+                NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
+                        .setUid(uid)
+                        .setNeedBalance(false)
+                        .build(),
+                Web3WalletBalanceRouteRequest.class
+        ).getBalance().getAddress();
+        createResponse.setFrom(address);
+
         return createResponse;
 
     }
@@ -251,6 +261,13 @@ public class Web3ExchangeService extends AbsExchangeService {
     public PaymentCreateResponse createPayment(Web3PaymentCreateRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        String uidAddress = routeClient.send(
+                NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
+                        .setUid(uid)
+                        .setNeedBalance(false)
+                        .build(),
+                Web3WalletBalanceRouteRequest.class
+        ).getBalance().getAddress();
 
         NftWeb3Exchange.WEB3_PAYMENT_CREATE_IS routeResponse = routeClient.send(
                 NftWeb3Exchange.WEB3_PAYMENT_CREATE_IC.newBuilder()
@@ -265,7 +282,8 @@ public class Web3ExchangeService extends AbsExchangeService {
                 routeResponse.getToken(),
                 routeResponse.getTxnData(),
                 routeResponse.getTxnValue(),
-                routeResponse.getTxnTo()
+                routeResponse.getTxnTo(),
+                uidAddress
         );
     }
 

@@ -5,6 +5,8 @@ package com.tenth.nft.marketplace.vo;
  */
 public class CreateWeb3NftResponse {
 
+    private String from;
+
     private String dataForSign;
 
     private String token;
@@ -23,5 +25,13 @@ public class CreateWeb3NftResponse {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
     }
 }

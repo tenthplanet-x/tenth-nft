@@ -13,15 +13,18 @@ public class PaymentCreateResponse {
 
     private String txnValue;
 
+    private String from;
+
     public PaymentCreateResponse() {
 
     }
 
-    public PaymentCreateResponse(String token, String txnData, String txnValue, String txnTo) {
+    public PaymentCreateResponse(String token, String txnData, String txnValue, String txnTo, String from) {
         this.token = token;
         this.txnData = txnData;
         this.txnValue = txnValue;
         this.txnTo = txnTo;
+        this.from = from;
     }
 
     public String getToken() {
@@ -54,5 +57,13 @@ public class PaymentCreateResponse {
 
     public void setTxnValue(String txnValue) {
         this.txnValue = txnValue;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
     }
 }

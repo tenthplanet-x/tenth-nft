@@ -200,6 +200,16 @@ public class PlayerAssetsService {
         CreateWeb3NftResponse response = new CreateWeb3NftResponse();
         response.setDataForSign(dataForSign);
         response.setToken(createToken(JsonUtil.toJson(request)));
+
+        String address = routeClient.send(
+                NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
+                        .setUid(uid)
+                        .setNeedBalance(false)
+                        .build(),
+                Web3WalletBalanceRouteRequest.class
+        ).getBalance().getAddress();
+        response.setFrom(address);
+
         return response;
     }
 
