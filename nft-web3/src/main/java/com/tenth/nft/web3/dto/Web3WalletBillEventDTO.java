@@ -11,6 +11,8 @@ public class Web3WalletBillEventDTO {
 
     private String transaction;
 
+    private String type;
+
     private String displayType;
 
     private String productCode;
@@ -115,6 +117,14 @@ public class Web3WalletBillEventDTO {
 
     public void setIncomeExpense(String incomeExpense) {
         this.incomeExpense = incomeExpense;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public static Web3WalletBillEventDTO from(Web3WalletEvent entity) {

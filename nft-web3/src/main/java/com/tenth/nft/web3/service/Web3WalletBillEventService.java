@@ -111,6 +111,7 @@ public class Web3WalletBillEventService {
         WalletActivityTemplate walletActivityTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_activity);
         WalletActivityConfig walletActivityConfig = walletActivityTemplate.findOne(entity.getActivityCfgId());
         if(null != walletActivityConfig){
+            eventDTO.setType(walletActivityConfig.getType());
             eventDTO.setDisplayType(walletActivityConfig.getType());
             eventDTO.setIncomeExpense(walletActivityConfig.getIncomeExpense());
         }

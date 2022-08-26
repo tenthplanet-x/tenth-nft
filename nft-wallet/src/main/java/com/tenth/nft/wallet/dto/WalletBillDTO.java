@@ -16,6 +16,8 @@ public class WalletBillDTO {
     @JsonIgnore
     private Integer activityCfgId;
 
+    private String type;
+
     private String displayType;
 
     private String productCode;
@@ -120,6 +122,14 @@ public class WalletBillDTO {
 
     public void setIncomeExpense(String incomeExpense) {
         this.incomeExpense = incomeExpense;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public static NftWallet.BillDTO toProto(WalletBill walletBill) {
