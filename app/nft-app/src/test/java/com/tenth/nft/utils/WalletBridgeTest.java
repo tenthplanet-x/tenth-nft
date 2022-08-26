@@ -7,7 +7,8 @@ import org.junit.Test;
  */
 public class WalletBridgeTest {
 
-    public static final String GATEWAY = "http://172.16.16.108:9000/?cmd=%s&token=1";
+    //public static final String GATEWAY = "http://172.16.16.108:9000/?cmd=%s&token=1";
+    public static final String GATEWAY = "https://bridge.shunye666.cn?cmd=%s&token=1";
 
     @Test
     public void cmd1(){

@@ -7,8 +7,13 @@ import org.web3j.abi.datatypes.Int;
  */
 public class Precisions {
 
-    private static final Integer CREATOR_FEE_RATE_PRECISION = 4;
+    private static final Integer CREATOR_FEE_RATE_PRECISION = 2;
 
+    /**
+     *
+     * @param creatorFeeRate %
+     * @return
+     */
     public static Integer toCreatorFeeRate(String creatorFeeRate) {
         return (int)(Float.valueOf(creatorFeeRate) * Math.pow(10, CREATOR_FEE_RATE_PRECISION));
     }
