@@ -13,7 +13,6 @@ public class BigNumberUtils {
     }
 
     public static boolean gte(String current, String compareTo) {
-
         BigDecimal _current = new BigDecimal(current);
         BigDecimal _compareTo = new BigDecimal(compareTo);
         return _current.compareTo(_compareTo) >= 0;

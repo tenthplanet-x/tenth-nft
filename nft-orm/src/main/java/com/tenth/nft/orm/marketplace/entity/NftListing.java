@@ -17,6 +17,8 @@ public class NftListing {
 
     private Long uid;
 
+    private String uidAddress;
+
     @Indexed
     private Long assetsId;
 
@@ -41,11 +43,11 @@ public class NftListing {
 
     private Long creatorUid;
 
+    private String creatorAddress;
+
     private String creatorFeeRate;
 
     private String signature;
-
-    private String payWalletAddress;
 
     public Long getId() {
         return id;
@@ -167,11 +169,20 @@ public class NftListing {
         this.signature = signature;
     }
 
-    public String getPayWalletAddress() {
-        return payWalletAddress;
+    public String getCreatorAddress() {
+        return creatorAddress;
     }
 
-    public void setPayWalletAddress(String payWalletAddress) {
-        this.payWalletAddress = payWalletAddress;
+    public void setCreatorAddress(String creatorAddress) {
+        this.creatorAddress = creatorAddress;
     }
+
+    public String getUidAddress() {
+        return uidAddress;
+    }
+
+    public void setUidAddress(String uidAddress) {
+        this.uidAddress = uidAddress;
+    }
+
 }

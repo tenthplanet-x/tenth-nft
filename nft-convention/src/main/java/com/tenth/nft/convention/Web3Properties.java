@@ -13,6 +13,10 @@ public class Web3Properties {
 
     private Integer chainId;
 
+    private Contract contract;
+
+    private String mainCurrency;
+
     public String getBlockchain() {
         return blockchain;
     }
@@ -45,6 +49,22 @@ public class Web3Properties {
         this.chainId = chainId;
     }
 
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+
+    public String getMainCurrency() {
+        return mainCurrency;
+    }
+
+    public void setMainCurrency(String mainCurrency) {
+        this.mainCurrency = mainCurrency;
+    }
+
     public static class Rsa {
 
         private String privateKey;
@@ -65,6 +85,49 @@ public class Web3Properties {
 
         public void setPublickey(String publickey) {
             this.publickey = publickey;
+        }
+    }
+
+    public static class Contract{
+
+        private String address;
+
+        private String ownerAddress;
+
+        private String ownerPrivateKey;
+
+        private String tokenStandard;
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getOwnerAddress() {
+            return ownerAddress;
+        }
+
+        public void setOwnerAddress(String ownerAddress) {
+            this.ownerAddress = ownerAddress;
+        }
+
+        public String getOwnerPrivateKey() {
+            return ownerPrivateKey;
+        }
+
+        public void setOwnerPrivateKey(String ownerPrivateKey) {
+            this.ownerPrivateKey = ownerPrivateKey;
+        }
+
+        public String getTokenStandard() {
+            return tokenStandard;
+        }
+
+        public void setTokenStandard(String tokenStandard) {
+            this.tokenStandard = tokenStandard;
         }
     }
 }

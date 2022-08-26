@@ -1,12 +1,14 @@
-package com.tenth.nft.wallet.entity;
+package com.tenth.nft.web3.entity;
 
 
 /**
  * @author shijie
  */
-public class WalletBillProfit {
+public class Web3WalletBillProfit {
 
     private Long to;
+
+    private String toAddress;
 
     private Integer activityCfgId;
 
@@ -44,5 +46,13 @@ public class WalletBillProfit {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getToAddress() {
+        return toAddress;
+    }
+
+    public void setToAddress(String toAddress) {
+        this.toAddress = toAddress;
     }
 }

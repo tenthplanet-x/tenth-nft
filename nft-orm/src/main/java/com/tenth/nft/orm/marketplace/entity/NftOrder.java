@@ -41,6 +41,8 @@ public class NftOrder {
 
     private String remark;
 
+    private String txn;
+
     public Long getId() {
         return id;
     }
@@ -151,5 +153,13 @@ public class NftOrder {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getTxn() {
+        return txn;
+    }
+
+    public void setTxn(String txn) {
+        this.txn = txn;
     }
 }

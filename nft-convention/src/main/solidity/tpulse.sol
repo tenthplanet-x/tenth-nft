@@ -1,9 +1,10 @@
 //contracts/Tpulse.sol
 //SPDX-License-Identifier: MIT
+//Version: 0.0.1
 pragma solidity ^0.8.0;
 
-import "../node_modules/@openzeppelin/contracts/token/ERC1155/presets/ERC1155PresetMinterPauser.sol";
-import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
+import "node_modules/@openzeppelin/contracts/token/ERC1155/presets/ERC1155PresetMinterPauser.sol";
+import "node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 contract Tpulse is ERC1155PresetMinterPauser, Ownable {
 
@@ -12,18 +13,10 @@ contract Tpulse is ERC1155PresetMinterPauser, Ownable {
     event CreatorIncome(address receiver, uint value);
     event ServiceIncome(address receiver, uint value);
 
-    struct Signature{
-        bytes32 hash;
-        uint8 v;
-        bytes32 r;
-        bytes32 s;
-    }
-
     struct Listing {
         address seller;
         uint256 assetsId;
         uint256 quality;
-        uint256 amount;
     }
 
     struct CreatorProfile{
@@ -59,7 +52,7 @@ contract Tpulse is ERC1155PresetMinterPauser, Ownable {
     }
 
     //buy
-    function buy(Listing calldata listing, Signature calldata signature) public payable{
+    function buy(Listing calldata listing) public payable{
 
         //require(listing.amount == 0, "Illegal listing");
 

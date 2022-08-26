@@ -17,7 +17,20 @@ message Web3BillDTO{
   required int64 createdAt = 11;
   optional string merchantType = 12;
   optional string merchantId = 13;
+}
 
+message Web3WalletBalanceDTO{
+  required string address = 1;
+  required string currency = 2;
+  required string value = 3;
+}
+
+message WEB3_WALLET_BALANCE_IC{
+  required int64 uid = 1;
+  optional bool needBalance = 2;
+}
+message WEB3_WALLET_BALANCE_IS{
+  required Web3WalletBalanceDTO balance = 1;
 }
 
 message WEB3_BILL_PAY_IC{
@@ -29,6 +42,13 @@ message WEB3_BILL_PAY_IS{
     required Web3BillDTO bill = 1;
 }
 
+message WEB3_TXN_CHECK_IC{
+  required int64 uid = 1;
+  required int64 billId = 2;
+}
+message WEB3_TXN_CHECK_IS{
+
+}
 
 
 

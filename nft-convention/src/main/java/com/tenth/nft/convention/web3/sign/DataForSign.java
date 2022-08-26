@@ -1,5 +1,9 @@
-package com.tenth.nft.solidity;
+package com.tenth.nft.convention.web3.sign;
 
+import com.tpulse.gs.convention.cypher.utils.Base64Utils;
+import com.wallan.json.JsonUtil;
+
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,10 +20,9 @@ public abstract class DataForSign {
                 .add("version", "string")
                 .add("chainId", "uint256")
                 .add("verifyingContract", "address")
-                .add("verifyingContract", "bytes32")
+                .add("salt", "bytes32")
                 .build();
     }
-
 
     private EIP712Domain domain;
 
@@ -95,6 +98,11 @@ public abstract class DataForSign {
         output.put("message", getMessage());
 
         return output;
+    }
+
+    public String toDataForSignBase64(){
+        String json = JsonUtil.toJson(toDataForSign());
+        return Base64Utils.encode(json.getBytes(StandardCharsets.UTF_8));
     }
 
     protected abstract Object getMessage();

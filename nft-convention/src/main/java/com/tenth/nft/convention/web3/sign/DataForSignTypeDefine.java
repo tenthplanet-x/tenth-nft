@@ -1,4 +1,4 @@
-package com.tenth.nft.solidity;
+package com.tenth.nft.convention.web3.sign;
 
 import java.util.ArrayList;
 import java.util.List;

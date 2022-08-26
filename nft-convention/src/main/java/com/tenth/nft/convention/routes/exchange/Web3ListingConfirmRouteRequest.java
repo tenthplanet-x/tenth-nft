@@ -1,5 +1,17 @@
-package com.tenth.nft.convention.routes.exchange;/**
+package com.tenth.nft.convention.routes.exchange;
+
+import com.tenth.nft.convention.cmd.NftInnerCmds;
+import com.tenth.nft.protobuf.NftWeb3Exchange;
+import com.tpulse.gs.router.requestmapping.AbsRouteRequest;
+import org.springframework.stereotype.Component;
+
+/**
  * @author shijie
  */
-public class Web3ListingConfirmRouteRequest {
+@Component
+public class Web3ListingConfirmRouteRequest extends AbsRouteRequest<NftWeb3Exchange.WEB3_LISTING_CONFIRM_IC, NftWeb3Exchange.WEB3_LISTING_CONFIRM_IS> {
+
+    public Web3ListingConfirmRouteRequest() {
+        super(NftInnerCmds.WEB3_LISTING_CONFIRM_IC, false, false);
+    }
 }

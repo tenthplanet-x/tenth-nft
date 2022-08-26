@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.tenth.nft.blockchain.BlockchainContract;
 import com.tenth.nft.blockchain.BlockchainGateway;
 import com.tenth.nft.blockchain.BlockchainRouter;
+import com.tenth.nft.convention.BuildInProperties;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
@@ -79,6 +80,8 @@ public class BuildInExchangeService {
     private NftListingService nftListingService;
     @Autowired
     private NftBelongService nftBelongService;
+    @Autowired
+    private BuildInProperties buildInProperties;
 
     public NftListingDTO sell(NftSellRequest request) {
 
@@ -109,6 +112,12 @@ public class BuildInExchangeService {
         }
         NftBelong nftBelong = nftBelongService.findOne(request.getAssetsId(), request.getUid());
         if(null == nftBelong || nftBelong.getQuantity() < request.getQuantity()){
+            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+        }
+        //Check the blockchain is correct
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        String blockchain = walletCurrencyTemplate.findOne(request.getCurrency()).getBlockchain();
+        if(!buildInProperties.getBlockchain().equals(blockchain)){
             throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
         }
 

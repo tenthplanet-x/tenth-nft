@@ -33,6 +33,8 @@ message AssetsDTO{
   optional string token = 13;
   required int64 creator = 14;
   optional string creatorFeeRate = 15;
+  optional string creatorAddress = 16;
+  optional string signature = 17;
 }
 
 message COLLECTION_CREATE_IC{

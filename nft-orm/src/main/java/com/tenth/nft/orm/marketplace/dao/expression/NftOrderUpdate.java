@@ -29,6 +29,9 @@ public class NftOrderUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private String remark;
 
+    @SimpleWriteParam
+    private String txn;
+
     public Long getUpdatedAt() {
         return updatedAt;
     }
@@ -51,6 +54,10 @@ public class NftOrderUpdate extends SimpleUpdate {
 
     public String getRemark() {
         return remark;
+    }
+
+    public String getTxn() {
+        return txn;
     }
 
     public static Builder newBuilder(){
@@ -87,6 +94,11 @@ public class NftOrderUpdate extends SimpleUpdate {
 
         public Builder remark(String remark) {
             update.remark = remark;
+            return this;
+        }
+
+        public Builder txn(String txn) {
+            update.txn = txn;
             return this;
         }
     }

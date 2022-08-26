@@ -2168,21 +2168,21 @@ public final class NftWeb3Exchange {
     long getUid();
 
     /**
-     * <code>required string dataForSign = 2;</code>
-     * @return Whether the dataForSign field is set.
+     * <code>required string address = 2;</code>
+     * @return Whether the address field is set.
      */
-    boolean hasDataForSign();
+    boolean hasAddress();
     /**
-     * <code>required string dataForSign = 2;</code>
-     * @return The dataForSign.
+     * <code>required string address = 2;</code>
+     * @return The address.
      */
-    java.lang.String getDataForSign();
+    java.lang.String getAddress();
     /**
-     * <code>required string dataForSign = 2;</code>
-     * @return The bytes for dataForSign.
+     * <code>required string address = 2;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
-        getDataForSignBytes();
+        getAddressBytes();
 
     /**
      * <code>required string token = 3;</code>
@@ -2231,7 +2231,7 @@ public final class NftWeb3Exchange {
       super(builder);
     }
     private WEB3_LISTING_CONFIRM_IC() {
-      dataForSign_ = "";
+      address_ = "";
       token_ = "";
       signature_ = "";
     }
@@ -2275,7 +2275,7 @@ public final class NftWeb3Exchange {
             case 18: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              dataForSign_ = bs;
+              address_ = bs;
               break;
             }
             case 26: {
@@ -2342,23 +2342,23 @@ public final class NftWeb3Exchange {
       return uid_;
     }
 
-    public static final int DATAFORSIGN_FIELD_NUMBER = 2;
-    private volatile java.lang.Object dataForSign_;
+    public static final int ADDRESS_FIELD_NUMBER = 2;
+    private volatile java.lang.Object address_;
     /**
-     * <code>required string dataForSign = 2;</code>
-     * @return Whether the dataForSign field is set.
+     * <code>required string address = 2;</code>
+     * @return Whether the address field is set.
      */
     @java.lang.Override
-    public boolean hasDataForSign() {
+    public boolean hasAddress() {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>required string dataForSign = 2;</code>
-     * @return The dataForSign.
+     * <code>required string address = 2;</code>
+     * @return The address.
      */
     @java.lang.Override
-    public java.lang.String getDataForSign() {
-      java.lang.Object ref = dataForSign_;
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -2366,24 +2366,24 @@ public final class NftWeb3Exchange {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          dataForSign_ = s;
+          address_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string dataForSign = 2;</code>
-     * @return The bytes for dataForSign.
+     * <code>required string address = 2;</code>
+     * @return The bytes for address.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getDataForSignBytes() {
-      java.lang.Object ref = dataForSign_;
+        getAddressBytes() {
+      java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        dataForSign_ = b;
+        address_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -2497,7 +2497,7 @@ public final class NftWeb3Exchange {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasDataForSign()) {
+      if (!hasAddress()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2520,7 +2520,7 @@ public final class NftWeb3Exchange {
         output.writeInt64(1, uid_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, dataForSign_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, address_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, token_);
@@ -2542,7 +2542,7 @@ public final class NftWeb3Exchange {
           .computeInt64Size(1, uid_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, dataForSign_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, address_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, token_);
@@ -2570,10 +2570,10 @@ public final class NftWeb3Exchange {
         if (getUid()
             != other.getUid()) return false;
       }
-      if (hasDataForSign() != other.hasDataForSign()) return false;
-      if (hasDataForSign()) {
-        if (!getDataForSign()
-            .equals(other.getDataForSign())) return false;
+      if (hasAddress() != other.hasAddress()) return false;
+      if (hasAddress()) {
+        if (!getAddress()
+            .equals(other.getAddress())) return false;
       }
       if (hasToken() != other.hasToken()) return false;
       if (hasToken()) {
@@ -2601,9 +2601,9 @@ public final class NftWeb3Exchange {
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getUid());
       }
-      if (hasDataForSign()) {
-        hash = (37 * hash) + DATAFORSIGN_FIELD_NUMBER;
-        hash = (53 * hash) + getDataForSign().hashCode();
+      if (hasAddress()) {
+        hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+        hash = (53 * hash) + getAddress().hashCode();
       }
       if (hasToken()) {
         hash = (37 * hash) + TOKEN_FIELD_NUMBER;
@@ -2748,7 +2748,7 @@ public final class NftWeb3Exchange {
         super.clear();
         uid_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        dataForSign_ = "";
+        address_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         token_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -2789,7 +2789,7 @@ public final class NftWeb3Exchange {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.dataForSign_ = dataForSign_;
+        result.address_ = address_;
         if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -2850,9 +2850,9 @@ public final class NftWeb3Exchange {
         if (other.hasUid()) {
           setUid(other.getUid());
         }
-        if (other.hasDataForSign()) {
+        if (other.hasAddress()) {
           bitField0_ |= 0x00000002;
-          dataForSign_ = other.dataForSign_;
+          address_ = other.address_;
           onChanged();
         }
         if (other.hasToken()) {
@@ -2875,7 +2875,7 @@ public final class NftWeb3Exchange {
         if (!hasUid()) {
           return false;
         }
-        if (!hasDataForSign()) {
+        if (!hasAddress()) {
           return false;
         }
         if (!hasToken()) {
@@ -2946,26 +2946,26 @@ public final class NftWeb3Exchange {
         return this;
       }
 
-      private java.lang.Object dataForSign_ = "";
+      private java.lang.Object address_ = "";
       /**
-       * <code>required string dataForSign = 2;</code>
-       * @return Whether the dataForSign field is set.
+       * <code>required string address = 2;</code>
+       * @return Whether the address field is set.
        */
-      public boolean hasDataForSign() {
+      public boolean hasAddress() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>required string dataForSign = 2;</code>
-       * @return The dataForSign.
+       * <code>required string address = 2;</code>
+       * @return The address.
        */
-      public java.lang.String getDataForSign() {
-        java.lang.Object ref = dataForSign_;
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            dataForSign_ = s;
+            address_ = s;
           }
           return s;
         } else {
@@ -2973,59 +2973,59 @@ public final class NftWeb3Exchange {
         }
       }
       /**
-       * <code>required string dataForSign = 2;</code>
-       * @return The bytes for dataForSign.
+       * <code>required string address = 2;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
-          getDataForSignBytes() {
-        java.lang.Object ref = dataForSign_;
+          getAddressBytes() {
+        java.lang.Object ref = address_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          dataForSign_ = b;
+          address_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>required string dataForSign = 2;</code>
-       * @param value The dataForSign to set.
+       * <code>required string address = 2;</code>
+       * @param value The address to set.
        * @return This builder for chaining.
        */
-      public Builder setDataForSign(
+      public Builder setAddress(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000002;
-        dataForSign_ = value;
+        address_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string dataForSign = 2;</code>
+       * <code>required string address = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearDataForSign() {
+      public Builder clearAddress() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        dataForSign_ = getDefaultInstance().getDataForSign();
+        address_ = getDefaultInstance().getAddress();
         onChanged();
         return this;
       }
       /**
-       * <code>required string dataForSign = 2;</code>
-       * @param value The bytes for dataForSign to set.
+       * <code>required string address = 2;</code>
+       * @param value The bytes for address to set.
        * @return This builder for chaining.
        */
-      public Builder setDataForSignBytes(
+      public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000002;
-        dataForSign_ = value;
+        address_ = value;
         onChanged();
         return this;
       }
@@ -6694,17 +6694,6 @@ public final class NftWeb3Exchange {
   public interface WEB3_PAYMENT_CONFIRM_ISOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.WEB3_PAYMENT_CONFIRM_IS)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required bool ok = 1;</code>
-     * @return Whether the ok field is set.
-     */
-    boolean hasOk();
-    /**
-     * <code>required bool ok = 1;</code>
-     * @return The ok.
-     */
-    boolean getOk();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.WEB3_PAYMENT_CONFIRM_IS}
@@ -6741,7 +6730,6 @@ public final class NftWeb3Exchange {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6752,11 +6740,6 @@ public final class NftWeb3Exchange {
             case 0:
               done = true;
               break;
-            case 8: {
-              bitField0_ |= 0x00000001;
-              ok_ = input.readBool();
-              break;
-            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -6789,26 +6772,6 @@ public final class NftWeb3Exchange {
               com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS.class, com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS.Builder.class);
     }
 
-    private int bitField0_;
-    public static final int OK_FIELD_NUMBER = 1;
-    private boolean ok_;
-    /**
-     * <code>required bool ok = 1;</code>
-     * @return Whether the ok field is set.
-     */
-    @java.lang.Override
-    public boolean hasOk() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required bool ok = 1;</code>
-     * @return The ok.
-     */
-    @java.lang.Override
-    public boolean getOk() {
-      return ok_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -6816,10 +6779,6 @@ public final class NftWeb3Exchange {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasOk()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -6827,9 +6786,6 @@ public final class NftWeb3Exchange {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeBool(1, ok_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -6839,10 +6795,6 @@ public final class NftWeb3Exchange {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, ok_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -6858,11 +6810,6 @@ public final class NftWeb3Exchange {
       }
       com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS other = (com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS) obj;
 
-      if (hasOk() != other.hasOk()) return false;
-      if (hasOk()) {
-        if (getOk()
-            != other.getOk()) return false;
-      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6874,11 +6821,6 @@ public final class NftWeb3Exchange {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasOk()) {
-        hash = (37 * hash) + OK_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-            getOk());
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -7012,8 +6954,6 @@ public final class NftWeb3Exchange {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        ok_ = false;
-        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -7040,13 +6980,6 @@ public final class NftWeb3Exchange {
       @java.lang.Override
       public com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS buildPartial() {
         com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS result = new com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.ok_ = ok_;
-          to_bitField0_ |= 0x00000001;
-        }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -7095,9 +7028,6 @@ public final class NftWeb3Exchange {
 
       public Builder mergeFrom(com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS other) {
         if (other == com.tenth.nft.protobuf.NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS.getDefaultInstance()) return this;
-        if (other.hasOk()) {
-          setOk(other.getOk());
-        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -7105,9 +7035,6 @@ public final class NftWeb3Exchange {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasOk()) {
-          return false;
-        }
         return true;
       }
 
@@ -7127,46 +7054,6 @@ public final class NftWeb3Exchange {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-      private int bitField0_;
-
-      private boolean ok_ ;
-      /**
-       * <code>required bool ok = 1;</code>
-       * @return Whether the ok field is set.
-       */
-      @java.lang.Override
-      public boolean hasOk() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required bool ok = 1;</code>
-       * @return The ok.
-       */
-      @java.lang.Override
-      public boolean getOk() {
-        return ok_;
-      }
-      /**
-       * <code>required bool ok = 1;</code>
-       * @param value The ok to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOk(boolean value) {
-        bitField0_ |= 0x00000001;
-        ok_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required bool ok = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearOk() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        ok_ = false;
-        onChanged();
         return this;
       }
       @java.lang.Override
@@ -8123,20 +8010,19 @@ public final class NftWeb3Exchange {
       "ency\030\003 \002(\t\022\020\n\010quantity\030\004 \002(\005\022\r\n\005price\030\005 " +
       "\002(\t\022\017\n\007startAt\030\006 \002(\003\022\020\n\010expireAt\030\007 \002(\003\"<" +
       "\n\026WEB3_LISTING_CREATE_IS\022\023\n\013dataForSign\030" +
-      "\001 \002(\t\022\r\n\005token\030\002 \002(\t\"]\n\027WEB3_LISTING_CON" +
-      "FIRM_IC\022\013\n\003uid\030\001 \002(\003\022\023\n\013dataForSign\030\002 \002(" +
-      "\t\022\r\n\005token\030\003 \002(\t\022\021\n\tsignature\030\004 \002(\t\"\031\n\027W" +
-      "EB3_LISTING_CONFIRM_IS\"J\n\026WEB3_PAYMENT_C" +
-      "REATE_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 \002(\003\022" +
-      "\021\n\tlistingId\030\003 \002(\003\"Y\n\026WEB3_PAYMENT_CREAT" +
-      "E_IS\022\r\n\005token\030\001 \002(\t\022\r\n\005txnTo\030\002 \002(\t\022\017\n\007tx" +
-      "nData\030\003 \002(\t\022\020\n\010txnValue\030\004 \002(\t\"X\n\027WEB3_PA" +
-      "YMENT_CONFIRM_IC\022\020\n\010assetsId\030\001 \002(\003\022\017\n\007or" +
-      "derId\030\002 \002(\t\022\r\n\005state\030\003 \002(\t\022\013\n\003txn\030\004 \002(\t\"" +
-      "%\n\027WEB3_PAYMENT_CONFIRM_IS\022\n\n\002ok\030\001 \002(\010\"\027" +
-      "\n\025WEB3_PAYMENT_STATE_IC\"\027\n\025WEB3_PAYMENT_" +
-      "STATE_ISB)\n\026com.tenth.nft.protobufB\017NftW" +
-      "eb3Exchange"
+      "\001 \002(\t\022\r\n\005token\030\002 \002(\t\"Y\n\027WEB3_LISTING_CON" +
+      "FIRM_IC\022\013\n\003uid\030\001 \002(\003\022\017\n\007address\030\002 \002(\t\022\r\n" +
+      "\005token\030\003 \002(\t\022\021\n\tsignature\030\004 \002(\t\"\031\n\027WEB3_" +
+      "LISTING_CONFIRM_IS\"J\n\026WEB3_PAYMENT_CREAT" +
+      "E_IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 \002(\003\022\021\n\tl" +
+      "istingId\030\003 \002(\003\"Y\n\026WEB3_PAYMENT_CREATE_IS" +
+      "\022\r\n\005token\030\001 \002(\t\022\r\n\005txnTo\030\002 \002(\t\022\017\n\007txnDat" +
+      "a\030\003 \002(\t\022\020\n\010txnValue\030\004 \002(\t\"X\n\027WEB3_PAYMEN" +
+      "T_CONFIRM_IC\022\020\n\010assetsId\030\001 \002(\003\022\017\n\007orderI" +
+      "d\030\002 \002(\t\022\r\n\005state\030\003 \002(\t\022\013\n\003txn\030\004 \002(\t\"\031\n\027W" +
+      "EB3_PAYMENT_CONFIRM_IS\"\027\n\025WEB3_PAYMENT_S" +
+      "TATE_IC\"\027\n\025WEB3_PAYMENT_STATE_ISB)\n\026com." +
+      "tenth.nft.protobufB\017NftWeb3Exchange"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8159,7 +8045,7 @@ public final class NftWeb3Exchange {
     internal_static_com_ruixi_tpulse_convention_WEB3_LISTING_CONFIRM_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_LISTING_CONFIRM_IC_descriptor,
-        new java.lang.String[] { "Uid", "DataForSign", "Token", "Signature", });
+        new java.lang.String[] { "Uid", "Address", "Token", "Signature", });
     internal_static_com_ruixi_tpulse_convention_WEB3_LISTING_CONFIRM_IS_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_com_ruixi_tpulse_convention_WEB3_LISTING_CONFIRM_IS_fieldAccessorTable = new
@@ -8189,7 +8075,7 @@ public final class NftWeb3Exchange {
     internal_static_com_ruixi_tpulse_convention_WEB3_PAYMENT_CONFIRM_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_PAYMENT_CONFIRM_IS_descriptor,
-        new java.lang.String[] { "Ok", });
+        new java.lang.String[] { });
     internal_static_com_ruixi_tpulse_convention_WEB3_PAYMENT_STATE_IC_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_com_ruixi_tpulse_convention_WEB3_PAYMENT_STATE_IC_fieldAccessorTable = new

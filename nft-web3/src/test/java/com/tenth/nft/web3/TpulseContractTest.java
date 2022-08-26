@@ -1,6 +1,9 @@
 package com.tenth.nft.web3;
 
+import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContract;
+import com.tenth.nft.solidity.TpulseContractHelper;
 import com.wallan.json.JsonUtil;
 import org.junit.Test;
 import org.web3j.abi.FunctionEncoder;
@@ -12,6 +15,7 @@ import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tuples.generated.Tuple2;
 import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.tx.gas.StaticGasProvider;
 import org.web3j.utils.Convert;
 
 import java.math.BigDecimal;
@@ -29,11 +33,11 @@ public class TpulseContractTest {
     public static final String NETWORK = "https://rinkeby.infura.io/v3/86b933b4f2754d4cb3bb906dbe9266d4";
     public static final String CONTRACT_OWNER = "0xfffcb195b4eb04F9E9676976b16c94aa12c31af3";
     public static final String CONTRACT_OWNER_PRIVATEKEY = "caa9c4fb931a136165784140361b093063ccc05fb3e9b9bd8e7a54f199ac159d";
-    public static final Long ITEM_ID = 2L;
-    public static final String CONTRACT_BUYER = "0xcc98Cf60b156a28625Ef3669f69Abc18F8cebcdc";
-    public static final String CONTRACT_BUYER_PRIVATEKEY = "7df802b5f7181422facce5b25c0eef9f86edb1d6c0960dbedaae8cb682ce7046";
-    public static final String CONTRACT_SELLER = "0xab22314aa31e881070f3572313e88886af353DAA";
-    public static final String CONTRACT_SELLER_PRIVATEKEY = "fe0c03b7ad9d97e7bf9f684ffdbc9561f3e1dfa36afe979c2aa33afc536f072a";
+    public static final Long ITEM_ID = 1l;
+    public static final String CONTRACT_BUYER = "0xab22314aa31e881070f3572313e88886af353DAA";
+    public static final String CONTRACT_BUYER_PRIVATEKEY = "fe0c03b7ad9d97e7bf9f684ffdbc9561f3e1dfa36afe979c2aa33afc536f072a";
+    public static final String CONTRACT_SELLER = "0xcc98Cf60b156a28625Ef3669f69Abc18F8cebcdc";
+    public static final String CONTRACT_SELLER_PRIVATEKEY = "7df802b5f7181422facce5b25c0eef9f86edb1d6c0960dbedaae8cb682ce7046";
 
     @Test
     public void deploy() throws Exception{
@@ -52,15 +56,32 @@ public class TpulseContractTest {
         TpulseContract contract = TpulseContract.deploy(
                 web3j,
                 credentials,
+                //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit()),
                 new DefaultGasProvider(),
                 "https://nft.ruixi-sh.com/token/{id}",
-                BigInteger.valueOf(1000)
+                BigInteger.valueOf(2500),
+                BigInteger.valueOf(4)
         ).send();
         System.out.println(contract.getContractAddress());
         //0x34c8e08651025f7e2194b1e9d365fc9c750d19ca
     }
 
-    public static final String CONTRACT_ADDRESS = "0x9811d25c2fb68e3767735e07644ced38aa18ec2c";
+    public static final String CONTRACT_ADDRESS = "0xac9d1c6d8c333eaac32ca8c2c25be51a338cde44";
+
+    @Test
+    public void load() throws Exception{
+        Web3Properties web3Properties = new Web3Properties();
+        web3Properties.setChainId(4);
+        web3Properties.setNetwork("https://rinkeby.infura.io/v3/86b933b4f2754d4cb3bb906dbe9266d4");
+        web3Properties.setBlockchain("Ethereum");
+        Web3Properties.Contract contract = new Web3Properties.Contract();
+        contract.setAddress(CONTRACT_ADDRESS);
+        contract.setOwnerAddress("0xfffcb195b4eb04F9E9676976b16c94aa12c31af3");
+        contract.setOwnerPrivateKey("caa9c4fb931a136165784140361b093063ccc05fb3e9b9bd8e7a54f199ac159d");
+        web3Properties.setContract(contract);
+        TpulseContractHelper helper = new TpulseContractHelper(web3Properties);
+        System.out.println();
+    }
 
     @Test
     public void mint() throws Exception{
@@ -72,8 +93,8 @@ public class TpulseContractTest {
                 //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
                 new DefaultGasProvider()
         );
-        final Long ITEM_COUNT = 10L;
-        TransactionReceipt receipt = contract.mintWithCreatorFeeRate(CONTRACT_SELLER, BigInteger.valueOf(ITEM_ID), BigInteger.valueOf(ITEM_COUNT), new byte[0], BigInteger.valueOf(5)).send();
+        final Long ITEM_COUNT = 1000l;
+        TransactionReceipt receipt = contract.mintWithCreatorFeeRate(CONTRACT_SELLER, BigInteger.valueOf(ITEM_ID), BigInteger.valueOf(ITEM_COUNT), BigInteger.valueOf(2500)).send();
         String hash = receipt.getTransactionHash();
         System.out.println("mint transaction: " + hash);
 
@@ -103,7 +124,7 @@ public class TpulseContractTest {
                 //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
                 new DefaultGasProvider()
         );
-        BigInteger itemOwns = contract.balanceOf(CONTRACT_BUYER, BigInteger.valueOf(ITEM_ID)).send();
+        BigInteger itemOwns = contract.balanceOf(CONTRACT_SELLER, BigInteger.valueOf(ITEM_ID)).send();
         System.out.println("item owns: " + itemOwns);
 
     }
@@ -145,19 +166,39 @@ public class TpulseContractTest {
                 CONTRACT_SELLER,
                 BigInteger.valueOf(ITEM_ID),
                 BigInteger.valueOf(1),
-                BigInteger.valueOf(0),
-                new TpulseContract.Signature(
-                        new byte[32],
-                        BigInteger.valueOf(1),
-                        new byte[32],
-                        new byte[32]
-                )
+                BigInteger.valueOf(1)
         );
-        String hash = contract.buy(listing).send().getTransactionHash();
+        TpulseContract.Signature signature = new TpulseContract.Signature(
+                new byte[32],
+                BigInteger.valueOf(1),
+                new byte[32],
+                new byte[32]
+        );
+        String hash = contract.buy(listing, signature).send().getTransactionHash();
         System.out.println("hash: " + hash);
         //0xd05cbdc69bd768c824d308efbdb6c325f34861d7ea2f5dbc857a1929af4d1299
         BigInteger itemOwns = contract.balanceOf(CONTRACT_BUYER, BigInteger.valueOf(ITEM_ID)).send();
         System.out.println("item owns: " + itemOwns);
+    }
+
+    @Test
+    public void buyResult() throws Exception{
+
+        Web3Properties web3Properties = new Web3Properties();
+        web3Properties.setChainId(4);
+        web3Properties.setNetwork("https://rinkeby.infura.io/v3/86b933b4f2754d4cb3bb906dbe9266d4");
+        web3Properties.setBlockchain("Ethereum");
+        Web3Properties.Contract contract = new Web3Properties.Contract();
+        contract.setAddress("0x0b3df5a5ece71b7ec023b499d4f76524fbc8b73b");
+        contract.setOwnerAddress("0xfffcb195b4eb04F9E9676976b16c94aa12c31af3");
+        contract.setOwnerPrivateKey("caa9c4fb931a136165784140361b093063ccc05fb3e9b9bd8e7a54f199ac159d");
+        web3Properties.setContract(contract);
+        TpulseContractHelper helper = new TpulseContractHelper(web3Properties);
+        ContractTransactionReceipt receipt = helper.getTxn("0x439e9c0eb41847a8ff4624e1ccb9b7d19058f1eef61154aa2e378e0284778ca5");
+        System.out.println("usedGasValue: " + receipt.getUsedGasValue());
+        System.out.println("isSuccess: " + receipt.isSuccess());
+        System.out.println("isFail: " + receipt.isFail());
+        //
     }
 
     @Test
@@ -180,20 +221,19 @@ public class TpulseContractTest {
                 CONTRACT_SELLER,
                 BigInteger.valueOf(ITEM_ID),
                 BigInteger.valueOf(1),
-                BigInteger.valueOf(1),
-                new TpulseContract.Signature(
-                        new byte[32],
-                        BigInteger.valueOf(1),
-                        new byte[32],
-                        new byte[32]
-                )
+                BigInteger.valueOf(1)
         );
-
+        TpulseContract.Signature signature = new TpulseContract.Signature(
+                new byte[32],
+                BigInteger.valueOf(1),
+                new byte[32],
+                new byte[32]
+        );
 
         //String encodeFunction = contract.buy(listing).encodeFunctionCall();
         Function function = new Function(
             "buy",  // function we're calling
-            Arrays.asList(listing),  // Parameters to pass as Solidity Types
+            Arrays.asList(listing, signature),  // Parameters to pass as Solidity Types
             Arrays.asList());
         String encodedFunction = FunctionEncoder.encode(function);
 //        RawTransaction rawTransaction = RawTransaction.createTransaction(
@@ -293,11 +333,15 @@ public class TpulseContractTest {
         //BigInteger integer = contract.getGasPrice();
         //System.out.println(integer);
 
-        BigInteger gasPrice = web3j.ethGetTransactionByHash("0x26b19d74b847ccd35309ae583f914d3e355ab5961ca30b20c9850c299a607055").send().getResult().getGasPrice();
+        String txn = "0x77021fcf0e65a674f868ee2322393230310f27231b22ac4de33ca2d5d8cad640";
+
+        BigInteger gasPrice = web3j.ethGetTransactionByHash(txn).send().getResult().getGasPrice();
         System.out.println(gasPrice);
 
-        EthGetTransactionReceipt receipt = web3j.ethGetTransactionReceipt("0x26b19d74b847ccd35309ae583f914d3e355ab5961ca30b20c9850c299a607055").send();
+        EthGetTransactionReceipt receipt = web3j.ethGetTransactionReceipt(txn).send();
         System.out.println(receipt);
+        BigInteger bigInteger = receipt.getResult().getGasUsed();
+        BigInteger usedGasValue = bigInteger.multiply(gasPrice);
         List<Log> logs = receipt.getResult().getLogs();
         for(Log log: logs){
             System.out.println(log.getType());
@@ -318,6 +362,7 @@ public class TpulseContractTest {
 
     @Test
     public void convert() throws Exception{
+        //0x26b19d74b847ccd35309ae583f914d3e355ab5961ca30b20c9850c299a607055
         //0x9ed37f
         //0x138d2
 //        BigInteger val = new BigInteger("138d2", 16);

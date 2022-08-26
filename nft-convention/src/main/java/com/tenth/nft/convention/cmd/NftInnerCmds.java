@@ -44,6 +44,8 @@ public class NftInnerCmds {
     public static final int COLLECTION_DETAIL_IC = -40004;
     public static final int NFT_BLOCKCHAIN_IC = -40005;
     public static final int PAYMENT_RECEIVE_IC = -40006;
+    public static final int WEB3_LISTING_CREATE_IC = -40007;
+    public static final int WEB3_LISTING_CONFIRM_IC = -40008;
 
     //player
     public static final int ASSETS_BELONGS_UPDATE_IC = -50001;
@@ -57,5 +59,8 @@ public class NftInnerCmds {
 
     //web3-wallet
     public static final int WEB3_BILL_PAY_IC = -70001;
-
+    public static final int WEB3_PAYMENT_CREATE_IC = -70003;
+    public static final int WEB3_PAYMENT_CONFIRM_IC = -70004;
+    public static final int WEB3_TXN_CHECK_IC = -70005;
+    public static final int WEB3_WALLET_BALANCE_IC = -70006;
 }

@@ -1,4 +1,4 @@
-package com.tenth.nft.web3.controller;
+package com.tenth.nft.web3.controller.web;
 
 import com.tenth.nft.web3.Web3WalletPaths;
 import com.tenth.nft.web3.dto.Web3WalletBillDTO;

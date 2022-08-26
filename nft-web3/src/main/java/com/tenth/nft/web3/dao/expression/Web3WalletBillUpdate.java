@@ -47,6 +47,15 @@ public class Web3WalletBillUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private String remark;
 
+    @SimpleWriteParam
+    private Boolean notified;
+
+    @SimpleWriteParam
+    private String usedGasValue;
+
+    @SimpleWriteParam(name = "retry", opt = WriteOpt.INC)
+    private Integer retryInc;
+
     public Long getUpdatedAt() {
         return updatedAt;
     }
@@ -93,6 +102,18 @@ public class Web3WalletBillUpdate extends SimpleUpdate {
 
     public String getRemark() {
         return remark;
+    }
+
+    public Boolean getNotified() {
+        return notified;
+    }
+
+    public String getUsedGasValue() {
+        return usedGasValue;
+    }
+
+    public Integer getRetryInc() {
+        return retryInc;
     }
 
     public static Builder newBuilder(){
@@ -159,6 +180,22 @@ public class Web3WalletBillUpdate extends SimpleUpdate {
 
         public Builder setRemark(String remark) {
             update.remark = remark;
+            return this;
+        }
+
+        public Builder setNotified(Boolean notified) {
+            update.notified = notified;
+            return this;
+        }
+
+        public Builder setUsedGasValue(String usedGasValue) {
+            update.usedGasValue = usedGasValue;
+            return this;
+        }
+
+
+        public Builder setRetryInc() {
+            update.retryInc = 1;
             return this;
         }
     }

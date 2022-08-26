@@ -4,11 +4,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 /**
  * @author shijie
  */
 @Document("tpulse.web3_wallet_bill")
 @CompoundIndex(def = "{'accountId': 1, 'blockchain': 1, 'transactionId': 1}")
+@CompoundIndex(def = "{'uid': 1, 'productCode': 1, 'outOrderId': 1}")
 public class Web3WalletBill {
 
     @Id
@@ -47,6 +50,14 @@ public class Web3WalletBill {
     private String value;
 
     private String remark;
+
+    private List<Web3WalletBillProfit> profits;
+
+    private boolean notified;
+
+    private int retry;
+
+    private String usedGasValue;
 
     public Long getId() {
         return id;
@@ -190,5 +201,37 @@ public class Web3WalletBill {
 
     public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
+    }
+
+    public List<Web3WalletBillProfit> getProfits() {
+        return profits;
+    }
+
+    public void setProfits(List<Web3WalletBillProfit> profits) {
+        this.profits = profits;
+    }
+
+    public boolean isNotified() {
+        return notified;
+    }
+
+    public void setNotified(boolean notified) {
+        this.notified = notified;
+    }
+
+    public int getRetry() {
+        return retry;
+    }
+
+    public void setRetry(int retry) {
+        this.retry = retry;
+    }
+
+    public String getUsedGasValue() {
+        return usedGasValue;
+    }
+
+    public void setUsedGasValue(String usedGasValue) {
+        this.usedGasValue = usedGasValue;
     }
 }

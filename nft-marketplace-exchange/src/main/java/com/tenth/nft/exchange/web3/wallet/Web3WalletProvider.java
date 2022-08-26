@@ -44,26 +44,8 @@ public class Web3WalletProvider implements IWalletProvider {
         //from to value data
         String txn = null;
 
-//        TpulseV2Contract.Listing listing = new TpulseV2Contract.Listing(
-//                CONTRACT_SELLER,
-//                BigInteger.valueOf(ITEM_ID),
-//                BigInteger.valueOf(1),
-//                BigInteger.valueOf(0),
-//                new TpulseV2Contract.Signature(
-//                        new byte[32],
-//                        BigInteger.valueOf(1),
-//                        new byte[32],
-//                        new byte[32]
-//                )
-//        );
-//        Function function = new Function(
-//                "buy",  // function we're calling
-//                Arrays.asList(listing),  // Parameters to pass as Solidity Types
-//                Arrays.asList());
-//        String encodedFunction = FunctionEncoder.encode(function);
         Map<String, Object> tokenMap = new HashMap<>();
         tokenMap.put("content", contentString);
-        tokenMap.put("txn", "");
         tokenMap.put("sign", sign);
         return Base64Utils.encode(JsonUtil.toJson(tokenMap).getBytes(StandardCharsets.UTF_8));
     }

@@ -9,7 +9,11 @@ public class ListEvent implements NftActivityEvent {
 
     private Long from;
 
+    private String fromAddress;
+
     private Long to;
+
+    private String toAddress;
 
     private Integer quantity;
 
@@ -65,5 +69,21 @@ public class ListEvent implements NftActivityEvent {
 
     public void setExpireAt(Long expireAt) {
         this.expireAt = expireAt;
+    }
+
+    public String getFromAddress() {
+        return fromAddress;
+    }
+
+    public void setFromAddress(String fromAddress) {
+        this.fromAddress = fromAddress;
+    }
+
+    public String getToAddress() {
+        return toAddress;
+    }
+
+    public void setToAddress(String toAddress) {
+        this.toAddress = toAddress;
     }
 }

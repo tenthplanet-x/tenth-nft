@@ -47,6 +47,7 @@ public class NftExchangeEventService {
 
         ListEvent listEvent = new ListEvent();
         listEvent.setFrom(listing.getUid());
+        listEvent.setFromAddress(listing.getUidAddress());
         listEvent.setPrice(listing.getPrice());
         listEvent.setQuantity(listing.getQuantity());
         listEvent.setCurrency(listing.getCurrency());
@@ -117,7 +118,5 @@ public class NftExchangeEventService {
         nftActivityDao.insert(activity);
     }
 
-    public void sendListingRouteEvent(Long assetsId) {
-        throw new UnsupportedOperationException();
-    }
+
 }

@@ -253,6 +253,13 @@ public class NftAssetsDTO implements SimpleResponse {
         if(!Strings.isNullOrEmpty(nftAssets.getCreatorFeeRate())){
             builder.setCreatorFeeRate(nftAssets.getCreatorFeeRate());
         }
+        if(!Strings.isNullOrEmpty(nftAssets.getCreatorAddress())){
+            builder.setCreatorAddress(nftAssets.getCreatorAddress());
+        }
+        if(!Strings.isNullOrEmpty(nftAssets.getSignature())){
+            builder.setSignature(nftAssets.getSignature());
+        }
+
         if(null != nftAssets.getContractAddress()){
             builder.setContractAddress(nftAssets.getContractAddress());
             builder.setTokenStandard(nftAssets.getTokenStandard());
@@ -279,6 +286,8 @@ public class NftAssetsDTO implements SimpleResponse {
         nftAssetsDTO.setContractAddress(Strings.emptyToNull(proto.getContractAddress()));
         nftAssetsDTO.setTokenStandard(Strings.emptyToNull(proto.getTokenStandard()));
         nftAssetsDTO.setToken(Strings.emptyToNull(proto.getToken()));
+
+
 
         return nftAssetsDTO;
     }

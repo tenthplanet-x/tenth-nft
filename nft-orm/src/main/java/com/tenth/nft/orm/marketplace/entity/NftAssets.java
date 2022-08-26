@@ -48,6 +48,12 @@ public class NftAssets {
 
     private String creatorFeeRate;
 
+    private String creatorAddress;
+
+    private boolean minted;
+
+    private String signature;
+
     public Long getId() {
         return id;
     }
@@ -174,5 +180,29 @@ public class NftAssets {
 
     public void setCreatorFeeRate(String creatorFeeRate) {
         this.creatorFeeRate = creatorFeeRate;
+    }
+
+    public String getCreatorAddress() {
+        return creatorAddress;
+    }
+
+    public void setCreatorAddress(String creatorAddress) {
+        this.creatorAddress = creatorAddress;
+    }
+
+    public boolean isMinted() {
+        return minted;
+    }
+
+    public void setMinted(boolean minted) {
+        this.minted = minted;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }

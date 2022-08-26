@@ -47,7 +47,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
      * 20700
      */
     WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN("020700", "uncorrect pay token"),
-    WALLET_PAY_EXCEPTION_LACK_OF_BALANCE("0207001", "lack of balance"),
+    WALLET_PAY_EXCEPTION_LACK_OF_BALANCE("0207001", "don't have enough balance"),
     WALLET_EXCEPTION_UNCORRECT_PASSWORD("0207002", "uncorrect password"),
     WALLET_PAY_EXCEPTION_BIZ_VERIFY_FAILED("0207003", "biz verify failed"),
 
@@ -55,7 +55,8 @@ public enum NftExchangeErrorCodes implements ErrorCode {
      * 20800
      */
     WEB3WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN("020800", "uncorrect pay token"),
-
+    WEB3WALLET_PAY_EXCEPTION_LACK_OF_BALANCE("020801", "don't have enough balance"),
+    WEB3WALLET_DONT_HAVE_BIND("020802", "don't have bind wallet")
 
     ;
 

@@ -1,4 +1,4 @@
-package com.tenth.nft.web3.vo;
+package com.tenth.nft.marketplace.vo;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -8,12 +8,13 @@ import javax.validation.constraints.NotNull;
  * @author shijie
  */
 @Valid
-public class Web3WalletBillPayRequest {
+public class NftAssetsCreateConfirmRequest {
 
     @NotEmpty
     private String token;
+
     @NotEmpty
-    private String txn;
+    private String signature;
 
     public String getToken() {
         return token;
@@ -23,12 +24,11 @@ public class Web3WalletBillPayRequest {
         this.token = token;
     }
 
-    public String getTxn() {
-        return txn;
+    public String getSignature() {
+        return signature;
     }
 
-    public void setTxn(String txn) {
-        this.txn = txn;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
-
 }

@@ -34,4 +34,5 @@ public class Web3ExchangeListingConfirmRequest {
     public void setToken(String token) {
         this.token = token;
     }
+
 }

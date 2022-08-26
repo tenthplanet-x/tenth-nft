@@ -1,11 +1,29 @@
 package com.tenth.nft.exchange.web3.dto;
 
+import com.tenth.nft.convention.web3.sign.DataForSign;
+import com.tenth.nft.convention.web3.sign.DataForSignTypeDefine;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author shijie
  */
 public class ListingDataForSign extends DataForSign {
 
+    private static Object messageTypeDefine;
+    static {
+
+        messageTypeDefine = DataForSignTypeDefine.newBuilder()
+                .add("seller", "address")
+                .add("assetsId", "uint256")
+                .add("quantity", "quality")
+                .build();
+    }
+
+    private String seller;
     private Long assetsId;
+    private Integer quantity;
     private String currency;
     private String price;
     private Long startAt;
@@ -19,6 +37,13 @@ public class ListingDataForSign extends DataForSign {
         this.assetsId = assetsId;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
     public String getCurrency() {
         return currency;
@@ -51,4 +76,38 @@ public class ListingDataForSign extends DataForSign {
     public void setExpireAt(Long expireAt) {
         this.expireAt = expireAt;
     }
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
+    }
+
+    @Override
+    protected Object getMessage() {
+
+        Map<String, Object> output = new HashMap<>();
+
+        Map<String, Object> message = new HashMap<>();
+        message.put("seller", assetsId);
+        message.put("assetsId", assetsId);
+        message.put("quantity", quantity);
+
+        return output;
+    }
+
+    @Override
+    protected String getPrimaryType() {
+        return "Listing";
+    }
+
+    @Override
+    protected Map<String, Object> getCustomTypes() {
+        Map<String, Object> types = new HashMap<>();
+        types.put(getPrimaryType(), messageTypeDefine);
+        return types;
+    }
+
 }

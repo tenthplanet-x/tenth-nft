@@ -181,6 +181,8 @@ public class WalletOrderBizContent {
 
         private Long to;
 
+        private String toAddress;
+
         private Integer activityCfgId;
 
         private String currency;
@@ -193,6 +195,14 @@ public class WalletOrderBizContent {
 
         public void setTo(Long to) {
             this.to = to;
+        }
+
+        public String getToAddress() {
+            return toAddress;
+        }
+
+        public void setToAddress(String toAddress) {
+            this.toAddress = toAddress;
         }
 
         public Integer getActivityCfgId() {

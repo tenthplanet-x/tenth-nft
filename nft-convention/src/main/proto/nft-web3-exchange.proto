@@ -19,10 +19,9 @@ message WEB3_LISTING_CREATE_IS{
 
 message WEB3_LISTING_CONFIRM_IC{
   required int64 uid = 1;
-  required string dataForSign = 2;
+  required string address = 2;
   required string token = 3;
   required string signature = 4;
-
 }
 message WEB3_LISTING_CONFIRM_IS{
 
@@ -47,7 +46,6 @@ message WEB3_PAYMENT_CONFIRM_IC{
   required string txn = 4;
 }
 message WEB3_PAYMENT_CONFIRM_IS{
-  required bool ok = 1;
 }
 
 message WEB3_PAYMENT_STATE_IC{

@@ -48,11 +48,11 @@ public class Web3ExchangeController {
         return Response.successBuilder().data(result).build();
     }
 
-    @RequestMapping(Web3ExchangePaths.PAYMENT_CONFIRM)
-    public Response confirmPayment(Web3PaymentConfirmRequest request){
-        web3ExchangeService.confirmPayment(request);
-        return Response.successBuilder().build();
-    }
+//    @RequestMapping(Web3ExchangePaths.PAYMENT_CONFIRM)
+//    public Response confirmPayment(Web3PaymentConfirmRequest request){
+//        web3ExchangeService.confirmPayment(request);
+//        return Response.successBuilder().build();
+//    }
 
     @RequestMapping(Web3ExchangePaths.PAYMENT_CHECK)
     public Response checkPayment(Web3PaymentCheckRequest request){

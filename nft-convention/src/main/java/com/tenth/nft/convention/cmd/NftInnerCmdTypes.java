@@ -44,6 +44,10 @@ public enum NftInnerCmdTypes implements CmdType {
     COLLECTION_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()),
     NFT_BLOCKCHAIN_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.NFT_BLOCKCHAIN_IC, NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()),
     PAYMENT_RECEIVE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.PAYMENT_RECEIVE_IC, NftExchange.PAYMENT_RECEIVE_IC.newBuilder()),
+    WEB3_LISTING_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_LISTING_CREATE_IC, NftWeb3Exchange.WEB3_LISTING_CREATE_IC.newBuilder()),
+    WEB3_LISTING_CONFIRM_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_LISTING_CONFIRM_IC, NftWeb3Exchange.WEB3_LISTING_CONFIRM_IC.newBuilder()),
+
+
 
     //player
     ASSETS_BELONGS_UPDATE_IC(NftCmdGroup.PLAYER, NftInnerCmds.ASSETS_BELONGS_UPDATE_IC, NftPlayer.ASSETS_BELONGS_UPDATE_IC.newBuilder()),
@@ -56,7 +60,12 @@ public enum NftInnerCmdTypes implements CmdType {
     BILL_PAY_NOTIFICATION_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_PAYMENT_NOTIFY_IC, NftWallet.BILL_PAYMENT_NOTIFY_IC.newBuilder()),
 
     //web3 wallet
-    WEB3_BILL_PAY_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_BILL_PAY_IC, NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder())
+    WEB3_PAYMENT_CREATE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_PAYMENT_CREATE_IC, NftWeb3Exchange.WEB3_PAYMENT_CREATE_IC.newBuilder()),
+    WEB3_PAYMENT_CONFIRM_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_PAYMENT_CONFIRM_IC, NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC.newBuilder()),
+    WEB3_BILL_PAY_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_BILL_PAY_IC, NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder()),
+    WEB3_TXN_CHECK_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_TXN_CHECK_IC, NftWeb3Wallet.WEB3_TXN_CHECK_IC.newBuilder()),
+    WEB3_WALLET_BALANCE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_WALLET_BALANCE_IC, NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()),
+
     ;
 
 

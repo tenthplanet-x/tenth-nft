@@ -2,14 +2,19 @@ package com.tenth.nft.web3.service;
 
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
-import com.tenth.nft.convention.routes.exchange.PaymentReceiveRouteRequest;
+import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.convention.routes.exchange.Web3PaymentConfirmRouteRequest;
+import com.tenth.nft.convention.routes.web3wallet.Web3TxnCheckRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletPayRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.wallet.WalletBillState;
+import com.tenth.nft.convention.wallet.WalletMerchantType;
 import com.tenth.nft.convention.wallet.WalletOrderBizContent;
-import com.tenth.nft.convention.wallet.Web3WalletToken;
-import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.convention.wallet.WalletToken;
+import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
+import com.tenth.nft.solidity.ContractTransactionReceipt;
+import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.web3.dao.Web3WalletBillDao;
 import com.tenth.nft.web3.dao.Web3WalletDao;
 import com.tenth.nft.web3.dao.Web3WalletEventDao;
@@ -19,20 +24,27 @@ import com.tenth.nft.web3.dao.expression.Web3WalletQuery;
 import com.tenth.nft.web3.dto.Web3WalletBillDTO;
 import com.tenth.nft.web3.entity.Web3Wallet;
 import com.tenth.nft.web3.entity.Web3WalletBill;
+import com.tenth.nft.web3.entity.Web3WalletBillProfit;
 import com.tenth.nft.web3.vo.Web3WalletBillPayRequest;
 import com.tenth.nft.web3.vo.Web3WalletBillStateRequest;
+import com.tpulse.gs.convention.dao.SimpleQuery;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.router.exception.BizException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 /**
  * @author shijie
  */
 @Service
 public class Web3WalletBillService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Web3WalletBillService.class);
 
     @Autowired
     private Web3WalletDao web3WalletDao;
@@ -44,8 +56,11 @@ public class Web3WalletBillService {
     private I18nGsTemplates i18nGsTemplates;
     @Autowired
     private RouteClient routeClient;
-    @Value("${web3.rsa.public-key}")
-    private String publicKey;
+    @Autowired
+    private Web3Properties web3Properties;
+    @Autowired
+    private TpulseContractHelper tpulseContractHelper;
+
 
     public Web3WalletBillDTO pay(Web3WalletBillPayRequest request){
 
@@ -70,19 +85,21 @@ public class Web3WalletBillService {
     public NftWeb3Wallet.WEB3_BILL_PAY_IS pay(NftWeb3Wallet.WEB3_BILL_PAY_IC request){
 
         //token verify
-        Web3WalletToken walletToken = Web3WalletToken.decode(request.getToken());
-        if(!walletToken.verify(publicKey)){
+        WalletToken walletToken = WalletToken.decode(request.getToken());
+        if(!walletToken.verify(web3Properties.getRsa().getPublickey())){
             throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
         }
 
-        //get web3 accountId
-        Web3Wallet web3Wallet = web3WalletDao.findOne(Web3WalletQuery.newBuilder().uid(request.getUid()).build());
-        String accountId = web3Wallet.getWalletAccountId();
-
+        //check
         WalletOrderBizContent bizContent = walletToken.getBizContent();
+//        BigDecimal balance = tpulseContractHelper.getBalance(bizContent.getCurrency(), accountId);
+//        if(balance.compareTo(new BigDecimal(bizContent.getValue())) > 0){
+//            throw BizException.newInstance(NftExchangeErrorCodes.WEB3WALLET_PAY_EXCEPTION_LACK_OF_BALANCE);
+//        }
+
         //exist check
         Web3WalletBill walletBill = web3WalletBillDao.findOne(Web3WalletBillQuery.newBuilder()
-                .accountId(accountId)
+                .uid(request.getUid())
                 .productCode(bizContent.getProductCode())
                 .outOrderId(bizContent.getOutOrderId())
                 .build()
@@ -107,21 +124,20 @@ public class Web3WalletBillService {
         }
 
         WalletBillState currentState = WalletBillState.valueOf(walletBill.getState());
-        if(WalletBillState.PAYED.equals(currentState) || WalletBillState.FAIL.equals(currentState)){
+        if(!WalletBillState.CREATE.equals(currentState)){
             throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
         }
 
-        try{
-            //password check
-            //walletSettingService.checkPassword(request.getUid(), request.getPassword());
-            //verify balance
-            //walletService.checkBalance(request.getUid(), bizContent.getCurrency(), bizContent.getValue());
-            //TODO biz check
-            changeState(walletBill, WalletBillState.PAYED, "ok");
-        }catch (BizException e){
-            changeState(walletBill, WalletBillState.FAIL, "verify error");
-            throw e;
-        }
+        //Use async task to check the txn state
+        routeClient.send(
+                NftWeb3Wallet.WEB3_TXN_CHECK_IC.newBuilder()
+                        .setUid(walletBill.getUid())
+                        .setBillId(walletBill.getId())
+                        .build(),
+                Web3TxnCheckRouteRequest.class
+        );
+
+        //changeState(walletBill, WalletBillState.PAYED, "ok");
 
         NftWeb3Wallet.Web3BillDTO web3BillDTO = toWeb3BillDTO(walletBill);
         return NftWeb3Wallet.WEB3_BILL_PAY_IS.newBuilder()
@@ -182,5 +198,119 @@ public class Web3WalletBillService {
         );
 
         return billDTO;
+    }
+
+    /**
+     * check the txn state in blockchain
+     * @param request
+     */
+    public void txnStateCheck(NftWeb3Wallet.WEB3_TXN_CHECK_IC request){
+
+        //get web3 accountId
+        Web3Wallet web3Wallet = web3WalletDao.findOne(Web3WalletQuery.newBuilder().uid(request.getUid()).build());
+
+        SimpleQuery web3WalletBillQuery = Web3WalletBillQuery.newBuilder()
+                .accountId(web3Wallet.getWalletAccountId())
+                .id(request.getBillId())
+                .build();
+        Web3WalletBill web3WalletBill = web3WalletBillDao.findOne(web3WalletBillQuery);
+        String txn = web3WalletBill.getTransactionId();
+        if(WalletBillState.CREATE.equals(web3WalletBill.getState())){
+            ContractTransactionReceipt receipt = tpulseContractHelper.getTxn(txn);
+            if(receipt.isSuccess()){
+
+                //change to complete
+                changeState(web3WalletBill, WalletBillState.PAYED, "");
+
+                try{
+                    routeClient.send(
+                            NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC.newBuilder()
+                                    .setAssetsId(Long.valueOf(web3WalletBill.getProductId()))
+                                    .setOrderId(web3WalletBill.getOutOrderId())
+                                    .setState(WalletBillState.PAYED.name())
+                                    .build()
+                            , Web3PaymentConfirmRouteRequest.class);
+
+                    web3WalletBillDao.update(
+                            web3WalletBillQuery,
+                            Web3WalletBillUpdate.newBuilder()
+                                    .setNotified(true)
+                                    .setUsedGasValue(receipt.getUsedGasValue())
+                                    .build()
+                    );
+
+                    //dispatch profits
+                    for(Web3WalletBillProfit profit: web3WalletBill.getProfits()){
+                        Web3WalletBill payForBill = copyWithBizContent(web3WalletBill);
+                        payForBill.setUid(profit.getTo());
+                        payForBill.setAccountId(profit.getToAddress());
+                        payForBill.setActivityCfgId(profit.getActivityCfgId());
+                        payForBill.setMerchantType(WalletMerchantType.PERSONAL.name());
+                        payForBill.setMerchantId(String.valueOf(web3WalletBill.getUid()));
+                        payForBill.setCurrency(profit.getCurrency());
+                        payForBill.setValue(profit.getValue());
+                        payForBill.setState(WalletBillState.COMPLETE.name());
+                        web3WalletBillDao.insert(payForBill);
+                    }
+                    //change to complete
+                    changeState(web3WalletBill, WalletBillState.COMPLETE, "");
+
+                }catch (Exception e){
+                    web3WalletBillDao.update(
+                            web3WalletBillQuery,
+                            Web3WalletBillUpdate.newBuilder()
+                                    .setRetryInc()
+                                    .build()
+                    );
+                    LOGGER.error("", e);
+                    throw e;
+                }
+
+            }else if(receipt.isFail()){
+                changeState(web3WalletBill, WalletBillState.FAIL, "");
+            }
+
+        }
+    }
+
+    private Web3WalletBill copyWithBizContent(Web3WalletBill walletBill) {
+        Web3WalletBill copy = new Web3WalletBill();
+        copy.setBlockchain(walletBill.getBlockchain());
+        copy.setActivityCfgId(walletBill.getActivityCfgId());
+        copy.setProductCode(walletBill.getProductCode());
+        copy.setProductId(walletBill.getProductId());
+        copy.setOutOrderId(walletBill.getOutOrderId());
+        copy.setExpiredAt(walletBill.getExpiredAt());
+        copy.setCurrency(walletBill.getCurrency());
+        copy.setValue(walletBill.getValue());
+        copy.setCreatedAt(System.currentTimeMillis());
+        copy.setUpdatedAt(walletBill.getCreatedAt());
+        copy.setState(WalletBillState.CREATE.name());
+        copy.setRemark(walletBill.getRemark());
+        copy.setTransactionId(walletBill.getTransactionId());
+        return copy;
+    }
+
+
+    public NftWeb3Wallet.WEB3_WALLET_BALANCE_IS walletBalance(NftWeb3Wallet.WEB3_WALLET_BALANCE_IC request) {
+
+        Web3Wallet web3Wallet = web3WalletDao.findOne(Web3WalletQuery.newBuilder().uid(request.getUid()).build());
+        if(null == web3Wallet){
+            throw BizException.newInstance(NftExchangeErrorCodes.WEB3WALLET_DONT_HAVE_BIND);
+        }
+
+        NftWeb3Wallet.Web3WalletBalanceDTO.Builder builder = NftWeb3Wallet.Web3WalletBalanceDTO.newBuilder();
+        String address = web3Wallet.getWalletAccountId();
+        builder.setAddress(address);
+        builder.setCurrency(web3Properties.getMainCurrency());
+        if(request.hasNeedBalance()){
+            String balance = tpulseContractHelper.getBalance(web3Properties.getMainCurrency(), address).toString();
+            builder.setValue(balance);
+        }
+
+        return NftWeb3Wallet.WEB3_WALLET_BALANCE_IS.newBuilder()
+                .setBalance(builder.build())
+                .build();
+
     }
 }

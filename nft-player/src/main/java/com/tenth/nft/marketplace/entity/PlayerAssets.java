@@ -26,6 +26,8 @@ public class PlayerAssets {
 
     private Long updatedAt;
 
+    private String uidAddress;
+
     public Long getId() {
         return id;
     }
@@ -72,5 +74,13 @@ public class PlayerAssets {
 
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getUidAddress() {
+        return uidAddress;
+    }
+
+    public void setUidAddress(String uidAddress) {
+        this.uidAddress = uidAddress;
     }
 }
