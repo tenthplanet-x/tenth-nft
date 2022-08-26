@@ -1,5 +1,6 @@
 package com.tenth.nft.web3;
 
+import com.tenth.nft.web3.entity.Web3ContractApproval;
 import com.tenth.nft.web3.entity.Web3WalletBill;
 import com.tenth.nft.web3.entity.Web3WalletEvent;
 import com.tpulse.gs.convention.dao.generate.OrmGenerator;
@@ -14,8 +15,8 @@ public class OrmGenerateTest {
     public void test() throws Exception{
         OrmGenerator.newBuilder()
                 .dist("/Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-web3/src/main/java")
-                .entity(Web3WalletBill.class)
-                .entity(Web3WalletEvent.class)
+                .entity(Web3ContractApproval.class)
+//                .entity(Web3WalletEvent.class)
                 .build()
                 .start();
     }

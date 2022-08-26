@@ -23,6 +23,10 @@ public class Web3WalletUpdate extends SimpleUpdate {
     private String blockchain;
     @SimpleWriteParam
     private String wallet;
+    @SimpleWriteParam
+    private String contractAddress;
+    @SimpleWriteParam
+    private Boolean contractApproved;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -46,6 +50,14 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
     public String getWallet() {
         return wallet;
+    }
+
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public Boolean getContractApproved() {
+        return contractApproved;
     }
 
     public static Builder newBuilder(){
@@ -82,6 +94,16 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
         public Builder wallet(String wallet) {
             update.wallet = wallet;
+            return this;
+        }
+
+        public Builder contractAddress(String contractAddress) {
+            update.contractAddress = contractAddress;
+            return this;
+        }
+
+        public Builder contractApproved(Boolean contractApproved) {
+            update.contractApproved = contractApproved;
             return this;
         }
     }

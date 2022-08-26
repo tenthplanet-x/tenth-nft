@@ -26,6 +26,10 @@ public class Web3Wallet {
 
     private Long updatedAt;
 
+    private String contractAddress;
+
+    private boolean contractApproved;
+
     public Long getId() {
         return id;
     }
@@ -80,5 +84,21 @@ public class Web3Wallet {
 
     public void setWallet(String wallet) {
         this.wallet = wallet;
+    }
+
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public void setContractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
+    }
+
+    public boolean isContractApproved() {
+        return contractApproved;
+    }
+
+    public void setContractApproved(boolean contractApproved) {
+        this.contractApproved = contractApproved;
     }
 }

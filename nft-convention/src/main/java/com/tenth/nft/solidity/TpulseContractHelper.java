@@ -35,6 +35,7 @@ public class TpulseContractHelper {
     private Web3Properties web3Properties;
     private TpulseContract tpulseContract;
     private BigInteger blockNumber;
+    private String contractOwner;
 
     public TpulseContractHelper(Web3Properties web3Properties) throws Exception{
         this.web3Properties = web3Properties;
@@ -53,6 +54,7 @@ public class TpulseContractHelper {
                 new DefaultGasProvider()
         );
         blockNumber = ethBlockNumber.getBlockNumber();
+        contractOwner = tpulseContract.owner().send();
     }
 
     public String getContractAddress() {
@@ -127,5 +129,46 @@ public class TpulseContractHelper {
             throw new TpulseContractException("", e);
         }
 
+    }
+
+    public ApprovalTxn createApprovalTxn(String fromAddress) {
+        String txnData = tpulseContract.setApprovalForAll(contractOwner, true).encodeFunctionCall();
+        ApprovalTxn txn = new ApprovalTxn();
+        txn.setTxnFrom(fromAddress);
+        txn.setTxnTo(tpulseContract.getContractAddress());
+        txn.setTxnData(txnData);
+        return txn;
+    }
+
+
+    public static class ApprovalTxn{
+
+        private String txnFrom;
+        private String txnTo;
+        private String txnData;
+
+        public String getTxnFrom() {
+            return txnFrom;
+        }
+
+        public void setTxnFrom(String txnFrom) {
+            this.txnFrom = txnFrom;
+        }
+
+        public String getTxnTo() {
+            return txnTo;
+        }
+
+        public void setTxnTo(String txnTo) {
+            this.txnTo = txnTo;
+        }
+
+        public String getTxnData() {
+            return txnData;
+        }
+
+        public void setTxnData(String txnData) {
+            this.txnData = txnData;
+        }
     }
 }
