@@ -1,2 +1,0 @@
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
-web3j generate solidity -b tpulse-v2_sol_TpulseV2.bin -a tpulse-v2_sol_TpulseV2.abi -o /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-web3/src/main/java -p com.tenth.nft.contract --contractName=TpulseV2Contract

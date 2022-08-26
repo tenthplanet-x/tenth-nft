@@ -1,4 +1,4 @@
-package com.tenth.nft.exchange.web3.controller;
+package com.tenth.nft.exchange.web3.controller.web;
 
 import com.tenth.nft.exchange.web3.Web3ExchangePaths;
 import com.tenth.nft.exchange.web3.dto.ListingCreateResponse;
@@ -6,9 +6,11 @@ import com.tenth.nft.exchange.web3.dto.PaymentCheckResponse;
 import com.tenth.nft.exchange.web3.dto.PaymentCreateResponse;
 import com.tenth.nft.exchange.web3.service.Web3ExchangeService;
 import com.tenth.nft.exchange.web3.vo.*;
+import com.tpulse.commons.validation.Validations;
 import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +30,8 @@ public class Web3ExchangeController {
 //    }
 
     @RequestMapping(Web3ExchangePaths.LISTING_CREATE)
-    public Response createListing(Web3ExchangeListingAuthRequest request){
+    public Response createListing(@RequestBody Web3ExchangeListingAuthRequest request){
+        Validations.check(request);
         ListingCreateResponse result = web3ExchangeService.createListing(request);
         return Response.successBuilder().data(result).build();
     }

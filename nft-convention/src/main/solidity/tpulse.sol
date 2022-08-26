@@ -2,8 +2,8 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "node_modules/@openzeppelin/contracts/token/ERC1155/presets/ERC1155PresetMinterPauser.sol";
-import "node_modules/@openzeppelin/contracts/access/Ownable.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC1155/presets/ERC1155PresetMinterPauser.sol";
+import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 contract Tpulse is ERC1155PresetMinterPauser, Ownable {
 
@@ -24,7 +24,6 @@ contract Tpulse is ERC1155PresetMinterPauser, Ownable {
         uint256 assetsId;
         uint256 quality;
         uint256 amount;
-        Signature signature;
     }
 
     struct CreatorProfile{
@@ -32,12 +31,14 @@ contract Tpulse is ERC1155PresetMinterPauser, Ownable {
         uint256 creatorFeeRate;
     }
 
-    uint256 _serviceFeeRate = 25;
+    uint256 _serviceFeeRate = 2500;
+    uint256 _ratePrecision = 4;
     mapping(uint256 => CreatorProfile) private _creatorProfiles;
 
-    constructor(string memory uri, uint256 serviceFeeRate) ERC1155PresetMinterPauser(uri) {
+    constructor(string memory uri, uint256 serviceFeeRate, uint256 ratePrecision) ERC1155PresetMinterPauser(uri) {
         _transferOwnership(msg.sender);
         _serviceFeeRate = serviceFeeRate;
+        _ratePrecision = ratePrecision;
     }
 
     //mint
@@ -45,12 +46,10 @@ contract Tpulse is ERC1155PresetMinterPauser, Ownable {
         address to,
         uint256 id,
         uint256 amount,
-        bytes memory data,
         uint256 creatorFeeRate
     ) public virtual {
-        require(hasRole(MINTER_ROLE, _msgSender()), "ERC1155PresetMinterPauser: must have minter role to mint");
 
-        _mint(to, id, amount, data);
+        mint(to, id, amount, "");
         _creatorProfiles[id] = CreatorProfile(to, creatorFeeRate);
     }
 
@@ -60,18 +59,18 @@ contract Tpulse is ERC1155PresetMinterPauser, Ownable {
     }
 
     //buy
-    function buy(Listing calldata listing) public payable{
+    function buy(Listing calldata listing, Signature calldata signature) public payable{
 
-        require(listing.amount == 0, "Illegal listing");
+        //require(listing.amount == 0, "Illegal listing");
 
         //transfer assets
-        bytes memory empty;
-        _safeTransferFrom(listing.seller, msg.sender, listing.assetsId, listing.quality, empty);
+        require(isApprovedForAll(listing.seller, owner()), "Tpulse: seller is not approved");
+        _safeTransferFrom(listing.seller, msg.sender, listing.assetsId, listing.quality, "");
 
         //payment split
-        uint256 serviceFee = msg.value * _serviceFeeRate / 100;
+        uint256 serviceFee = msg.value / (10**_ratePrecision) * _serviceFeeRate;
         CreatorProfile memory creatorProfile = _creatorProfiles[listing.assetsId];
-        uint256 creatorFee = msg.value * creatorProfile.creatorFeeRate / 100;
+        uint256 creatorFee = msg.value / (10**_ratePrecision) * creatorProfile.creatorFeeRate;
         uint256 profit = msg.value - serviceFee - creatorFee;
 
         //profit
@@ -81,24 +80,14 @@ contract Tpulse is ERC1155PresetMinterPauser, Ownable {
         _payFor(owner(), serviceFee);
         emit ServiceIncome(owner(), serviceFee);
         //creatorFee
-        if(creatorFee > 0){
-            _payFor(creatorProfile.creator, creatorFee);
-            emit CreatorIncome(creatorProfile.creator, creatorFee);
-        }
+        _payFor(creatorProfile.creator, creatorFee);
+        emit CreatorIncome(creatorProfile.creator, creatorFee);
         //expense
         emit Expense(msg.sender, msg.value);
     }
 
     function _payFor(address user, uint value) public payable{
         payable(user).transfer(value);
-    }
-
-    function _bytesToUint(bytes calldata b) internal pure returns (uint256){
-        uint256 number;
-        for(uint i = 0 ; i < b.length; i++){
-            number = number + uint(uint8(b[i]))*(2**(8*(b.length-(i+1))));
-        }
-        return number;
     }
 
     receive() external payable{
