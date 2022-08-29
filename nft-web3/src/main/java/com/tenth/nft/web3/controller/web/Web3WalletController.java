@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author shijie
  */
@@ -35,7 +37,7 @@ public class Web3WalletController {
 
     @RequestMapping(Web3WalletPaths.WALLET_BALANCE)
     public Response balance() throws Exception{
-        Web3WalletBalance balance = web3WalletService.balance();
+        List<Web3WalletBalance> balance = web3WalletService.balance();
         return Response.successBuilder().data(balance).build();
     }
 

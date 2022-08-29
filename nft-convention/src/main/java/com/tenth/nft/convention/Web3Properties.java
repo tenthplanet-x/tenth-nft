@@ -17,6 +17,10 @@ public class Web3Properties {
 
     private String mainCurrency;
 
+    private String wethCurrency;
+
+    private String wethAddress;
+
     public String getBlockchain() {
         return blockchain;
     }
@@ -63,6 +67,22 @@ public class Web3Properties {
 
     public void setMainCurrency(String mainCurrency) {
         this.mainCurrency = mainCurrency;
+    }
+
+    public String getWethCurrency() {
+        return wethCurrency;
+    }
+
+    public void setWethCurrency(String wethCurrency) {
+        this.wethCurrency = wethCurrency;
+    }
+
+    public String getWethAddress() {
+        return wethAddress;
+    }
+
+    public void setWethAddress(String wethAddress) {
+        this.wethAddress = wethAddress;
     }
 
     public static class Rsa {

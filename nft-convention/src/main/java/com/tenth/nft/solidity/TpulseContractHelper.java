@@ -36,6 +36,7 @@ public class TpulseContractHelper {
     private TpulseContract tpulseContract;
     private BigInteger blockNumber;
     private String contractOwner;
+    private WETHContract wethContract;
 
     public TpulseContractHelper(Web3Properties web3Properties) throws Exception{
         this.web3Properties = web3Properties;
@@ -55,6 +56,14 @@ public class TpulseContractHelper {
         );
         blockNumber = ethBlockNumber.getBlockNumber();
         contractOwner = tpulseContract.owner().send();
+
+        //weth
+        wethContract = WETHContract.load(
+                web3Properties.getWethAddress(),
+                web3j,
+                credentials,
+                new DefaultGasProvider()
+        );
     }
 
     public String getContractAddress() {
@@ -138,6 +147,27 @@ public class TpulseContractHelper {
         txn.setTxnTo(tpulseContract.getContractAddress());
         txn.setTxnData(txnData);
         return txn;
+    }
+
+    public BigDecimal getEthBalance(String walletAccountId) {
+        BigDecimal ethBalance = getBalance(web3Properties.getMainCurrency(), walletAccountId);
+        ethBalance = Convert.fromWei(ethBalance, Convert.Unit.ETHER);
+        return ethBalance;
+    }
+
+    public BigDecimal getWETHBalance(String walletAccountId) {
+        try{
+            BigInteger _balance = wethContract.balanceOf(walletAccountId).send();
+            if(null == _balance){
+                //balance = BigInteger.ZERO;
+                return BigDecimal.ZERO;
+            }
+            BigDecimal balance = Convert.fromWei(new BigDecimal(_balance), Convert.Unit.ETHER);
+            return balance;
+        }catch (Exception e){
+            LOGGER.error("", e);
+            throw new TpulseContractException("", e);
+        }
     }
 
 
