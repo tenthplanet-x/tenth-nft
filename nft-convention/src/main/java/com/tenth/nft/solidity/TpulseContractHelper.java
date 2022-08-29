@@ -170,6 +170,9 @@ public class TpulseContractHelper {
         }
     }
 
+    public WETHContract getWETHContract() {
+        return wethContract;
+    }
 
     public static class ApprovalTxn{
 

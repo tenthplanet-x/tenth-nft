@@ -15,5 +15,7 @@ public class Web3WalletPaths {
     public static final String WALLET_BILL_PAY = "/nft/web3wallet/bill/pay";
     public static final String WALLET_BILL_STATE = "/nft/web3wallet/bill/state";
 
+    public static final String WETH_DEPOSIT = "/nft/web3wallet/weth/deposit";
+    public static final String WETH_WITHDRAW = "/nft/web3wallet/weth/withdraw";
 
 }
