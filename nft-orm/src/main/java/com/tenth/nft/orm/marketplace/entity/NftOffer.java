@@ -14,9 +14,9 @@ public class NftOffer {
     @Id
     private Long id;
 
-    private Long assetsId;
-
     private Long uid;
+
+    private Long assetsId;
 
     private Integer quantity;
 
@@ -31,6 +31,16 @@ public class NftOffer {
     private Long updatedAt;
 
     private Long activityId;
+
+    private String uidAddress;
+
+    private String uidSignature;
+
+    private String creatorFeeRate;
+
+    private Long creatorUid;
+
+    private String creatorAddress;
 
     public Long getId() {
         return id;
@@ -110,5 +120,45 @@ public class NftOffer {
 
     public void setActivityId(Long activityId) {
         this.activityId = activityId;
+    }
+
+    public String getUidAddress() {
+        return uidAddress;
+    }
+
+    public void setUidAddress(String uidAddress) {
+        this.uidAddress = uidAddress;
+    }
+
+    public String getUidSignature() {
+        return uidSignature;
+    }
+
+    public void setUidSignature(String uidSignature) {
+        this.uidSignature = uidSignature;
+    }
+
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
+    }
+
+    public void setCreatorFeeRate(String creatorFeeRate) {
+        this.creatorFeeRate = creatorFeeRate;
+    }
+
+    public Long getCreatorUid() {
+        return creatorUid;
+    }
+
+    public void setCreatorUid(Long creatorUid) {
+        this.creatorUid = creatorUid;
+    }
+
+    public String getCreatorAddress() {
+        return creatorAddress;
+    }
+
+    public void setCreatorAddress(String creatorAddress) {
+        this.creatorAddress = creatorAddress;
     }
 }

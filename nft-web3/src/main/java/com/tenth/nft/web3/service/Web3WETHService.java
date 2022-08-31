@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.web3j.utils.Convert;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 /**
  * @author shijie
@@ -37,7 +36,7 @@ public class Web3WETHService {
         value = Convert.toWei(value, Convert.Unit.ETHER);
 
         WETHContract wethContract = tpulseContractHelper.getWETHContract();
-        String txnData = wethContract.deposit(value.toBigInteger()).encodeFunctionCall();
+        String txnData = wethContract.deposit().encodeFunctionCall();
         String txnFrom = routeClient.send(
                 NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
                         .setUid(uid)

@@ -40,9 +40,9 @@ import java.util.stream.Collectors;
  * @author shijie
  */
 @Service
-public class NftOfferService {
+public class BuildInOfferService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NftOfferService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BuildInOfferService.class);
 
     @Autowired
     private NftOfferDao nftOfferDao;

@@ -9,17 +9,6 @@ import com.tenth.nft.protobuf.NftExchange;
  */
 public class NftOfferDTO {
 
-    /**
-     * required int64 id = 1;
-     *   required int64 uid = 2;
-     *   required int64 assetsId = 3;
-     *   required int32 quantity = 4;
-     *   required float price = 5;
-     *   required string currency = 6;
-     *   required int64 createdAt = 7;
-     *   required int64 expiredAt = 8;
-     */
-
     private Long id;
 
     private Long assetsId;
@@ -125,6 +114,20 @@ public class NftOfferDTO {
     }
 
     public static NftOfferDTO from(NftExchange.NftOfferDTO nftOffer) {
+
+        NftOfferDTO dto = new NftOfferDTO();
+        dto.setId(nftOffer.getId());
+        dto.setUid(nftOffer.getUid());
+        dto.setAssetsId(nftOffer.getAssetsId());
+        dto.setQuantity(nftOffer.getQuantity());
+        dto.setPrice(nftOffer.getPrice());
+        dto.setCurrency(nftOffer.getCurrency());
+        dto.setCreatedAt(nftOffer.getCreatedAt());
+        dto.setExpireAt(nftOffer.getExpireAt());
+        return dto;
+    }
+
+    public static NftOfferDTO convertFrom(NftOffer nftOffer) {
 
         NftOfferDTO dto = new NftOfferDTO();
         dto.setId(nftOffer.getId());

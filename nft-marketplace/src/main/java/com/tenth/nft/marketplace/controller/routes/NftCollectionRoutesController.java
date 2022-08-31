@@ -1,4 +1,4 @@
-package com.tenth.nft.marketplace.controller;
+package com.tenth.nft.marketplace.controller.routes;
 
 import com.tenth.nft.convention.routes.marketplace.CollectionCreateRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;

@@ -24,6 +24,7 @@ public class ContractTransactionReceipt {
         this.receipt = receipt;
     }
 
+
     public boolean isFail() {
         return FAIL.equals(new BigInteger(receipt.getStatus().substring(2), 16));
     }
@@ -37,4 +38,15 @@ public class ContractTransactionReceipt {
         return Convert.fromWei(new BigDecimal(usedGasValue), Convert.Unit.ETHER).toString();
     }
 
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public TransactionReceipt getReceipt() {
+        return receipt;
+    }
+
+    public static boolean isFail(String status) {
+        return FAIL.equals(new BigInteger(status.substring(2), 16));
+    }
 }

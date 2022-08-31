@@ -1,6 +1,7 @@
 package com.tenth.nft.solidity;
 
 import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,8 +10,8 @@ import java.util.List;
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Bool;
 import org.web3j.abi.datatypes.Event;
-import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint256;
@@ -39,40 +40,48 @@ import org.web3j.tx.gas.ContractGasProvider;
  */
 @SuppressWarnings("rawtypes")
 public class WETHContract extends Contract {
-    public static final String BINARY = "60606040526040805190810160405280600d81526020017f57726170706564204574686572000000000000000000000000000000000000008152506000908051906020019061004f9291906100c8565b506040805190810160405280600481526020017f57455448000000000000000000000000000000000000000000000000000000008152506001908051906020019061009b9291906100c8565b506012600260006101000a81548160ff021916908360ff16021790555034156100c357600080fd5b61016d565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061010957805160ff1916838001178555610137565b82800160010185558215610137579182015b8281111561013657825182559160200191906001019061011b565b5b5090506101449190610148565b5090565b61016a91905b8082111561016657600081600090555060010161014e565b5090565b90565b610c348061017c6000396000f3006060604052600436106100af576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806306fdde03146100b9578063095ea7b31461014757806318160ddd146101a157806323b872dd146101ca5780632e1a7d4d14610243578063313ce5671461026657806370a082311461029557806395d89b41146102e2578063a9059cbb14610370578063d0e30db0146103ca578063dd62ed3e146103d4575b6100b7610440565b005b34156100c457600080fd5b6100cc6104dd565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561010c5780820151818401526020810190506100f1565b50505050905090810190601f1680156101395780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b341561015257600080fd5b610187600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803590602001909190505061057b565b604051808215151515815260200191505060405180910390f35b34156101ac57600080fd5b6101b461066d565b6040518082815260200191505060405180910390f35b34156101d557600080fd5b610229600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803590602001909190505061068c565b604051808215151515815260200191505060405180910390f35b341561024e57600080fd5b61026460048080359060200190919050506109d9565b005b341561027157600080fd5b610279610b05565b604051808260ff1660ff16815260200191505060405180910390f35b34156102a057600080fd5b6102cc600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610b18565b6040518082815260200191505060405180910390f35b34156102ed57600080fd5b6102f5610b30565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561033557808201518184015260208101905061031a565b50505050905090810190601f1680156103625780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b341561037b57600080fd5b6103b0600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091908035906020019091905050610bce565b604051808215151515815260200191505060405180910390f35b6103d2610440565b005b34156103df57600080fd5b61042a600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610be3565b6040518082815260200191505060405180910390f35b34600360003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055503373ffffffffffffffffffffffffffffffffffffffff167fe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c346040518082815260200191505060405180910390a2565b60008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156105735780601f1061054857610100808354040283529160200191610573565b820191906000526020600020905b81548152906001019060200180831161055657829003601f168201915b505050505081565b600081600460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925846040518082815260200191505060405180910390a36001905092915050565b60003073ffffffffffffffffffffffffffffffffffffffff1631905090565b600081600360008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054101515156106dc57600080fd5b3373ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff16141580156107b457507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff600460008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205414155b156108cf5781600460008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020541015151561084457600080fd5b81600460008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b81600360008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000828254039250508190555081600360008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055508273ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef846040518082815260200191505060405180910390a3600190509392505050565b80600360003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205410151515610a2757600080fd5b80600360003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055503373ffffffffffffffffffffffffffffffffffffffff166108fc829081150290604051600060405180830381858888f193505050501515610ab457600080fd5b3373ffffffffffffffffffffffffffffffffffffffff167f7fcf532c15f0a6db0bd6d0e038bea71d30d808c7d98cb3bf7268a95bf5081b65826040518082815260200191505060405180910390a250565b600260009054906101000a900460ff1681565b60036020528060005260406000206000915090505481565b60018054600181600116156101000203166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020316600290048015610bc65780601f10610b9b57610100808354040283529160200191610bc6565b820191906000526020600020905b815481529060010190602001808311610ba957829003601f168201915b505050505081565b6000610bdb33848461068c565b905092915050565b60046020528160005260406000206020528060005260406000206000915091505054815600a165627a7a72305820deb4c2ccab3c2fdca32ab3f46728389c2fe2c165d5fafa07661e4e004f6c344a0029";
+    public static final String BINARY = "60c0604052600d60809081526c2bb930b83832b21022ba3432b960991b60a05260009061002c9082610114565b506040805180820190915260048152630ae8aa8960e31b60208201526001906100559082610114565b506002805460ff1916601217905534801561006f57600080fd5b506101d3565b634e487b7160e01b600052604160045260246000fd5b600181811c9082168061009f57607f821691505b6020821081036100bf57634e487b7160e01b600052602260045260246000fd5b50919050565b601f82111561010f57600081815260208120601f850160051c810160208610156100ec5750805b601f850160051c820191505b8181101561010b578281556001016100f8565b5050505b505050565b81516001600160401b0381111561012d5761012d610075565b6101418161013b845461008b565b846100c5565b602080601f831160018114610176576000841561015e5750858301515b600019600386901b1c1916600185901b17855561010b565b600085815260208120601f198616915b828110156101a557888601518255948401946001909101908401610186565b50858210156101c35787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b61082e806101e26000396000f3fe6080604052600436106100a05760003560e01c8063313ce56711610064578063313ce5671461016c57806370a082311461019857806395d89b41146101c5578063a9059cbb146101da578063d0e30db0146101fa578063dd62ed3e1461020257600080fd5b806306fdde03146100b4578063095ea7b3146100df57806318160ddd1461010f57806323b872dd1461012c5780632e1a7d4d1461014c57600080fd5b366100af576100ad61023a565b005b600080fd5b3480156100c057600080fd5b506100c9610295565b6040516100d6919061063b565b60405180910390f35b3480156100eb57600080fd5b506100ff6100fa3660046106ac565b610323565b60405190151581526020016100d6565b34801561011b57600080fd5b50475b6040519081526020016100d6565b34801561013857600080fd5b506100ff6101473660046106d6565b61038f565b34801561015857600080fd5b506100ad610167366004610712565b610574565b34801561017857600080fd5b506002546101869060ff1681565b60405160ff90911681526020016100d6565b3480156101a457600080fd5b5061011e6101b336600461072b565b60036020526000908152604090205481565b3480156101d157600080fd5b506100c961061a565b3480156101e657600080fd5b506100ff6101f53660046106ac565b610627565b6100ad61023a565b34801561020e57600080fd5b5061011e61021d366004610746565b600460209081526000928352604080842090915290825290205481565b336000908152600360205260408120805434929061025990849061078f565b909155505060405134815233907fe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c9060200160405180910390a2565b600080546102a2906107a7565b80601f01602080910402602001604051908101604052809291908181526020018280546102ce906107a7565b801561031b5780601f106102f05761010080835404028352916020019161031b565b820191906000526020600020905b8154815290600101906020018083116102fe57829003601f168201915b505050505081565b3360008181526004602090815260408083206001600160a01b038716808552925280832085905551919290917f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259061037e9086815260200190565b60405180910390a350600192915050565b6001600160a01b0383166000908152600360205260408120548211156103b457600080fd5b6001600160a01b03848116600081815260046020908152604080832033808552908352928190205481519081529182018790529193871692917f5d959e5d0400d1933b7162644e5bee319d0bead0d2e5c867046fffc241549571910160405180910390a46001600160a01b038416331480159061045357506001600160a01b038416600090815260046020908152604080832033845290915290205415155b156104c1576001600160a01b038416600090815260046020908152604080832033845290915290205482111561048857600080fd5b6001600160a01b0384166000908152600460209081526040808320338452909152812080548492906104bb9084906107e1565b90915550505b6001600160a01b038416600090815260036020526040812080548492906104e99084906107e1565b90915550506001600160a01b0383166000908152600360205260408120805484929061051690849061078f565b92505081905550826001600160a01b0316846001600160a01b03167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef8460405161056291815260200190565b60405180910390a35060019392505050565b3360009081526003602052604090205481111561059057600080fd5b33600090815260036020526040812080548392906105af9084906107e1565b9091555050604051339082156108fc029083906000818181858888f193505050501580156105e1573d6000803e3d6000fd5b5060405181815233907f7fcf532c15f0a6db0bd6d0e038bea71d30d808c7d98cb3bf7268a95bf5081b659060200160405180910390a250565b600180546102a2906107a7565b600061063433848461038f565b9392505050565b600060208083528351808285015260005b818110156106685785810183015185820160400152820161064c565b8181111561067a576000604083870101525b50601f01601f1916929092016040019392505050565b80356001600160a01b03811681146106a757600080fd5b919050565b600080604083850312156106bf57600080fd5b6106c883610690565b946020939093013593505050565b6000806000606084860312156106eb57600080fd5b6106f484610690565b925061070260208501610690565b9150604084013590509250925092565b60006020828403121561072457600080fd5b5035919050565b60006020828403121561073d57600080fd5b61063482610690565b6000806040838503121561075957600080fd5b61076283610690565b915061077060208401610690565b90509250929050565b634e487b7160e01b600052601160045260246000fd5b600082198211156107a2576107a2610779565b500190565b600181811c908216806107bb57607f821691505b6020821081036107db57634e487b7160e01b600052602260045260246000fd5b50919050565b6000828210156107f3576107f3610779565b50039056fea2646970667358221220ce469802839fb6c1d923565bd3a6ea96553fce59f03c0d62ad0904728aaf173564736f6c634300080f0033";
 
-    public static final String FUNC_NAME = "name";
+    public static final String FUNC_ALLOWANCE = "allowance";
 
     public static final String FUNC_APPROVE = "approve";
 
+    public static final String FUNC_BALANCEOF = "balanceOf";
+
+    public static final String FUNC_DECIMALS = "decimals";
+
+    public static final String FUNC_DEPOSIT = "deposit";
+
+    public static final String FUNC_NAME = "name";
+
+    public static final String FUNC_SYMBOL = "symbol";
+
     public static final String FUNC_TOTALSUPPLY = "totalSupply";
+
+    public static final String FUNC_TRANSFER = "transfer";
 
     public static final String FUNC_TRANSFERFROM = "transferFrom";
 
     public static final String FUNC_WITHDRAW = "withdraw";
 
-    public static final String FUNC_DECIMALS = "decimals";
-
-    public static final String FUNC_BALANCEOF = "balanceOf";
-
-    public static final String FUNC_SYMBOL = "symbol";
-
-    public static final String FUNC_TRANSFER = "transfer";
-
-    public static final String FUNC_DEPOSIT = "deposit";
-
-    public static final String FUNC_ALLOWANCE = "allowance";
-
     public static final Event APPROVAL_EVENT = new Event("Approval", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
+    ;
+
+    public static final Event DEPOSIT_EVENT = new Event("Deposit", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
+    ;
+
+    public static final Event PRETRANSFER_EVENT = new Event("PreTransfer", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}, new TypeReference<Uint256>() {}));
     ;
 
     public static final Event TRANSFER_EVENT = new Event("Transfer", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
     ;
 
-    public static final Event DEPOSIT_EVENT = new Event("Deposit", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
+    public static final Event TRANSFERSENDER_EVENT = new Event("TransferSender", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Bool>() {}, new TypeReference<Uint256>() {}));
     ;
 
     public static final Event WITHDRAWAL_EVENT = new Event("Withdrawal", 
@@ -97,93 +106,6 @@ public class WETHContract extends Contract {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
-    public RemoteFunctionCall<String> name() {
-        final Function function = new Function(FUNC_NAME, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
-        return executeRemoteCallSingleValueReturn(function, String.class);
-    }
-
-    public RemoteFunctionCall<TransactionReceipt> approve(String guy, BigInteger wad) {
-        final Function function = new Function(
-                FUNC_APPROVE, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, guy), 
-                new org.web3j.abi.datatypes.generated.Uint256(wad)), 
-                Collections.<TypeReference<?>>emptyList());
-        return executeRemoteCallTransaction(function);
-    }
-
-    public RemoteFunctionCall<BigInteger> totalSupply() {
-        final Function function = new Function(FUNC_TOTALSUPPLY, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
-        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
-    }
-
-    public RemoteFunctionCall<TransactionReceipt> transferFrom(String src, String dst, BigInteger wad) {
-        final Function function = new Function(
-                FUNC_TRANSFERFROM, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, src), 
-                new org.web3j.abi.datatypes.Address(160, dst), 
-                new org.web3j.abi.datatypes.generated.Uint256(wad)), 
-                Collections.<TypeReference<?>>emptyList());
-        return executeRemoteCallTransaction(function);
-    }
-
-    public RemoteFunctionCall<TransactionReceipt> withdraw(BigInteger wad) {
-        final Function function = new Function(
-                FUNC_WITHDRAW, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(wad)), 
-                Collections.<TypeReference<?>>emptyList());
-        return executeRemoteCallTransaction(function);
-    }
-
-    public RemoteFunctionCall<BigInteger> decimals() {
-        final Function function = new Function(FUNC_DECIMALS, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {}));
-        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
-    }
-
-    public RemoteFunctionCall<BigInteger> balanceOf(String param0) {
-        final Function function = new Function(FUNC_BALANCEOF, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
-        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
-    }
-
-    public RemoteFunctionCall<String> symbol() {
-        final Function function = new Function(FUNC_SYMBOL, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
-        return executeRemoteCallSingleValueReturn(function, String.class);
-    }
-
-    public RemoteFunctionCall<TransactionReceipt> transfer(String dst, BigInteger wad) {
-        final Function function = new Function(
-                FUNC_TRANSFER, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, dst), 
-                new org.web3j.abi.datatypes.generated.Uint256(wad)), 
-                Collections.<TypeReference<?>>emptyList());
-        return executeRemoteCallTransaction(function);
-    }
-
-    public RemoteFunctionCall<TransactionReceipt> deposit(BigInteger weiValue) {
-        final Function function = new Function(
-                FUNC_DEPOSIT, 
-                Arrays.<Type>asList(), 
-                Collections.<TypeReference<?>>emptyList());
-        return executeRemoteCallTransaction(function, weiValue);
-    }
-
-    public RemoteFunctionCall<BigInteger> allowance(String param0, String param1) {
-        final Function function = new Function(FUNC_ALLOWANCE, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
-                new org.web3j.abi.datatypes.Address(160, param1)), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
-        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
-    }
-
     public List<ApprovalEventResponse> getApprovalEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(APPROVAL_EVENT, transactionReceipt);
         ArrayList<ApprovalEventResponse> responses = new ArrayList<ApprovalEventResponse>(valueList.size());
@@ -199,7 +121,7 @@ public class WETHContract extends Contract {
     }
 
     public Flowable<ApprovalEventResponse> approvalEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new io.reactivex.functions.Function<Log, ApprovalEventResponse>() {
+        return web3j.ethLogFlowable(filter).map(new Function<Log, ApprovalEventResponse>() {
             @Override
             public ApprovalEventResponse apply(Log log) {
                 Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(APPROVAL_EVENT, log);
@@ -219,6 +141,78 @@ public class WETHContract extends Contract {
         return approvalEventFlowable(filter);
     }
 
+    public List<DepositEventResponse> getDepositEvents(TransactionReceipt transactionReceipt) {
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(DEPOSIT_EVENT, transactionReceipt);
+        ArrayList<DepositEventResponse> responses = new ArrayList<DepositEventResponse>(valueList.size());
+        for (Contract.EventValuesWithLog eventValues : valueList) {
+            DepositEventResponse typedResponse = new DepositEventResponse();
+            typedResponse.log = eventValues.getLog();
+            typedResponse.dst = (String) eventValues.getIndexedValues().get(0).getValue();
+            typedResponse.wad = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
+            responses.add(typedResponse);
+        }
+        return responses;
+    }
+
+    public Flowable<DepositEventResponse> depositEventFlowable(EthFilter filter) {
+        return web3j.ethLogFlowable(filter).map(new Function<Log, DepositEventResponse>() {
+            @Override
+            public DepositEventResponse apply(Log log) {
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(DEPOSIT_EVENT, log);
+                DepositEventResponse typedResponse = new DepositEventResponse();
+                typedResponse.log = log;
+                typedResponse.dst = (String) eventValues.getIndexedValues().get(0).getValue();
+                typedResponse.wad = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
+                return typedResponse;
+            }
+        });
+    }
+
+    public Flowable<DepositEventResponse> depositEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+        EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
+        filter.addSingleTopic(EventEncoder.encode(DEPOSIT_EVENT));
+        return depositEventFlowable(filter);
+    }
+
+    public List<PreTransferEventResponse> getPreTransferEvents(TransactionReceipt transactionReceipt) {
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(PRETRANSFER_EVENT, transactionReceipt);
+        ArrayList<PreTransferEventResponse> responses = new ArrayList<PreTransferEventResponse>(valueList.size());
+        for (Contract.EventValuesWithLog eventValues : valueList) {
+            PreTransferEventResponse typedResponse = new PreTransferEventResponse();
+            typedResponse.log = eventValues.getLog();
+            typedResponse.src = (String) eventValues.getIndexedValues().get(0).getValue();
+            typedResponse.dst = (String) eventValues.getIndexedValues().get(1).getValue();
+            typedResponse.sender = (String) eventValues.getIndexedValues().get(2).getValue();
+            typedResponse.allowance = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
+            typedResponse.wad = (BigInteger) eventValues.getNonIndexedValues().get(1).getValue();
+            responses.add(typedResponse);
+        }
+        return responses;
+    }
+
+    public Flowable<PreTransferEventResponse> preTransferEventFlowable(EthFilter filter) {
+        return web3j.ethLogFlowable(filter).map(new Function<Log, PreTransferEventResponse>() {
+            @Override
+            public PreTransferEventResponse apply(Log log) {
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(PRETRANSFER_EVENT, log);
+                PreTransferEventResponse typedResponse = new PreTransferEventResponse();
+                typedResponse.log = log;
+                typedResponse.src = (String) eventValues.getIndexedValues().get(0).getValue();
+                typedResponse.dst = (String) eventValues.getIndexedValues().get(1).getValue();
+                typedResponse.sender = (String) eventValues.getIndexedValues().get(2).getValue();
+                typedResponse.allowance = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
+                typedResponse.wad = (BigInteger) eventValues.getNonIndexedValues().get(1).getValue();
+                return typedResponse;
+            }
+        });
+    }
+
+    public Flowable<PreTransferEventResponse> preTransferEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+        EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
+        filter.addSingleTopic(EventEncoder.encode(PRETRANSFER_EVENT));
+        return preTransferEventFlowable(filter);
+    }
+
     public List<TransferEventResponse> getTransferEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(TRANSFER_EVENT, transactionReceipt);
         ArrayList<TransferEventResponse> responses = new ArrayList<TransferEventResponse>(valueList.size());
@@ -234,7 +228,7 @@ public class WETHContract extends Contract {
     }
 
     public Flowable<TransferEventResponse> transferEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new io.reactivex.functions.Function<Log, TransferEventResponse>() {
+        return web3j.ethLogFlowable(filter).map(new Function<Log, TransferEventResponse>() {
             @Override
             public TransferEventResponse apply(Log log) {
                 Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(TRANSFER_EVENT, log);
@@ -254,37 +248,39 @@ public class WETHContract extends Contract {
         return transferEventFlowable(filter);
     }
 
-    public List<DepositEventResponse> getDepositEvents(TransactionReceipt transactionReceipt) {
-        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(DEPOSIT_EVENT, transactionReceipt);
-        ArrayList<DepositEventResponse> responses = new ArrayList<DepositEventResponse>(valueList.size());
+    public List<TransferSenderEventResponse> getTransferSenderEvents(TransactionReceipt transactionReceipt) {
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(TRANSFERSENDER_EVENT, transactionReceipt);
+        ArrayList<TransferSenderEventResponse> responses = new ArrayList<TransferSenderEventResponse>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
-            DepositEventResponse typedResponse = new DepositEventResponse();
+            TransferSenderEventResponse typedResponse = new TransferSenderEventResponse();
             typedResponse.log = eventValues.getLog();
-            typedResponse.dst = (String) eventValues.getIndexedValues().get(0).getValue();
-            typedResponse.wad = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
+            typedResponse.src = (String) eventValues.getNonIndexedValues().get(0).getValue();
+            typedResponse.equalSrc = (Boolean) eventValues.getNonIndexedValues().get(1).getValue();
+            typedResponse.allowance = (BigInteger) eventValues.getNonIndexedValues().get(2).getValue();
             responses.add(typedResponse);
         }
         return responses;
     }
 
-    public Flowable<DepositEventResponse> depositEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new io.reactivex.functions.Function<Log, DepositEventResponse>() {
+    public Flowable<TransferSenderEventResponse> transferSenderEventFlowable(EthFilter filter) {
+        return web3j.ethLogFlowable(filter).map(new Function<Log, TransferSenderEventResponse>() {
             @Override
-            public DepositEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(DEPOSIT_EVENT, log);
-                DepositEventResponse typedResponse = new DepositEventResponse();
+            public TransferSenderEventResponse apply(Log log) {
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(TRANSFERSENDER_EVENT, log);
+                TransferSenderEventResponse typedResponse = new TransferSenderEventResponse();
                 typedResponse.log = log;
-                typedResponse.dst = (String) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.wad = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
+                typedResponse.src = (String) eventValues.getNonIndexedValues().get(0).getValue();
+                typedResponse.equalSrc = (Boolean) eventValues.getNonIndexedValues().get(1).getValue();
+                typedResponse.allowance = (BigInteger) eventValues.getNonIndexedValues().get(2).getValue();
                 return typedResponse;
             }
         });
     }
 
-    public Flowable<DepositEventResponse> depositEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+    public Flowable<TransferSenderEventResponse> transferSenderEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
         EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
-        filter.addSingleTopic(EventEncoder.encode(DEPOSIT_EVENT));
-        return depositEventFlowable(filter);
+        filter.addSingleTopic(EventEncoder.encode(TRANSFERSENDER_EVENT));
+        return transferSenderEventFlowable(filter);
     }
 
     public List<WithdrawalEventResponse> getWithdrawalEvents(TransactionReceipt transactionReceipt) {
@@ -301,7 +297,7 @@ public class WETHContract extends Contract {
     }
 
     public Flowable<WithdrawalEventResponse> withdrawalEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new io.reactivex.functions.Function<Log, WithdrawalEventResponse>() {
+        return web3j.ethLogFlowable(filter).map(new Function<Log, WithdrawalEventResponse>() {
             @Override
             public WithdrawalEventResponse apply(Log log) {
                 Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(WITHDRAWAL_EVENT, log);
@@ -318,6 +314,93 @@ public class WETHContract extends Contract {
         EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
         filter.addSingleTopic(EventEncoder.encode(WITHDRAWAL_EVENT));
         return withdrawalEventFlowable(filter);
+    }
+
+    public RemoteFunctionCall<BigInteger> allowance(String param0, String param1) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ALLOWANCE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.Address(160, param1)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
+    }
+
+    public RemoteFunctionCall<TransactionReceipt> approve(String guy, BigInteger wad) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                FUNC_APPROVE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, guy), 
+                new org.web3j.abi.datatypes.generated.Uint256(wad)), 
+                Collections.<TypeReference<?>>emptyList());
+        return executeRemoteCallTransaction(function);
+    }
+
+    public RemoteFunctionCall<BigInteger> balanceOf(String param0) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_BALANCEOF, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
+    }
+
+    public RemoteFunctionCall<BigInteger> decimals() {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DECIMALS, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
+    }
+
+    public RemoteFunctionCall<TransactionReceipt> deposit() {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                FUNC_DEPOSIT, 
+                Arrays.<Type>asList(), 
+                Collections.<TypeReference<?>>emptyList());
+        return executeRemoteCallTransaction(function);
+    }
+
+    public RemoteFunctionCall<String> name() {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_NAME, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
+        return executeRemoteCallSingleValueReturn(function, String.class);
+    }
+
+    public RemoteFunctionCall<String> symbol() {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_SYMBOL, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
+        return executeRemoteCallSingleValueReturn(function, String.class);
+    }
+
+    public RemoteFunctionCall<BigInteger> totalSupply() {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_TOTALSUPPLY, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
+    }
+
+    public RemoteFunctionCall<TransactionReceipt> transfer(String dst, BigInteger wad) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                FUNC_TRANSFER, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, dst), 
+                new org.web3j.abi.datatypes.generated.Uint256(wad)), 
+                Collections.<TypeReference<?>>emptyList());
+        return executeRemoteCallTransaction(function);
+    }
+
+    public RemoteFunctionCall<TransactionReceipt> transferFrom(String src, String dst, BigInteger wad) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                FUNC_TRANSFERFROM, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, src), 
+                new org.web3j.abi.datatypes.Address(160, dst), 
+                new org.web3j.abi.datatypes.generated.Uint256(wad)), 
+                Collections.<TypeReference<?>>emptyList());
+        return executeRemoteCallTransaction(function);
+    }
+
+    public RemoteFunctionCall<TransactionReceipt> withdraw(BigInteger wad) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                FUNC_WITHDRAW, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(wad)), 
+                Collections.<TypeReference<?>>emptyList());
+        return executeRemoteCallTransaction(function);
     }
 
     @Deprecated
@@ -364,6 +447,24 @@ public class WETHContract extends Contract {
         public BigInteger wad;
     }
 
+    public static class DepositEventResponse extends BaseEventResponse {
+        public String dst;
+
+        public BigInteger wad;
+    }
+
+    public static class PreTransferEventResponse extends BaseEventResponse {
+        public String src;
+
+        public String dst;
+
+        public String sender;
+
+        public BigInteger allowance;
+
+        public BigInteger wad;
+    }
+
     public static class TransferEventResponse extends BaseEventResponse {
         public String src;
 
@@ -372,10 +473,12 @@ public class WETHContract extends Contract {
         public BigInteger wad;
     }
 
-    public static class DepositEventResponse extends BaseEventResponse {
-        public String dst;
+    public static class TransferSenderEventResponse extends BaseEventResponse {
+        public String src;
 
-        public BigInteger wad;
+        public Boolean equalSrc;
+
+        public BigInteger allowance;
     }
 
     public static class WithdrawalEventResponse extends BaseEventResponse {

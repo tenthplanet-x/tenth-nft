@@ -2,7 +2,7 @@ package com.tenth.nft.exchange.buildin.controller.web;
 
 import com.tenth.nft.exchange.buildin.ExchangePaths;
 import com.tenth.nft.exchange.buildin.dto.NftOfferDTO;
-import com.tenth.nft.exchange.buildin.service.NftOfferService;
+import com.tenth.nft.exchange.buildin.service.BuildInOfferService;
 import com.tenth.nft.exchange.buildin.vo.NftMakeOfferRequest;
 import com.tenth.nft.exchange.buildin.vo.NftOfferAcceptRequest;
 import com.tenth.nft.exchange.buildin.vo.NftOfferCancelRequest;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BuildInOfferController {
 
     @Autowired
-    private NftOfferService nftOfferService;
+    private BuildInOfferService nftOfferService;
 
     @RequestMapping(ExchangePaths.OFFER_LIST)
     public Response findOffers(@RequestBody NftOfferListRequest request){

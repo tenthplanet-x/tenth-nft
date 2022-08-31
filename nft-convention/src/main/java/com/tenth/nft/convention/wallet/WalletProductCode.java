@@ -5,5 +5,8 @@ package com.tenth.nft.convention.wallet;
  */
 public enum WalletProductCode {
     NFT,
-    WALLET_RECHARGE
+    WALLET_RECHARGE,
+    NFT_OFFER
+
+    ;
 }

@@ -11,5 +11,6 @@ public class NftAssetsPaths {
     public static final String NFTASSETS_EDIT = "/nft/assets/edit";
     public static final String NFTASSETS_DELETE = "/nft/assets/delete";
     public static final String NFTASSETS_DETAIL = "/nft/assets/detail";
+    public static final String NFT_ASSETS_MINT_CHECK = "/nft/assets/mint/check";
 
 }

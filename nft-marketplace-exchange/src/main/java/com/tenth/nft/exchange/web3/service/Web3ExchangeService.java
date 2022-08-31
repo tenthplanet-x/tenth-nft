@@ -27,10 +27,8 @@ import com.tenth.nft.exchange.web3.wallet.Web3WalletProvider;
 import com.tenth.nft.orm.marketplace.dao.NftOrderDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOrderQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOrderUpdate;
-import com.tenth.nft.orm.marketplace.entity.NftBelong;
-import com.tenth.nft.orm.marketplace.entity.NftListing;
-import com.tenth.nft.orm.marketplace.entity.NftOrder;
-import com.tenth.nft.orm.marketplace.entity.NftOrderStatus;
+import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
+import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
@@ -292,6 +290,18 @@ public class Web3ExchangeService extends AbsExchangeService {
         NftListing nftListing = nftListingService.findOne(request.getAssetsId(), request.getListingId());
         checkPaymentState(request.getUid(), nftListing);
 
+        //Check mint status
+        NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
+                NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
+                        .setId(nftListing.getAssetsId())
+                        .build(),
+                AssetsDetailRouteRequest.class
+        ).getAssets();
+        boolean isMint = assetsDTO.getMint();
+        if(!isMint){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_ILLEGAL_MINT_STATUS);
+        }
+
         String currency = nftListing.getCurrency();
         WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
         String blockchain = walletCurrencyTemplate.findOne(currency).getBlockchain();
@@ -453,6 +463,7 @@ public class Web3ExchangeService extends AbsExchangeService {
         return profits;
 
     }
+
 
 
 }

@@ -66,6 +66,10 @@ public class TpulseContractHelper {
         );
     }
 
+    public Web3j getWeb3j() {
+        return web3j;
+    }
+
     public String getContractAddress() {
         return tpulseContract.getContractAddress();
     }
@@ -78,20 +82,38 @@ public class TpulseContractHelper {
             String signature) {
         //throw new UnsupportedOperationException();
 
-        TpulseContract.Listing listing = new TpulseContract.Listing(
+//        TpulseContract.Listing listing = new TpulseContract.Listing(
+//                seller,
+//                BigInteger.valueOf(assetsId),
+//                BigInteger.valueOf(quantity),
+//                Convert.toWei(price, Convert.Unit.ETHER).toBigInteger()
+//        );
+//        TpulseContract.Signature signatures = new TpulseContract.Signature(
+//                new byte[32],
+//                BigInteger.valueOf(1),
+//                new byte[32],
+//                new byte[32]
+//        );
+        String txnData = tpulseContract._buy(
                 seller,
                 BigInteger.valueOf(assetsId),
-                BigInteger.valueOf(quantity),
-                Convert.toWei(price, Convert.Unit.ETHER).toBigInteger()
-        );
-        TpulseContract.Signature signatures = new TpulseContract.Signature(
-                new byte[32],
-                BigInteger.valueOf(1),
-                new byte[32],
-                new byte[32]
-        );
-        String txnData = tpulseContract.buy(listing, signatures).encodeFunctionCall();
+                BigInteger.valueOf(quantity)
+        ).encodeFunctionCall();
         return txnData;
+    }
+
+    /**
+     * Accept method
+     * @param uidAddress
+     * @param assetsId
+     * @param quantity
+     * @param price
+     * @param expireAt
+     * @param uidSignature
+     * @return
+     */
+    public String createAcceptTransactionData(String uidAddress, Long assetsId, Integer quantity, String price, Long expireAt, String uidSignature) {
+        throw new UnsupportedOperationException();
     }
 
     public DataForSign.EIP712Domain getDomain() {
@@ -172,6 +194,10 @@ public class TpulseContractHelper {
 
     public WETHContract getWETHContract() {
         return wethContract;
+    }
+
+    public TpulseContract getTpulseContract() {
+        return tpulseContract;
     }
 
     public static class ApprovalTxn{

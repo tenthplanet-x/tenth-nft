@@ -35,6 +35,7 @@ message AssetsDTO{
   optional string creatorFeeRate = 15;
   optional string creatorAddress = 16;
   optional string signature = 17;
+  optional bool mint = 18;
 }
 
 message COLLECTION_CREATE_IC{
@@ -61,5 +62,11 @@ message ASSETS_DETAIL_IC{
 }
 message ASSETS_DETAIL_IS{
   required AssetsDTO assets = 1;
+}
+message ASSETS_MINT_IC{
+  required int64 id = 1;
+}
+message ASSETS_MINT_IS{
+
 }
 

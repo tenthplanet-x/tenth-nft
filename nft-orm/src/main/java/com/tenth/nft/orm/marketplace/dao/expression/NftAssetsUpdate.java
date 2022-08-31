@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
+import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
@@ -42,6 +43,8 @@ public class NftAssetsUpdate extends SimpleUpdate {
     private String tokenStandard;
     @SimpleWriteParam
     private String token;
+    @SimpleWriteParam
+    private TokenMintStatus mintStatus;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -89,6 +92,10 @@ public class NftAssetsUpdate extends SimpleUpdate {
 
     public String getToken() {
         return token;
+    }
+
+    public TokenMintStatus getMintStatus() {
+        return mintStatus;
     }
 
     public static Builder newBuilder(){
@@ -159,6 +166,10 @@ public class NftAssetsUpdate extends SimpleUpdate {
             return this;
         }
 
+        public Builder mintStatus(TokenMintStatus mintStatus) {
+            update.mintStatus = mintStatus;
+            return this;
+        }
     }
 
 }

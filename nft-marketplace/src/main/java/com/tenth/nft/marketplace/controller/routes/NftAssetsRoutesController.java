@@ -1,7 +1,9 @@
-package com.tenth.nft.marketplace.controller;
+package com.tenth.nft.marketplace.controller.routes;
 
 import com.tenth.nft.convention.routes.marketplace.AssetsCreateRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AssetsMintRouteRequest;
+import com.tenth.nft.marketplace.service.NftAssetsMintService;
 import com.tenth.nft.marketplace.service.NftAssetsService;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
@@ -19,6 +21,8 @@ public class NftAssetsRoutesController {
 
     @Autowired
     private NftAssetsService nftAssetsService;
+    @Autowired
+    private NftAssetsMintService nftAssetsMintService;
 
     @RouteRequestMapping(AssetsCreateRouteRequest.class)
     public NftMarketplace.ASSETS_CREATE_IS create(NftMarketplace.ASSETS_CREATE_IC request){
@@ -30,5 +34,9 @@ public class NftAssetsRoutesController {
         return nftAssetsService.detail(request);
     }
 
+    @RouteRequestMapping(AssetsMintRouteRequest.class)
+    public void mint(NftMarketplace.ASSETS_MINT_IC request){
+        nftAssetsMintService.mint(request);
+    }
 
 }

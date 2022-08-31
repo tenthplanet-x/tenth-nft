@@ -1,13 +1,9 @@
 package com.tenth.nft.web3;
 
 import com.tenth.nft.convention.Web3Properties;
-import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContract;
 import com.tenth.nft.solidity.TpulseContractHelper;
-import com.wallan.json.JsonUtil;
 import org.junit.Test;
-import org.web3j.abi.FunctionEncoder;
-import org.web3j.abi.datatypes.Function;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
@@ -15,15 +11,11 @@ import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tuples.generated.Tuple2;
 import org.web3j.tx.gas.DefaultGasProvider;
-import org.web3j.tx.gas.StaticGasProvider;
 import org.web3j.utils.Convert;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author shijie
@@ -60,7 +52,7 @@ public class TpulseContractTest {
                 new DefaultGasProvider(),
                 "https://nft.ruixi-sh.com/token/{id}",
                 BigInteger.valueOf(2500),
-                BigInteger.valueOf(4)
+                ""
         ).send();
         System.out.println(contract.getContractAddress());
         //0x34c8e08651025f7e2194b1e9d365fc9c750d19ca
@@ -148,110 +140,110 @@ public class TpulseContractTest {
     @Test
     public void buy() throws Exception{
 
-        Web3j web3j = Web3j.build(new HttpService(NETWORK));
-        Credentials credentials = Credentials.create(CONTRACT_BUYER_PRIVATEKEY);
-        TpulseContract contract = TpulseContract.load(
-                CONTRACT_ADDRESS,
-                web3j,
-                credentials,
-                //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
-                new DefaultGasProvider()
-        );
-
-        EthBlockNumber blockNumber = web3j.ethBlockNumber().send();
-        BigInteger balance = web3j.ethGetBalance(CONTRACT_BUYER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
-        System.out.println("current eth: " + balance);
-
-        TpulseContract.Listing listing = new TpulseContract.Listing(
-                CONTRACT_SELLER,
-                BigInteger.valueOf(ITEM_ID),
-                BigInteger.valueOf(1),
-                BigInteger.valueOf(1)
-        );
-        TpulseContract.Signature signature = new TpulseContract.Signature(
-                new byte[32],
-                BigInteger.valueOf(1),
-                new byte[32],
-                new byte[32]
-        );
-        String hash = contract.buy(listing, signature).send().getTransactionHash();
-        System.out.println("hash: " + hash);
-        //0xd05cbdc69bd768c824d308efbdb6c325f34861d7ea2f5dbc857a1929af4d1299
-        BigInteger itemOwns = contract.balanceOf(CONTRACT_BUYER, BigInteger.valueOf(ITEM_ID)).send();
-        System.out.println("item owns: " + itemOwns);
+//        Web3j web3j = Web3j.build(new HttpService(NETWORK));
+//        Credentials credentials = Credentials.create(CONTRACT_BUYER_PRIVATEKEY);
+//        TpulseContract contract = TpulseContract.load(
+//                CONTRACT_ADDRESS,
+//                web3j,
+//                credentials,
+//                //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
+//                new DefaultGasProvider()
+//        );
+//
+//        EthBlockNumber blockNumber = web3j.ethBlockNumber().send();
+//        BigInteger balance = web3j.ethGetBalance(CONTRACT_BUYER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
+//        System.out.println("current eth: " + balance);
+//
+//        TpulseContract.Listing listing = new TpulseContract.Listing(
+//                CONTRACT_SELLER,
+//                BigInteger.valueOf(ITEM_ID),
+//                BigInteger.valueOf(1),
+//                BigInteger.valueOf(1)
+//        );
+//        TpulseContract.Signature signature = new TpulseContract.Signature(
+//                new byte[32],
+//                BigInteger.valueOf(1),
+//                new byte[32],
+//                new byte[32]
+//        );
+//        String hash = contract.buy(listing, signature).send().getTransactionHash();
+//        System.out.println("hash: " + hash);
+//        //0xd05cbdc69bd768c824d308efbdb6c325f34861d7ea2f5dbc857a1929af4d1299
+//        BigInteger itemOwns = contract.balanceOf(CONTRACT_BUYER, BigInteger.valueOf(ITEM_ID)).send();
+//        System.out.println("item owns: " + itemOwns);
     }
 
     @Test
     public void buyResult() throws Exception{
 
-        Web3Properties web3Properties = new Web3Properties();
-        web3Properties.setChainId(4);
-        web3Properties.setNetwork("https://rinkeby.infura.io/v3/86b933b4f2754d4cb3bb906dbe9266d4");
-        web3Properties.setBlockchain("Ethereum");
-        Web3Properties.Contract contract = new Web3Properties.Contract();
-        contract.setAddress("0x0b3df5a5ece71b7ec023b499d4f76524fbc8b73b");
-        contract.setOwnerAddress("0xfffcb195b4eb04F9E9676976b16c94aa12c31af3");
-        contract.setOwnerPrivateKey("caa9c4fb931a136165784140361b093063ccc05fb3e9b9bd8e7a54f199ac159d");
-        web3Properties.setContract(contract);
-        TpulseContractHelper helper = new TpulseContractHelper(web3Properties);
-        ContractTransactionReceipt receipt = helper.getTxn("0x439e9c0eb41847a8ff4624e1ccb9b7d19058f1eef61154aa2e378e0284778ca5");
-        System.out.println("usedGasValue: " + receipt.getUsedGasValue());
-        System.out.println("isSuccess: " + receipt.isSuccess());
-        System.out.println("isFail: " + receipt.isFail());
+//        Web3Properties web3Properties = new Web3Properties();
+//        web3Properties.setChainId(4);
+//        web3Properties.setNetwork("https://rinkeby.infura.io/v3/86b933b4f2754d4cb3bb906dbe9266d4");
+//        web3Properties.setBlockchain("Ethereum");
+//        Web3Properties.Contract contract = new Web3Properties.Contract();
+//        contract.setAddress("0x0b3df5a5ece71b7ec023b499d4f76524fbc8b73b");
+//        contract.setOwnerAddress("0xfffcb195b4eb04F9E9676976b16c94aa12c31af3");
+//        contract.setOwnerPrivateKey("caa9c4fb931a136165784140361b093063ccc05fb3e9b9bd8e7a54f199ac159d");
+//        web3Properties.setContract(contract);
+//        TpulseContractHelper helper = new TpulseContractHelper(web3Properties);
+//        ContractTransactionReceipt receipt = helper.getTxn("0x439e9c0eb41847a8ff4624e1ccb9b7d19058f1eef61154aa2e378e0284778ca5");
+//        System.out.println("usedGasValue: " + receipt.getUsedGasValue());
+//        System.out.println("isSuccess: " + receipt.isSuccess());
+//        System.out.println("isFail: " + receipt.isFail());
         //
     }
 
     @Test
     public void buyWithMoney() throws Exception{
-        Web3j web3j = Web3j.build(new HttpService(NETWORK));
-        Credentials credentials = Credentials.create(CONTRACT_OWNER_PRIVATEKEY);
-        TpulseContract contract = TpulseContract.load(
-                CONTRACT_ADDRESS,
-                web3j,
-                credentials,
-                //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
-                new DefaultGasProvider()
-        );
-
-        EthBlockNumber blockNumber = web3j.ethBlockNumber().send();
-        BigInteger balance = web3j.ethGetBalance(CONTRACT_BUYER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
-        System.out.println("current eth: " + balance);
-
-        TpulseContract.Listing listing = new TpulseContract.Listing(
-                CONTRACT_SELLER,
-                BigInteger.valueOf(ITEM_ID),
-                BigInteger.valueOf(1),
-                BigInteger.valueOf(1)
-        );
-        TpulseContract.Signature signature = new TpulseContract.Signature(
-                new byte[32],
-                BigInteger.valueOf(1),
-                new byte[32],
-                new byte[32]
-        );
-
-        //String encodeFunction = contract.buy(listing).encodeFunctionCall();
-        Function function = new Function(
-            "buy",  // function we're calling
-            Arrays.asList(listing, signature),  // Parameters to pass as Solidity Types
-            Arrays.asList());
-        String encodedFunction = FunctionEncoder.encode(function);
-//        RawTransaction rawTransaction = RawTransaction.createTransaction(
-//                BigInteger.valueOf(System.currentTimeMillis()),
-//                new DefaultGasProvider().getGasPrice(),
-//                new DefaultGasProvider().getGasLimit().multiply(BigInteger.valueOf(2)),
+//        Web3j web3j = Web3j.build(new HttpService(NETWORK));
+//        Credentials credentials = Credentials.create(CONTRACT_OWNER_PRIVATEKEY);
+//        TpulseContract contract = TpulseContract.load(
 //                CONTRACT_ADDRESS,
-//                Convert.toWei(BigDecimal.valueOf(0.1), Convert.Unit.ETHER).toBigInteger(),
-//                encodeFunction
+//                web3j,
+//                credentials,
+//                //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit().multiply(BigInteger.valueOf(2)))
+//                new DefaultGasProvider()
 //        );
-        //TransactionEncoder.encode();
-
-        Map<String, Object> transactionRequest = new HashMap<>();
-        transactionRequest.put("data", encodedFunction);
-        transactionRequest.put("value", Convert.toWei("0.001", Convert.Unit.ETHER).toBigInteger().toString());
-        transactionRequest.put("to", CONTRACT_ADDRESS);
-
-        System.out.println(JsonUtil.toJson(transactionRequest));
+//
+//        EthBlockNumber blockNumber = web3j.ethBlockNumber().send();
+//        BigInteger balance = web3j.ethGetBalance(CONTRACT_BUYER, DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
+//        System.out.println("current eth: " + balance);
+//
+//        TpulseContract.Listing listing = new TpulseContract.Listing(
+//                CONTRACT_SELLER,
+//                BigInteger.valueOf(ITEM_ID),
+//                BigInteger.valueOf(1),
+//                BigInteger.valueOf(1)
+//        );
+//        TpulseContract.Signature signature = new TpulseContract.Signature(
+//                new byte[32],
+//                BigInteger.valueOf(1),
+//                new byte[32],
+//                new byte[32]
+//        );
+//
+//        //String encodeFunction = contract.buy(listing).encodeFunctionCall();
+//        Function function = new Function(
+//            "buy",  // function we're calling
+//            Arrays.asList(listing, signature),  // Parameters to pass as Solidity Types
+//            Arrays.asList());
+//        String encodedFunction = FunctionEncoder.encode(function);
+////        RawTransaction rawTransaction = RawTransaction.createTransaction(
+////                BigInteger.valueOf(System.currentTimeMillis()),
+////                new DefaultGasProvider().getGasPrice(),
+////                new DefaultGasProvider().getGasLimit().multiply(BigInteger.valueOf(2)),
+////                CONTRACT_ADDRESS,
+////                Convert.toWei(BigDecimal.valueOf(0.1), Convert.Unit.ETHER).toBigInteger(),
+////                encodeFunction
+////        );
+//        //TransactionEncoder.encode();
+//
+//        Map<String, Object> transactionRequest = new HashMap<>();
+//        transactionRequest.put("data", encodedFunction);
+//        transactionRequest.put("value", Convert.toWei("0.001", Convert.Unit.ETHER).toBigInteger().toString());
+//        transactionRequest.put("to", CONTRACT_ADDRESS);
+//
+//        System.out.println(JsonUtil.toJson(transactionRequest));
 
 
 //        RawTransaction rawTransaction = RawTransaction.createTransaction(
@@ -333,7 +325,7 @@ public class TpulseContractTest {
         //BigInteger integer = contract.getGasPrice();
         //System.out.println(integer);
 
-        String txn = "0xc9aea894ca7f11697d123a94909beafe725ed0b242f7eac76e49ec0a701682b4";
+        String txn = "0xf33b73f205ce7c4db66f09c5b9fa5107e1de50638c211102fce8dd6253927a65";
 
         BigInteger gasPrice = web3j.ethGetTransactionByHash(txn).send().getResult().getGasPrice();
         System.out.println(gasPrice);

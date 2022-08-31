@@ -12,4 +12,8 @@ public class Web3ExchangePaths {
     public static final String PAYMENT_CREATE = "/nft/web3/exchange/payment/create";
     public static final String PAYMENT_CONFIRM = "/nft/web3/exchange/payment/confirm";
     public static final String PAYMENT_CHECK = "/nft/web3/exchange/payment/check";
+    public static final String OFFER_CREATE = "/nft/web3/exchange/offer/create";
+    public static final String OFFER_CONFIRM = "/nft/web3/exchange/offer/confirm";
+    public static final String ACCEPT_CREATE = "/nft/web3/exchange/accept/create";
+
 }

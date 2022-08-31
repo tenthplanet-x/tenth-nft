@@ -1,7 +1,7 @@
 package com.tenth.nft.exchange.buildin.controller.routes;
 
 import com.tenth.nft.convention.routes.exchange.*;
-import com.tenth.nft.exchange.buildin.service.NftOfferService;
+import com.tenth.nft.exchange.buildin.service.BuildInOfferService;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
 import com.wallan.router.annotation.Route;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class NftOfferRoutesController {
 
     @Autowired
-    private NftOfferService nftOfferService;
+    private BuildInOfferService nftOfferService;
 
     @RouteRequestMapping(OfferListRouteRequest.class)
     public NftExchange.OFFER_LIST_IS list(NftExchange.OFFER_LIST_IC request){

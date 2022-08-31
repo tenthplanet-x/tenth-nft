@@ -46,7 +46,7 @@ public enum NftInnerCmdTypes implements CmdType {
     PAYMENT_RECEIVE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.PAYMENT_RECEIVE_IC, NftExchange.PAYMENT_RECEIVE_IC.newBuilder()),
     WEB3_LISTING_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_LISTING_CREATE_IC, NftWeb3Exchange.WEB3_LISTING_CREATE_IC.newBuilder()),
     WEB3_LISTING_CONFIRM_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_LISTING_CONFIRM_IC, NftWeb3Exchange.WEB3_LISTING_CONFIRM_IC.newBuilder()),
-
+    ASSETS_MINT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_MINT_IC, NftMarketplace.ASSETS_MINT_IC.newBuilder()),
 
 
     //player

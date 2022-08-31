@@ -30,6 +30,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     BUY_EXCEPTION_NO_EXIST("020403", "does not exist"),
     BUY_EXCEPTION_NO_ENOUGH_QUANTITY("020404", "no enough quantity"),
     BUY_EXCEPTION_BELONGS_TO_YOU("020405", "belongs to you"),
+    BUY_EXCEPTION_ILLEGAL_MINT_STATUS("020406", "Illegal mint status"),
     /**
      * 20500 offer
      */
@@ -37,6 +38,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     OFFER_EXCEPTION_BELONGS_TO_YOU("020502", "belongs to you"),
     OFFER_EXCEPTION_EXPIRED("020503", "expired"),
     OFFER_EXCEPTION_NOT_EXIST("020504", "does not exist"),
+    OFFER_EXCEPTION_INVALID_SIGNATURE("020505", "invalid signature"),
 
     /**
      * 20600 accept

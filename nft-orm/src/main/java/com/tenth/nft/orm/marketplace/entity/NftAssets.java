@@ -1,5 +1,6 @@
 package com.tenth.nft.orm.marketplace.entity;
 
+import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import com.tpulse.gs.convention.dao.annotation.columns.SimpleColumnTypeText;
 import org.springframework.data.annotation.Id;
@@ -50,7 +51,7 @@ public class NftAssets {
 
     private String creatorAddress;
 
-    private boolean minted;
+    private TokenMintStatus mintStatus;
 
     private String signature;
 
@@ -190,19 +191,19 @@ public class NftAssets {
         this.creatorAddress = creatorAddress;
     }
 
-    public boolean isMinted() {
-        return minted;
-    }
-
-    public void setMinted(boolean minted) {
-        this.minted = minted;
-    }
-
     public String getSignature() {
         return signature;
     }
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public TokenMintStatus getMintStatus() {
+        return mintStatus;
+    }
+
+    public void setMintStatus(TokenMintStatus mintStatus) {
+        this.mintStatus = mintStatus;
     }
 }

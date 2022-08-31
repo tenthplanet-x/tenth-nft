@@ -2,6 +2,7 @@ package com.tenth.nft.orm.marketplace.dto;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.utils.Prices;
+import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tenth.nft.protobuf.NftExchange;
@@ -265,6 +266,11 @@ public class NftAssetsDTO implements SimpleResponse {
             builder.setTokenStandard(nftAssets.getTokenStandard());
             builder.setToken(nftAssets.getToken());
         }
+
+        if(TokenMintStatus.SUCCESS.equals(nftAssets.getMintStatus())){
+            builder.setMint(true);
+        }
+
         return builder.build();
     }
 

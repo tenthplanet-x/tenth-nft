@@ -11,6 +11,7 @@ import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.utils.Precisions;
 import com.tenth.nft.convention.web3.sign.MintDataForSign;
+import com.tenth.nft.convention.web3.utils.HexAddresses;
 import com.tenth.nft.marketplace.dao.PlayerAssetsDao;
 import com.tenth.nft.marketplace.dao.expression.PlayerAssetsQuery;
 import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
@@ -36,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HexFormat;
 import java.util.stream.Collectors;
 
 /**
@@ -257,6 +259,7 @@ public class PlayerAssetsService {
         PlayerCollection collection = nftCollectionService.detail(uid, request.getCollectionId());
         nftAssets.setCreatorFeeRate(collection.getCreatorFeeRate());
         nftAssets.setCreatorAddress(uidAddress);
+        nftAssets.setToken(HexAddresses.of(assetsId));
         nftAssets.setSignature(confirmRequest.getSignature());
         NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
                 NftMarketplace.ASSETS_CREATE_IC.newBuilder()

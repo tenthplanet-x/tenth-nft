@@ -19,15 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @HttpRoute(userAuth = true)
-public class Web3ExchangeController {
+public class Web3ListingFlowController {
 
     @Autowired
     private Web3ExchangeService web3ExchangeService;
-
-//    @RequestMapping(Web3ExchangePaths.MINT)
-//    public Response mint(Web3ExchangeMintRequest request){
-//        web3ExchangeService.mint(request);
-//    }
 
     @RequestMapping(Web3ExchangePaths.LISTING_CREATE)
     public Response createListing(@RequestBody Web3ExchangeListingAuthRequest request){
