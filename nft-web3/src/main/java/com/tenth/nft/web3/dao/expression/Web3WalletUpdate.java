@@ -35,6 +35,10 @@ public class Web3WalletUpdate extends SimpleUpdate {
     private Boolean contractAddressNull;
     @SimpleWriteParam(name = "contractApproved", opt = WriteOpt.NULL)
     private Boolean contractApprovedNull;
+    @SimpleWriteParam
+    private Boolean wethContractApproved;
+    @SimpleWriteParam
+    private String wethContractAddress;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -82,6 +86,14 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
     public Boolean getContractApprovedNull() {
         return contractApprovedNull;
+    }
+
+    public Boolean getWethContractApproved() {
+        return wethContractApproved;
+    }
+
+    public String getWethContractAddress() {
+        return wethContractAddress;
     }
 
     public static Builder newBuilder(){
@@ -148,6 +160,16 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
         public Builder contractApprovedNull() {
             update.contractApprovedNull = true;
+            return this;
+        }
+
+        public Builder wethContractAddress(String wethContractAddress) {
+            update.wethContractAddress = wethContractAddress;
+            return this;
+        }
+
+        public Builder wethContractApproved(Boolean wethContractApproved) {
+            update.wethContractApproved = wethContractApproved;
             return this;
         }
     }

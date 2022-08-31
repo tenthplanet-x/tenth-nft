@@ -30,6 +30,10 @@ public class Web3Wallet {
 
     private boolean contractApproved;
 
+    private String wethContractAddress;
+
+    private boolean wethContractApproved;
+
     public Long getId() {
         return id;
     }
@@ -100,5 +104,21 @@ public class Web3Wallet {
 
     public void setContractApproved(boolean contractApproved) {
         this.contractApproved = contractApproved;
+    }
+
+    public String getWethContractAddress() {
+        return wethContractAddress;
+    }
+
+    public void setWethContractAddress(String wethContractAddress) {
+        this.wethContractAddress = wethContractAddress;
+    }
+
+    public boolean isWethContractApproved() {
+        return wethContractApproved;
+    }
+
+    public void setWethContractApproved(boolean wethContractApproved) {
+        this.wethContractApproved = wethContractApproved;
     }
 }

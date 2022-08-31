@@ -2,10 +2,7 @@ package com.tenth.nft.web3.controller.web;
 
 import com.tenth.nft.web3.Web3WalletPaths;
 import com.tenth.nft.web3.service.Web3WETHService;
-import com.tenth.nft.web3.vo.WETHDepositRequest;
-import com.tenth.nft.web3.vo.WETHDepositResponse;
-import com.tenth.nft.web3.vo.WETHWithDrawRequest;
-import com.tenth.nft.web3.vo.WETHWithDrawResponse;
+import com.tenth.nft.web3.vo.*;
 import com.tpulse.commons.validation.Validations;
 import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
@@ -36,6 +33,18 @@ public class Web3WETHController {
         Validations.check(request);
         WETHWithDrawResponse response = web3WETHService.createWithDraw(request);
         return Response.successBuilder().data(response).build();
+    }
+
+    @RequestMapping(Web3WalletPaths.WETH_APPROVAL_CREATE)
+    public Response createApproval(){
+        WETHApprovalCreateResponse response = web3WETHService.checkApproval();
+        return Response.successBuilder().data(response).build();
+    }
+
+    @RequestMapping(Web3WalletPaths.WETH_APPROVAL_CONFIRM)
+    public Response confirmApproval(@RequestBody WETHApprovalConfirmRequest request){
+        web3WETHService.confirmApproval(request);
+        return Response.successBuilder().build();
     }
 
 }

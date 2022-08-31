@@ -8,6 +8,7 @@ public class Web3WalletProfile {
     private String wallet;
     private String address;
     private boolean contractApproved;
+    private boolean wethContractApproved;
 
     public void setWallet(String wallet) {
         this.wallet = wallet;
@@ -31,5 +32,17 @@ public class Web3WalletProfile {
 
     public boolean getContractApproved() {
         return contractApproved;
+    }
+
+    public boolean isContractApproved() {
+        return contractApproved;
+    }
+
+    public boolean isWethContractApproved() {
+        return wethContractApproved;
+    }
+
+    public void setWethContractApproved(boolean wethContractApproved) {
+        this.wethContractApproved = wethContractApproved;
     }
 }

@@ -19,5 +19,8 @@ public class Web3WalletPaths {
 
     public static final String WETH_DEPOSIT = "/nft/web3wallet/weth/deposit";
     public static final String WETH_WITHDRAW = "/nft/web3wallet/weth/withdraw";
+    public static final String WETH_APPROVAL_CREATE = "/nft/web3wallet/weth/approval/create";
+    public static final String WETH_APPROVAL_CONFIRM = "/nft/web3wallet/weth/approval/confirm";
+
 
 }

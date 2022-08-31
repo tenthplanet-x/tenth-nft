@@ -132,6 +132,7 @@ public class Web3WalletService {
             profile.setWallet(web3Wallet.getWallet());
             profile.setAddress(web3Wallet.getWalletAccountId());
             profile.setContractApproved(web3Wallet.isContractApproved());
+            profile.setWethContractApproved(web3Wallet.isWethContractApproved());
             return profile;
         }
 
@@ -146,6 +147,19 @@ public class Web3WalletService {
                 Web3WalletUpdate.newBuilder()
                         .contractAddressNull()
                         .contractApprovedNull()
+                        .build()
+        );
+    }
+
+    public void updateWethApprovalState(Boolean contractApproved) {
+
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        String wethContractAddress = tpulseContractHelper.getWETHContract().getContractAddress();
+        walletDao.update(
+                Web3WalletQuery.newBuilder().uid(uid).build(),
+                Web3WalletUpdate.newBuilder()
+                        .wethContractAddress(wethContractAddress)
+                        .wethContractApproved(contractApproved)
                         .build()
         );
     }
