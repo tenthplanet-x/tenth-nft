@@ -89,21 +89,23 @@ public class TpulseBuyContractTest {
         //0x6e7839a8b63b8f73f5a3f7cb0aafbf59941b29287928df392faaa3b69b7a2f56
     }
 
+    String opensea_contractaddress = "0x88B48F654c30e99bc2e4A1559b4Dcf1aD93FA656";
+
     @Test
     public void balanceOf() throws Exception{
 
         Credentials credentials = Credentials.create(web3Properties.getContract().getOwnerPrivateKey());
         TpulseContract tpulseContract = TpulseContract.load(
-                web3Properties.getContract().getAddress(),
+                opensea_contractaddress,
                 tpulseContractHelper.getWeb3j(),
                 credentials,
                 new DefaultGasProvider()
         );
 
-        String seller = "0xcc98Cf60b156a28625Ef3669f69Abc18F8cebcdc";
+        String seller = "0xfffcb195b4eb04F9E9676976b16c94aa12c31af3";
         BigInteger amount = tpulseContract.balanceOf(
                 seller,
-                BigInteger.valueOf(1l)
+                new BigInteger("115786247494245411111044829058730744244743692419061832485267119725908617854977")
         ).send();
 
         System.out.println(amount);
