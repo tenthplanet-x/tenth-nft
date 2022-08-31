@@ -151,7 +151,7 @@ public class TpulseContractHelper {
     public ContractTransactionReceipt getTxn(String txn){
 
         try{
-            EthTransaction ethTransaction = web3j.ethGetTransactionByHash("0x26b19d74b847ccd35309ae583f914d3e355ab5961ca30b20c9850c299a607055").send();
+            EthTransaction ethTransaction = web3j.ethGetTransactionByHash(txn).send();
             Transaction transaction = ethTransaction.getResult();
             TransactionReceipt receipt = web3j.ethGetTransactionReceipt(txn).send().getResult();
             return new ContractTransactionReceipt(transaction, receipt);
