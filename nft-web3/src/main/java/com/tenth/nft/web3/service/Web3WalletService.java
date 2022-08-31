@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +60,20 @@ public class Web3WalletService {
 
     }
 
+    public void unBind() {
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
+        walletDao.findAndModify(
+                Web3WalletQuery.newBuilder().uid(uid).build(),
+                Web3WalletUpdate.newBuilder()
+                        .walletNull()
+                        .walletAccountIdNull()
+                        .setCreatedAtOnInsert()
+                        .build(),
+                UpdateOptions.options().upsert(true)
+        );
+    }
+
     public List<Web3WalletBalance> balance(){
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
@@ -96,7 +109,6 @@ public class Web3WalletService {
     public void confirmApproval(Web3ContractApprovalConfirmRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
-        Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
 
         ContractTransactionReceipt receipt = tpulseContractHelper.getTxn(request.getTxn());
         if(receipt.isSuccess()){
@@ -124,5 +136,17 @@ public class Web3WalletService {
         }
 
         return null;
+    }
+
+
+    public void cancelApproval() {
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        walletDao.update(
+                Web3WalletQuery.newBuilder().uid(uid).build(),
+                Web3WalletUpdate.newBuilder()
+                        .contractAddressNull()
+                        .contractApprovedNull()
+                        .build()
+        );
     }
 }

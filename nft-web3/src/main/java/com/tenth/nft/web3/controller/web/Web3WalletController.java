@@ -51,6 +51,13 @@ public class Web3WalletController {
 
     }
 
+    @RequestMapping(Web3WalletPaths.WALLET_UNBIND)
+    public Response unBind(){
+        //TODO Need check the signature
+        web3WalletService.unBind();
+        return Response.successBuilder().build();
+    }
+
     @RequestMapping(Web3WalletPaths.WALLET_CONTRACT_APPROVAL_CREATE)
     public Response createApproval(){
         TpulseContractHelper.ApprovalTxn response = web3WalletService.createApproval();
@@ -62,6 +69,12 @@ public class Web3WalletController {
 
         Validations.check(request);
         web3WalletService.confirmApproval(request);
+        return Response.successBuilder().build();
+    }
+
+    @RequestMapping(Web3WalletPaths.WALLET_CONTRACT_APPROVAL_CANCEL)
+    public Response cancelApproval(){
+        web3WalletService.cancelApproval();
         return Response.successBuilder().build();
     }
 }

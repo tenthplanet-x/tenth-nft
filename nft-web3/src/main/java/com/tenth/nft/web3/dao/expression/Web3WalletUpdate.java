@@ -27,6 +27,14 @@ public class Web3WalletUpdate extends SimpleUpdate {
     private String contractAddress;
     @SimpleWriteParam
     private Boolean contractApproved;
+    @SimpleWriteParam(name = "walletAccountId", opt = WriteOpt.NULL)
+    private Boolean walletAccountIdNull;
+    @SimpleWriteParam(name = "wallet", opt = WriteOpt.NULL)
+    private Boolean walletNull;
+    @SimpleWriteParam(name = "contractAddress", opt = WriteOpt.NULL)
+    private Boolean contractAddressNull;
+    @SimpleWriteParam(name = "contractApproved", opt = WriteOpt.NULL)
+    private Boolean contractApprovedNull;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -58,6 +66,22 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
     public Boolean getContractApproved() {
         return contractApproved;
+    }
+
+    public Boolean getWalletAccountIdNull() {
+        return walletAccountIdNull;
+    }
+
+    public Boolean getWalletNull() {
+        return walletNull;
+    }
+
+    public Boolean getContractAddressNull() {
+        return contractAddressNull;
+    }
+
+    public Boolean getContractApprovedNull() {
+        return contractApprovedNull;
     }
 
     public static Builder newBuilder(){
@@ -104,6 +128,26 @@ public class Web3WalletUpdate extends SimpleUpdate {
 
         public Builder contractApproved(Boolean contractApproved) {
             update.contractApproved = contractApproved;
+            return this;
+        }
+
+        public Builder walletNull() {
+            update.walletNull = true;
+            return this;
+        }
+
+        public Builder walletAccountIdNull() {
+            update.walletAccountIdNull = true;
+            return this;
+        }
+
+        public Builder contractAddressNull() {
+            update.contractAddressNull = true;
+            return this;
+        }
+
+        public Builder contractApprovedNull() {
+            update.contractApprovedNull = true;
             return this;
         }
     }
