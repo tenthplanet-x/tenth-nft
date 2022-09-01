@@ -163,7 +163,7 @@ public class TpulseContractHelper {
     }
 
     public ApprovalTxn createApprovalTxn(String fromAddress) {
-        String txnData = tpulseContract.setApprovalForAll(contractOwner, true).encodeFunctionCall();
+        String txnData = tpulseContract.setApprovalForAll(tpulseContract.getContractAddress(), true).encodeFunctionCall();
         ApprovalTxn txn = new ApprovalTxn();
         txn.setFrom(fromAddress);
         txn.setTxnTo(tpulseContract.getContractAddress());
