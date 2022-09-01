@@ -165,7 +165,7 @@ public class TpulseContractHelper {
     public ApprovalTxn createApprovalTxn(String fromAddress) {
         String txnData = tpulseContract.setApprovalForAll(contractOwner, true).encodeFunctionCall();
         ApprovalTxn txn = new ApprovalTxn();
-        txn.setTxnFrom(fromAddress);
+        txn.setFrom(fromAddress);
         txn.setTxnTo(tpulseContract.getContractAddress());
         txn.setTxnData(txnData);
         return txn;
@@ -202,16 +202,16 @@ public class TpulseContractHelper {
 
     public static class ApprovalTxn{
 
-        private String txnFrom;
+        private String from;
         private String txnTo;
         private String txnData;
 
-        public String getTxnFrom() {
-            return txnFrom;
+        public String getFrom() {
+            return from;
         }
 
-        public void setTxnFrom(String txnFrom) {
-            this.txnFrom = txnFrom;
+        public void setFrom(String from) {
+            this.from = from;
         }
 
         public String getTxnTo() {
