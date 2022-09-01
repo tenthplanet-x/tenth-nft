@@ -22,6 +22,8 @@ public class WalletActivityConfig {
 
     private String incomeExpense;
 
+    private String displayType;
+
     public Integer getId() {
         return id;
     }
@@ -44,6 +46,10 @@ public class WalletActivityConfig {
 
     public String getIncomeExpense() {
         return incomeExpense;
+    }
+
+    public String getDisplayType() {
+        return displayType;
     }
 
     @JsonPOJOBuilder(withPrefix = "set")
@@ -73,6 +79,10 @@ public class WalletActivityConfig {
 
         public void setIncomeExpense(String incomeExpense) {
             config.incomeExpense = incomeExpense;
+        }
+
+        public void setDisplayType(String displayType) {
+            config.displayType = displayType;
         }
 
         public WalletActivityConfig build(){

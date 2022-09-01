@@ -1,24 +1,28 @@
 package com.tenth.nft.web3.service;
 
 import com.ruixi.tpulse.convention.TpulseHeaders;
+import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.solidity.ContractTransactionReceipt;
+import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.web3.dao.Web3WalletDao;
 import com.tenth.nft.web3.dao.expression.Web3WalletQuery;
 import com.tenth.nft.web3.dao.expression.Web3WalletUpdate;
-import com.tenth.nft.web3.dto.EthWeb3WalletBalance;
 import com.tenth.nft.web3.dto.Web3WalletBalance;
+import com.tenth.nft.web3.dto.Web3WalletProfile;
 import com.tenth.nft.web3.entity.Web3Wallet;
+import com.tenth.nft.web3.vo.Web3ContractApprovalConfirmRequest;
 import com.tenth.nft.web3.vo.Web3WalletBindRequest;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
-import org.web3j.protocol.core.methods.response.EthBlockNumber;
-import org.web3j.utils.Convert;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author shijie
@@ -32,6 +36,12 @@ public class Web3WalletService {
     private Web3WalletDao walletDao;
     @Autowired
     private RouteClient routeClient;
+    @Value("${web3.blockchain}")
+    private String blockchain;
+    @Autowired
+    private Web3Properties web3Properties;
+    @Autowired
+    private TpulseContractHelper tpulseContractHelper;
 
     public void bind(Web3WalletBindRequest request) {
 
@@ -40,6 +50,8 @@ public class Web3WalletService {
         walletDao.findAndModify(
                 Web3WalletQuery.newBuilder().uid(uid).build(),
                 Web3WalletUpdate.newBuilder()
+                        .setBlockchain(blockchain)
+                        .wallet(request.getWallet())
                         .setWalletAccountId(request.getAccountId())
                         .setCreatedAtOnInsert()
                         .build(),
@@ -48,15 +60,34 @@ public class Web3WalletService {
 
     }
 
-    public Web3WalletBalance balance() throws Exception {
+    public void unBind() {
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
+        walletDao.findAndModify(
+                Web3WalletQuery.newBuilder().uid(uid).build(),
+                Web3WalletUpdate.newBuilder()
+                        .walletNull()
+                        .walletAccountIdNull()
+                        .setCreatedAtOnInsert()
+                        .build(),
+                UpdateOptions.options().upsert(true)
+        );
+    }
+
+    public List<Web3WalletBalance> balance(){
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
         Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
         if(null != web3Wallet){
-            EthBlockNumber blockNumber = web3j.ethBlockNumber().send();
-            BigInteger balance = web3j.ethGetBalance(web3Wallet.getWalletAccountId(), DefaultBlockParameter.valueOf(blockNumber.getBlockNumber())).send().getBalance();
-            EthWeb3WalletBalance output = new EthWeb3WalletBalance(Convert.fromWei(balance.toString(), Convert.Unit.ETHER).toString());
+
+            List<Web3WalletBalance> output = new ArrayList<>();
+
+            BigDecimal ethBalance = tpulseContractHelper.getEthBalance(web3Wallet.getWalletAccountId());
+            BigDecimal wethBalance = tpulseContractHelper.getWETHBalance(web3Wallet.getWalletAccountId());
+            output.add(new Web3WalletBalance(web3Properties.getMainCurrency(), ethBalance.toString()));
+            output.add(new Web3WalletBalance(web3Properties.getWethCurrency(), wethBalance.toString()));
+
             return output;
         }
 
@@ -65,4 +96,71 @@ public class Web3WalletService {
     }
 
 
+    public TpulseContractHelper.ApprovalTxn createApproval() {
+
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
+        Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
+        String walletAddress = web3Wallet.getWalletAccountId();
+        TpulseContractHelper.ApprovalTxn approvalTxn = tpulseContractHelper.createApprovalTxn(walletAddress);
+        return approvalTxn;
+    }
+
+    public void confirmApproval(Web3ContractApprovalConfirmRequest request) {
+
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
+        ContractTransactionReceipt receipt = tpulseContractHelper.getTxn(request.getTxn());
+        if(receipt.isSuccess()){
+            walletDao.update(
+                   Web3WalletQuery.newBuilder().uid(uid).build(),
+                    Web3WalletUpdate.newBuilder()
+                            .contractAddress(web3Properties.getContract().getAddress())
+                            .contractApproved(true)
+                            .build()
+            );
+        }
+
+    }
+
+    public Web3WalletProfile profile() {
+
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
+        if(null != web3Wallet){
+            Web3WalletProfile profile = new Web3WalletProfile();
+            profile.setWallet(web3Wallet.getWallet());
+            profile.setAddress(web3Wallet.getWalletAccountId());
+            profile.setContractApproved(web3Wallet.isContractApproved());
+            profile.setWethContractApproved(web3Wallet.isWethContractApproved());
+            return profile;
+        }
+
+        return null;
+    }
+
+
+    public void cancelApproval() {
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        walletDao.update(
+                Web3WalletQuery.newBuilder().uid(uid).build(),
+                Web3WalletUpdate.newBuilder()
+                        .contractAddressNull()
+                        .contractApprovedNull()
+                        .build()
+        );
+    }
+
+    public void updateWethApprovalState(Boolean contractApproved) {
+
+        Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        String wethContractAddress = tpulseContractHelper.getWETHContract().getContractAddress();
+        walletDao.update(
+                Web3WalletQuery.newBuilder().uid(uid).build(),
+                Web3WalletUpdate.newBuilder()
+                        .wethContractAddress(wethContractAddress)
+                        .wethContractApproved(contractApproved)
+                        .build()
+        );
+    }
 }

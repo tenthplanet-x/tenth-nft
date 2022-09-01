@@ -17,12 +17,8 @@ public enum NftInnerCmdTypes implements CmdType {
     NFT_CATEGORY_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CATEGORY_REBUILD_IC, NftSearch.NFT_CATEGORY_REBUILD_IC.newBuilder()),
     NFT_COLLECTION_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_COLLECTION_REBUILD_IC, NftSearch.NFT_COLLECTION_REBUILD_IC.newBuilder()),
     NFT_ITEM_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_ASSETS_REBUILD_IC, NftSearch.NFT_ASSETS_REBUILD_IC.newBuilder()),
-    NFT_BLOCKCHAIN_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_BLOCKCHAIN_REBUILD_IC, NftSearch.NFT_BLOCKCHAIN_REBUILD_IC.newBuilder()),
-    NFT_CURRENCY_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_REBUILD_IC, NftSearch.NFT_CURRENCY_REBUILD_IC.newBuilder()),
-    NFT_CURRENCY_RATE_REBUILD_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_RATE_REBUILD_IC, NftSearch.NFT_CURRENCY_RATE_REBUILD_IC.newBuilder()),
 
     ASSETS_IC(NftCmdGroup.SEARCH, NftInnerCmds.ASSETS_IC, NftSearch.ASSETS_IC.newBuilder()),
-    NFT_CURRENCY_RATES_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_RATES_IC, NftSearch.NFT_CURRENCY_RATES_IC.newBuilder()),
     NFT_CURRENCY_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_IC, NftOperation.NFT_CURRENCY_IC.newBuilder()),
 
     BUY_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUY_IC, NftExchange.BUY_IC.newBuilder()),
@@ -47,7 +43,11 @@ public enum NftInnerCmdTypes implements CmdType {
     COLLECTION_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_CREATE_IC, NftMarketplace.COLLECTION_CREATE_IC.newBuilder()),
     COLLECTION_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()),
     NFT_BLOCKCHAIN_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.NFT_BLOCKCHAIN_IC, NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()),
-    BUY_RECEIPT_PUSH_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.PAY_RECEIPT_PUSH_IC, NftExchange.PAY_RECEIPT_PUSH_IC.newBuilder()),
+    PAYMENT_RECEIVE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.PAYMENT_RECEIVE_IC, NftExchange.PAYMENT_RECEIVE_IC.newBuilder()),
+    WEB3_LISTING_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_LISTING_CREATE_IC, NftWeb3Exchange.WEB3_LISTING_CREATE_IC.newBuilder()),
+    WEB3_LISTING_CONFIRM_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_LISTING_CONFIRM_IC, NftWeb3Exchange.WEB3_LISTING_CONFIRM_IC.newBuilder()),
+    ASSETS_MINT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_MINT_IC, NftMarketplace.ASSETS_MINT_IC.newBuilder()),
+
 
     //player
     ASSETS_BELONGS_UPDATE_IC(NftCmdGroup.PLAYER, NftInnerCmds.ASSETS_BELONGS_UPDATE_IC, NftPlayer.ASSETS_BELONGS_UPDATE_IC.newBuilder()),
@@ -56,6 +56,16 @@ public enum NftInnerCmdTypes implements CmdType {
     BILL_PAY_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_PAY_IC, NftWallet.BILL_PAY_IC.newBuilder()),
     BILL_DETAIL_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_DETAIL_IC, NftWallet.BILL_DETAIL_IC.newBuilder()),
     RECHARGE_IC(NftCmdGroup.WALLET, NftInnerCmds.RECHARGE_IC, NftWallet.RECHARGE_IC.newBuilder()),
+    BILL_INCOME_TRIGGER_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_INCOME_TRIGGER_IC, NftWallet.BILL_INCOME_TRIGGER_IC.newBuilder()),
+    BILL_PAY_NOTIFICATION_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_PAYMENT_NOTIFY_IC, NftWallet.BILL_PAYMENT_NOTIFY_IC.newBuilder()),
+
+    //web3 wallet
+    WEB3_PAYMENT_CREATE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_PAYMENT_CREATE_IC, NftWeb3Exchange.WEB3_PAYMENT_CREATE_IC.newBuilder()),
+    WEB3_PAYMENT_CONFIRM_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_PAYMENT_CONFIRM_IC, NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC.newBuilder()),
+    WEB3_BILL_PAY_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_BILL_PAY_IC, NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder()),
+    WEB3_TXN_CHECK_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_TXN_CHECK_IC, NftWeb3Wallet.WEB3_TXN_CHECK_IC.newBuilder()),
+    WEB3_WALLET_BALANCE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_WALLET_BALANCE_IC, NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()),
+
     ;
 
 

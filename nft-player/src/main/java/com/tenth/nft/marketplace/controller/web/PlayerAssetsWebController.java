@@ -3,11 +3,9 @@ package com.tenth.nft.marketplace.controller.web;
 import com.tenth.nft.marketplace.NftAssetsPaths;
 import com.tenth.nft.marketplace.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.marketplace.service.PlayerAssetsBelongsService;
-import com.tenth.nft.marketplace.vo.AssetsOwnSearchRequest;
+import com.tenth.nft.marketplace.vo.*;
 import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.service.PlayerAssetsService;
-import com.tenth.nft.marketplace.vo.NftAssetsCreateRequest;
-import com.tenth.nft.marketplace.vo.NftAssetsListRequest;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.wallan.router.endpoint.core.security.HttpRoute;
@@ -41,6 +39,20 @@ public class PlayerAssetsWebController {
     public Response create(@RequestBody NftAssetsCreateRequest request){
         Validations.check(request);
         NftAssetsDTO assetsDTO = nftAssetsService.create(request);
+        return Response.successBuilder().data(assetsDTO).build();
+    }
+
+    @RequestMapping(NftAssetsPaths.NFT_WEB3_ASSETS_CREATE)
+    public Response createWeb3Nft(@RequestBody NftAssetsCreateRequest request) throws Exception{
+        Validations.check(request);
+        CreateWeb3NftResponse response = nftAssetsService.createWeb3Nft(request);
+        return Response.successBuilder().data(response).build();
+    }
+
+    @RequestMapping(NftAssetsPaths.NFT_WEB3_ASSETS_CREATE_CONFIRM)
+    public Response confirmCreateWeb3Nft(@RequestBody NftAssetsCreateConfirmRequest request){
+        Validations.check(request);
+        NftAssetsDTO assetsDTO = nftAssetsService.confirmCreateWeb3Nft(request);
         return Response.successBuilder().data(assetsDTO).build();
     }
 

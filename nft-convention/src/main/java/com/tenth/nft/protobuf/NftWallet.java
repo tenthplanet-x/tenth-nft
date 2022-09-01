@@ -86,15 +86,21 @@ public final class NftWallet {
         getProductIdBytes();
 
     /**
-     * <code>required int64 outOrderId = 6;</code>
+     * <code>required string outOrderId = 6;</code>
      * @return Whether the outOrderId field is set.
      */
     boolean hasOutOrderId();
     /**
-     * <code>required int64 outOrderId = 6;</code>
+     * <code>required string outOrderId = 6;</code>
      * @return The outOrderId.
      */
-    long getOutOrderId();
+    java.lang.String getOutOrderId();
+    /**
+     * <code>required string outOrderId = 6;</code>
+     * @return The bytes for outOrderId.
+     */
+    com.google.protobuf.ByteString
+        getOutOrderIdBytes();
 
     /**
      * <code>required string value = 7;</code>
@@ -176,15 +182,21 @@ public final class NftWallet {
         getMerchantTypeBytes();
 
     /**
-     * <code>optional int64 merchantId = 12;</code>
+     * <code>optional string merchantId = 12;</code>
      * @return Whether the merchantId field is set.
      */
     boolean hasMerchantId();
     /**
-     * <code>optional int64 merchantId = 12;</code>
+     * <code>optional string merchantId = 12;</code>
      * @return The merchantId.
      */
-    long getMerchantId();
+    java.lang.String getMerchantId();
+    /**
+     * <code>optional string merchantId = 12;</code>
+     * @return The bytes for merchantId.
+     */
+    com.google.protobuf.ByteString
+        getMerchantIdBytes();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.BillDTO}
@@ -201,10 +213,12 @@ public final class NftWallet {
     private BillDTO() {
       productCode_ = "";
       productId_ = "";
+      outOrderId_ = "";
       value_ = "";
       currency_ = "";
       state_ = "";
       merchantType_ = "";
+      merchantId_ = "";
     }
 
     @java.lang.Override
@@ -265,9 +279,10 @@ public final class NftWallet {
               productId_ = bs;
               break;
             }
-            case 48: {
+            case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000020;
-              outOrderId_ = input.readInt64();
+              outOrderId_ = bs;
               break;
             }
             case 58: {
@@ -299,9 +314,10 @@ public final class NftWallet {
               merchantType_ = bs;
               break;
             }
-            case 96: {
+            case 98: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000800;
-              merchantId_ = input.readInt64();
+              merchantId_ = bs;
               break;
             }
             default: {
@@ -491,9 +507,9 @@ public final class NftWallet {
     }
 
     public static final int OUTORDERID_FIELD_NUMBER = 6;
-    private long outOrderId_;
+    private volatile java.lang.Object outOrderId_;
     /**
-     * <code>required int64 outOrderId = 6;</code>
+     * <code>required string outOrderId = 6;</code>
      * @return Whether the outOrderId field is set.
      */
     @java.lang.Override
@@ -501,12 +517,41 @@ public final class NftWallet {
       return ((bitField0_ & 0x00000020) != 0);
     }
     /**
-     * <code>required int64 outOrderId = 6;</code>
+     * <code>required string outOrderId = 6;</code>
      * @return The outOrderId.
      */
     @java.lang.Override
-    public long getOutOrderId() {
-      return outOrderId_;
+    public java.lang.String getOutOrderId() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          outOrderId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string outOrderId = 6;</code>
+     * @return The bytes for outOrderId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOutOrderIdBytes() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        outOrderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int VALUE_FIELD_NUMBER = 7;
@@ -721,9 +766,9 @@ public final class NftWallet {
     }
 
     public static final int MERCHANTID_FIELD_NUMBER = 12;
-    private long merchantId_;
+    private volatile java.lang.Object merchantId_;
     /**
-     * <code>optional int64 merchantId = 12;</code>
+     * <code>optional string merchantId = 12;</code>
      * @return Whether the merchantId field is set.
      */
     @java.lang.Override
@@ -731,12 +776,41 @@ public final class NftWallet {
       return ((bitField0_ & 0x00000800) != 0);
     }
     /**
-     * <code>optional int64 merchantId = 12;</code>
+     * <code>optional string merchantId = 12;</code>
      * @return The merchantId.
      */
     @java.lang.Override
-    public long getMerchantId() {
-      return merchantId_;
+    public java.lang.String getMerchantId() {
+      java.lang.Object ref = merchantId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          merchantId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string merchantId = 12;</code>
+     * @return The bytes for merchantId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMerchantIdBytes() {
+      java.lang.Object ref = merchantId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        merchantId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -809,7 +883,7 @@ public final class NftWallet {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, productId_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
-        output.writeInt64(6, outOrderId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, outOrderId_);
       }
       if (((bitField0_ & 0x00000040) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 7, value_);
@@ -827,7 +901,7 @@ public final class NftWallet {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 11, merchantType_);
       }
       if (((bitField0_ & 0x00000800) != 0)) {
-        output.writeInt64(12, merchantId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, merchantId_);
       }
       unknownFields.writeTo(output);
     }
@@ -857,8 +931,7 @@ public final class NftWallet {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, productId_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, outOrderId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, outOrderId_);
       }
       if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, value_);
@@ -877,8 +950,7 @@ public final class NftWallet {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, merchantType_);
       }
       if (((bitField0_ & 0x00000800) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(12, merchantId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, merchantId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -922,8 +994,8 @@ public final class NftWallet {
       }
       if (hasOutOrderId() != other.hasOutOrderId()) return false;
       if (hasOutOrderId()) {
-        if (getOutOrderId()
-            != other.getOutOrderId()) return false;
+        if (!getOutOrderId()
+            .equals(other.getOutOrderId())) return false;
       }
       if (hasValue() != other.hasValue()) return false;
       if (hasValue()) {
@@ -952,8 +1024,8 @@ public final class NftWallet {
       }
       if (hasMerchantId() != other.hasMerchantId()) return false;
       if (hasMerchantId()) {
-        if (getMerchantId()
-            != other.getMerchantId()) return false;
+        if (!getMerchantId()
+            .equals(other.getMerchantId())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -990,8 +1062,7 @@ public final class NftWallet {
       }
       if (hasOutOrderId()) {
         hash = (37 * hash) + OUTORDERID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOutOrderId());
+        hash = (53 * hash) + getOutOrderId().hashCode();
       }
       if (hasValue()) {
         hash = (37 * hash) + VALUE_FIELD_NUMBER;
@@ -1016,8 +1087,7 @@ public final class NftWallet {
       }
       if (hasMerchantId()) {
         hash = (37 * hash) + MERCHANTID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getMerchantId());
+        hash = (53 * hash) + getMerchantId().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1162,7 +1232,7 @@ public final class NftWallet {
         bitField0_ = (bitField0_ & ~0x00000008);
         productId_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
-        outOrderId_ = 0L;
+        outOrderId_ = "";
         bitField0_ = (bitField0_ & ~0x00000020);
         value_ = "";
         bitField0_ = (bitField0_ & ~0x00000040);
@@ -1174,7 +1244,7 @@ public final class NftWallet {
         bitField0_ = (bitField0_ & ~0x00000200);
         merchantType_ = "";
         bitField0_ = (bitField0_ & ~0x00000400);
-        merchantId_ = 0L;
+        merchantId_ = "";
         bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
@@ -1225,9 +1295,9 @@ public final class NftWallet {
         }
         result.productId_ = productId_;
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.outOrderId_ = outOrderId_;
           to_bitField0_ |= 0x00000020;
         }
+        result.outOrderId_ = outOrderId_;
         if (((from_bitField0_ & 0x00000040) != 0)) {
           to_bitField0_ |= 0x00000040;
         }
@@ -1249,9 +1319,9 @@ public final class NftWallet {
         }
         result.merchantType_ = merchantType_;
         if (((from_bitField0_ & 0x00000800) != 0)) {
-          result.merchantId_ = merchantId_;
           to_bitField0_ |= 0x00000800;
         }
+        result.merchantId_ = merchantId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1321,7 +1391,9 @@ public final class NftWallet {
           onChanged();
         }
         if (other.hasOutOrderId()) {
-          setOutOrderId(other.getOutOrderId());
+          bitField0_ |= 0x00000020;
+          outOrderId_ = other.outOrderId_;
+          onChanged();
         }
         if (other.hasValue()) {
           bitField0_ |= 0x00000040;
@@ -1347,7 +1419,9 @@ public final class NftWallet {
           onChanged();
         }
         if (other.hasMerchantId()) {
-          setMerchantId(other.getMerchantId());
+          bitField0_ |= 0x00000800;
+          merchantId_ = other.merchantId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1694,41 +1768,86 @@ public final class NftWallet {
         return this;
       }
 
-      private long outOrderId_ ;
+      private java.lang.Object outOrderId_ = "";
       /**
-       * <code>required int64 outOrderId = 6;</code>
+       * <code>required string outOrderId = 6;</code>
        * @return Whether the outOrderId field is set.
        */
-      @java.lang.Override
       public boolean hasOutOrderId() {
         return ((bitField0_ & 0x00000020) != 0);
       }
       /**
-       * <code>required int64 outOrderId = 6;</code>
+       * <code>required string outOrderId = 6;</code>
        * @return The outOrderId.
        */
-      @java.lang.Override
-      public long getOutOrderId() {
-        return outOrderId_;
+      public java.lang.String getOutOrderId() {
+        java.lang.Object ref = outOrderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            outOrderId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 outOrderId = 6;</code>
+       * <code>required string outOrderId = 6;</code>
+       * @return The bytes for outOrderId.
+       */
+      public com.google.protobuf.ByteString
+          getOutOrderIdBytes() {
+        java.lang.Object ref = outOrderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          outOrderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string outOrderId = 6;</code>
        * @param value The outOrderId to set.
        * @return This builder for chaining.
        */
-      public Builder setOutOrderId(long value) {
-        bitField0_ |= 0x00000020;
+      public Builder setOutOrderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
         outOrderId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 outOrderId = 6;</code>
+       * <code>required string outOrderId = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearOutOrderId() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        outOrderId_ = 0L;
+        outOrderId_ = getDefaultInstance().getOutOrderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string outOrderId = 6;</code>
+       * @param value The bytes for outOrderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOutOrderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        outOrderId_ = value;
         onChanged();
         return this;
       }
@@ -2108,41 +2227,86 @@ public final class NftWallet {
         return this;
       }
 
-      private long merchantId_ ;
+      private java.lang.Object merchantId_ = "";
       /**
-       * <code>optional int64 merchantId = 12;</code>
+       * <code>optional string merchantId = 12;</code>
        * @return Whether the merchantId field is set.
        */
-      @java.lang.Override
       public boolean hasMerchantId() {
         return ((bitField0_ & 0x00000800) != 0);
       }
       /**
-       * <code>optional int64 merchantId = 12;</code>
+       * <code>optional string merchantId = 12;</code>
        * @return The merchantId.
        */
-      @java.lang.Override
-      public long getMerchantId() {
-        return merchantId_;
+      public java.lang.String getMerchantId() {
+        java.lang.Object ref = merchantId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            merchantId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional int64 merchantId = 12;</code>
+       * <code>optional string merchantId = 12;</code>
+       * @return The bytes for merchantId.
+       */
+      public com.google.protobuf.ByteString
+          getMerchantIdBytes() {
+        java.lang.Object ref = merchantId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          merchantId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string merchantId = 12;</code>
        * @param value The merchantId to set.
        * @return This builder for chaining.
        */
-      public Builder setMerchantId(long value) {
-        bitField0_ |= 0x00000800;
+      public Builder setMerchantId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000800;
         merchantId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 merchantId = 12;</code>
+       * <code>optional string merchantId = 12;</code>
        * @return This builder for chaining.
        */
       public Builder clearMerchantId() {
         bitField0_ = (bitField0_ & ~0x00000800);
-        merchantId_ = 0L;
+        merchantId_ = getDefaultInstance().getMerchantId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string merchantId = 12;</code>
+       * @param value The bytes for merchantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMerchantIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000800;
+        merchantId_ = value;
         onChanged();
         return this;
       }
@@ -3787,15 +3951,21 @@ public final class NftWallet {
         getProductCodeBytes();
 
     /**
-     * <code>required int64 outOrderId = 3;</code>
+     * <code>required string outOrderId = 3;</code>
      * @return Whether the outOrderId field is set.
      */
     boolean hasOutOrderId();
     /**
-     * <code>required int64 outOrderId = 3;</code>
+     * <code>required string outOrderId = 3;</code>
      * @return The outOrderId.
      */
-    long getOutOrderId();
+    java.lang.String getOutOrderId();
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return The bytes for outOrderId.
+     */
+    com.google.protobuf.ByteString
+        getOutOrderIdBytes();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.BILL_DETAIL_IC}
@@ -3811,6 +3981,7 @@ public final class NftWallet {
     }
     private BILL_DETAIL_IC() {
       productCode_ = "";
+      outOrderId_ = "";
     }
 
     @java.lang.Override
@@ -3855,9 +4026,10 @@ public final class NftWallet {
               productCode_ = bs;
               break;
             }
-            case 24: {
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              outOrderId_ = input.readInt64();
+              outOrderId_ = bs;
               break;
             }
             default: {
@@ -3961,9 +4133,9 @@ public final class NftWallet {
     }
 
     public static final int OUTORDERID_FIELD_NUMBER = 3;
-    private long outOrderId_;
+    private volatile java.lang.Object outOrderId_;
     /**
-     * <code>required int64 outOrderId = 3;</code>
+     * <code>required string outOrderId = 3;</code>
      * @return Whether the outOrderId field is set.
      */
     @java.lang.Override
@@ -3971,12 +4143,41 @@ public final class NftWallet {
       return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>required int64 outOrderId = 3;</code>
+     * <code>required string outOrderId = 3;</code>
      * @return The outOrderId.
      */
     @java.lang.Override
-    public long getOutOrderId() {
-      return outOrderId_;
+    public java.lang.String getOutOrderId() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          outOrderId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return The bytes for outOrderId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOutOrderIdBytes() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        outOrderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4012,7 +4213,7 @@ public final class NftWallet {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, productCode_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        output.writeInt64(3, outOrderId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, outOrderId_);
       }
       unknownFields.writeTo(output);
     }
@@ -4031,8 +4232,7 @@ public final class NftWallet {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, productCode_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, outOrderId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, outOrderId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4061,8 +4261,8 @@ public final class NftWallet {
       }
       if (hasOutOrderId() != other.hasOutOrderId()) return false;
       if (hasOutOrderId()) {
-        if (getOutOrderId()
-            != other.getOutOrderId()) return false;
+        if (!getOutOrderId()
+            .equals(other.getOutOrderId())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -4086,8 +4286,7 @@ public final class NftWallet {
       }
       if (hasOutOrderId()) {
         hash = (37 * hash) + OUTORDERID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOutOrderId());
+        hash = (53 * hash) + getOutOrderId().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -4226,7 +4425,7 @@ public final class NftWallet {
         bitField0_ = (bitField0_ & ~0x00000001);
         productCode_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        outOrderId_ = 0L;
+        outOrderId_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -4265,9 +4464,9 @@ public final class NftWallet {
         }
         result.productCode_ = productCode_;
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.outOrderId_ = outOrderId_;
           to_bitField0_ |= 0x00000004;
         }
+        result.outOrderId_ = outOrderId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4326,7 +4525,9 @@ public final class NftWallet {
           onChanged();
         }
         if (other.hasOutOrderId()) {
-          setOutOrderId(other.getOutOrderId());
+          bitField0_ |= 0x00000004;
+          outOrderId_ = other.outOrderId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4490,41 +4691,86 @@ public final class NftWallet {
         return this;
       }
 
-      private long outOrderId_ ;
+      private java.lang.Object outOrderId_ = "";
       /**
-       * <code>required int64 outOrderId = 3;</code>
+       * <code>required string outOrderId = 3;</code>
        * @return Whether the outOrderId field is set.
        */
-      @java.lang.Override
       public boolean hasOutOrderId() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>required int64 outOrderId = 3;</code>
+       * <code>required string outOrderId = 3;</code>
        * @return The outOrderId.
        */
-      @java.lang.Override
-      public long getOutOrderId() {
-        return outOrderId_;
+      public java.lang.String getOutOrderId() {
+        java.lang.Object ref = outOrderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            outOrderId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 outOrderId = 3;</code>
+       * <code>required string outOrderId = 3;</code>
+       * @return The bytes for outOrderId.
+       */
+      public com.google.protobuf.ByteString
+          getOutOrderIdBytes() {
+        java.lang.Object ref = outOrderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          outOrderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
        * @param value The outOrderId to set.
        * @return This builder for chaining.
        */
-      public Builder setOutOrderId(long value) {
-        bitField0_ |= 0x00000004;
+      public Builder setOutOrderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
         outOrderId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 outOrderId = 3;</code>
+       * <code>required string outOrderId = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearOutOrderId() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        outOrderId_ = 0L;
+        outOrderId_ = getDefaultInstance().getOutOrderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
+       * @param value The bytes for outOrderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOutOrderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        outOrderId_ = value;
         onChanged();
         return this;
       }
@@ -6593,6 +6839,2496 @@ public final class NftWallet {
 
   }
 
+  public interface BILL_INCOME_TRIGGER_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IC)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int64 uid = 1;</code>
+     * @return Whether the uid field is set.
+     */
+    boolean hasUid();
+    /**
+     * <code>required int64 uid = 1;</code>
+     * @return The uid.
+     */
+    long getUid();
+
+    /**
+     * <code>required string productCode = 2;</code>
+     * @return Whether the productCode field is set.
+     */
+    boolean hasProductCode();
+    /**
+     * <code>required string productCode = 2;</code>
+     * @return The productCode.
+     */
+    java.lang.String getProductCode();
+    /**
+     * <code>required string productCode = 2;</code>
+     * @return The bytes for productCode.
+     */
+    com.google.protobuf.ByteString
+        getProductCodeBytes();
+
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return Whether the outOrderId field is set.
+     */
+    boolean hasOutOrderId();
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return The outOrderId.
+     */
+    java.lang.String getOutOrderId();
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return The bytes for outOrderId.
+     */
+    com.google.protobuf.ByteString
+        getOutOrderIdBytes();
+
+    /**
+     * <code>required int64 billId = 4;</code>
+     * @return Whether the billId field is set.
+     */
+    boolean hasBillId();
+    /**
+     * <code>required int64 billId = 4;</code>
+     * @return The billId.
+     */
+    long getBillId();
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IC}
+   */
+  public static final class BILL_INCOME_TRIGGER_IC extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IC)
+      BILL_INCOME_TRIGGER_ICOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BILL_INCOME_TRIGGER_IC.newBuilder() to construct.
+    private BILL_INCOME_TRIGGER_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BILL_INCOME_TRIGGER_IC() {
+      productCode_ = "";
+      outOrderId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BILL_INCOME_TRIGGER_IC();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BILL_INCOME_TRIGGER_IC(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              uid_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              productCode_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              outOrderId_ = bs;
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              billId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC.class, com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int UID_FIELD_NUMBER = 1;
+    private long uid_;
+    /**
+     * <code>required int64 uid = 1;</code>
+     * @return Whether the uid field is set.
+     */
+    @java.lang.Override
+    public boolean hasUid() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int64 uid = 1;</code>
+     * @return The uid.
+     */
+    @java.lang.Override
+    public long getUid() {
+      return uid_;
+    }
+
+    public static final int PRODUCTCODE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object productCode_;
+    /**
+     * <code>required string productCode = 2;</code>
+     * @return Whether the productCode field is set.
+     */
+    @java.lang.Override
+    public boolean hasProductCode() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required string productCode = 2;</code>
+     * @return The productCode.
+     */
+    @java.lang.Override
+    public java.lang.String getProductCode() {
+      java.lang.Object ref = productCode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          productCode_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string productCode = 2;</code>
+     * @return The bytes for productCode.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getProductCodeBytes() {
+      java.lang.Object ref = productCode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        productCode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OUTORDERID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object outOrderId_;
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return Whether the outOrderId field is set.
+     */
+    @java.lang.Override
+    public boolean hasOutOrderId() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return The outOrderId.
+     */
+    @java.lang.Override
+    public java.lang.String getOutOrderId() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          outOrderId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string outOrderId = 3;</code>
+     * @return The bytes for outOrderId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOutOrderIdBytes() {
+      java.lang.Object ref = outOrderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        outOrderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int BILLID_FIELD_NUMBER = 4;
+    private long billId_;
+    /**
+     * <code>required int64 billId = 4;</code>
+     * @return Whether the billId field is set.
+     */
+    @java.lang.Override
+    public boolean hasBillId() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>required int64 billId = 4;</code>
+     * @return The billId.
+     */
+    @java.lang.Override
+    public long getBillId() {
+      return billId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasProductCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOutOrderId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasBillId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, uid_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, productCode_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, outOrderId_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeInt64(4, billId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, uid_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, productCode_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, outOrderId_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, billId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC other = (com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC) obj;
+
+      if (hasUid() != other.hasUid()) return false;
+      if (hasUid()) {
+        if (getUid()
+            != other.getUid()) return false;
+      }
+      if (hasProductCode() != other.hasProductCode()) return false;
+      if (hasProductCode()) {
+        if (!getProductCode()
+            .equals(other.getProductCode())) return false;
+      }
+      if (hasOutOrderId() != other.hasOutOrderId()) return false;
+      if (hasOutOrderId()) {
+        if (!getOutOrderId()
+            .equals(other.getOutOrderId())) return false;
+      }
+      if (hasBillId() != other.hasBillId()) return false;
+      if (hasBillId()) {
+        if (getBillId()
+            != other.getBillId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUid()) {
+        hash = (37 * hash) + UID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getUid());
+      }
+      if (hasProductCode()) {
+        hash = (37 * hash) + PRODUCTCODE_FIELD_NUMBER;
+        hash = (53 * hash) + getProductCode().hashCode();
+      }
+      if (hasOutOrderId()) {
+        hash = (37 * hash) + OUTORDERID_FIELD_NUMBER;
+        hash = (53 * hash) + getOutOrderId().hashCode();
+      }
+      if (hasBillId()) {
+        hash = (37 * hash) + BILLID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getBillId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IC}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IC)
+        com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_ICOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC.class, com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        uid_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        productCode_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        outOrderId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        billId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC build() {
+        com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC buildPartial() {
+        com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC result = new com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.uid_ = uid_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.productCode_ = productCode_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.outOrderId_ = outOrderId_;
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.billId_ = billId_;
+          to_bitField0_ |= 0x00000008;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC other) {
+        if (other == com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC.getDefaultInstance()) return this;
+        if (other.hasUid()) {
+          setUid(other.getUid());
+        }
+        if (other.hasProductCode()) {
+          bitField0_ |= 0x00000002;
+          productCode_ = other.productCode_;
+          onChanged();
+        }
+        if (other.hasOutOrderId()) {
+          bitField0_ |= 0x00000004;
+          outOrderId_ = other.outOrderId_;
+          onChanged();
+        }
+        if (other.hasBillId()) {
+          setBillId(other.getBillId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasUid()) {
+          return false;
+        }
+        if (!hasProductCode()) {
+          return false;
+        }
+        if (!hasOutOrderId()) {
+          return false;
+        }
+        if (!hasBillId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long uid_ ;
+      /**
+       * <code>required int64 uid = 1;</code>
+       * @return Whether the uid field is set.
+       */
+      @java.lang.Override
+      public boolean hasUid() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int64 uid = 1;</code>
+       * @return The uid.
+       */
+      @java.lang.Override
+      public long getUid() {
+        return uid_;
+      }
+      /**
+       * <code>required int64 uid = 1;</code>
+       * @param value The uid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUid(long value) {
+        bitField0_ |= 0x00000001;
+        uid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 uid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUid() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        uid_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object productCode_ = "";
+      /**
+       * <code>required string productCode = 2;</code>
+       * @return Whether the productCode field is set.
+       */
+      public boolean hasProductCode() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required string productCode = 2;</code>
+       * @return The productCode.
+       */
+      public java.lang.String getProductCode() {
+        java.lang.Object ref = productCode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            productCode_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string productCode = 2;</code>
+       * @return The bytes for productCode.
+       */
+      public com.google.protobuf.ByteString
+          getProductCodeBytes() {
+        java.lang.Object ref = productCode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          productCode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string productCode = 2;</code>
+       * @param value The productCode to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductCode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        productCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string productCode = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProductCode() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        productCode_ = getDefaultInstance().getProductCode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string productCode = 2;</code>
+       * @param value The bytes for productCode to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        productCode_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object outOrderId_ = "";
+      /**
+       * <code>required string outOrderId = 3;</code>
+       * @return Whether the outOrderId field is set.
+       */
+      public boolean hasOutOrderId() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
+       * @return The outOrderId.
+       */
+      public java.lang.String getOutOrderId() {
+        java.lang.Object ref = outOrderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            outOrderId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
+       * @return The bytes for outOrderId.
+       */
+      public com.google.protobuf.ByteString
+          getOutOrderIdBytes() {
+        java.lang.Object ref = outOrderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          outOrderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
+       * @param value The outOrderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOutOrderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        outOrderId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOutOrderId() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        outOrderId_ = getDefaultInstance().getOutOrderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string outOrderId = 3;</code>
+       * @param value The bytes for outOrderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOutOrderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        outOrderId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long billId_ ;
+      /**
+       * <code>required int64 billId = 4;</code>
+       * @return Whether the billId field is set.
+       */
+      @java.lang.Override
+      public boolean hasBillId() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>required int64 billId = 4;</code>
+       * @return The billId.
+       */
+      @java.lang.Override
+      public long getBillId() {
+        return billId_;
+      }
+      /**
+       * <code>required int64 billId = 4;</code>
+       * @param value The billId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBillId(long value) {
+        bitField0_ |= 0x00000008;
+        billId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 billId = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBillId() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        billId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IC)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IC)
+    private static final com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC();
+    }
+
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<BILL_INCOME_TRIGGER_IC>
+        PARSER = new com.google.protobuf.AbstractParser<BILL_INCOME_TRIGGER_IC>() {
+      @java.lang.Override
+      public BILL_INCOME_TRIGGER_IC parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BILL_INCOME_TRIGGER_IC(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BILL_INCOME_TRIGGER_IC> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BILL_INCOME_TRIGGER_IC> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IC getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BILL_INCOME_TRIGGER_ISOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IS)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IS}
+   */
+  public static final class BILL_INCOME_TRIGGER_IS extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IS)
+      BILL_INCOME_TRIGGER_ISOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BILL_INCOME_TRIGGER_IS.newBuilder() to construct.
+    private BILL_INCOME_TRIGGER_IS(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BILL_INCOME_TRIGGER_IS() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BILL_INCOME_TRIGGER_IS();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BILL_INCOME_TRIGGER_IS(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS.class, com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS other = (com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IS}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IS)
+        com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_ISOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS.class, com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS build() {
+        com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS buildPartial() {
+        com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS result = new com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS) {
+          return mergeFrom((com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS other) {
+        if (other == com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IS)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.BILL_INCOME_TRIGGER_IS)
+    private static final com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS();
+    }
+
+    public static com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<BILL_INCOME_TRIGGER_IS>
+        PARSER = new com.google.protobuf.AbstractParser<BILL_INCOME_TRIGGER_IS>() {
+      @java.lang.Override
+      public BILL_INCOME_TRIGGER_IS parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BILL_INCOME_TRIGGER_IS(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BILL_INCOME_TRIGGER_IS> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BILL_INCOME_TRIGGER_IS> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWallet.BILL_INCOME_TRIGGER_IS getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BILL_PAYMENT_NOTIFY_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IC)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int64 uid = 1;</code>
+     * @return Whether the uid field is set.
+     */
+    boolean hasUid();
+    /**
+     * <code>required int64 uid = 1;</code>
+     * @return The uid.
+     */
+    long getUid();
+
+    /**
+     * <code>required int64 billId = 2;</code>
+     * @return Whether the billId field is set.
+     */
+    boolean hasBillId();
+    /**
+     * <code>required int64 billId = 2;</code>
+     * @return The billId.
+     */
+    long getBillId();
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IC}
+   */
+  public static final class BILL_PAYMENT_NOTIFY_IC extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IC)
+      BILL_PAYMENT_NOTIFY_ICOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BILL_PAYMENT_NOTIFY_IC.newBuilder() to construct.
+    private BILL_PAYMENT_NOTIFY_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BILL_PAYMENT_NOTIFY_IC() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BILL_PAYMENT_NOTIFY_IC();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BILL_PAYMENT_NOTIFY_IC(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              uid_ = input.readInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              billId_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC.class, com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int UID_FIELD_NUMBER = 1;
+    private long uid_;
+    /**
+     * <code>required int64 uid = 1;</code>
+     * @return Whether the uid field is set.
+     */
+    @java.lang.Override
+    public boolean hasUid() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int64 uid = 1;</code>
+     * @return The uid.
+     */
+    @java.lang.Override
+    public long getUid() {
+      return uid_;
+    }
+
+    public static final int BILLID_FIELD_NUMBER = 2;
+    private long billId_;
+    /**
+     * <code>required int64 billId = 2;</code>
+     * @return Whether the billId field is set.
+     */
+    @java.lang.Override
+    public boolean hasBillId() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required int64 billId = 2;</code>
+     * @return The billId.
+     */
+    @java.lang.Override
+    public long getBillId() {
+      return billId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasBillId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(1, uid_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeInt64(2, billId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, uid_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, billId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC other = (com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC) obj;
+
+      if (hasUid() != other.hasUid()) return false;
+      if (hasUid()) {
+        if (getUid()
+            != other.getUid()) return false;
+      }
+      if (hasBillId() != other.hasBillId()) return false;
+      if (hasBillId()) {
+        if (getBillId()
+            != other.getBillId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUid()) {
+        hash = (37 * hash) + UID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getUid());
+      }
+      if (hasBillId()) {
+        hash = (37 * hash) + BILLID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getBillId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IC}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IC)
+        com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_ICOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC.class, com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        uid_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        billId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC build() {
+        com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC buildPartial() {
+        com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC result = new com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.uid_ = uid_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.billId_ = billId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC other) {
+        if (other == com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC.getDefaultInstance()) return this;
+        if (other.hasUid()) {
+          setUid(other.getUid());
+        }
+        if (other.hasBillId()) {
+          setBillId(other.getBillId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasUid()) {
+          return false;
+        }
+        if (!hasBillId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long uid_ ;
+      /**
+       * <code>required int64 uid = 1;</code>
+       * @return Whether the uid field is set.
+       */
+      @java.lang.Override
+      public boolean hasUid() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int64 uid = 1;</code>
+       * @return The uid.
+       */
+      @java.lang.Override
+      public long getUid() {
+        return uid_;
+      }
+      /**
+       * <code>required int64 uid = 1;</code>
+       * @param value The uid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUid(long value) {
+        bitField0_ |= 0x00000001;
+        uid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 uid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUid() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        uid_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long billId_ ;
+      /**
+       * <code>required int64 billId = 2;</code>
+       * @return Whether the billId field is set.
+       */
+      @java.lang.Override
+      public boolean hasBillId() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required int64 billId = 2;</code>
+       * @return The billId.
+       */
+      @java.lang.Override
+      public long getBillId() {
+        return billId_;
+      }
+      /**
+       * <code>required int64 billId = 2;</code>
+       * @param value The billId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBillId(long value) {
+        bitField0_ |= 0x00000002;
+        billId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 billId = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBillId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        billId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IC)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IC)
+    private static final com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC();
+    }
+
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<BILL_PAYMENT_NOTIFY_IC>
+        PARSER = new com.google.protobuf.AbstractParser<BILL_PAYMENT_NOTIFY_IC>() {
+      @java.lang.Override
+      public BILL_PAYMENT_NOTIFY_IC parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BILL_PAYMENT_NOTIFY_IC(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BILL_PAYMENT_NOTIFY_IC> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BILL_PAYMENT_NOTIFY_IC> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IC getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BILL_PAYMENT_NOTIFY_ISOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IS)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IS}
+   */
+  public static final class BILL_PAYMENT_NOTIFY_IS extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IS)
+      BILL_PAYMENT_NOTIFY_ISOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BILL_PAYMENT_NOTIFY_IS.newBuilder() to construct.
+    private BILL_PAYMENT_NOTIFY_IS(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BILL_PAYMENT_NOTIFY_IS() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BILL_PAYMENT_NOTIFY_IS();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BILL_PAYMENT_NOTIFY_IS(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS.class, com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS other = (com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IS}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IS)
+        com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_ISOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS.class, com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftWallet.internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS build() {
+        com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS buildPartial() {
+        com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS result = new com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS) {
+          return mergeFrom((com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS other) {
+        if (other == com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IS)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.BILL_PAYMENT_NOTIFY_IS)
+    private static final com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS();
+    }
+
+    public static com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<BILL_PAYMENT_NOTIFY_IS>
+        PARSER = new com.google.protobuf.AbstractParser<BILL_PAYMENT_NOTIFY_IS>() {
+      @java.lang.Override
+      public BILL_PAYMENT_NOTIFY_IS parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BILL_PAYMENT_NOTIFY_IS(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BILL_PAYMENT_NOTIFY_IS> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BILL_PAYMENT_NOTIFY_IS> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWallet.BILL_PAYMENT_NOTIFY_IS getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ruixi_tpulse_convention_BillDTO_descriptor;
   private static final 
@@ -6628,6 +9364,26 @@ public final class NftWallet {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_ruixi_tpulse_convention_RECHARGE_IS_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -6641,20 +9397,25 @@ public final class NftWallet {
       "ion\"\346\001\n\007BillDTO\022\016\n\006billId\030\001 \002(\003\022\025\n\ractiv" +
       "ityCfgId\030\002 \002(\005\022\013\n\003uid\030\003 \002(\003\022\023\n\013productCo" +
       "de\030\004 \002(\t\022\021\n\tproductId\030\005 \002(\t\022\022\n\noutOrderI" +
-      "d\030\006 \002(\003\022\r\n\005value\030\007 \002(\t\022\020\n\010currency\030\010 \002(\t" +
+      "d\030\006 \002(\t\022\r\n\005value\030\007 \002(\t\022\020\n\010currency\030\010 \002(\t" +
       "\022\r\n\005state\030\t \002(\t\022\021\n\tcreatedAt\030\n \002(\003\022\024\n\014me" +
-      "rchantType\030\013 \001(\t\022\022\n\nmerchantId\030\014 \001(\003\";\n\013" +
+      "rchantType\030\013 \001(\t\022\022\n\nmerchantId\030\014 \001(\t\";\n\013" +
       "BILL_PAY_IC\022\013\n\003uid\030\001 \002(\003\022\r\n\005token\030\002 \002(\t\022" +
       "\020\n\010password\030\003 \002(\t\"A\n\013BILL_PAY_IS\0222\n\004bill" +
       "\030\001 \002(\0132$.com.ruixi.tpulse.convention.Bil" +
       "lDTO\"F\n\016BILL_DETAIL_IC\022\013\n\003uid\030\001 \002(\003\022\023\n\013p" +
-      "roductCode\030\002 \002(\t\022\022\n\noutOrderId\030\003 \002(\003\"E\n\016" +
+      "roductCode\030\002 \002(\t\022\022\n\noutOrderId\030\003 \002(\t\"E\n\016" +
       "BILL_DETAIL_IS\0223\n\005bills\030\001 \002(\0132$.com.ruix" +
       "i.tpulse.convention.BillDTO\")\n\013RECHARGE_" +
       "IC\022\013\n\003uid\030\001 \002(\003\022\r\n\005token\030\002 \002(\t\"A\n\013RECHAR" +
       "GE_IS\0222\n\004bill\030\001 \002(\0132$.com.ruixi.tpulse.c" +
-      "onvention.BillDTOB#\n\026com.tenth.nft.proto" +
-      "bufB\tNftWallet"
+      "onvention.BillDTO\"^\n\026BILL_INCOME_TRIGGER" +
+      "_IC\022\013\n\003uid\030\001 \002(\003\022\023\n\013productCode\030\002 \002(\t\022\022\n" +
+      "\noutOrderId\030\003 \002(\t\022\016\n\006billId\030\004 \002(\003\"\030\n\026BIL" +
+      "L_INCOME_TRIGGER_IS\"5\n\026BILL_PAYMENT_NOTI" +
+      "FY_IC\022\013\n\003uid\030\001 \002(\003\022\016\n\006billId\030\002 \002(\003\"\030\n\026BI" +
+      "LL_PAYMENT_NOTIFY_ISB#\n\026com.tenth.nft.pr" +
+      "otobufB\tNftWallet"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6702,6 +9463,30 @@ public final class NftWallet {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_RECHARGE_IS_descriptor,
         new java.lang.String[] { "Bill", });
+    internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IC_descriptor,
+        new java.lang.String[] { "Uid", "ProductCode", "OutOrderId", "BillId", });
+    internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_BILL_INCOME_TRIGGER_IS_descriptor,
+        new java.lang.String[] { });
+    internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IC_descriptor,
+        new java.lang.String[] { "Uid", "BillId", });
+    internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_BILL_PAYMENT_NOTIFY_IS_descriptor,
+        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

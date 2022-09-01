@@ -9,7 +9,7 @@ public class OfferEvent implements NftActivityEvent {
 
     private Long from;
     private Integer quantity;
-    private Float price;
+    private String price;
     private String currency;
     private Boolean cancel;
     private String reason;
@@ -31,11 +31,11 @@ public class OfferEvent implements NftActivityEvent {
         return quantity;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 

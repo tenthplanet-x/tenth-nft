@@ -24,6 +24,14 @@ public class WalletToken {
 
     private String sign;
 
+    protected void setBizContent(WalletOrderBizContent bizContent) {
+        this.bizContent = bizContent;
+    }
+
+    protected void setSign(String sign) {
+        this.sign = sign;
+    }
+
     public static WalletToken decode(String token) {
 
         String json = new String(Base64Utils.decode(token), StandardCharsets.UTF_8);

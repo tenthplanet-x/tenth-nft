@@ -3,7 +3,7 @@ package com.tenth.nft.wallet;
 import com.tenth.nft.app.NftApplicationTest;
 import com.tenth.nft.convention.routes.wallet.WalletRechargeRouteRequest;
 import com.tenth.nft.convention.wallet.*;
-import com.tenth.nft.exchange.wallet.BuildInWalletProvider;
+import com.tenth.nft.exchange.buildin.wallet.BuildInWalletProvider;
 import com.tenth.nft.protobuf.NftWallet;
 import com.tpulse.gs.router.client.RouteClient;
 import org.junit.Test;
@@ -34,10 +34,10 @@ public class BuildinWalletProviderTest {
     public void createToken(){
 
         WalletOrderBizContent content = WalletOrderBizContent.newBuilder()
-                .activityCfgId(WalletOrderType.PAY.getActivityCfgId())
+                .activityCfgId(WalletOrderType.NftExpense.getActivityCfgId())
                 .productCode(WalletProductCode.NFT.name())
                 .productId("1")
-                .outOrderId(1l)
+                .outOrderId("1")
 //                .merchantType(WalletMerchantType.PERSONAL.name())
 //                .merchantId(1l)
                 .currency("TPC")
@@ -55,10 +55,10 @@ public class BuildinWalletProviderTest {
     public void recharge(){
 
         WalletOrderBizContent content = WalletOrderBizContent.newBuilder()
-                .activityCfgId(WalletOrderType.RECHAGE.getActivityCfgId())
+                .activityCfgId(WalletOrderType.FundsIncome.getActivityCfgId())
                 .productCode(WalletProductCode.WALLET_RECHARGE.name())
                 .productId("1")
-                .outOrderId(2l)
+                .outOrderId("2")
 //                .merchantType(WalletMerchantType.PERSONAL.name())
 //                .merchantId(1l)
                 .currency("TPC")

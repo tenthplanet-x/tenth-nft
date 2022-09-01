@@ -23,7 +23,7 @@ public class NftOrder {
 
     private String currency;
 
-    private Float price;
+    private String price;
 
     private Long owner;
 
@@ -40,6 +40,8 @@ public class NftOrder {
     private Long expiredAt;
 
     private String remark;
+
+    private String txn;
 
     public Long getId() {
         return id;
@@ -121,11 +123,11 @@ public class NftOrder {
         this.currency = currency;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -151,5 +153,13 @@ public class NftOrder {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getTxn() {
+        return txn;
+    }
+
+    public void setTxn(String txn) {
+        this.txn = txn;
     }
 }

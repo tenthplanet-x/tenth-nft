@@ -16,10 +16,10 @@ public class NftAssetsStatsUpdate extends SimpleUpdate {
     private Long assetsId;
 
     @SimpleWriteParam
-    private Float totalVolume;
+    private String totalVolume;
 
     @SimpleWriteParam
-    private Float floorPrice;
+    private String floorPrice;
 
     @SimpleWriteParam
     private String currency;
@@ -38,11 +38,11 @@ public class NftAssetsStatsUpdate extends SimpleUpdate {
         return assetsId;
     }
 
-    public Float getTotalVolume(){
+    public String getTotalVolume(){
         return totalVolume;
     }
 
-    public Float getFloorPrice(){
+    public String getFloorPrice(){
         return floorPrice;
     }
 
@@ -67,12 +67,12 @@ public class NftAssetsStatsUpdate extends SimpleUpdate {
             return this;
         }
 
-        public Builder setTotalVolume(Float totalVolume){
+        public Builder setTotalVolume(String totalVolume){
             update.totalVolume = totalVolume;
             return this;
         }
 
-        public Builder setFloorPrice(Float floorPrice){
+        public Builder setFloorPrice(String floorPrice){
             update.floorPrice = floorPrice;
             return this;
         }

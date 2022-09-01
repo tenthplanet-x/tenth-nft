@@ -9,13 +9,13 @@ message BillDTO{
   required int64 uid = 3;
   required string productCode = 4;
   required string productId = 5;
-  required int64 outOrderId = 6;
+  required string outOrderId = 6;
   required string value = 7;
   required string currency = 8;
   required string state = 9;
   required int64 createdAt = 10;
   optional string merchantType = 11;
-  optional int64 merchantId = 12;
+  optional string merchantId = 12;
 }
 
 message BILL_PAY_IC{
@@ -30,7 +30,7 @@ message BILL_PAY_IS{
 message BILL_DETAIL_IC{
   required int64 uid = 1;
   required string productCode = 2;
-  required int64 outOrderId = 3;
+  required string outOrderId = 3;
 }
 message BILL_DETAIL_IS{
   required BillDTO bills = 1;
@@ -42,6 +42,24 @@ message RECHARGE_IC{
 }
 message RECHARGE_IS{
   required BillDTO bill = 1;
+}
+
+message BILL_INCOME_TRIGGER_IC{
+  required int64 uid = 1;
+  required string productCode = 2;
+  required string outOrderId = 3;
+  required int64 billId = 4;
+}
+message BILL_INCOME_TRIGGER_IS{
+
+}
+
+message BILL_PAYMENT_NOTIFY_IC{
+  required int64 uid = 1;
+  required int64 billId = 2;
+}
+message BILL_PAYMENT_NOTIFY_IS{
+
 }
 
 

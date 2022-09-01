@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 @Valid
 public class Web3WalletBindRequest {
 
+    private String wallet;
+
     @NotEmpty
     private String accountId;
 
@@ -20,4 +22,11 @@ public class Web3WalletBindRequest {
         this.accountId = accountId;
     }
 
+    public String getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(String wallet) {
+        this.wallet = wallet;
+    }
 }

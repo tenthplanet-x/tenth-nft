@@ -16,7 +16,7 @@ public class WalletBillQuery extends SimplePageQuery {
     @SimpleQueryParam
     private String productCode;
     @SimpleQueryParam
-    private Long outOrderId;
+    private String outOrderId;
 
     public Long getId() {
         return id;
@@ -30,7 +30,7 @@ public class WalletBillQuery extends SimplePageQuery {
         return productCode;
     }
 
-    public Long getOutOrderId() {
+    public String getOutOrderId() {
         return outOrderId;
     }
 
@@ -62,7 +62,7 @@ public class WalletBillQuery extends SimplePageQuery {
             return this;
         }
 
-        public Builder outOrderId(Long outOrderId) {
+        public Builder outOrderId(String outOrderId) {
             query.outOrderId = outOrderId;
             return this;
         }

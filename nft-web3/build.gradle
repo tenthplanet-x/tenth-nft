@@ -6,6 +6,7 @@ dependencies {
     implementation 'org.web3j:core:4.7.0'
     //testImplementation "org.web3j:web3j-unit:4.7.0"
     implementation libs.tpulse_commons_utils
+    api project(":nft-convention")
 
     api libs.gs_httprouter
     api libs.gs_router

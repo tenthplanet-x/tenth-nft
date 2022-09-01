@@ -1,0 +1,2 @@
+solcjs /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-convention/src/main/solidity/Counter.sol --bin --abi --optimize -o /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-convention/build/solidity
+solcjs /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-convention/src/main/solidity/CounterAgent.sol --bin --abi --optimize -o /Users/chishijie/Documents/tpulse/java/tpulse-nft/nft-convention/build/solidity

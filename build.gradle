@@ -20,7 +20,6 @@ plugins {
     id 'maven-publish'
     id 'application'
     id 'java-library'
-    id 'org.web3j' version '4.7.0'
 }
 ext {
     if (!project.hasProperty("env")) {
@@ -64,6 +63,7 @@ ext {
             lombok_1_18_2: 'org.projectlombok:lombok:1.18.2',
             joda: 'joda-time:joda-time:2.10.5',
             junit: 'junit:junit:4.13.2',
+            web3j: 'org.web3j:core:4.7.0',
 
             gs_im: "com.tpulse.gs:gs-entrance:${versions.gs}",
             gs_config: "com.tpulse.gs:gs-config:${versions.gs}",
@@ -93,7 +93,7 @@ ext {
 
 allprojects{
     group 'com.tenth.nft'
-    version "0.0.1_202208018_002-SNAPSHOT"
+    version "0.0.1_20220901_003-SNAPSHOT"
 
     repositories {
         maven {
@@ -126,7 +126,6 @@ subprojects{
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'maven-publish'
     apply plugin: 'java-library'
-    apply plugin: 'org.web3j'
 
     jar {
         enabled = true

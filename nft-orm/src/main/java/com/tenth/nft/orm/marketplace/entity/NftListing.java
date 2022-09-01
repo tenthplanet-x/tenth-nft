@@ -1,7 +1,6 @@
 package com.tenth.nft.orm.marketplace.entity;
 
 import com.tpulse.gs.convention.dao.annotation.SimpleCache;
-import org.hibernate.validator.internal.constraintvalidators.bv.time.past.PastValidatorForReadableInstant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,12 +17,14 @@ public class NftListing {
 
     private Long uid;
 
+    private String uidAddress;
+
     @Indexed
     private Long assetsId;
 
     private Integer quantity;
 
-    private Float price;
+    private String price;
 
     private String currency;
 
@@ -37,7 +38,16 @@ public class NftListing {
     private Long updatedAt;
 
     private Boolean canceled = false;
+
     private Long activityId;
+
+    private Long creatorUid;
+
+    private String creatorAddress;
+
+    private String creatorFeeRate;
+
+    private String signature;
 
     public Long getId() {
         return id;
@@ -63,11 +73,11 @@ public class NftListing {
         this.quantity = quantity;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -134,4 +144,45 @@ public class NftListing {
     public Long getActivityId() {
         return activityId;
     }
+
+    public Long getCreatorUid() {
+        return creatorUid;
+    }
+
+    public void setCreatorUid(Long creatorUid) {
+        this.creatorUid = creatorUid;
+    }
+
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
+    }
+
+    public void setCreatorFeeRate(String creatorFeeRate) {
+        this.creatorFeeRate = creatorFeeRate;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getCreatorAddress() {
+        return creatorAddress;
+    }
+
+    public void setCreatorAddress(String creatorAddress) {
+        this.creatorAddress = creatorAddress;
+    }
+
+    public String getUidAddress() {
+        return uidAddress;
+    }
+
+    public void setUidAddress(String uidAddress) {
+        this.uidAddress = uidAddress;
+    }
+
 }

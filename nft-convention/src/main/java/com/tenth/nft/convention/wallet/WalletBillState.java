@@ -9,7 +9,7 @@ public enum WalletBillState {
     CREATE,
     PAYED,
     FAIL,
-    RETRY
+    COMPLETE
     ;
 
 }

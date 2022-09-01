@@ -24,7 +24,7 @@ public class NftCollectionLuceneDTO{
     @LuceneDocumentField(sortable = true)
     private Integer items;
     @LuceneDocumentField(sortable = true)
-    private Float totalVolume;
+    private Double totalVolume;
 
     public Long getId() {
         return id;
@@ -74,11 +74,11 @@ public class NftCollectionLuceneDTO{
         this.items = items;
     }
 
-    public Float getTotalVolume() {
+    public Double getTotalVolume() {
         return totalVolume;
     }
 
-    public void setTotalVolume(Float totalVolume) {
+    public void setTotalVolume(Double totalVolume) {
         this.totalVolume = totalVolume;
     }
 }

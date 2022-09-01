@@ -6,6 +6,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author shijie
  */
@@ -28,11 +31,11 @@ public class WalletBill {
 
     private String productId;
 
-    private Long outOrderId;
+    private String outOrderId;
 
     private String merchantType;
 
-    private Long merchantId;
+    private String merchantId;
 
     private String currency;
 
@@ -47,6 +50,12 @@ public class WalletBill {
     private Long updatedAt;
 
     private String notifyUri;
+
+    private List<WalletBillProfit> profits;
+
+    private boolean notified;
+
+    private int retry;
 
     public Long getId() {
         return id;
@@ -80,11 +89,11 @@ public class WalletBill {
         this.productCode = productCode;
     }
 
-    public Long getOutOrderId() {
+    public String getOutOrderId() {
         return outOrderId;
     }
 
-    public void setOutOrderId(Long outOrderId) {
+    public void setOutOrderId(String outOrderId) {
         this.outOrderId = outOrderId;
     }
 
@@ -96,11 +105,11 @@ public class WalletBill {
         this.merchantType = merchantType;
     }
 
-    public Long getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(Long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 
@@ -174,5 +183,29 @@ public class WalletBill {
 
     public void setActivityCfgId(Integer activityCfgId) {
         this.activityCfgId = activityCfgId;
+    }
+
+    public List<WalletBillProfit> getProfits() {
+        return profits;
+    }
+
+    public void setProfits(List<WalletBillProfit> profits) {
+        this.profits = profits;
+    }
+
+    public boolean isNotified() {
+        return notified;
+    }
+
+    public void setNotified(boolean notified) {
+        this.notified = notified;
+    }
+
+    public int getRetry() {
+        return retry;
+    }
+
+    public void setRetry(int retry) {
+        this.retry = retry;
     }
 }

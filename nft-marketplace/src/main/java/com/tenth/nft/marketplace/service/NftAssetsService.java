@@ -4,9 +4,11 @@ import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftModules;
 import com.tenth.nft.convention.TpulseHeaders;
+import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
 import com.tenth.nft.convention.routes.exchange.MintRouteRequest;
+import com.tenth.nft.convention.web3.utils.HexAddresses;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsUpdate;
@@ -48,6 +50,8 @@ public class NftAssetsService {
     private NftCollectionService nftCollectionService;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private Web3Properties web3Properties;
 
     public NftMarketplace.ASSETS_CREATE_IS create(NftMarketplace.ASSETS_CREATE_IC _request) {
 
@@ -67,11 +71,13 @@ public class NftAssetsService {
         nftAssets.setBlockchain(request.getBlockchain());
         nftAssets.setCreatedAt(System.currentTimeMillis());
         nftAssets.setUpdatedAt(System.currentTimeMillis());
-
+        nftAssets.setCreatorFeeRate(request.getCreatorFeeRate());
+        nftAssets.setCreatorAddress(request.getCreatorAddress());
+        nftAssets.setSignature(_request.getAssets().getSignature());
         nftAssets = nftAssetsDao.insert(nftAssets);
 
         //mint
-        NftExchange.NftMintDTO mintDTO = routeClient.send(
+        routeClient.send(
                 NftExchange.MINT_IC.newBuilder()
                         .setAssetsId(request.getId())
                         .setBlockchain(request.getBlockchain())
@@ -83,9 +89,9 @@ public class NftAssetsService {
         nftAssets = nftAssetsDao.findAndModify(
                 NftAssetsQuery.newBuilder().id(nftAssets.getId()).build(),
                 NftAssetsUpdate.newBuilder()
-                        .setContractAddress(mintDTO.getContractAddress())
-                        .setTokenStandard(mintDTO.getTokenStandard())
-                        .setToken(mintDTO.getToken())
+                        .setContractAddress(web3Properties.getContract().getAddress())
+                        .setTokenStandard(web3Properties.getContract().getTokenStandard())
+                        .setToken(HexAddresses.of(nftAssets.getId()))
                         .build(),
                 UpdateOptions.options().returnNew(true)
         );

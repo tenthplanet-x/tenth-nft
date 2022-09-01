@@ -10,6 +10,7 @@ public enum NftCmdGroup implements CmdGroup {
     SEARCH,
     EXCHANGE,
     PLAYER,
-    WALLET
+    WALLET,
+    WEB3_WALLET
 
 }

@@ -9,6 +9,11 @@ public class Web3WalletBalance {
 
     private String balance;
 
+    public Web3WalletBalance(String currency, String balance) {
+        this.currency = currency;
+        this.balance = balance;
+    }
+
     public String getCurrency() {
         return currency;
     }
@@ -24,4 +29,5 @@ public class Web3WalletBalance {
     public void setBalance(String balance) {
         this.balance = balance;
     }
+
 }

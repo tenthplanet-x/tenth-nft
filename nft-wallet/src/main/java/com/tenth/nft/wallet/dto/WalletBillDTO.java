@@ -2,7 +2,6 @@ package com.tenth.nft.wallet.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
-import com.tenth.nft.convention.wallet.WalletOrderType;
 import com.tenth.nft.protobuf.NftWallet;
 import com.tenth.nft.wallet.entity.WalletBill;
 import org.apache.logging.log4j.util.Strings;
@@ -18,6 +17,8 @@ public class WalletBillDTO {
     private Integer activityCfgId;
 
     private String type;
+
+    private String displayType;
 
     private String productCode;
 
@@ -95,12 +96,12 @@ public class WalletBillDTO {
         return activityCfgId;
     }
 
-    public String getType() {
-        return type;
+    public String getDisplayType() {
+        return displayType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDisplayType(String displayType) {
+        this.displayType = displayType;
     }
 
     public void setActivityCfgId(Integer activityCfgId) {
@@ -121,6 +122,14 @@ public class WalletBillDTO {
 
     public void setIncomeExpense(String incomeExpense) {
         this.incomeExpense = incomeExpense;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public static NftWallet.BillDTO toProto(WalletBill walletBill) {

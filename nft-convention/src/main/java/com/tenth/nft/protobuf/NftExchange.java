@@ -1221,15 +1221,21 @@ public final class NftExchange {
     long getSeller();
 
     /**
-     * <code>required float price = 3;</code>
+     * <code>required string price = 3;</code>
      * @return Whether the price field is set.
      */
     boolean hasPrice();
     /**
-     * <code>required float price = 3;</code>
+     * <code>required string price = 3;</code>
      * @return The price.
      */
-    float getPrice();
+    java.lang.String getPrice();
+    /**
+     * <code>required string price = 3;</code>
+     * @return The bytes for price.
+     */
+    com.google.protobuf.ByteString
+        getPriceBytes();
 
     /**
      * <code>required int32 quantity = 4;</code>
@@ -1316,6 +1322,7 @@ public final class NftExchange {
       super(builder);
     }
     private NftListingDTO() {
+      price_ = "";
       currency_ = "";
     }
 
@@ -1360,9 +1367,10 @@ public final class NftExchange {
               seller_ = input.readInt64();
               break;
             }
-            case 29: {
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              price_ = input.readFloat();
+              price_ = bs;
               break;
             }
             case 32: {
@@ -1468,9 +1476,9 @@ public final class NftExchange {
     }
 
     public static final int PRICE_FIELD_NUMBER = 3;
-    private float price_;
+    private volatile java.lang.Object price_;
     /**
-     * <code>required float price = 3;</code>
+     * <code>required string price = 3;</code>
      * @return Whether the price field is set.
      */
     @java.lang.Override
@@ -1478,12 +1486,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>required float price = 3;</code>
+     * <code>required string price = 3;</code>
      * @return The price.
      */
     @java.lang.Override
-    public float getPrice() {
-      return price_;
+    public java.lang.String getPrice() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          price_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string price = 3;</code>
+     * @return The bytes for price.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPriceBytes() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        price_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int QUANTITY_FIELD_NUMBER = 4;
@@ -1686,7 +1723,7 @@ public final class NftExchange {
         output.writeInt64(2, seller_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        output.writeFloat(3, price_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, price_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         output.writeInt32(4, quantity_);
@@ -1724,8 +1761,7 @@ public final class NftExchange {
           .computeInt64Size(2, seller_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, price_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, price_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1777,9 +1813,8 @@ public final class NftExchange {
       }
       if (hasPrice() != other.hasPrice()) return false;
       if (hasPrice()) {
-        if (java.lang.Float.floatToIntBits(getPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getPrice())) return false;
+        if (!getPrice()
+            .equals(other.getPrice())) return false;
       }
       if (hasQuantity() != other.hasQuantity()) return false;
       if (hasQuantity()) {
@@ -1834,8 +1869,7 @@ public final class NftExchange {
       }
       if (hasPrice()) {
         hash = (37 * hash) + PRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getPrice());
+        hash = (53 * hash) + getPrice().hashCode();
       }
       if (hasQuantity()) {
         hash = (37 * hash) + QUANTITY_FIELD_NUMBER;
@@ -2002,7 +2036,7 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000001);
         seller_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
-        price_ = 0F;
+        price_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
         quantity_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -2053,9 +2087,9 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.price_ = price_;
           to_bitField0_ |= 0x00000004;
         }
+        result.price_ = price_;
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.quantity_ = quantity_;
           to_bitField0_ |= 0x00000008;
@@ -2136,7 +2170,9 @@ public final class NftExchange {
           setSeller(other.getSeller());
         }
         if (other.hasPrice()) {
-          setPrice(other.getPrice());
+          bitField0_ |= 0x00000004;
+          price_ = other.price_;
+          onChanged();
         }
         if (other.hasQuantity()) {
           setQuantity(other.getQuantity());
@@ -2293,41 +2329,86 @@ public final class NftExchange {
         return this;
       }
 
-      private float price_ ;
+      private java.lang.Object price_ = "";
       /**
-       * <code>required float price = 3;</code>
+       * <code>required string price = 3;</code>
        * @return Whether the price field is set.
        */
-      @java.lang.Override
       public boolean hasPrice() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required string price = 3;</code>
        * @return The price.
        */
-      @java.lang.Override
-      public float getPrice() {
-        return price_;
+      public java.lang.String getPrice() {
+        java.lang.Object ref = price_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            price_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required string price = 3;</code>
+       * @return The bytes for price.
+       */
+      public com.google.protobuf.ByteString
+          getPriceBytes() {
+        java.lang.Object ref = price_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          price_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string price = 3;</code>
        * @param value The price to set.
        * @return This builder for chaining.
        */
-      public Builder setPrice(float value) {
-        bitField0_ |= 0x00000004;
+      public Builder setPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
         price_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required string price = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearPrice() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        price_ = 0F;
+        price_ = getDefaultInstance().getPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string price = 3;</code>
+       * @param value The bytes for price to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        price_ = value;
         onChanged();
         return this;
       }
@@ -3344,15 +3425,21 @@ public final class NftExchange {
     long getTo();
 
     /**
-     * <code>optional float price = 4;</code>
+     * <code>optional string price = 4;</code>
      * @return Whether the price field is set.
      */
     boolean hasPrice();
     /**
-     * <code>optional float price = 4;</code>
+     * <code>optional string price = 4;</code>
      * @return The price.
      */
-    float getPrice();
+    java.lang.String getPrice();
+    /**
+     * <code>optional string price = 4;</code>
+     * @return The bytes for price.
+     */
+    com.google.protobuf.ByteString
+        getPriceBytes();
 
     /**
      * <code>optional string currency = 5;</code>
@@ -3457,6 +3544,7 @@ public final class NftExchange {
     }
     private NftActivityDTO() {
       event_ = "";
+      price_ = "";
       currency_ = "";
       reason_ = "";
     }
@@ -3508,9 +3596,10 @@ public final class NftExchange {
               to_ = input.readInt64();
               break;
             }
-            case 37: {
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000008;
-              price_ = input.readFloat();
+              price_ = bs;
               break;
             }
             case 42: {
@@ -3670,9 +3759,9 @@ public final class NftExchange {
     }
 
     public static final int PRICE_FIELD_NUMBER = 4;
-    private float price_;
+    private volatile java.lang.Object price_;
     /**
-     * <code>optional float price = 4;</code>
+     * <code>optional string price = 4;</code>
      * @return Whether the price field is set.
      */
     @java.lang.Override
@@ -3680,12 +3769,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000008) != 0);
     }
     /**
-     * <code>optional float price = 4;</code>
+     * <code>optional string price = 4;</code>
      * @return The price.
      */
     @java.lang.Override
-    public float getPrice() {
-      return price_;
+    public java.lang.String getPrice() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          price_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string price = 4;</code>
+     * @return The bytes for price.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPriceBytes() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        price_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CURRENCY_FIELD_NUMBER = 5;
@@ -3915,7 +4033,7 @@ public final class NftExchange {
         output.writeInt64(3, to_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
-        output.writeFloat(4, price_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, price_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, currency_);
@@ -3959,8 +4077,7 @@ public final class NftExchange {
           .computeInt64Size(3, to_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, price_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, price_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, currency_);
@@ -4020,9 +4137,8 @@ public final class NftExchange {
       }
       if (hasPrice() != other.hasPrice()) return false;
       if (hasPrice()) {
-        if (java.lang.Float.floatToIntBits(getPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getPrice())) return false;
+        if (!getPrice()
+            .equals(other.getPrice())) return false;
       }
       if (hasCurrency() != other.hasCurrency()) return false;
       if (hasCurrency()) {
@@ -4086,8 +4202,7 @@ public final class NftExchange {
       }
       if (hasPrice()) {
         hash = (37 * hash) + PRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getPrice());
+        hash = (53 * hash) + getPrice().hashCode();
       }
       if (hasCurrency()) {
         hash = (37 * hash) + CURRENCY_FIELD_NUMBER;
@@ -4260,7 +4375,7 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000002);
         to_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
-        price_ = 0F;
+        price_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
         currency_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -4317,9 +4432,9 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000004;
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.price_ = price_;
           to_bitField0_ |= 0x00000008;
         }
+        result.price_ = price_;
         if (((from_bitField0_ & 0x00000010) != 0)) {
           to_bitField0_ |= 0x00000010;
         }
@@ -4409,7 +4524,9 @@ public final class NftExchange {
           setTo(other.getTo());
         }
         if (other.hasPrice()) {
-          setPrice(other.getPrice());
+          bitField0_ |= 0x00000008;
+          price_ = other.price_;
+          onChanged();
         }
         if (other.hasCurrency()) {
           bitField0_ |= 0x00000010;
@@ -4637,41 +4754,86 @@ public final class NftExchange {
         return this;
       }
 
-      private float price_ ;
+      private java.lang.Object price_ = "";
       /**
-       * <code>optional float price = 4;</code>
+       * <code>optional string price = 4;</code>
        * @return Whether the price field is set.
        */
-      @java.lang.Override
       public boolean hasPrice() {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>optional float price = 4;</code>
+       * <code>optional string price = 4;</code>
        * @return The price.
        */
-      @java.lang.Override
-      public float getPrice() {
-        return price_;
+      public java.lang.String getPrice() {
+        java.lang.Object ref = price_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            price_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional float price = 4;</code>
+       * <code>optional string price = 4;</code>
+       * @return The bytes for price.
+       */
+      public com.google.protobuf.ByteString
+          getPriceBytes() {
+        java.lang.Object ref = price_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          price_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string price = 4;</code>
        * @param value The price to set.
        * @return This builder for chaining.
        */
-      public Builder setPrice(float value) {
-        bitField0_ |= 0x00000008;
+      public Builder setPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
         price_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float price = 4;</code>
+       * <code>optional string price = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearPrice() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        price_ = 0F;
+        price_ = getDefaultInstance().getPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string price = 4;</code>
+       * @param value The bytes for price to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        price_ = value;
         onChanged();
         return this;
       }
@@ -5107,15 +5269,21 @@ public final class NftExchange {
     long getId();
 
     /**
-     * <code>optional float totalVolume = 2;</code>
+     * <code>optional string totalVolume = 2;</code>
      * @return Whether the totalVolume field is set.
      */
     boolean hasTotalVolume();
     /**
-     * <code>optional float totalVolume = 2;</code>
+     * <code>optional string totalVolume = 2;</code>
      * @return The totalVolume.
      */
-    float getTotalVolume();
+    java.lang.String getTotalVolume();
+    /**
+     * <code>optional string totalVolume = 2;</code>
+     * @return The bytes for totalVolume.
+     */
+    com.google.protobuf.ByteString
+        getTotalVolumeBytes();
 
     /**
      * <code>optional string currency = 3;</code>
@@ -5216,6 +5384,7 @@ public final class NftExchange {
       super(builder);
     }
     private NftAssetsProfileDTO() {
+      totalVolume_ = "";
       currency_ = "";
       ownerLists_ = emptyLongList();
     }
@@ -5256,9 +5425,10 @@ public final class NftExchange {
               id_ = input.readInt64();
               break;
             }
-            case 21: {
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              totalVolume_ = input.readFloat();
+              totalVolume_ = bs;
               break;
             }
             case 26: {
@@ -5380,9 +5550,9 @@ public final class NftExchange {
     }
 
     public static final int TOTALVOLUME_FIELD_NUMBER = 2;
-    private float totalVolume_;
+    private volatile java.lang.Object totalVolume_;
     /**
-     * <code>optional float totalVolume = 2;</code>
+     * <code>optional string totalVolume = 2;</code>
      * @return Whether the totalVolume field is set.
      */
     @java.lang.Override
@@ -5390,12 +5560,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>optional float totalVolume = 2;</code>
+     * <code>optional string totalVolume = 2;</code>
      * @return The totalVolume.
      */
     @java.lang.Override
-    public float getTotalVolume() {
-      return totalVolume_;
+    public java.lang.String getTotalVolume() {
+      java.lang.Object ref = totalVolume_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          totalVolume_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string totalVolume = 2;</code>
+     * @return The bytes for totalVolume.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTotalVolumeBytes() {
+      java.lang.Object ref = totalVolume_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        totalVolume_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CURRENCY_FIELD_NUMBER = 3;
@@ -5597,7 +5796,7 @@ public final class NftExchange {
         output.writeInt64(1, id_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeFloat(2, totalVolume_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, totalVolume_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, currency_);
@@ -5631,8 +5830,7 @@ public final class NftExchange {
           .computeInt64Size(1, id_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, totalVolume_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, totalVolume_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, currency_);
@@ -5684,9 +5882,8 @@ public final class NftExchange {
       }
       if (hasTotalVolume() != other.hasTotalVolume()) return false;
       if (hasTotalVolume()) {
-        if (java.lang.Float.floatToIntBits(getTotalVolume())
-            != java.lang.Float.floatToIntBits(
-                other.getTotalVolume())) return false;
+        if (!getTotalVolume()
+            .equals(other.getTotalVolume())) return false;
       }
       if (hasCurrency() != other.hasCurrency()) return false;
       if (hasCurrency()) {
@@ -5733,8 +5930,7 @@ public final class NftExchange {
       }
       if (hasTotalVolume()) {
         hash = (37 * hash) + TOTALVOLUME_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getTotalVolume());
+        hash = (53 * hash) + getTotalVolume().hashCode();
       }
       if (hasCurrency()) {
         hash = (37 * hash) + CURRENCY_FIELD_NUMBER;
@@ -5897,7 +6093,7 @@ public final class NftExchange {
         super.clear();
         id_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        totalVolume_ = 0F;
+        totalVolume_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         currency_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -5952,9 +6148,9 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.totalVolume_ = totalVolume_;
           to_bitField0_ |= 0x00000002;
         }
+        result.totalVolume_ = totalVolume_;
         if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -6041,7 +6237,9 @@ public final class NftExchange {
           setId(other.getId());
         }
         if (other.hasTotalVolume()) {
-          setTotalVolume(other.getTotalVolume());
+          bitField0_ |= 0x00000002;
+          totalVolume_ = other.totalVolume_;
+          onChanged();
         }
         if (other.hasCurrency()) {
           bitField0_ |= 0x00000004;
@@ -6152,41 +6350,86 @@ public final class NftExchange {
         return this;
       }
 
-      private float totalVolume_ ;
+      private java.lang.Object totalVolume_ = "";
       /**
-       * <code>optional float totalVolume = 2;</code>
+       * <code>optional string totalVolume = 2;</code>
        * @return Whether the totalVolume field is set.
        */
-      @java.lang.Override
       public boolean hasTotalVolume() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>optional float totalVolume = 2;</code>
+       * <code>optional string totalVolume = 2;</code>
        * @return The totalVolume.
        */
-      @java.lang.Override
-      public float getTotalVolume() {
-        return totalVolume_;
+      public java.lang.String getTotalVolume() {
+        java.lang.Object ref = totalVolume_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            totalVolume_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional float totalVolume = 2;</code>
+       * <code>optional string totalVolume = 2;</code>
+       * @return The bytes for totalVolume.
+       */
+      public com.google.protobuf.ByteString
+          getTotalVolumeBytes() {
+        java.lang.Object ref = totalVolume_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          totalVolume_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string totalVolume = 2;</code>
        * @param value The totalVolume to set.
        * @return This builder for chaining.
        */
-      public Builder setTotalVolume(float value) {
-        bitField0_ |= 0x00000002;
+      public Builder setTotalVolume(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         totalVolume_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float totalVolume = 2;</code>
+       * <code>optional string totalVolume = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTotalVolume() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        totalVolume_ = 0F;
+        totalVolume_ = getDefaultInstance().getTotalVolume();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string totalVolume = 2;</code>
+       * @param value The bytes for totalVolume to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTotalVolumeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        totalVolume_ = value;
         onChanged();
         return this;
       }
@@ -6729,15 +6972,21 @@ public final class NftExchange {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional float totalVolume = 2;</code>
+     * <code>optional string totalVolume = 2;</code>
      * @return Whether the totalVolume field is set.
      */
     boolean hasTotalVolume();
     /**
-     * <code>optional float totalVolume = 2;</code>
+     * <code>optional string totalVolume = 2;</code>
      * @return The totalVolume.
      */
-    float getTotalVolume();
+    java.lang.String getTotalVolume();
+    /**
+     * <code>optional string totalVolume = 2;</code>
+     * @return The bytes for totalVolume.
+     */
+    com.google.protobuf.ByteString
+        getTotalVolumeBytes();
 
     /**
      * <code>optional string currency = 3;</code>
@@ -6768,15 +7017,21 @@ public final class NftExchange {
     int getOwners();
 
     /**
-     * <code>optional float floorPrice = 6;</code>
+     * <code>optional string floorPrice = 6;</code>
      * @return Whether the floorPrice field is set.
      */
     boolean hasFloorPrice();
     /**
-     * <code>optional float floorPrice = 6;</code>
+     * <code>optional string floorPrice = 6;</code>
      * @return The floorPrice.
      */
-    float getFloorPrice();
+    java.lang.String getFloorPrice();
+    /**
+     * <code>optional string floorPrice = 6;</code>
+     * @return The bytes for floorPrice.
+     */
+    com.google.protobuf.ByteString
+        getFloorPriceBytes();
 
     /**
      * <code>optional bool owned = 7;</code>
@@ -6802,7 +7057,9 @@ public final class NftExchange {
       super(builder);
     }
     private NftCollectionProfileDTO() {
+      totalVolume_ = "";
       currency_ = "";
+      floorPrice_ = "";
     }
 
     @java.lang.Override
@@ -6836,9 +7093,10 @@ public final class NftExchange {
             case 0:
               done = true;
               break;
-            case 21: {
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              totalVolume_ = input.readFloat();
+              totalVolume_ = bs;
               break;
             }
             case 26: {
@@ -6852,9 +7110,10 @@ public final class NftExchange {
               owners_ = input.readInt32();
               break;
             }
-            case 53: {
+            case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000008;
-              floorPrice_ = input.readFloat();
+              floorPrice_ = bs;
               break;
             }
             case 56: {
@@ -6896,9 +7155,9 @@ public final class NftExchange {
 
     private int bitField0_;
     public static final int TOTALVOLUME_FIELD_NUMBER = 2;
-    private float totalVolume_;
+    private volatile java.lang.Object totalVolume_;
     /**
-     * <code>optional float totalVolume = 2;</code>
+     * <code>optional string totalVolume = 2;</code>
      * @return Whether the totalVolume field is set.
      */
     @java.lang.Override
@@ -6906,12 +7165,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>optional float totalVolume = 2;</code>
+     * <code>optional string totalVolume = 2;</code>
      * @return The totalVolume.
      */
     @java.lang.Override
-    public float getTotalVolume() {
-      return totalVolume_;
+    public java.lang.String getTotalVolume() {
+      java.lang.Object ref = totalVolume_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          totalVolume_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string totalVolume = 2;</code>
+     * @return The bytes for totalVolume.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTotalVolumeBytes() {
+      java.lang.Object ref = totalVolume_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        totalVolume_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CURRENCY_FIELD_NUMBER = 3;
@@ -6982,9 +7270,9 @@ public final class NftExchange {
     }
 
     public static final int FLOORPRICE_FIELD_NUMBER = 6;
-    private float floorPrice_;
+    private volatile java.lang.Object floorPrice_;
     /**
-     * <code>optional float floorPrice = 6;</code>
+     * <code>optional string floorPrice = 6;</code>
      * @return Whether the floorPrice field is set.
      */
     @java.lang.Override
@@ -6992,12 +7280,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000008) != 0);
     }
     /**
-     * <code>optional float floorPrice = 6;</code>
+     * <code>optional string floorPrice = 6;</code>
      * @return The floorPrice.
      */
     @java.lang.Override
-    public float getFloorPrice() {
-      return floorPrice_;
+    public java.lang.String getFloorPrice() {
+      java.lang.Object ref = floorPrice_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          floorPrice_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string floorPrice = 6;</code>
+     * @return The bytes for floorPrice.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getFloorPriceBytes() {
+      java.lang.Object ref = floorPrice_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        floorPrice_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int OWNED_FIELD_NUMBER = 7;
@@ -7038,7 +7355,7 @@ public final class NftExchange {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeFloat(2, totalVolume_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, totalVolume_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, currency_);
@@ -7047,7 +7364,7 @@ public final class NftExchange {
         output.writeInt32(4, owners_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
-        output.writeFloat(6, floorPrice_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, floorPrice_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
         output.writeBool(7, owned_);
@@ -7062,8 +7379,7 @@ public final class NftExchange {
 
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, totalVolume_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, totalVolume_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, currency_);
@@ -7073,8 +7389,7 @@ public final class NftExchange {
           .computeInt32Size(4, owners_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(6, floorPrice_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, floorPrice_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
@@ -7097,9 +7412,8 @@ public final class NftExchange {
 
       if (hasTotalVolume() != other.hasTotalVolume()) return false;
       if (hasTotalVolume()) {
-        if (java.lang.Float.floatToIntBits(getTotalVolume())
-            != java.lang.Float.floatToIntBits(
-                other.getTotalVolume())) return false;
+        if (!getTotalVolume()
+            .equals(other.getTotalVolume())) return false;
       }
       if (hasCurrency() != other.hasCurrency()) return false;
       if (hasCurrency()) {
@@ -7113,9 +7427,8 @@ public final class NftExchange {
       }
       if (hasFloorPrice() != other.hasFloorPrice()) return false;
       if (hasFloorPrice()) {
-        if (java.lang.Float.floatToIntBits(getFloorPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getFloorPrice())) return false;
+        if (!getFloorPrice()
+            .equals(other.getFloorPrice())) return false;
       }
       if (hasOwned() != other.hasOwned()) return false;
       if (hasOwned()) {
@@ -7135,8 +7448,7 @@ public final class NftExchange {
       hash = (19 * hash) + getDescriptor().hashCode();
       if (hasTotalVolume()) {
         hash = (37 * hash) + TOTALVOLUME_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getTotalVolume());
+        hash = (53 * hash) + getTotalVolume().hashCode();
       }
       if (hasCurrency()) {
         hash = (37 * hash) + CURRENCY_FIELD_NUMBER;
@@ -7148,8 +7460,7 @@ public final class NftExchange {
       }
       if (hasFloorPrice()) {
         hash = (37 * hash) + FLOORPRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getFloorPrice());
+        hash = (53 * hash) + getFloorPrice().hashCode();
       }
       if (hasOwned()) {
         hash = (37 * hash) + OWNED_FIELD_NUMBER;
@@ -7289,13 +7600,13 @@ public final class NftExchange {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        totalVolume_ = 0F;
+        totalVolume_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
         currency_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         owners_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        floorPrice_ = 0F;
+        floorPrice_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
         owned_ = false;
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -7328,9 +7639,9 @@ public final class NftExchange {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.totalVolume_ = totalVolume_;
           to_bitField0_ |= 0x00000001;
         }
+        result.totalVolume_ = totalVolume_;
         if (((from_bitField0_ & 0x00000002) != 0)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -7340,9 +7651,9 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000004;
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.floorPrice_ = floorPrice_;
           to_bitField0_ |= 0x00000008;
         }
+        result.floorPrice_ = floorPrice_;
         if (((from_bitField0_ & 0x00000010) != 0)) {
           result.owned_ = owned_;
           to_bitField0_ |= 0x00000010;
@@ -7397,7 +7708,9 @@ public final class NftExchange {
       public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.NftCollectionProfileDTO other) {
         if (other == com.tenth.nft.protobuf.NftExchange.NftCollectionProfileDTO.getDefaultInstance()) return this;
         if (other.hasTotalVolume()) {
-          setTotalVolume(other.getTotalVolume());
+          bitField0_ |= 0x00000001;
+          totalVolume_ = other.totalVolume_;
+          onChanged();
         }
         if (other.hasCurrency()) {
           bitField0_ |= 0x00000002;
@@ -7408,7 +7721,9 @@ public final class NftExchange {
           setOwners(other.getOwners());
         }
         if (other.hasFloorPrice()) {
-          setFloorPrice(other.getFloorPrice());
+          bitField0_ |= 0x00000008;
+          floorPrice_ = other.floorPrice_;
+          onChanged();
         }
         if (other.hasOwned()) {
           setOwned(other.getOwned());
@@ -7446,41 +7761,86 @@ public final class NftExchange {
       }
       private int bitField0_;
 
-      private float totalVolume_ ;
+      private java.lang.Object totalVolume_ = "";
       /**
-       * <code>optional float totalVolume = 2;</code>
+       * <code>optional string totalVolume = 2;</code>
        * @return Whether the totalVolume field is set.
        */
-      @java.lang.Override
       public boolean hasTotalVolume() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>optional float totalVolume = 2;</code>
+       * <code>optional string totalVolume = 2;</code>
        * @return The totalVolume.
        */
-      @java.lang.Override
-      public float getTotalVolume() {
-        return totalVolume_;
+      public java.lang.String getTotalVolume() {
+        java.lang.Object ref = totalVolume_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            totalVolume_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional float totalVolume = 2;</code>
+       * <code>optional string totalVolume = 2;</code>
+       * @return The bytes for totalVolume.
+       */
+      public com.google.protobuf.ByteString
+          getTotalVolumeBytes() {
+        java.lang.Object ref = totalVolume_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          totalVolume_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string totalVolume = 2;</code>
        * @param value The totalVolume to set.
        * @return This builder for chaining.
        */
-      public Builder setTotalVolume(float value) {
-        bitField0_ |= 0x00000001;
+      public Builder setTotalVolume(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
         totalVolume_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float totalVolume = 2;</code>
+       * <code>optional string totalVolume = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTotalVolume() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        totalVolume_ = 0F;
+        totalVolume_ = getDefaultInstance().getTotalVolume();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string totalVolume = 2;</code>
+       * @param value The bytes for totalVolume to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTotalVolumeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        totalVolume_ = value;
         onChanged();
         return this;
       }
@@ -7608,41 +7968,86 @@ public final class NftExchange {
         return this;
       }
 
-      private float floorPrice_ ;
+      private java.lang.Object floorPrice_ = "";
       /**
-       * <code>optional float floorPrice = 6;</code>
+       * <code>optional string floorPrice = 6;</code>
        * @return Whether the floorPrice field is set.
        */
-      @java.lang.Override
       public boolean hasFloorPrice() {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>optional float floorPrice = 6;</code>
+       * <code>optional string floorPrice = 6;</code>
        * @return The floorPrice.
        */
-      @java.lang.Override
-      public float getFloorPrice() {
-        return floorPrice_;
+      public java.lang.String getFloorPrice() {
+        java.lang.Object ref = floorPrice_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            floorPrice_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional float floorPrice = 6;</code>
+       * <code>optional string floorPrice = 6;</code>
+       * @return The bytes for floorPrice.
+       */
+      public com.google.protobuf.ByteString
+          getFloorPriceBytes() {
+        java.lang.Object ref = floorPrice_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          floorPrice_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string floorPrice = 6;</code>
        * @param value The floorPrice to set.
        * @return This builder for chaining.
        */
-      public Builder setFloorPrice(float value) {
-        bitField0_ |= 0x00000008;
+      public Builder setFloorPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
         floorPrice_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float floorPrice = 6;</code>
+       * <code>optional string floorPrice = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearFloorPrice() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        floorPrice_ = 0F;
+        floorPrice_ = getDefaultInstance().getFloorPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string floorPrice = 6;</code>
+       * @param value The bytes for floorPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFloorPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        floorPrice_ = value;
         onChanged();
         return this;
       }
@@ -7787,15 +8192,21 @@ public final class NftExchange {
     int getQuantity();
 
     /**
-     * <code>required float price = 5;</code>
+     * <code>required string price = 5;</code>
      * @return Whether the price field is set.
      */
     boolean hasPrice();
     /**
-     * <code>required float price = 5;</code>
+     * <code>required string price = 5;</code>
      * @return The price.
      */
-    float getPrice();
+    java.lang.String getPrice();
+    /**
+     * <code>required string price = 5;</code>
+     * @return The bytes for price.
+     */
+    com.google.protobuf.ByteString
+        getPriceBytes();
 
     /**
      * <code>required string currency = 6;</code>
@@ -7849,6 +8260,7 @@ public final class NftExchange {
       super(builder);
     }
     private NftOfferDTO() {
+      price_ = "";
       currency_ = "";
     }
 
@@ -7903,9 +8315,10 @@ public final class NftExchange {
               quantity_ = input.readInt32();
               break;
             }
-            case 45: {
+            case 42: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000010;
-              price_ = input.readFloat();
+              price_ = bs;
               break;
             }
             case 50: {
@@ -8034,9 +8447,9 @@ public final class NftExchange {
     }
 
     public static final int PRICE_FIELD_NUMBER = 5;
-    private float price_;
+    private volatile java.lang.Object price_;
     /**
-     * <code>required float price = 5;</code>
+     * <code>required string price = 5;</code>
      * @return Whether the price field is set.
      */
     @java.lang.Override
@@ -8044,12 +8457,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000010) != 0);
     }
     /**
-     * <code>required float price = 5;</code>
+     * <code>required string price = 5;</code>
      * @return The price.
      */
     @java.lang.Override
-    public float getPrice() {
-      return price_;
+    public java.lang.String getPrice() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          price_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string price = 5;</code>
+     * @return The bytes for price.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPriceBytes() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        price_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CURRENCY_FIELD_NUMBER = 6;
@@ -8197,7 +8639,7 @@ public final class NftExchange {
         output.writeInt32(4, quantity_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
-        output.writeFloat(5, price_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, price_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, currency_);
@@ -8234,8 +8676,7 @@ public final class NftExchange {
           .computeInt32Size(4, quantity_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(5, price_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, price_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, currency_);
@@ -8285,9 +8726,8 @@ public final class NftExchange {
       }
       if (hasPrice() != other.hasPrice()) return false;
       if (hasPrice()) {
-        if (java.lang.Float.floatToIntBits(getPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getPrice())) return false;
+        if (!getPrice()
+            .equals(other.getPrice())) return false;
       }
       if (hasCurrency() != other.hasCurrency()) return false;
       if (hasCurrency()) {
@@ -8336,8 +8776,7 @@ public final class NftExchange {
       }
       if (hasPrice()) {
         hash = (37 * hash) + PRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getPrice());
+        hash = (53 * hash) + getPrice().hashCode();
       }
       if (hasCurrency()) {
         hash = (37 * hash) + CURRENCY_FIELD_NUMBER;
@@ -8494,7 +8933,7 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000004);
         quantity_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
-        price_ = 0F;
+        price_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
         currency_ = "";
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -8547,9 +8986,9 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000008;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.price_ = price_;
           to_bitField0_ |= 0x00000010;
         }
+        result.price_ = price_;
         if (((from_bitField0_ & 0x00000020) != 0)) {
           to_bitField0_ |= 0x00000020;
         }
@@ -8624,7 +9063,9 @@ public final class NftExchange {
           setQuantity(other.getQuantity());
         }
         if (other.hasPrice()) {
-          setPrice(other.getPrice());
+          bitField0_ |= 0x00000010;
+          price_ = other.price_;
+          onChanged();
         }
         if (other.hasCurrency()) {
           bitField0_ |= 0x00000020;
@@ -8847,41 +9288,86 @@ public final class NftExchange {
         return this;
       }
 
-      private float price_ ;
+      private java.lang.Object price_ = "";
       /**
-       * <code>required float price = 5;</code>
+       * <code>required string price = 5;</code>
        * @return Whether the price field is set.
        */
-      @java.lang.Override
       public boolean hasPrice() {
         return ((bitField0_ & 0x00000010) != 0);
       }
       /**
-       * <code>required float price = 5;</code>
+       * <code>required string price = 5;</code>
        * @return The price.
        */
-      @java.lang.Override
-      public float getPrice() {
-        return price_;
+      public java.lang.String getPrice() {
+        java.lang.Object ref = price_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            price_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required float price = 5;</code>
+       * <code>required string price = 5;</code>
+       * @return The bytes for price.
+       */
+      public com.google.protobuf.ByteString
+          getPriceBytes() {
+        java.lang.Object ref = price_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          price_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string price = 5;</code>
        * @param value The price to set.
        * @return This builder for chaining.
        */
-      public Builder setPrice(float value) {
-        bitField0_ |= 0x00000010;
+      public Builder setPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
         price_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required float price = 5;</code>
+       * <code>required string price = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearPrice() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        price_ = 0F;
+        price_ = getDefaultInstance().getPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string price = 5;</code>
+       * @param value The bytes for price to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        price_ = value;
         onChanged();
         return this;
       }
@@ -9155,15 +9641,21 @@ public final class NftExchange {
         getCurrencyBytes();
 
     /**
-     * <code>required float price = 5;</code>
+     * <code>required string price = 5;</code>
      * @return Whether the price field is set.
      */
     boolean hasPrice();
     /**
-     * <code>required float price = 5;</code>
+     * <code>required string price = 5;</code>
      * @return The price.
      */
-    float getPrice();
+    java.lang.String getPrice();
+    /**
+     * <code>required string price = 5;</code>
+     * @return The bytes for price.
+     */
+    com.google.protobuf.ByteString
+        getPriceBytes();
 
     /**
      * <code>required int64 startAt = 6;</code>
@@ -9201,6 +9693,7 @@ public final class NftExchange {
     }
     private SELL_IC() {
       currency_ = "";
+      price_ = "";
     }
 
     @java.lang.Override
@@ -9255,9 +9748,10 @@ public final class NftExchange {
               currency_ = bs;
               break;
             }
-            case 45: {
+            case 42: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000010;
-              price_ = input.readFloat();
+              price_ = bs;
               break;
             }
             case 48: {
@@ -9409,9 +9903,9 @@ public final class NftExchange {
     }
 
     public static final int PRICE_FIELD_NUMBER = 5;
-    private float price_;
+    private volatile java.lang.Object price_;
     /**
-     * <code>required float price = 5;</code>
+     * <code>required string price = 5;</code>
      * @return Whether the price field is set.
      */
     @java.lang.Override
@@ -9419,12 +9913,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000010) != 0);
     }
     /**
-     * <code>required float price = 5;</code>
+     * <code>required string price = 5;</code>
      * @return The price.
      */
     @java.lang.Override
-    public float getPrice() {
-      return price_;
+    public java.lang.String getPrice() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          price_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string price = 5;</code>
+     * @return The bytes for price.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPriceBytes() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        price_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int STARTAT_FIELD_NUMBER = 6;
@@ -9520,7 +10043,7 @@ public final class NftExchange {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, currency_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
-        output.writeFloat(5, price_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, price_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
         output.writeInt64(6, startAt_);
@@ -9553,8 +10076,7 @@ public final class NftExchange {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, currency_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(5, price_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, price_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
@@ -9601,9 +10123,8 @@ public final class NftExchange {
       }
       if (hasPrice() != other.hasPrice()) return false;
       if (hasPrice()) {
-        if (java.lang.Float.floatToIntBits(getPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getPrice())) return false;
+        if (!getPrice()
+            .equals(other.getPrice())) return false;
       }
       if (hasStartAt() != other.hasStartAt()) return false;
       if (hasStartAt()) {
@@ -9646,8 +10167,7 @@ public final class NftExchange {
       }
       if (hasPrice()) {
         hash = (37 * hash) + PRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getPrice());
+        hash = (53 * hash) + getPrice().hashCode();
       }
       if (hasStartAt()) {
         hash = (37 * hash) + STARTAT_FIELD_NUMBER;
@@ -9800,7 +10320,7 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000004);
         currency_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        price_ = 0F;
+        price_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
         startAt_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -9851,9 +10371,9 @@ public final class NftExchange {
         }
         result.currency_ = currency_;
         if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.price_ = price_;
           to_bitField0_ |= 0x00000010;
         }
+        result.price_ = price_;
         if (((from_bitField0_ & 0x00000020) != 0)) {
           result.startAt_ = startAt_;
           to_bitField0_ |= 0x00000020;
@@ -9926,7 +10446,9 @@ public final class NftExchange {
           onChanged();
         }
         if (other.hasPrice()) {
-          setPrice(other.getPrice());
+          bitField0_ |= 0x00000010;
+          price_ = other.price_;
+          onChanged();
         }
         if (other.hasStartAt()) {
           setStartAt(other.getStartAt());
@@ -10186,41 +10708,86 @@ public final class NftExchange {
         return this;
       }
 
-      private float price_ ;
+      private java.lang.Object price_ = "";
       /**
-       * <code>required float price = 5;</code>
+       * <code>required string price = 5;</code>
        * @return Whether the price field is set.
        */
-      @java.lang.Override
       public boolean hasPrice() {
         return ((bitField0_ & 0x00000010) != 0);
       }
       /**
-       * <code>required float price = 5;</code>
+       * <code>required string price = 5;</code>
        * @return The price.
        */
-      @java.lang.Override
-      public float getPrice() {
-        return price_;
+      public java.lang.String getPrice() {
+        java.lang.Object ref = price_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            price_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required float price = 5;</code>
+       * <code>required string price = 5;</code>
+       * @return The bytes for price.
+       */
+      public com.google.protobuf.ByteString
+          getPriceBytes() {
+        java.lang.Object ref = price_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          price_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string price = 5;</code>
        * @param value The price to set.
        * @return This builder for chaining.
        */
-      public Builder setPrice(float value) {
-        bitField0_ |= 0x00000010;
+      public Builder setPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
         price_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required float price = 5;</code>
+       * <code>required string price = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearPrice() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        price_ = 0F;
+        price_ = getDefaultInstance().getPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string price = 5;</code>
+       * @param value The bytes for price to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        price_ = value;
         onChanged();
         return this;
       }
@@ -12898,8 +13465,8 @@ public final class NftExchange {
 
   }
 
-  public interface PAY_RECEIPT_PUSH_ICOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
+  public interface PAYMENT_RECEIVE_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -12914,15 +13481,21 @@ public final class NftExchange {
     long getAssetsId();
 
     /**
-     * <code>required int64 orderId = 2;</code>
+     * <code>required string orderId = 2;</code>
      * @return Whether the orderId field is set.
      */
     boolean hasOrderId();
     /**
-     * <code>required int64 orderId = 2;</code>
+     * <code>required string orderId = 2;</code>
      * @return The orderId.
      */
-    long getOrderId();
+    java.lang.String getOrderId();
+    /**
+     * <code>required string orderId = 2;</code>
+     * @return The bytes for orderId.
+     */
+    com.google.protobuf.ByteString
+        getOrderIdBytes();
 
     /**
      * <code>required string state = 3;</code>
@@ -12942,18 +13515,19 @@ public final class NftExchange {
         getStateBytes();
   }
   /**
-   * Protobuf type {@code com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC}
+   * Protobuf type {@code com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC}
    */
-  public static final class PAY_RECEIPT_PUSH_IC extends
+  public static final class PAYMENT_RECEIVE_IC extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
-      PAY_RECEIPT_PUSH_ICOrBuilder {
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
+      PAYMENT_RECEIVE_ICOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use PAY_RECEIPT_PUSH_IC.newBuilder() to construct.
-    private PAY_RECEIPT_PUSH_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use PAYMENT_RECEIVE_IC.newBuilder() to construct.
+    private PAYMENT_RECEIVE_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private PAY_RECEIPT_PUSH_IC() {
+    private PAYMENT_RECEIVE_IC() {
+      orderId_ = "";
       state_ = "";
     }
 
@@ -12961,7 +13535,7 @@ public final class NftExchange {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new PAY_RECEIPT_PUSH_IC();
+      return new PAYMENT_RECEIVE_IC();
     }
 
     @java.lang.Override
@@ -12969,7 +13543,7 @@ public final class NftExchange {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private PAY_RECEIPT_PUSH_IC(
+    private PAYMENT_RECEIVE_IC(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -12993,9 +13567,10 @@ public final class NftExchange {
               assetsId_ = input.readInt64();
               break;
             }
-            case 16: {
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              orderId_ = input.readInt64();
+              orderId_ = bs;
               break;
             }
             case 26: {
@@ -13025,15 +13600,15 @@ public final class NftExchange {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor;
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_fieldAccessorTable
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.class, com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.Builder.class);
+              com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.class, com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.Builder.class);
     }
 
     private int bitField0_;
@@ -13057,9 +13632,9 @@ public final class NftExchange {
     }
 
     public static final int ORDERID_FIELD_NUMBER = 2;
-    private long orderId_;
+    private volatile java.lang.Object orderId_;
     /**
-     * <code>required int64 orderId = 2;</code>
+     * <code>required string orderId = 2;</code>
      * @return Whether the orderId field is set.
      */
     @java.lang.Override
@@ -13067,12 +13642,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>required int64 orderId = 2;</code>
+     * <code>required string orderId = 2;</code>
      * @return The orderId.
      */
     @java.lang.Override
-    public long getOrderId() {
-      return orderId_;
+    public java.lang.String getOrderId() {
+      java.lang.Object ref = orderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          orderId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string orderId = 2;</code>
+     * @return The bytes for orderId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOrderIdBytes() {
+      java.lang.Object ref = orderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        orderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int STATE_FIELD_NUMBER = 3;
@@ -13153,7 +13757,7 @@ public final class NftExchange {
         output.writeInt64(1, assetsId_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeInt64(2, orderId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, orderId_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, state_);
@@ -13172,8 +13776,7 @@ public final class NftExchange {
           .computeInt64Size(1, assetsId_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, orderId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, orderId_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, state_);
@@ -13188,10 +13791,10 @@ public final class NftExchange {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC)) {
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC)) {
         return super.equals(obj);
       }
-      com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC other = (com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC) obj;
+      com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC other = (com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC) obj;
 
       if (hasAssetsId() != other.hasAssetsId()) return false;
       if (hasAssetsId()) {
@@ -13200,8 +13803,8 @@ public final class NftExchange {
       }
       if (hasOrderId() != other.hasOrderId()) return false;
       if (hasOrderId()) {
-        if (getOrderId()
-            != other.getOrderId()) return false;
+        if (!getOrderId()
+            .equals(other.getOrderId())) return false;
       }
       if (hasState() != other.hasState()) return false;
       if (hasState()) {
@@ -13226,8 +13829,7 @@ public final class NftExchange {
       }
       if (hasOrderId()) {
         hash = (37 * hash) + ORDERID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOrderId());
+        hash = (53 * hash) + getOrderId().hashCode();
       }
       if (hasState()) {
         hash = (37 * hash) + STATE_FIELD_NUMBER;
@@ -13238,69 +13840,69 @@ public final class NftExchange {
       return hash;
     }
 
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(byte[] data)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseDelimitedFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseDelimitedFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -13313,7 +13915,7 @@ public final class NftExchange {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC prototype) {
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -13329,26 +13931,26 @@ public final class NftExchange {
       return builder;
     }
     /**
-     * Protobuf type {@code com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC}
+     * Protobuf type {@code com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_ICOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_ICOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor;
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_fieldAccessorTable
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.class, com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.Builder.class);
+                com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.class, com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.Builder.class);
       }
 
-      // Construct using com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.newBuilder()
+      // Construct using com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -13368,7 +13970,7 @@ public final class NftExchange {
         super.clear();
         assetsId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        orderId_ = 0L;
+        orderId_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         state_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -13378,17 +13980,17 @@ public final class NftExchange {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor;
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor;
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC getDefaultInstanceForType() {
-        return com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.getDefaultInstance();
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC build() {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC result = buildPartial();
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC build() {
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -13396,8 +13998,8 @@ public final class NftExchange {
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC buildPartial() {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC result = new com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC(this);
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC result = new com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -13405,9 +14007,9 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.orderId_ = orderId_;
           to_bitField0_ |= 0x00000002;
         }
+        result.orderId_ = orderId_;
         if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -13451,21 +14053,23 @@ public final class NftExchange {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC) {
-          return mergeFrom((com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC)other);
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC other) {
-        if (other == com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC.getDefaultInstance()) return this;
         if (other.hasAssetsId()) {
           setAssetsId(other.getAssetsId());
         }
         if (other.hasOrderId()) {
-          setOrderId(other.getOrderId());
+          bitField0_ |= 0x00000002;
+          orderId_ = other.orderId_;
+          onChanged();
         }
         if (other.hasState()) {
           bitField0_ |= 0x00000004;
@@ -13496,11 +14100,11 @@ public final class NftExchange {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC parsedMessage = null;
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC) e.getUnfinishedMessage();
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -13550,41 +14154,86 @@ public final class NftExchange {
         return this;
       }
 
-      private long orderId_ ;
+      private java.lang.Object orderId_ = "";
       /**
-       * <code>required int64 orderId = 2;</code>
+       * <code>required string orderId = 2;</code>
        * @return Whether the orderId field is set.
        */
-      @java.lang.Override
       public boolean hasOrderId() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>required int64 orderId = 2;</code>
+       * <code>required string orderId = 2;</code>
        * @return The orderId.
        */
-      @java.lang.Override
-      public long getOrderId() {
-        return orderId_;
+      public java.lang.String getOrderId() {
+        java.lang.Object ref = orderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            orderId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 orderId = 2;</code>
+       * <code>required string orderId = 2;</code>
+       * @return The bytes for orderId.
+       */
+      public com.google.protobuf.ByteString
+          getOrderIdBytes() {
+        java.lang.Object ref = orderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          orderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string orderId = 2;</code>
        * @param value The orderId to set.
        * @return This builder for chaining.
        */
-      public Builder setOrderId(long value) {
-        bitField0_ |= 0x00000002;
+      public Builder setOrderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         orderId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 orderId = 2;</code>
+       * <code>required string orderId = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearOrderId() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        orderId_ = 0L;
+        orderId_ = getDefaultInstance().getOrderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string orderId = 2;</code>
+       * @param value The bytes for orderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        orderId_ = value;
         onChanged();
         return this;
       }
@@ -13685,81 +14334,81 @@ public final class NftExchange {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
     }
 
-    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IC)
-    private static final com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IC)
+    private static final com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC();
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC();
     }
 
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC getDefaultInstance() {
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IC>
-        PARSER = new com.google.protobuf.AbstractParser<PAY_RECEIPT_PUSH_IC>() {
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<PAYMENT_RECEIVE_IC>
+        PARSER = new com.google.protobuf.AbstractParser<PAYMENT_RECEIVE_IC>() {
       @java.lang.Override
-      public PAY_RECEIPT_PUSH_IC parsePartialFrom(
+      public PAYMENT_RECEIVE_IC parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PAY_RECEIPT_PUSH_IC(input, extensionRegistry);
+        return new PAYMENT_RECEIVE_IC(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IC> parser() {
+    public static com.google.protobuf.Parser<PAYMENT_RECEIVE_IC> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IC> getParserForType() {
+    public com.google.protobuf.Parser<PAYMENT_RECEIVE_IC> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IC getDefaultInstanceForType() {
+    public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IC getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface PAY_RECEIPT_PUSH_ISOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
+  public interface PAYMENT_RECEIVE_ISOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required bool ok = 1;</code>
-     * @return Whether the ok field is set.
+     * <code>required bool refund = 1;</code>
+     * @return Whether the refund field is set.
      */
-    boolean hasOk();
+    boolean hasRefund();
     /**
-     * <code>required bool ok = 1;</code>
-     * @return The ok.
+     * <code>required bool refund = 1;</code>
+     * @return The refund.
      */
-    boolean getOk();
+    boolean getRefund();
   }
   /**
-   * Protobuf type {@code com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS}
+   * Protobuf type {@code com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS}
    */
-  public static final class PAY_RECEIPT_PUSH_IS extends
+  public static final class PAYMENT_RECEIVE_IS extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
-      PAY_RECEIPT_PUSH_ISOrBuilder {
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
+      PAYMENT_RECEIVE_ISOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use PAY_RECEIPT_PUSH_IS.newBuilder() to construct.
-    private PAY_RECEIPT_PUSH_IS(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use PAYMENT_RECEIVE_IS.newBuilder() to construct.
+    private PAYMENT_RECEIVE_IS(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private PAY_RECEIPT_PUSH_IS() {
+    private PAYMENT_RECEIVE_IS() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new PAY_RECEIPT_PUSH_IS();
+      return new PAYMENT_RECEIVE_IS();
     }
 
     @java.lang.Override
@@ -13767,7 +14416,7 @@ public final class NftExchange {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private PAY_RECEIPT_PUSH_IS(
+    private PAYMENT_RECEIVE_IS(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -13788,7 +14437,7 @@ public final class NftExchange {
               break;
             case 8: {
               bitField0_ |= 0x00000001;
-              ok_ = input.readBool();
+              refund_ = input.readBool();
               break;
             }
             default: {
@@ -13812,35 +14461,35 @@ public final class NftExchange {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor;
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_fieldAccessorTable
+      return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.class, com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.Builder.class);
+              com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.class, com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.Builder.class);
     }
 
     private int bitField0_;
-    public static final int OK_FIELD_NUMBER = 1;
-    private boolean ok_;
+    public static final int REFUND_FIELD_NUMBER = 1;
+    private boolean refund_;
     /**
-     * <code>required bool ok = 1;</code>
-     * @return Whether the ok field is set.
+     * <code>required bool refund = 1;</code>
+     * @return Whether the refund field is set.
      */
     @java.lang.Override
-    public boolean hasOk() {
+    public boolean hasRefund() {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>required bool ok = 1;</code>
-     * @return The ok.
+     * <code>required bool refund = 1;</code>
+     * @return The refund.
      */
     @java.lang.Override
-    public boolean getOk() {
-      return ok_;
+    public boolean getRefund() {
+      return refund_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -13850,7 +14499,7 @@ public final class NftExchange {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasOk()) {
+      if (!hasRefund()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -13862,7 +14511,7 @@ public final class NftExchange {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeBool(1, ok_);
+        output.writeBool(1, refund_);
       }
       unknownFields.writeTo(output);
     }
@@ -13875,7 +14524,7 @@ public final class NftExchange {
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, ok_);
+          .computeBoolSize(1, refund_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -13887,15 +14536,15 @@ public final class NftExchange {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS)) {
+      if (!(obj instanceof com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS)) {
         return super.equals(obj);
       }
-      com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS other = (com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS) obj;
+      com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS other = (com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS) obj;
 
-      if (hasOk() != other.hasOk()) return false;
-      if (hasOk()) {
-        if (getOk()
-            != other.getOk()) return false;
+      if (hasRefund() != other.hasRefund()) return false;
+      if (hasRefund()) {
+        if (getRefund()
+            != other.getRefund()) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -13908,79 +14557,79 @@ public final class NftExchange {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasOk()) {
-        hash = (37 * hash) + OK_FIELD_NUMBER;
+      if (hasRefund()) {
+        hash = (37 * hash) + REFUND_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-            getOk());
+            getRefund());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(byte[] data)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseDelimitedFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseDelimitedFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parseFrom(
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -13993,7 +14642,7 @@ public final class NftExchange {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS prototype) {
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -14009,26 +14658,26 @@ public final class NftExchange {
       return builder;
     }
     /**
-     * Protobuf type {@code com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS}
+     * Protobuf type {@code com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_ISOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_ISOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor;
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_fieldAccessorTable
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.class, com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.Builder.class);
+                com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.class, com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.Builder.class);
       }
 
-      // Construct using com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.newBuilder()
+      // Construct using com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -14046,7 +14695,7 @@ public final class NftExchange {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        ok_ = false;
+        refund_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -14054,17 +14703,17 @@ public final class NftExchange {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor;
+        return com.tenth.nft.protobuf.NftExchange.internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor;
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS getDefaultInstanceForType() {
-        return com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.getDefaultInstance();
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS build() {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS result = buildPartial();
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS build() {
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -14072,12 +14721,12 @@ public final class NftExchange {
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS buildPartial() {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS result = new com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS(this);
+      public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS buildPartial() {
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS result = new com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.ok_ = ok_;
+          result.refund_ = refund_;
           to_bitField0_ |= 0x00000001;
         }
         result.bitField0_ = to_bitField0_;
@@ -14119,18 +14768,18 @@ public final class NftExchange {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS) {
-          return mergeFrom((com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS)other);
+        if (other instanceof com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS) {
+          return mergeFrom((com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS other) {
-        if (other == com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS.getDefaultInstance()) return this;
-        if (other.hasOk()) {
-          setOk(other.getOk());
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS other) {
+        if (other == com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS.getDefaultInstance()) return this;
+        if (other.hasRefund()) {
+          setRefund(other.getRefund());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -14139,7 +14788,7 @@ public final class NftExchange {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasOk()) {
+        if (!hasRefund()) {
           return false;
         }
         return true;
@@ -14150,11 +14799,11 @@ public final class NftExchange {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS parsedMessage = null;
+        com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS) e.getUnfinishedMessage();
+          parsedMessage = (com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -14165,41 +14814,41 @@ public final class NftExchange {
       }
       private int bitField0_;
 
-      private boolean ok_ ;
+      private boolean refund_ ;
       /**
-       * <code>required bool ok = 1;</code>
-       * @return Whether the ok field is set.
+       * <code>required bool refund = 1;</code>
+       * @return Whether the refund field is set.
        */
       @java.lang.Override
-      public boolean hasOk() {
+      public boolean hasRefund() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>required bool ok = 1;</code>
-       * @return The ok.
+       * <code>required bool refund = 1;</code>
+       * @return The refund.
        */
       @java.lang.Override
-      public boolean getOk() {
-        return ok_;
+      public boolean getRefund() {
+        return refund_;
       }
       /**
-       * <code>required bool ok = 1;</code>
-       * @param value The ok to set.
+       * <code>required bool refund = 1;</code>
+       * @param value The refund to set.
        * @return This builder for chaining.
        */
-      public Builder setOk(boolean value) {
+      public Builder setRefund(boolean value) {
         bitField0_ |= 0x00000001;
-        ok_ = value;
+        refund_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bool ok = 1;</code>
+       * <code>required bool refund = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearOk() {
+      public Builder clearRefund() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        ok_ = false;
+        refund_ = false;
         onChanged();
         return this;
       }
@@ -14216,41 +14865,41 @@ public final class NftExchange {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
     }
 
-    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.PAY_RECEIPT_PUSH_IS)
-    private static final com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.PAYMENT_RECEIVE_IS)
+    private static final com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS();
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS();
     }
 
-    public static com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS getDefaultInstance() {
+    public static com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IS>
-        PARSER = new com.google.protobuf.AbstractParser<PAY_RECEIPT_PUSH_IS>() {
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<PAYMENT_RECEIVE_IS>
+        PARSER = new com.google.protobuf.AbstractParser<PAYMENT_RECEIVE_IS>() {
       @java.lang.Override
-      public PAY_RECEIPT_PUSH_IS parsePartialFrom(
+      public PAYMENT_RECEIVE_IS parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PAY_RECEIPT_PUSH_IS(input, extensionRegistry);
+        return new PAYMENT_RECEIVE_IS(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IS> parser() {
+    public static com.google.protobuf.Parser<PAYMENT_RECEIVE_IS> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<PAY_RECEIPT_PUSH_IS> getParserForType() {
+    public com.google.protobuf.Parser<PAYMENT_RECEIVE_IS> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftExchange.PAY_RECEIPT_PUSH_IS getDefaultInstanceForType() {
+    public com.tenth.nft.protobuf.NftExchange.PAYMENT_RECEIVE_IS getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -24949,15 +25598,21 @@ public final class NftExchange {
     int getQuantity();
 
     /**
-     * <code>required float price = 3;</code>
+     * <code>required string price = 3;</code>
      * @return Whether the price field is set.
      */
     boolean hasPrice();
     /**
-     * <code>required float price = 3;</code>
+     * <code>required string price = 3;</code>
      * @return The price.
      */
-    float getPrice();
+    java.lang.String getPrice();
+    /**
+     * <code>required string price = 3;</code>
+     * @return The bytes for price.
+     */
+    com.google.protobuf.ByteString
+        getPriceBytes();
 
     /**
      * <code>required string currency = 4;</code>
@@ -25011,6 +25666,7 @@ public final class NftExchange {
       super(builder);
     }
     private OFFER_MAKE_IC() {
+      price_ = "";
       currency_ = "";
     }
 
@@ -25055,9 +25711,10 @@ public final class NftExchange {
               quantity_ = input.readInt32();
               break;
             }
-            case 29: {
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              price_ = input.readFloat();
+              price_ = bs;
               break;
             }
             case 34: {
@@ -25148,9 +25805,9 @@ public final class NftExchange {
     }
 
     public static final int PRICE_FIELD_NUMBER = 3;
-    private float price_;
+    private volatile java.lang.Object price_;
     /**
-     * <code>required float price = 3;</code>
+     * <code>required string price = 3;</code>
      * @return Whether the price field is set.
      */
     @java.lang.Override
@@ -25158,12 +25815,41 @@ public final class NftExchange {
       return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>required float price = 3;</code>
+     * <code>required string price = 3;</code>
      * @return The price.
      */
     @java.lang.Override
-    public float getPrice() {
-      return price_;
+    public java.lang.String getPrice() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          price_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string price = 3;</code>
+     * @return The bytes for price.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPriceBytes() {
+      java.lang.Object ref = price_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        price_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CURRENCY_FIELD_NUMBER = 4;
@@ -25297,7 +25983,7 @@ public final class NftExchange {
         output.writeInt32(2, quantity_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        output.writeFloat(3, price_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, price_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, currency_);
@@ -25326,8 +26012,7 @@ public final class NftExchange {
           .computeInt32Size(2, quantity_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, price_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, price_);
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, currency_);
@@ -25367,9 +26052,8 @@ public final class NftExchange {
       }
       if (hasPrice() != other.hasPrice()) return false;
       if (hasPrice()) {
-        if (java.lang.Float.floatToIntBits(getPrice())
-            != java.lang.Float.floatToIntBits(
-                other.getPrice())) return false;
+        if (!getPrice()
+            .equals(other.getPrice())) return false;
       }
       if (hasCurrency() != other.hasCurrency()) return false;
       if (hasCurrency()) {
@@ -25408,8 +26092,7 @@ public final class NftExchange {
       }
       if (hasPrice()) {
         hash = (37 * hash) + PRICE_FIELD_NUMBER;
-        hash = (53 * hash) + java.lang.Float.floatToIntBits(
-            getPrice());
+        hash = (53 * hash) + getPrice().hashCode();
       }
       if (hasCurrency()) {
         hash = (37 * hash) + CURRENCY_FIELD_NUMBER;
@@ -25562,7 +26245,7 @@ public final class NftExchange {
         bitField0_ = (bitField0_ & ~0x00000001);
         quantity_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        price_ = 0F;
+        price_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
         currency_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -25607,9 +26290,9 @@ public final class NftExchange {
           to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.price_ = price_;
           to_bitField0_ |= 0x00000004;
         }
+        result.price_ = price_;
         if (((from_bitField0_ & 0x00000008) != 0)) {
           to_bitField0_ |= 0x00000008;
         }
@@ -25678,7 +26361,9 @@ public final class NftExchange {
           setQuantity(other.getQuantity());
         }
         if (other.hasPrice()) {
-          setPrice(other.getPrice());
+          bitField0_ |= 0x00000004;
+          price_ = other.price_;
+          onChanged();
         }
         if (other.hasCurrency()) {
           bitField0_ |= 0x00000008;
@@ -25817,41 +26502,86 @@ public final class NftExchange {
         return this;
       }
 
-      private float price_ ;
+      private java.lang.Object price_ = "";
       /**
-       * <code>required float price = 3;</code>
+       * <code>required string price = 3;</code>
        * @return Whether the price field is set.
        */
-      @java.lang.Override
       public boolean hasPrice() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required string price = 3;</code>
        * @return The price.
        */
-      @java.lang.Override
-      public float getPrice() {
-        return price_;
+      public java.lang.String getPrice() {
+        java.lang.Object ref = price_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            price_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required string price = 3;</code>
+       * @return The bytes for price.
+       */
+      public com.google.protobuf.ByteString
+          getPriceBytes() {
+        java.lang.Object ref = price_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          price_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string price = 3;</code>
        * @param value The price to set.
        * @return This builder for chaining.
        */
-      public Builder setPrice(float value) {
-        bitField0_ |= 0x00000004;
+      public Builder setPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
         price_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required string price = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearPrice() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        price_ = 0F;
+        price_ = getDefaultInstance().getPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string price = 3;</code>
+       * @param value The bytes for price to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        price_ = value;
         onChanged();
         return this;
       }
@@ -33165,15 +33895,15 @@ public final class NftExchange {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_ruixi_tpulse_convention_BUY_IS_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor;
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_fieldAccessorTable;
+      internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor;
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_fieldAccessorTable;
+      internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor;
   private static final 
@@ -33318,86 +34048,86 @@ public final class NftExchange {
       "\002(\t\022\027\n\017contractAddress\030\002 \002(\t\022\025\n\rtokenSta" +
       "ndard\030\003 \002(\t\022\r\n\005token\030\004 \002(\t\"\246\001\n\rNftListin" +
       "gDTO\022\020\n\010assetsId\030\001 \002(\003\022\016\n\006seller\030\002 \002(\003\022\r" +
-      "\n\005price\030\003 \002(\002\022\020\n\010quantity\030\004 \002(\005\022\020\n\010curre" +
+      "\n\005price\030\003 \002(\t\022\020\n\010quantity\030\004 \002(\005\022\020\n\010curre" +
       "ncy\030\005 \002(\t\022\017\n\007startAt\030\006 \002(\003\022\020\n\010expireAt\030\007" +
       " \002(\003\022\021\n\tcreatedAt\030\010 \002(\003\022\n\n\002id\030\t \002(\003\",\n\013N" +
       "ftOwnerDTO\022\013\n\003uid\030\001 \002(\003\022\020\n\010quantity\030\002 \002(" +
       "\005\"\276\001\n\016NftActivityDTO\022\r\n\005event\030\001 \002(\t\022\014\n\004f" +
-      "rom\030\002 \001(\003\022\n\n\002to\030\003 \001(\003\022\r\n\005price\030\004 \001(\002\022\020\n\010" +
+      "rom\030\002 \001(\003\022\n\n\002to\030\003 \001(\003\022\r\n\005price\030\004 \001(\t\022\020\n\010" +
       "currency\030\005 \001(\t\022\020\n\010quantity\030\006 \001(\005\022\n\n\002id\030\007" +
       " \002(\003\022\017\n\007expired\030\010 \001(\010\022\020\n\010canceled\030\t \001(\010\022" +
       "\021\n\tcreatedAt\030\n \002(\003\022\016\n\006reason\030\013 \001(\t\"\373\001\n\023N" +
       "ftAssetsProfileDTO\022\n\n\002id\030\001 \002(\003\022\023\n\013totalV" +
-      "olume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016\n\006owners\030" +
+      "olume\030\002 \001(\t\022\020\n\010currency\030\003 \001(\t\022\016\n\006owners\030" +
       "\004 \001(\005\022\022\n\nownerLists\030\005 \003(\003\022\014\n\004owns\030\006 \001(\005\022" +
       "B\n\016currentListing\030\007 \001(\0132*.com.ruixi.tpul" +
       "se.convention.NftListingDTO\022;\n\tbestOffer" +
       "\030\010 \001(\0132(.com.ruixi.tpulse.convention.Nft" +
       "OfferDTO\"s\n\027NftCollectionProfileDTO\022\023\n\013t" +
-      "otalVolume\030\002 \001(\002\022\020\n\010currency\030\003 \001(\t\022\016\n\006ow" +
-      "ners\030\004 \002(\005\022\022\n\nfloorPrice\030\006 \001(\002\022\r\n\005owned\030" +
+      "otalVolume\030\002 \001(\t\022\020\n\010currency\030\003 \001(\t\022\016\n\006ow" +
+      "ners\030\004 \002(\005\022\022\n\nfloorPrice\030\006 \001(\t\022\r\n\005owned\030" +
       "\007 \001(\010\"\220\001\n\013NftOfferDTO\022\n\n\002id\030\001 \002(\003\022\013\n\003uid" +
       "\030\002 \002(\003\022\020\n\010assetsId\030\003 \002(\003\022\020\n\010quantity\030\004 \002" +
-      "(\005\022\r\n\005price\030\005 \002(\002\022\020\n\010currency\030\006 \002(\t\022\021\n\tc" +
+      "(\005\022\r\n\005price\030\005 \002(\t\022\020\n\010currency\030\006 \002(\t\022\021\n\tc" +
       "reatedAt\030\007 \002(\003\022\020\n\010expireAt\030\010 \002(\003\"~\n\007SELL" +
       "_IC\022\020\n\010assetsId\030\001 \002(\003\022\013\n\003uid\030\002 \002(\003\022\020\n\010qu" +
       "antity\030\003 \002(\005\022\020\n\010currency\030\004 \002(\t\022\r\n\005price\030" +
-      "\005 \002(\002\022\017\n\007startAt\030\006 \002(\003\022\020\n\010expireAt\030\007 \002(\003" +
+      "\005 \002(\t\022\017\n\007startAt\030\006 \002(\003\022\020\n\010expireAt\030\007 \002(\003" +
       "\"F\n\007SELL_IS\022;\n\007listing\030\001 \002(\0132*.com.ruixi" +
       ".tpulse.convention.NftListingDTO\":\n\006BUY_" +
       "IC\022\013\n\003uid\030\001 \002(\003\022\020\n\010assetsId\030\002 \002(\003\022\021\n\tlis" +
       "tingId\030\003 \002(\003\"I\n\006BUY_IS\022\017\n\007channel\030\001 \001(\t\022" +
       "\r\n\005token\030\002 \001(\t\022\020\n\010currency\030\003 \001(\t\022\r\n\005valu" +
-      "e\030\004 \001(\t\"G\n\023PAY_RECEIPT_PUSH_IC\022\020\n\010assets" +
-      "Id\030\001 \002(\003\022\017\n\007orderId\030\002 \002(\003\022\r\n\005state\030\003 \002(\t" +
-      "\"!\n\023PAY_RECEIPT_PUSH_IS\022\n\n\002ok\030\001 \002(\010\"U\n\016S" +
-      "ELL_CANCEL_IC\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlisti" +
-      "ngId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022\016\n\006reason\030\004 \002" +
-      "(\t\"\020\n\016SELL_CANCEL_IS\"C\n\017LISTING_LIST_IC\022" +
-      "\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageS" +
-      "ize\030\003 \002(\005\"O\n\017LISTING_LIST_IS\022<\n\010listings" +
-      "\030\001 \003(\0132*.com.ruixi.tpulse.convention.Nft" +
-      "ListingDTO\"A\n\rOWNER_LIST_IC\022\020\n\010assetsId\030" +
-      "\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"I\n" +
-      "\rOWNER_LIST_IS\0228\n\006owners\030\001 \003(\0132(.com.rui" +
-      "xi.tpulse.convention.NftOwnerDTO\"S\n\020ACTI" +
-      "VITY_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002" +
-      " \002(\005\022\020\n\010pageSize\030\003 \002(\005\022\r\n\005event\030\004 \001(\t\"S\n" +
-      "\020ACTIVITY_LIST_IS\022?\n\nactivities\030\001 \003(\0132+." +
-      "com.ruixi.tpulse.convention.NftActivityD" +
-      "TO\"i\n\007MINT_IC\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017con" +
-      "tractAddress\030\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r\n\005" +
-      "owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002(\005\"@\n\007MINT_IS" +
-      "\0225\n\004mint\030\001 \002(\0132\'.com.ruixi.tpulse.conven" +
-      "tion.NftMintDTO\"T\n\032ASSETS_EXCHANGE_PROFI" +
-      "LE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010observer\030\002 \001(" +
-      "\003\022\022\n\nneedOwners\030\003 \001(\010\"_\n\032ASSETS_EXCHANGE" +
-      "_PROFILE_IS\022A\n\007profile\030\001 \002(\01320.com.ruixi" +
-      ".tpulse.convention.NftAssetsProfileDTO\"E" +
-      "\n\036COLLECTION_EXCHANGE_PROFILE_IC\022\021\n\tasse" +
-      "tsIds\030\001 \003(\003\022\020\n\010observer\030\002 \001(\003\"g\n\036COLLECT" +
-      "ION_EXCHANGE_PROFILE_IS\022E\n\007profile\030\001 \002(\013" +
-      "24.com.ruixi.tpulse.convention.NftCollec" +
-      "tionProfileDTO\"s\n\rOFFER_MAKE_IC\022\020\n\010asset" +
-      "sId\030\001 \002(\003\022\020\n\010quantity\030\002 \002(\005\022\r\n\005price\030\003 \002" +
-      "(\002\022\020\n\010currency\030\004 \002(\t\022\020\n\010expireAt\030\005 \002(\003\022\013" +
-      "\n\003uid\030\006 \002(\003\"H\n\rOFFER_MAKE_IS\0227\n\005offer\030\001 " +
-      "\002(\0132(.com.ruixi.tpulse.convention.NftOff" +
-      "erDTO\"Q\n\017OFFER_CANCEL_IC\022\013\n\003uid\030\001 \002(\003\022\020\n" +
-      "\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\022\016\n\006reas" +
-      "on\030\004 \001(\t\"\021\n\017OFFER_CANCEL_IS\"A\n\rOFFER_LIS" +
-      "T_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010" +
-      "pageSize\030\003 \002(\005\"I\n\rOFFER_LIST_IS\0228\n\006offer" +
-      "s\030\001 \003(\0132(.com.ruixi.tpulse.convention.Nf" +
-      "tOfferDTO\"A\n\017OFFER_ACCEPT_IC\022\013\n\003uid\030\001 \002(" +
-      "\003\022\020\n\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\"\021\n\017" +
-      "OFFER_ACCEPT_IS\"$\n\020LISTING_EVENT_IC\022\020\n\010a" +
-      "ssetsId\030\001 \002(\003\"%\n\021EXCHANGE_EVENT_IC\022\020\n\010as" +
-      "setsId\030\001 \002(\003\">\n\027LISTING_EXPIRE_CHECK_IC\022" +
-      "\020\n\010assetsId\030\001 \002(\003\022\021\n\tlistingId\030\002 \002(\003\":\n\025" +
-      "OFFER_EXPIRE_CHECK_IC\022\020\n\010assetsId\030\001 \002(\003\022" +
-      "\017\n\007offerId\030\002 \002(\003B%\n\026com.tenth.nft.protob" +
-      "ufB\013NftExchange"
+      "e\030\004 \001(\t\"F\n\022PAYMENT_RECEIVE_IC\022\020\n\010assetsI" +
+      "d\030\001 \002(\003\022\017\n\007orderId\030\002 \002(\t\022\r\n\005state\030\003 \002(\t\"" +
+      "$\n\022PAYMENT_RECEIVE_IS\022\016\n\006refund\030\001 \002(\010\"U\n" +
+      "\016SELL_CANCEL_IC\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlis" +
+      "tingId\030\002 \002(\003\022\016\n\006seller\030\003 \002(\003\022\016\n\006reason\030\004" +
+      " \002(\t\"\020\n\016SELL_CANCEL_IS\"C\n\017LISTING_LIST_I" +
+      "C\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pag" +
+      "eSize\030\003 \002(\005\"O\n\017LISTING_LIST_IS\022<\n\010listin" +
+      "gs\030\001 \003(\0132*.com.ruixi.tpulse.convention.N" +
+      "ftListingDTO\"A\n\rOWNER_LIST_IC\022\020\n\010assetsI" +
+      "d\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\"" +
+      "I\n\rOWNER_LIST_IS\0228\n\006owners\030\001 \003(\0132(.com.r" +
+      "uixi.tpulse.convention.NftOwnerDTO\"S\n\020AC" +
+      "TIVITY_LIST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page" +
+      "\030\002 \002(\005\022\020\n\010pageSize\030\003 \002(\005\022\r\n\005event\030\004 \001(\t\"" +
+      "S\n\020ACTIVITY_LIST_IS\022?\n\nactivities\030\001 \003(\0132" +
+      "+.com.ruixi.tpulse.convention.NftActivit" +
+      "yDTO\"i\n\007MINT_IC\022\022\n\nblockchain\030\001 \002(\t\022\027\n\017c" +
+      "ontractAddress\030\002 \001(\t\022\020\n\010assetsId\030\003 \002(\003\022\r" +
+      "\n\005owner\030\004 \002(\003\022\020\n\010quantity\030\005 \002(\005\"@\n\007MINT_" +
+      "IS\0225\n\004mint\030\001 \002(\0132\'.com.ruixi.tpulse.conv" +
+      "ention.NftMintDTO\"T\n\032ASSETS_EXCHANGE_PRO" +
+      "FILE_IC\022\020\n\010assetsId\030\001 \002(\003\022\020\n\010observer\030\002 " +
+      "\001(\003\022\022\n\nneedOwners\030\003 \001(\010\"_\n\032ASSETS_EXCHAN" +
+      "GE_PROFILE_IS\022A\n\007profile\030\001 \002(\01320.com.rui" +
+      "xi.tpulse.convention.NftAssetsProfileDTO" +
+      "\"E\n\036COLLECTION_EXCHANGE_PROFILE_IC\022\021\n\tas" +
+      "setsIds\030\001 \003(\003\022\020\n\010observer\030\002 \001(\003\"g\n\036COLLE" +
+      "CTION_EXCHANGE_PROFILE_IS\022E\n\007profile\030\001 \002" +
+      "(\01324.com.ruixi.tpulse.convention.NftColl" +
+      "ectionProfileDTO\"s\n\rOFFER_MAKE_IC\022\020\n\010ass" +
+      "etsId\030\001 \002(\003\022\020\n\010quantity\030\002 \002(\005\022\r\n\005price\030\003" +
+      " \002(\t\022\020\n\010currency\030\004 \002(\t\022\020\n\010expireAt\030\005 \002(\003" +
+      "\022\013\n\003uid\030\006 \002(\003\"H\n\rOFFER_MAKE_IS\0227\n\005offer\030" +
+      "\001 \002(\0132(.com.ruixi.tpulse.convention.NftO" +
+      "fferDTO\"Q\n\017OFFER_CANCEL_IC\022\013\n\003uid\030\001 \002(\003\022" +
+      "\020\n\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\022\016\n\006re" +
+      "ason\030\004 \001(\t\"\021\n\017OFFER_CANCEL_IS\"A\n\rOFFER_L" +
+      "IST_IC\022\020\n\010assetsId\030\001 \002(\003\022\014\n\004page\030\002 \002(\005\022\020" +
+      "\n\010pageSize\030\003 \002(\005\"I\n\rOFFER_LIST_IS\0228\n\006off" +
+      "ers\030\001 \003(\0132(.com.ruixi.tpulse.convention." +
+      "NftOfferDTO\"A\n\017OFFER_ACCEPT_IC\022\013\n\003uid\030\001 " +
+      "\002(\003\022\020\n\010assetsId\030\002 \002(\003\022\017\n\007offerId\030\003 \002(\003\"\021" +
+      "\n\017OFFER_ACCEPT_IS\"$\n\020LISTING_EVENT_IC\022\020\n" +
+      "\010assetsId\030\001 \002(\003\"%\n\021EXCHANGE_EVENT_IC\022\020\n\010" +
+      "assetsId\030\001 \002(\003\">\n\027LISTING_EXPIRE_CHECK_I" +
+      "C\022\020\n\010assetsId\030\001 \002(\003\022\021\n\tlistingId\030\002 \002(\003\":" +
+      "\n\025OFFER_EXPIRE_CHECK_IC\022\020\n\010assetsId\030\001 \002(" +
+      "\003\022\017\n\007offerId\030\002 \002(\003B%\n\026com.tenth.nft.prot" +
+      "obufB\013NftExchange"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -33469,18 +34199,18 @@ public final class NftExchange {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_BUY_IS_descriptor,
         new java.lang.String[] { "Channel", "Token", "Currency", "Value", });
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor =
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor =
       getDescriptor().getMessageTypes().get(11);
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_fieldAccessorTable = new
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IC_descriptor,
+        internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IC_descriptor,
         new java.lang.String[] { "AssetsId", "OrderId", "State", });
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor =
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor =
       getDescriptor().getMessageTypes().get(12);
-    internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_fieldAccessorTable = new
+    internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_ruixi_tpulse_convention_PAY_RECEIPT_PUSH_IS_descriptor,
-        new java.lang.String[] { "Ok", });
+        internal_static_com_ruixi_tpulse_convention_PAYMENT_RECEIVE_IS_descriptor,
+        new java.lang.String[] { "Refund", });
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_com_ruixi_tpulse_convention_SELL_CANCEL_IC_fieldAccessorTable = new

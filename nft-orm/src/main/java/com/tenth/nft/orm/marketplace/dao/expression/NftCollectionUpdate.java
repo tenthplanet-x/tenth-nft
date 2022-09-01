@@ -28,7 +28,7 @@ public class NftCollectionUpdate extends SimpleUpdate {
     private Long category;
 
     @SimpleWriteParam
-    private Float creatorFee;
+    private String creatorFeeRate;
 
     @SimpleWriteParam
     private String blockchain;
@@ -67,8 +67,8 @@ public class NftCollectionUpdate extends SimpleUpdate {
         return category;
     }
 
-    public Float getCreatorFee(){
-        return creatorFee;
+    public String getCreatorFeeRate() {
+        return creatorFeeRate;
     }
 
     public String getBlockchain(){
@@ -117,8 +117,8 @@ public class NftCollectionUpdate extends SimpleUpdate {
             return this;
         }
 
-        public Builder setCreatorFee(Float creatorFee){
-            update.creatorFee = creatorFee;
+        public Builder setCreatorFeeRate(String creatorFee){
+            update.creatorFeeRate = creatorFee;
             return this;
         }
 
