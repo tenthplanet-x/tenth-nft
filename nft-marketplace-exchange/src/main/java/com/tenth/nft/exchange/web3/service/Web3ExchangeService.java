@@ -69,8 +69,6 @@ public class Web3ExchangeService extends AbsExchangeService {
     @Autowired
     private NftExchangeEventService nftExchangeEventService;
     @Autowired
-    private BuildInExchangeService nftExchangeService;
-    @Autowired
     private I18nGsTemplates i18nGsTemplates;
     @Autowired
     private GsCollectionIdService gsCollectionIdService;
@@ -241,11 +239,7 @@ public class Web3ExchangeService extends AbsExchangeService {
             nftListing.setCreatorAddress(assetsDTO.getCreatorAddress());
         }
 
-        Long activityId = nftExchangeEventService.sendListingEvent(nftListing);
-        nftListing.setActivityId(activityId);
-        nftListing = nftListingService.insert(nftListing);
-
-        nftExchangeEventService.sendListingEvent(nftListing);
+        nftListingService.insert(nftListing);
 
         return NftWeb3Exchange.WEB3_LISTING_CONFIRM_IS.newBuilder().build();
     }
