@@ -29,6 +29,7 @@ import com.tenth.nft.orm.marketplace.dao.expression.NftOrderQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOrderUpdate;
 import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
 import com.tenth.nft.orm.marketplace.entity.*;
+import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
@@ -359,6 +360,15 @@ public class Web3ExchangeService extends AbsExchangeService {
             WalletBillState state = WalletBillState.valueOf(request.getState());
             switch (state){
                 case PAYED:
+                    //Change(inc) the quantity of assets belongs to buyer
+                    nftBelongService.inc(nftOrder.getAssetsId(), nftOrder.getBuyer(), nftOrder.getQuantity());
+                    //Change(dec) the quantity of assets belongs to buyer
+                    nftBelongService.dec(nftOrder.getAssetsId(), nftOrder.getOwner(), nftOrder.getQuantity());
+                    //Create events
+                    nftExchangeEventService.sendTransferEvent(nftOrder);
+                    nftExchangeEventService.sendSaleEvent(nftOrder);
+                    //Send events to stats
+                    sendExchangeRouteEventToStats(nftOrder.getAssetsId());
                     nftOrderDao.update(
                             NftOrderQuery.newBuilder().assetsId(nftOrder.getAssetsId()).id(nftOrder.getId()).build(),
                             NftOrderUpdate.newBuilder().setStatus(NftOrderStatus.COMPLETE).txn(request.getTxn()).build()
@@ -378,6 +388,13 @@ public class Web3ExchangeService extends AbsExchangeService {
         }
 
         return builder.build();
+    }
+
+    private void sendExchangeRouteEventToStats(Long assetsId) {
+        routeClient.send(
+                NftExchange.EXCHANGE_EVENT_IC.newBuilder().setAssetsId(assetsId).build(),
+                ExchangeEventRouteRequest.class
+        );
     }
 
 

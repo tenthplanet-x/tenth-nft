@@ -21,6 +21,8 @@ public class Web3Properties {
 
     private String wethAddress;
 
+    private String deepLinkGateway;
+
     public String getBlockchain() {
         return blockchain;
     }
@@ -83,6 +85,14 @@ public class Web3Properties {
 
     public void setWethAddress(String wethAddress) {
         this.wethAddress = wethAddress;
+    }
+
+    public String getDeepLinkGateway() {
+        return deepLinkGateway;
+    }
+
+    public void setDeepLinkGateway(String deepLinkGateway) {
+        this.deepLinkGateway = deepLinkGateway;
     }
 
     public static class Rsa {

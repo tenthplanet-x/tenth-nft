@@ -202,6 +202,7 @@ public class TpulseContractHelper {
 
     public static class ApprovalTxn{
 
+        private String gateway;
         private String from;
         private String txnTo;
         private String txnData;
@@ -228,6 +229,14 @@ public class TpulseContractHelper {
 
         public void setTxnData(String txnData) {
             this.txnData = txnData;
+        }
+
+        public String getGateway() {
+            return gateway;
+        }
+
+        public void setGateway(String gateway) {
+            this.gateway = gateway;
         }
     }
 }
