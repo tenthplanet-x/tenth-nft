@@ -1,11 +1,8 @@
 package com.tenth.nft.exchange.buildin.service;
 
 import com.google.common.base.Strings;
-import com.tenth.nft.blockchain.BlockchainContract;
-import com.tenth.nft.blockchain.BlockchainGateway;
 import com.tenth.nft.blockchain.BlockchainRouter;
 import com.tenth.nft.convention.*;
-import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
@@ -43,7 +40,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 /**
@@ -60,8 +56,6 @@ public class BuildInExchangeService {
     private NftActivityDao nftActivityDao;
     @Autowired
     private NftOrderDao nftOrderDao;
-    @Autowired
-    private NftContractDao nftContractDao;
     @Autowired
     private BlockchainRouter blockChainRouter;
     @Autowired
@@ -179,7 +173,7 @@ public class BuildInExchangeService {
         );
         NftBuyResponse response = new NftBuyResponse();
         response.setChannel(payInfo.getChannel());
-        response.setToken(payInfo.getToken());
+        response.setContent(payInfo.getToken());
         response.setCurrency(payInfo.getCurrency());
         response.setValue(payInfo.getValue());
         return response;

@@ -24,7 +24,6 @@ import com.tenth.nft.exchange.web3.wallet.Web3WalletProvider;
 import com.tenth.nft.orm.marketplace.dao.NftOrderDao;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.protobuf.NftMarketplace;
-import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
@@ -33,7 +32,6 @@ import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.web3j.utils.Convert;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -119,7 +117,7 @@ public class Web3OfferFlowService extends AbsSignService {
             Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
 
-        Web3OfferCreateRequest request = unwrap(_request.getToken(), Web3OfferCreateRequest.class);
+        Web3OfferCreateRequest request = unwrap(_request.getContent(), Web3OfferCreateRequest.class);
         NftOffer nftOffer = new NftOffer();
         nftOffer.setAssetsId(request.getAssetsId());
         nftOffer.setUid(uid);
@@ -219,7 +217,7 @@ public class Web3OfferFlowService extends AbsSignService {
         nftOrderDao.insert(nftOrder);
 
         Web3AcceptCreateResponse response = new Web3AcceptCreateResponse();
-        response.setToken(token);
+        response.setContent(token);
         response.setFrom(from);
         response.setTxnTo(txnTo);
         response.setTxnValue(txnValue);

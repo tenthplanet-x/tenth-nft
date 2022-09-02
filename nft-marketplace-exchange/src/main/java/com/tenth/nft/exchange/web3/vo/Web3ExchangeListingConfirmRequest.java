@@ -7,7 +7,7 @@ public class Web3ExchangeListingConfirmRequest {
 
     private String dataForSign;
 
-    private String token;
+    private String content;
 
     private String signature;
 
@@ -27,12 +27,12 @@ public class Web3ExchangeListingConfirmRequest {
         this.signature = signature;
     }
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 
 }

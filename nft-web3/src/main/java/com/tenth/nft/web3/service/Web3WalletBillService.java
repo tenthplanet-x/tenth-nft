@@ -37,7 +37,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,7 +70,7 @@ public class Web3WalletBillService {
 
         NftWeb3Wallet.WEB3_BILL_PAY_IC innerRequest = NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder()
                 .setUid(uid)
-                .setToken(request.getToken())
+                .setToken(request.getContent())
                 .setTxn(request.getTxn())
                 .build();
 

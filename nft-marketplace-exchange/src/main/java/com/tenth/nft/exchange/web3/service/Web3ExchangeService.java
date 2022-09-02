@@ -1,7 +1,6 @@
 package com.tenth.nft.exchange.web3.service;
 
 import com.google.common.base.Strings;
-import com.qiniu.util.Json;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
@@ -13,7 +12,6 @@ import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
-import com.tenth.nft.exchange.buildin.service.BuildInExchangeService;
 import com.tenth.nft.exchange.common.service.NftBelongService;
 import com.tenth.nft.exchange.common.service.NftListingService;
 import com.tenth.nft.exchange.common.service.AbsExchangeService;
@@ -27,7 +25,6 @@ import com.tenth.nft.exchange.web3.wallet.Web3WalletProvider;
 import com.tenth.nft.orm.marketplace.dao.NftOrderDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOrderQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOrderUpdate;
-import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftMarketplace;
@@ -106,7 +103,7 @@ public class Web3ExchangeService extends AbsExchangeService {
 
         ListingCreateResponse createResponse = new ListingCreateResponse();
         createResponse.setDataForSign(routeResponse.getDataForSign());
-        createResponse.setToken(routeResponse.getToken());
+        createResponse.setContent(routeResponse.getToken());
 
         String address = routeClient.send(
                 NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
@@ -191,7 +188,7 @@ public class Web3ExchangeService extends AbsExchangeService {
         routeClient.send(
                 NftWeb3Exchange.WEB3_LISTING_CONFIRM_IC.newBuilder()
                         .setUid(uid)
-                        .setToken(request.getToken())
+                        .setToken(request.getContent())
                         .setSignature(request.getSignature())
                         .build(),
                 Web3ListingConfirmRouteRequest.class

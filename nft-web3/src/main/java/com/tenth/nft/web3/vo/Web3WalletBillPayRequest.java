@@ -2,7 +2,6 @@ package com.tenth.nft.web3.vo;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author shijie
@@ -11,16 +10,16 @@ import javax.validation.constraints.NotNull;
 public class Web3WalletBillPayRequest {
 
     @NotEmpty
-    private String token;
+    private String content;
     @NotEmpty
     private String txn;
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getTxn() {

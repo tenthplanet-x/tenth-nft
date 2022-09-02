@@ -5,7 +5,7 @@ package com.tenth.nft.exchange.web3.dto;
  */
 public class PaymentCreateResponse {
 
-    private String token;
+    private String content;
 
     private String txnTo;
 
@@ -20,19 +20,19 @@ public class PaymentCreateResponse {
     }
 
     public PaymentCreateResponse(String token, String txnData, String txnValue, String txnTo, String from) {
-        this.token = token;
+        this.content = token;
         this.txnData = txnData;
         this.txnValue = txnValue;
         this.txnTo = txnTo;
         this.from = from;
     }
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getTxnTo() {

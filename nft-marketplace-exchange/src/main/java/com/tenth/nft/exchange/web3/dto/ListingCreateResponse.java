@@ -9,7 +9,7 @@ public class ListingCreateResponse {
 
     private String dataForSign;
 
-    private String token;
+    private String content;
 
     public ListingCreateResponse() {
     }
@@ -26,12 +26,12 @@ public class ListingCreateResponse {
         this.dataForSign = dataForSign;
     }
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getFrom() {

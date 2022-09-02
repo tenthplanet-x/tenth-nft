@@ -72,7 +72,7 @@ public class WalletBillService {
                 routeClient.send(
                         NftWallet.BILL_PAY_IC.newBuilder()
                                 .setUid(uid)
-                                .setToken(request.getToken())
+                                .setToken(request.getContent())
                                 .setPassword(request.getPassword())
                                 .build(),
                         WalletPayRouteRequest.class

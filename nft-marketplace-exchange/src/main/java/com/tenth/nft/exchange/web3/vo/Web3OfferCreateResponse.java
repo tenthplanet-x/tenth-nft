@@ -9,7 +9,7 @@ public class Web3OfferCreateResponse {
 
     private String dataForSign;
 
-    private String token;
+    private String content;
 
     public Web3OfferCreateResponse() {
     }
@@ -17,15 +17,15 @@ public class Web3OfferCreateResponse {
     public Web3OfferCreateResponse(String from, String dataForSign, String token) {
         this.from = from;
         this.dataForSign = dataForSign;
-        this.token = token;
+        this.content = token;
     }
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getFrom() {

@@ -15,7 +15,7 @@ public class Web3AcceptCreateResponse {
 
     private String nonce;
 
-    private String token;
+    private String content;
 
     public String getFrom() {
         return from;
@@ -57,11 +57,11 @@ public class Web3AcceptCreateResponse {
         this.nonce = nonce;
     }
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -7,7 +7,7 @@ public class NftBuyResponse {
 
     private String channel;
 
-    private String token;
+    private String content;
 
     private String currency;
 
@@ -21,12 +21,12 @@ public class NftBuyResponse {
         this.channel = channel;
     }
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getCurrency() {
