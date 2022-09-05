@@ -3,26 +3,30 @@ package com.tenth.nft.exchange.buildin.dto;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.orm.marketplace.entity.NftOffer;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tpulse.gs.convention.dao.SimpleResponse;
+import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
 /**
  * @author shijie
  */
-public class NftOfferDTO {
+public class NftOfferDTO implements SimpleResponse {
 
+    @SimpleField(name = "_id")
     private Long id;
 
+    @SimpleField
     private Long assetsId;
-
+    @SimpleField
     private Long uid;
-
+    @SimpleField
     private Integer quantity;
-
+    @SimpleField
     private String price;
-
+    @SimpleField
     private String currency;
-
+    @SimpleField
     private Long createdAt;
-
+    @SimpleField
     private Long expireAt;
 
     private UserProfileDTO userProfile;
@@ -99,6 +103,21 @@ public class NftOfferDTO {
         this.userProfile = userProfile;
     }
 
+    public static NftOfferDTO fromFromEntity(NftOffer nftOffer) {
+
+        NftOfferDTO dto = new NftOfferDTO();
+        dto.setId(nftOffer.getId());
+        dto.setUid(nftOffer.getUid());
+        dto.setAssetsId(nftOffer.getAssetsId());
+        dto.setQuantity(nftOffer.getQuantity());
+        dto.setPrice(nftOffer.getPrice());
+        dto.setCurrency(nftOffer.getCurrency());
+        dto.setCreatedAt(nftOffer.getCreatedAt());
+        dto.setExpireAt(nftOffer.getExpireAt());
+
+        return dto;
+    }
+
     public static NftExchange.NftOfferDTO from(NftOffer nftOffer) {
 
         return NftExchange.NftOfferDTO.newBuilder()
@@ -111,20 +130,6 @@ public class NftOfferDTO {
                 .setCreatedAt(nftOffer.getCreatedAt())
                 .setExpireAt(nftOffer.getExpireAt())
                 .build();
-    }
-
-    public static NftOfferDTO from(NftExchange.NftOfferDTO nftOffer) {
-
-        NftOfferDTO dto = new NftOfferDTO();
-        dto.setId(nftOffer.getId());
-        dto.setUid(nftOffer.getUid());
-        dto.setAssetsId(nftOffer.getAssetsId());
-        dto.setQuantity(nftOffer.getQuantity());
-        dto.setPrice(nftOffer.getPrice());
-        dto.setCurrency(nftOffer.getCurrency());
-        dto.setCreatedAt(nftOffer.getCreatedAt());
-        dto.setExpireAt(nftOffer.getExpireAt());
-        return dto;
     }
 
     public static NftOfferDTO convertFrom(NftOffer nftOffer) {

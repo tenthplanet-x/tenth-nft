@@ -1,12 +1,12 @@
 package com.tenth.nft.exchange.buildin.controller.web;
 
+import com.tenth.nft.convention.wallet.WalletBillState;
+import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.exchange.buildin.ExchangePaths;
 import com.tenth.nft.exchange.buildin.dto.NftOfferDTO;
 import com.tenth.nft.exchange.buildin.service.BuildInOfferService;
-import com.tenth.nft.exchange.buildin.vo.NftMakeOfferRequest;
-import com.tenth.nft.exchange.buildin.vo.NftOfferAcceptRequest;
-import com.tenth.nft.exchange.buildin.vo.NftOfferCancelRequest;
-import com.tenth.nft.exchange.buildin.vo.NftOfferListRequest;
+import com.tenth.nft.exchange.buildin.vo.*;
+import com.tenth.nft.orm.marketplace.entity.NftOrderStatus;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.wallan.router.endpoint.core.security.HttpRoute;
@@ -50,8 +50,25 @@ public class BuildInOfferController {
     @RequestMapping(ExchangePaths.OFFER_ACCEPT)
     public Response acceptOffer(@RequestBody NftOfferAcceptRequest request){
         Validations.check(request);
-        nftOfferService.accept(request);
-        return Response.successBuilder().build();
+        Long outOrderId = nftOfferService.accept(request);
+        return Response.successBuilder().data(outOrderId).build();
+    }
+
+    @RequestMapping(ExchangePaths.OFFER_ACCEPT_STATUS)
+    public Response acceptStatus(@RequestBody NftOfferAcceptStatusRequest request){
+        NftOrderStatus status = nftOfferService.getAcceptStatus(request);
+
+        //Keep consistent with web3
+        TxnStatus txnStatus = null;
+        if(status == NftOrderStatus.CREATE){
+            txnStatus = TxnStatus.PENDING;
+        }else if(status == NftOrderStatus.COMPLETE){
+            txnStatus = TxnStatus.SUCCESS;
+        }else{
+            txnStatus = TxnStatus.FAIL;
+        }
+
+        return Response.successBuilder().data(txnStatus).build();
     }
 
 }

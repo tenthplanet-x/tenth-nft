@@ -24,10 +24,6 @@ public enum NftInnerCmdTypes implements CmdType {
     LISTING_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.LISTING_LIST_IC, NftExchange.LISTING_LIST_IC.newBuilder()),
     ASSETS_EXCHANGE_PROFILE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_EXCHANGE_PROFILE_IC, NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()),
     COLLECTION_EXCHANGE_PROFILE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_EXCHANGE_PROFILE_IC, NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()),
-    OFFER_MAKE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_MAKE_IC, NftExchange.OFFER_MAKE_IC.newBuilder()),
-    OFFER_ACCEPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_ACCEPT_IC, NftExchange.OFFER_ACCEPT_IC.newBuilder()),
-    OFFER_CANCEL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_CANCEL_IC, NftExchange.OFFER_CANCEL_IC.newBuilder()),
-    OFFER_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_LIST_IC, NftExchange.OFFER_LIST_IC.newBuilder()),
     LISTING_EVENT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.LISTING_EVENT_IC, NftExchange.LISTING_EVENT_IC.newBuilder()),
     EXCHANGE_EVENT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.EXCHANGE_EVENT_IC, NftExchange.EXCHANGE_EVENT_IC.newBuilder()),
     OFFER_EXPIRE_CHECK_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_EXPIRE_CHECK_IC, NftExchange.OFFER_EXPIRE_CHECK_IC.newBuilder()),
@@ -45,6 +41,7 @@ public enum NftInnerCmdTypes implements CmdType {
     ASSETS_BELONGS_UPDATE_IC(NftCmdGroup.PLAYER, NftInnerCmds.ASSETS_BELONGS_UPDATE_IC, NftPlayer.ASSETS_BELONGS_UPDATE_IC.newBuilder()),
 
     //wallet
+    BILL_PAY_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_PAY_IC, NftWallet.BILL_PAY_IC.newBuilder()),
     BILL_DETAIL_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_DETAIL_IC, NftWallet.BILL_DETAIL_IC.newBuilder()),
     RECHARGE_IC(NftCmdGroup.WALLET, NftInnerCmds.RECHARGE_IC, NftWallet.RECHARGE_IC.newBuilder()),
     BILL_INCOME_TRIGGER_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_INCOME_TRIGGER_IC, NftWallet.BILL_INCOME_TRIGGER_IC.newBuilder()),

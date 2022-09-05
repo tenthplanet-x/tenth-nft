@@ -183,4 +183,53 @@ public class NftActivityService {
         nftActivityDao.insert(activity);
 
     }
+
+    public Long sendOfferEvent(NftOffer nftOffer) {
+
+        NftActivity nftActivity = new NftActivity();
+        nftActivity.setAssetsId(nftOffer.getAssetsId());
+        nftActivity.setType(NftActivityEventType.OFFER);
+        nftActivity.setCreatedAt(System.currentTimeMillis());
+        nftActivity.setUpdatedAt(nftActivity.getCreatedAt());
+
+        OfferEvent offerEvent = new OfferEvent();
+        offerEvent.setFrom(nftOffer.getUid());
+        offerEvent.setQuantity(nftOffer.getQuantity());
+        offerEvent.setPrice(nftOffer.getPrice());
+        offerEvent.setCurrency(nftOffer.getCurrency());
+        offerEvent.setExpireAt(nftOffer.getExpireAt());
+        nftActivity.setOffer(offerEvent);
+
+        return nftActivityDao.insert(nftActivity).getId();
+    }
+
+    public void sendOfferCancelEvent(NftOffer nftOffer) {
+
+        //freeze offer event
+        freezeOfferEvent(nftOffer.getActivityId());
+
+        //cancel event
+        NftActivity nftActivity = new NftActivity();
+        nftActivity.setAssetsId(nftOffer.getAssetsId());
+        nftActivity.setType(NftActivityEventType.OFFER_CANCEL);
+        nftActivity.setCreatedAt(System.currentTimeMillis());
+        nftActivity.setUpdatedAt(nftActivity.getCreatedAt());
+        OfferEvent offerEvent = new OfferEvent();
+        offerEvent.setFrom(nftOffer.getUid());
+        offerEvent.setQuantity(nftOffer.getQuantity());
+        offerEvent.setPrice(nftOffer.getPrice());
+        offerEvent.setCurrency(nftOffer.getCurrency());
+        offerEvent.setCancel(true);
+        nftActivity.setOffer(offerEvent);
+        nftActivityDao.insert(nftActivity);
+    }
+
+    public void freezeOfferEvent(Long activityId) {
+        if(null != activityId){
+            nftActivityDao.update(
+                    NftActivityQuery.newBuilder().id(activityId).build(),
+                    NftActivityUpdate.newBuilder().freeze(true).build()
+            );
+        }
+    }
 }

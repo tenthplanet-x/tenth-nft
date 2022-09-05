@@ -15,4 +15,5 @@ public class ExchangePaths {
     public static final String OFFER_CREATE = "/nft/exchange/offer/create";
     public static final String OFFER_CANCEL = "/nft/exchange/offer/cancel";
     public static final String OFFER_ACCEPT = "/nft/exchange/offer/accept";
+    public static final String OFFER_ACCEPT_STATUS = "/nft/exchange/offer/accept/status";
 }
