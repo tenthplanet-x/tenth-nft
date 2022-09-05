@@ -44,8 +44,6 @@ public class NftInnerCmds {
     public static final int COLLECTION_DETAIL_IC = -40004;
     public static final int NFT_BLOCKCHAIN_IC = -40005;
     public static final int PAYMENT_RECEIVE_IC = -40006;
-    public static final int WEB3_LISTING_CREATE_IC = -40007;
-    public static final int WEB3_LISTING_CONFIRM_IC = -40008;
     public static final int ASSETS_MINT_IC = -40009;
 
     //player

@@ -10,6 +10,7 @@ import com.tenth.nft.convention.routes.exchange.ListingListRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.exchange.buildin.controller.vo.NftListingListRequest;
 import com.tenth.nft.exchange.buildin.dto.NftListingDTO;
+import com.tenth.nft.exchange.buildin.service.NftActivityService;
 import com.tenth.nft.orm.marketplace.dao.NftActivityDao;
 import com.tenth.nft.orm.marketplace.dao.NftListingDao;
 import com.tenth.nft.orm.marketplace.dao.expression.*;
@@ -45,10 +46,9 @@ public class NftListingService {
     @Autowired
     private RouteClient routeClient;
     @Autowired
-    private NftActivityDao nftActivityDao;
-    @Autowired
-    @Lazy
     private NftBelongService nftBelongService;
+    @Autowired
+    private NftExchangeEventService nftExchangeEventService;
 
     public Page<NftListingDTO> list(NftListingListRequest request) {
 
@@ -106,7 +106,7 @@ public class NftListingService {
     public NftListing insert(NftListing listing) {
 
         //Insert listing event
-        Long activityId = createListingEvent(listing);
+        Long activityId = nftExchangeEventService.sendListingEvent(listing);
         listing.setActivityId(activityId);
         listing = nftListingDao.insert(listing);
         //Rebuild cache
@@ -130,7 +130,7 @@ public class NftListingService {
         NftListing nftListing = nftListingDao.findAndRemove(
                 NftListingQuery.newBuilder().assetsId(assetsId).id(listingId).build()
         );
-        freezeListingEvent(nftListing);
+        nftExchangeEventService.freezeListingEvent(nftListing.getActivityId());
         sendListingRouteEventToStats(assetsId);
         sendListingRouteEventToSearch(assetsId);
     }
@@ -142,8 +142,7 @@ public class NftListingService {
         if(null == nftListing){
             throw BizException.newInstance(NftExchangeErrorCodes.SELL_CANCEL_EXCEPTION_NOT_EXIST);
         }
-        freezeListingEvent(nftListing);
-        createCancelEvent(nftListing, reason);
+        nftExchangeEventService.createCancelEvent(nftListing, reason);
         sendListingRouteEventToStats(assetsId);
         sendListingRouteEventToSearch(nftListing.getAssetsId());
     }
@@ -153,8 +152,8 @@ public class NftListingService {
             NftListing nftListing = nftListingDao.findAndRemove(
                     NftListingQuery.newBuilder().assetsId(assetsId).id(listingId).build()
             );
-            freezeListingEvent(nftListing);
-            createCancelEvent(nftListing, reason);
+            nftExchangeEventService.freezeListingEvent(nftListing.getActivityId());
+            nftExchangeEventService.createCancelEvent(nftListing, reason);
         }
         sendListingRouteEventToStats(assetsId);
         sendListingRouteEventToSearch(assetsId);
@@ -182,26 +181,6 @@ public class NftListingService {
 
     }
 
-    private Long createListingEvent(NftListing listing) {
-
-        NftActivity activity = new NftActivity();
-        activity.setAssetsId(listing.getAssetsId());
-        activity.setType(NftActivityEventType.List);
-        activity.setCreatedAt(System.currentTimeMillis());
-        activity.setUpdatedAt(activity.getCreatedAt());
-
-        ListEvent listEvent = new ListEvent();
-        listEvent.setFrom(listing.getUid());
-        listEvent.setPrice(listing.getPrice());
-        listEvent.setQuantity(listing.getQuantity());
-        listEvent.setCurrency(listing.getCurrency());
-        listEvent.setExpireAt(listing.getExpireAt());
-        activity.setList(listEvent);
-
-        return nftActivityDao.insert(activity).getId();
-
-    }
-
     public Optional<NftListing> findFloorListing(Long assetsId, String specificCurrency) {
         Optional<NftListing> floor = nftListingDao
                 .find(NftListingQuery.newBuilder().assetsId(assetsId).build())
@@ -220,18 +199,6 @@ public class NftListingService {
         );
     }
 
-    /**
-     * Make it can't show expired state
-     * @param nftListing
-     */
-    private void freezeListingEvent(NftListing nftListing) {
-        if(null != nftListing.getActivityId()){
-            nftActivityDao.update(
-                    NftActivityQuery.newBuilder().id(nftListing.getActivityId()).build(),
-                    NftActivityUpdate.newBuilder().freeze(true).build()
-            );
-        }
-    }
 
     private void sendListingRouteEventToSearch(Long assetsId) {
 
@@ -244,22 +211,5 @@ public class NftListingService {
         );
     }
 
-    private void createCancelEvent(NftListing nftListing, String reason) {
 
-        NftActivity activity = new NftActivity();
-        activity.setAssetsId(nftListing.getAssetsId());
-        activity.setType(NftActivityEventType.Cancel);
-        activity.setCreatedAt(System.currentTimeMillis());
-        activity.setUpdatedAt(activity.getCreatedAt());
-
-        ListCancelEvent list = new ListCancelEvent();
-        list.setFrom(nftListing.getUid());
-        list.setQuantity(nftListing.getQuantity());
-        list.setPrice(nftListing.getPrice());
-        list.setCurrency(nftListing.getCurrency());
-        list.setReason(reason);
-        activity.setCancel(list);
-
-        nftActivityDao.insert(activity);
-    }
 }

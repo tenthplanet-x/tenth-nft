@@ -213,7 +213,7 @@ public class BuildInOfferService {
 
     public void cancel(NftExchange.OFFER_CANCEL_IC request){
 
-        NftOffer nftOffer = nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).uid(request.getUid()).build());
+        NftOffer nftOffer = nftOfferDao.findAndRemove(NftOfferQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getOfferId()).uid(request.getUid()).build());
         if(null == nftOffer){
             throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_NOT_EXIST);
         }

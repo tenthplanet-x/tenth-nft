@@ -2,6 +2,8 @@ package com.tenth.nft.exchange.common.service;
 
 import com.tenth.nft.convention.blockchain.NullAddress;
 import com.tenth.nft.orm.marketplace.dao.NftActivityDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftActivityQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftActivityUpdate;
 import com.tenth.nft.orm.marketplace.entity.NftActivity;
 import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
 import com.tenth.nft.orm.marketplace.entity.NftListing;
@@ -99,7 +101,21 @@ public class NftExchangeEventService {
 
     }
 
-    public void sendCancelEvent(NftListing nftListing, String reason) {
+    /**
+     * Make it can't show expired state
+     */
+    public void freezeListingEvent(Long activityId) {
+        if(null != activityId){
+            nftActivityDao.update(
+                    NftActivityQuery.newBuilder().id(activityId).build(),
+                    NftActivityUpdate.newBuilder().freeze(true).build()
+            );
+        }
+    }
+
+    public void createCancelEvent(NftListing nftListing, String reason) {
+
+        freezeListingEvent(nftListing.getActivityId());
 
         NftActivity activity = new NftActivity();
         activity.setAssetsId(nftListing.getAssetsId());
@@ -116,8 +132,6 @@ public class NftExchangeEventService {
         activity.setCancel(list);
 
         nftActivityDao.insert(activity);
+
     }
-
-
-
 }

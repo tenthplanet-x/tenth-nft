@@ -1,11 +1,14 @@
 package com.tenth.nft.exchange.web3.controller.web;
 
+import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.exchange.web3.Web3ExchangePaths;
 import com.tenth.nft.exchange.web3.dto.ListingCreateResponse;
-import com.tenth.nft.exchange.web3.dto.PaymentCheckResponse;
 import com.tenth.nft.exchange.web3.dto.PaymentCreateResponse;
 import com.tenth.nft.exchange.web3.service.Web3ListingService;
-import com.tenth.nft.exchange.web3.vo.*;
+import com.tenth.nft.exchange.web3.vo.Web3ExchangeListingAuthRequest;
+import com.tenth.nft.exchange.web3.vo.Web3ExchangeListingConfirmRequest;
+import com.tenth.nft.exchange.web3.vo.Web3PaymentCheckRequest;
+import com.tenth.nft.exchange.web3.vo.Web3PaymentCreateRequest;
 import com.tpulse.commons.validation.Validations;
 import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
@@ -25,7 +28,7 @@ public class Web3ListingFlowController {
     private Web3ListingService web3ExchangeService;
 
     @RequestMapping(Web3ExchangePaths.LISTING_CREATE)
-    public Response createListing(@RequestBody Web3ExchangeListingAuthRequest request){
+    public Response createListing(@RequestBody Web3ExchangeListingAuthRequest request) throws Exception{
         Validations.check(request);
         ListingCreateResponse result = web3ExchangeService.createListing(request);
         return Response.successBuilder().data(result).build();
@@ -44,19 +47,5 @@ public class Web3ListingFlowController {
         PaymentCreateResponse result = web3ExchangeService.createPayment(request);
         return Response.successBuilder().data(result).build();
     }
-
-//    @RequestMapping(Web3ExchangePaths.PAYMENT_CONFIRM)
-//    public Response confirmPayment(Web3PaymentConfirmRequest request){
-//        web3ExchangeService.confirmPayment(request);
-//        return Response.successBuilder().build();
-//    }
-
-    @RequestMapping(Web3ExchangePaths.PAYMENT_CHECK)
-    public Response checkPayment(@RequestBody Web3PaymentCheckRequest request){
-        Validations.check(request);
-        PaymentCheckResponse response = web3ExchangeService.getPaymentState(request);
-        return Response.successBuilder().data(response).build();
-    }
-
 
 }

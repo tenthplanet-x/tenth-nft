@@ -23,6 +23,7 @@ import com.tpulse.gs.router.client.RouteClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,6 +35,7 @@ public class Web3OrderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(Web3ListingService.class);
 
     @Autowired
+    @Lazy
     private NftListingService nftListingService;
     @Autowired
     private RouteClient routeClient;
@@ -54,9 +56,14 @@ public class Web3OrderService {
     @Autowired
     private Web3Properties web3Properties;
     @Autowired
+    @Lazy
     private NftOfferFlowService nftOfferFlowService;
 
-
+    /**
+     * Accept and handle the response from web3 wallet
+     * @param request
+     * @return
+     */
     public NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS confirmPayment(NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC request) {
 
         NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS.Builder builder = NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS.newBuilder();
@@ -109,5 +116,9 @@ public class Web3OrderService {
                 NftExchange.EXCHANGE_EVENT_IC.newBuilder().setAssetsId(assetsId).build(),
                 ExchangeEventRouteRequest.class
         );
+    }
+
+    public void create(NftOrder nftOrder) {
+        nftOrderDao.insert(nftOrder);
     }
 }

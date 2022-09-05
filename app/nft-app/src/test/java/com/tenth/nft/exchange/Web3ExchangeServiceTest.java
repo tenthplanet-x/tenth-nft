@@ -33,18 +33,18 @@ public class Web3ExchangeServiceTest {
     @Test
     public void createListing() throws Exception{
 
-        NftWeb3Exchange.WEB3_LISTING_CREATE_IS createResponse = web3ExchangeService.createListing(NftWeb3Exchange.WEB3_LISTING_CREATE_IC.newBuilder()
-                        .setUid(seller)
-                        .setAssetsId(assetsId)
-                        .setQuantity(1)
-                        .setCurrency("ETH-Ethereum")
-                        .setStartAt(System.currentTimeMillis())
-                        .setExpireAt(System.currentTimeMillis() + 86400000)
-                        .setPrice("0.001")
-                .build());
-        System.out.println("createListing result: ");
-        System.out.println(createResponse.getDataForSign());
-        System.out.println(createResponse.getToken());
+//        NftWeb3Exchange.WEB3_LISTING_CREATE_IS createResponse = web3ExchangeService.createListing(NftWeb3Exchange.WEB3_LISTING_CREATE_IC.newBuilder()
+//                        .setUid(seller)
+//                        .setAssetsId(assetsId)
+//                        .setQuantity(1)
+//                        .setCurrency("ETH-Ethereum")
+//                        .setStartAt(System.currentTimeMillis())
+//                        .setExpireAt(System.currentTimeMillis() + 86400000)
+//                        .setPrice("0.001")
+//                .build());
+//        System.out.println("createListing result: ");
+//        System.out.println(createResponse.getDataForSign());
+//        System.out.println(createResponse.getToken());
     }
 
     @Test

@@ -13,8 +13,6 @@ public class Web3AcceptCreateResponse {
 
     private String txnData;
 
-    private String nonce;
-
     private String content;
 
     public String getFrom() {
@@ -47,14 +45,6 @@ public class Web3AcceptCreateResponse {
 
     public void setTxnData(String txnData) {
         this.txnData = txnData;
-    }
-
-    public String getNonce() {
-        return nonce;
-    }
-
-    public void setNonce(String nonce) {
-        this.nonce = nonce;
     }
 
     public String getContent() {

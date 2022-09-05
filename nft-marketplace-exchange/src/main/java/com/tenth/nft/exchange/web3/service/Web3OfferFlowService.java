@@ -56,9 +56,9 @@ public class Web3OfferFlowService extends AbsSignService {
     @Autowired
     private Web3WalletProvider web3WalletProvider;
     @Autowired
-    private NftOrderDao nftOrderDao;
-    @Autowired
     private GsCollectionIdService gsCollectionIdService;
+    @Autowired
+    private Web3OrderService web3OrderService;
 
     public Web3OfferCreateResponse createOffer(Web3OfferCreateRequest request) {
 
@@ -169,7 +169,6 @@ public class Web3OfferFlowService extends AbsSignService {
         String blockchain = walletCurrencyTemplate.findOne(currency).getBlockchain();
 
         Long orderId = createOrderId();
-        String nonce = new BigDecimal(orderId).toBigInteger().toString(16);
         Long expiredAt = WalletTimes.getExpiredAt();
         //WalletOrderBizContent
         WalletOrderBizContent walletOrder = WalletOrderBizContent.newBuilder()
@@ -214,7 +213,7 @@ public class Web3OfferFlowService extends AbsSignService {
         nftOrder.setQuantity(nftOffer.getQuantity());
         nftOrder.setStatus(NftOrderStatus.CREATE);
         nftOrder.setExpiredAt(expiredAt);
-        nftOrderDao.insert(nftOrder);
+        web3OrderService.create(nftOrder);
 
         Web3AcceptCreateResponse response = new Web3AcceptCreateResponse();
         response.setContent(token);
@@ -222,14 +221,12 @@ public class Web3OfferFlowService extends AbsSignService {
         response.setTxnTo(txnTo);
         response.setTxnValue(txnValue);
         response.setTxnData(txnData);
-        response.setNonce(nonce);
         return response;
     }
 
     protected Long createOrderId() {
         return gsCollectionIdService.incrementAndGet(NftIdModule.EXCHANGE.name());
     }
-
 
     protected List<WalletOrderBizContent.Profit> createProfits(NftOffer nftOffer) {
 
