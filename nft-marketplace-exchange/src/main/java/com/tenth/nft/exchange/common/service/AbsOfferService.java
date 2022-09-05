@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,18 +75,19 @@ public class AbsOfferService {
 
         List<WalletOrderBizContent.Profit> profits = new ArrayList<>();
 
-//        BigDecimal profitValue = new BigDecimal(nftListing.getPrice());
-//        BigDecimal creatorFee = BigDecimal.ZERO;
-//        if(!Strings.isNullOrEmpty(nftListing.getCreatorFeeRate())){
-//            creatorFee = profitValue.multiply(new BigDecimal(nftListing.getCreatorFeeRate()).divide(new BigDecimal(100)));
-//            profitValue = profitValue.subtract(creatorFee);
-//        }
+        BigDecimal profitValue = new BigDecimal(nftOffer.getPrice());
+        BigDecimal creatorFee = BigDecimal.ZERO;
+        if(!Strings.isNullOrEmpty(nftOffer.getCreatorFeeRate())){
+            creatorFee = profitValue.divide(new BigDecimal(100)).multiply(new BigDecimal(nftOffer.getCreatorFeeRate()));
+            creatorFee.round(new MathContext(4));//TODO precision setting
+            profitValue = profitValue.subtract(creatorFee);
+        }
         //seller
         {
             WalletOrderBizContent.Profit profit = new WalletOrderBizContent.Profit();
             profit.setActivityCfgId(WalletOrderType.NftIncome.getActivityCfgId());
             profit.setCurrency(nftOffer.getCurrency());
-            profit.setValue(nftOffer.getPrice());
+            profit.setValue(profitValue.toString());
             profit.setTo(seller);
             profits.add(profit);
         }
@@ -95,7 +97,7 @@ public class AbsOfferService {
                 WalletOrderBizContent.Profit profit = new WalletOrderBizContent.Profit();
                 profit.setActivityCfgId(WalletOrderType.CreatorIncome.getActivityCfgId());
                 profit.setCurrency(nftOffer.getCurrency());
-                profit.setValue(nftOffer.getCreatorFeeRate());
+                profit.setValue(creatorFee.toString());
                 profit.setTo(nftOffer.getCreatorUid());
                 profits.add(profit);
             }

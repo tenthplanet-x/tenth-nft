@@ -129,12 +129,12 @@ public class WalletBillService {
 
         //do pay
         //createPayForBill
-        walletService.decBalance(walletBill.getUid(), walletBill.getCurrency(), walletBill.getValue());
+        walletService.decBalance(uid, walletBill.getCurrency(), walletBill.getValue());
         changeState(walletBill, WalletBillState.PAYED, "ok");
         //notify
         routeClient.send(
                 NftWallet.BILL_PAYMENT_NOTIFY_IC.newBuilder()
-                        .setUid(walletBill.getUid())
+                        .setUid(uid)
                         .setBillId(walletBill.getId())
                         .build()
                 , BillPaymentNotifyRouteRequest.class);
@@ -189,7 +189,9 @@ public class WalletBillService {
                     )
             );
         }
-        if(WalletProductCode.NFT.name().equals(walletBill.getProductCode())){
+        if(WalletProductCode.NFT.name().equals(walletBill.getProductCode()) ||
+                WalletProductCode.NFT_OFFER.name().equals(walletBill.getProductCode())
+        ){
             walletBillDTO.setProductName(
                     routeClient.send(
                             NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
@@ -383,10 +385,11 @@ public class WalletBillService {
                         WalletBill payForBill = copyWithBizContent(walletBill);
                         payForBill.setUid(profit.getTo());
                         payForBill.setActivityCfgId(profit.getActivityCfgId());
-                        payForBill.setMerchantType(WalletMerchantType.PERSONAL.name());
+                        payForBill.setMerchantType(walletBill.getMerchantType());
                         payForBill.setMerchantId(String.valueOf(walletBill.getUid()));
                         payForBill.setCurrency(profit.getCurrency());
                         payForBill.setValue(profit.getValue());
+                        payForBill.setNotified(true);
                         walletBillDao.insert(payForBill);
                         routeClient.send(
                                 NftWallet.BILL_INCOME_TRIGGER_IC.newBuilder()
@@ -404,6 +407,7 @@ public class WalletBillService {
                 }
                 changeState(walletBill, WalletBillState.COMPLETE, "ok");
             }catch (Exception e){
+                LOGGER.error("", e);
                 walletBillDao.update(
                         query,
                         WalletBillUpdate.newBuilder()

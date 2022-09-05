@@ -56,7 +56,7 @@ public class WalletBillUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private Boolean notified;
     @SimpleWriteParam(name = "retry", opt = WriteOpt.INC)
-    private int retryInc;
+    private Integer retryInc;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -118,7 +118,7 @@ public class WalletBillUpdate extends SimpleUpdate {
         return notified;
     }
 
-    public int getRetryInc() {
+    public Integer getRetryInc() {
         return retryInc;
     }
 
