@@ -38,7 +38,7 @@ public class Web3WalletBillController {
 
     @RequestMapping(Web3WalletPaths.WALLET_BILL_STATE)
     public Response state(@RequestBody Web3WalletBillStateRequest request){
-
+        Validations.check(request);
         Web3WalletBillDTO bill = web3WalletBillService.state(request);
         return Response.successBuilder().data(bill).build();
     }

@@ -55,12 +55,13 @@ public class NftOfferFlowService {
 
     }
 
-    public void remove(Long assetsId, Long offerId) {
+    public NftOffer remove(Long assetsId, Long offerId) {
         NftOffer nftOffer = nftOfferDao.findAndRemove(NftOfferQuery.newBuilder()
                         .assetsId(assetsId)
                         .id(offerId)
                 .build());
         freezeOfferEvent(nftOffer);
+        return nftOffer;
     }
 
     private void freezeOfferEvent(NftOffer nftOffer) {

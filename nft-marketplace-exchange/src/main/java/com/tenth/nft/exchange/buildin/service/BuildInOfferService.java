@@ -218,10 +218,6 @@ public class BuildInOfferService {
             throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_NOT_EXIST);
         }
 
-        if(Times.isExpired(nftOffer.getExpireAt())){
-            throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_EXPIRED);
-        }
-
         //freeze offer event
         freezeOfferEvent(nftOffer);
 
