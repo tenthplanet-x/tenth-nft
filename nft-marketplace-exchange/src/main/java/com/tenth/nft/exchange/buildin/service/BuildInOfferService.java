@@ -55,7 +55,7 @@ public class BuildInOfferService {
     @Autowired
     private NftActivityDao nftActivityDao;
     @Autowired
-    private BuildInExchangeService nftExchangeService;
+    private BuildInListingService nftExchangeService;
 
     public Page<NftOfferDTO> list(NftOfferListRequest request) {
 

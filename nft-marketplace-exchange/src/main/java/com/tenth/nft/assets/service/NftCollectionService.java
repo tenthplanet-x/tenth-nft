@@ -1,7 +1,6 @@
-package com.tenth.nft.marketplace.service;
+package com.tenth.nft.assets.service;
 
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
-import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionUpdate;
@@ -25,8 +24,6 @@ public class NftCollectionService {
     private NftCollectionNoCacheDao nftCollectionDao;
     @Autowired
     private RouteClient routeClient;
-    @Autowired
-    private NftAssetsNoCacheDao nftAssetsNoCacheDao;
 
     public NftMarketplace.COLLECTION_CREATE_IS create(NftMarketplace.COLLECTION_CREATE_IC _request) {
 

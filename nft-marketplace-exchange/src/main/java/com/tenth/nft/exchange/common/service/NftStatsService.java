@@ -1,4 +1,4 @@
-package com.tenth.nft.exchange.buildin.service;
+package com.tenth.nft.exchange.common.service;
 
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;

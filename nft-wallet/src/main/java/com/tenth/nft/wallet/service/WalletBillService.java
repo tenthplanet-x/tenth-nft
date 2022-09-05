@@ -9,7 +9,6 @@ import com.tenth.nft.convention.routes.exchange.PaymentReceiveRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.wallet.BillIncomeTriggerRouteRequest;
 import com.tenth.nft.convention.routes.wallet.BillPaymentNotifyRouteRequest;
-import com.tenth.nft.convention.routes.wallet.WalletPayRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.templates.WalletActivityConfig;
@@ -68,40 +67,47 @@ public class WalletBillService {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
-        WalletBillDTO walletBillDTO = WalletBillDTO.from(
-                routeClient.send(
-                        NftWallet.BILL_PAY_IC.newBuilder()
-                                .setUid(uid)
-                                .setToken(request.getContent())
-                                .setPassword(request.getPassword())
-                                .build(),
-                        WalletPayRouteRequest.class
-                ).getBill()
-        );
-
-        return walletBillDTO;
-    }
-
-    public NftWallet.BILL_PAY_IS pay(NftWallet.BILL_PAY_IC request) {
-
         //token verify
-        WalletToken walletToken = WalletToken.decode(request.getToken());
+        WalletToken walletToken = WalletToken.decode(request.getContent());
         if(!walletToken.verify(publicKey)){
             throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
         }
 
         WalletOrderBizContent bizContent = walletToken.getBizContent();
 
+        try{
+            //password check
+            walletSettingService.checkPassword(uid, request.getPassword());
+            //verify balance
+            walletService.checkBalance(uid, bizContent.getCurrency(), bizContent.getValue());
+        }catch (BizException e){
+//            routeClient.send(
+//                    NftExchange.PAYMENT_RECEIVE_IC.newBuilder()
+//                            .setAssetsId(Long.valueOf(bizContent.getProductId()))
+//                            .setOrderId(bizContent.getOutOrderId())
+//                            .setState(WalletBillState.FAIL.name())
+//                            .build()
+//                    , PaymentReceiveRouteRequest.class);
+//            routeClient.send(
+//                    NftWallet.BILL_PAYMENT_NOTIFY_IC.newBuilder()
+//                            .setUid(walletBill.getUid())
+//                            .setBillId(walletBill.getId())
+//                            .build()
+//                    , BillPaymentNotifyRouteRequest.class);
+            //changeState(walletBill, WalletBillState.FAIL, "verify error");
+            throw e;
+        }
+
         //exist check
         WalletBill walletBill = walletBillDao.findOne(WalletBillQuery.newBuilder()
-                .uid(request.getUid())
+                .uid(uid)
                 .productCode(bizContent.getProductCode())
                 .outOrderId(bizContent.getOutOrderId()).build()
         );
         if(null == walletBill){
             walletBill = new WalletBill();
             walletBill.setActivityCfgId(bizContent.getActivityCfgId());
-            walletBill.setUid(request.getUid());
+            walletBill.setUid(uid);
             walletBill.setProductCode(bizContent.getProductCode());
             walletBill.setProductId(bizContent.getProductId());
             walletBill.setOutOrderId(bizContent.getOutOrderId());
@@ -123,22 +129,6 @@ public class WalletBillService {
             throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
         }
 
-        try{
-            //password check
-            walletSettingService.checkPassword(request.getUid(), request.getPassword());
-            //verify balance
-            walletService.checkBalance(request.getUid(), bizContent.getCurrency(), bizContent.getValue());
-        }catch (BizException e){
-            routeClient.send(
-                    NftWallet.BILL_PAYMENT_NOTIFY_IC.newBuilder()
-                            .setUid(walletBill.getUid())
-                            .setBillId(walletBill.getId())
-                            .build()
-                    , BillPaymentNotifyRouteRequest.class);
-            //changeState(walletBill, WalletBillState.FAIL, "verify error");
-            throw e;
-        }
-
         //do pay
         //createPayForBill
         walletService.decBalance(walletBill.getUid(), walletBill.getCurrency(), walletBill.getValue());
@@ -151,14 +141,9 @@ public class WalletBillService {
                         .build()
                 , BillPaymentNotifyRouteRequest.class);
 
-        return NftWallet.BILL_PAY_IS.newBuilder()
-                .setBill(detail(NftWallet.BILL_DETAIL_IC.newBuilder()
-                        .setUid(walletBill.getUid())
-                        .setProductCode(walletBill.getProductCode())
-                        .setOutOrderId(walletBill.getOutOrderId())
-                        .build()).getBills())
-                .build();
+        return WalletBillDTO.from(walletBill);
     }
+
 
     private WalletBill copyWithBizContent(WalletBill walletBill) {
 
@@ -371,7 +356,7 @@ public class WalletBillService {
     }
 
     /**
-     * send notification to external
+     * Send notification to external
      * @param request
      */
     public void notifyBillPayment(NftWallet.BILL_PAYMENT_NOTIFY_IC request){

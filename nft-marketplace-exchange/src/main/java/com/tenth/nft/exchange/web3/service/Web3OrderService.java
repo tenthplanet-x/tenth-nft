@@ -5,7 +5,7 @@ import com.tenth.nft.convention.routes.exchange.ExchangeEventRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.wallet.WalletBillState;
 import com.tenth.nft.exchange.common.service.NftBelongService;
-import com.tenth.nft.exchange.common.service.NftExchangeEventService;
+import com.tenth.nft.exchange.common.service.NftActivityService;
 import com.tenth.nft.exchange.common.service.NftListingService;
 import com.tenth.nft.exchange.common.service.NftOfferFlowService;
 import com.tenth.nft.exchange.web3.wallet.Web3WalletProvider;
@@ -40,7 +40,7 @@ public class Web3OrderService {
     @Autowired
     private RouteClient routeClient;
     @Autowired
-    private NftExchangeEventService nftExchangeEventService;
+    private NftActivityService nftExchangeEventService;
     @Autowired
     private I18nGsTemplates i18nGsTemplates;
     @Autowired

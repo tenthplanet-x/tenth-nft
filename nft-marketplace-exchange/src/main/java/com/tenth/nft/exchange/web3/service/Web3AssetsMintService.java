@@ -1,14 +1,13 @@
-package com.tenth.nft.marketplace.service;
+package com.tenth.nft.exchange.web3.service;
 
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.marketplace.AssetsMintRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.web3.utils.TokenMintStatus;
-import com.tenth.nft.marketplace.vo.NftAssetsMintCheckRequest;
-import com.tenth.nft.marketplace.vo.NftAssetsMintCheckResponse;
-import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
+import com.tenth.nft.exchange.common.service.NftAssetsService;
+import com.tenth.nft.exchange.web3.vo.NftAssetsMintCheckRequest;
+import com.tenth.nft.exchange.web3.vo.NftAssetsMintCheckResponse;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsUpdate;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
@@ -30,37 +29,35 @@ import java.math.BigInteger;
  * @author shijie
  */
 @Service
-public class NftAssetsMintService {
+public class Web3AssetsMintService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(NftAssetsMintService.class);
+    private Logger LOGGER = LoggerFactory.getLogger(Web3AssetsMintService.class);
 
-    @Autowired
-    private NftAssetsDao nftAssetsDao;
     @Autowired
     private Web3Properties web3Properties;
     @Autowired
     private TpulseContractHelper tpulseContractHelper;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private NftAssetsService nftAssetsService;
 
+    /**
+     * Trigger minting using async mode if it haven't minted
+     * @param request
+     * @return
+     */
     public NftAssetsMintCheckResponse checkMinting(NftAssetsMintCheckRequest request) {
 
-        SimpleQuery query = NftAssetsQuery.newBuilder().id(request.getAssetsId()).build();
-        NftAssets nftAssets = nftAssetsDao.findOne(query);
+        NftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         TokenMintStatus mintStatus = nftAssets.getMintStatus();
         if(null == mintStatus){
             if(web3Properties.getBlockchain().equals(nftAssets.getBlockchain())){
-
                 routeClient.send(
                         NftMarketplace.ASSETS_MINT_IC.newBuilder().setId(nftAssets.getId()).build(),
                         AssetsMintRouteRequest.class
                 );
-                nftAssetsDao.update(
-                        query,
-                        NftAssetsUpdate.newBuilder()
-                                .mintStatus(TokenMintStatus.MINTING)
-                                .build()
-                );
+                nftAssetsService.updateMintStatus(request.getAssetsId(), TokenMintStatus.MINTING);
                 return new NftAssetsMintCheckResponse(TokenMintStatus.MINTING);
             }
         }
@@ -71,10 +68,7 @@ public class NftAssetsMintService {
 
     public void mint(NftMarketplace.ASSETS_MINT_IC request){
 
-        SimpleQuery query = NftAssetsQuery.newBuilder().id(request.getId()).build();
-        NftAssets nftAssets = nftAssetsDao.findOne(query);
-        //nftAssets.getCreator()
-
+        NftAssets nftAssets = nftAssetsService.findOne(request.getId());
         String creatorAddress = routeClient.send(
                 NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
                         .setUid(nftAssets.getCreator())
@@ -92,30 +86,14 @@ public class NftAssetsMintService {
                     new BigDecimal(nftAssets.getCreatorFeeRate()).multiply(BigDecimal.valueOf(100)).toBigInteger()
             ).send();
 
-
             if(receipt.isStatusOK()){
-                nftAssetsDao.update(
-                        query,
-                        NftAssetsUpdate.newBuilder()
-                                .mintStatus(TokenMintStatus.SUCCESS)
-                                .build()
-                );
+                nftAssetsService.updateMintStatus(request.getId(), TokenMintStatus.SUCCESS);
             }else if(ContractTransactionReceipt.isFail(receipt.getStatus())){
-                nftAssetsDao.update(
-                        query,
-                        NftAssetsUpdate.newBuilder()
-                                .mintStatus(TokenMintStatus.FAIL)
-                                .build()
-                );
+                nftAssetsService.updateMintStatus(request.getId(), TokenMintStatus.FAIL);
             }
         }catch (Exception e){
             LOGGER.error("", e);
-            nftAssetsDao.update(
-                    query,
-                    NftAssetsUpdate.newBuilder()
-                            .mintStatus(TokenMintStatus.FAIL)
-                            .build()
-            );
+            nftAssetsService.updateMintStatus(request.getId(), TokenMintStatus.FAIL);
         }
 
     }

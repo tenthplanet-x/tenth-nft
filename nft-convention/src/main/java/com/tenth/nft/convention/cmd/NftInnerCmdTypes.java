@@ -21,15 +21,11 @@ public enum NftInnerCmdTypes implements CmdType {
     ASSETS_IC(NftCmdGroup.SEARCH, NftInnerCmds.ASSETS_IC, NftSearch.ASSETS_IC.newBuilder()),
     NFT_CURRENCY_IC(NftCmdGroup.SEARCH, NftInnerCmds.NFT_CURRENCY_IC, NftOperation.NFT_CURRENCY_IC.newBuilder()),
 
-    BUY_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUY_IC, NftExchange.BUY_IC.newBuilder()),
-    SELL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.SELL_IC, NftExchange.SELL_IC.newBuilder()),
     LISTING_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.LISTING_LIST_IC, NftExchange.LISTING_LIST_IC.newBuilder()),
     ACTIVITY_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ACTIVITY_LIST_IC, NftExchange.ACTIVITY_LIST_IC.newBuilder()),
-    MINT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.MINT_IC, NftExchange.MINT_IC.newBuilder()),
     OWNER_LIST_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OWNER_LIST_IC, NftExchange.OWNER_LIST_IC.newBuilder()),
     ASSETS_EXCHANGE_PROFILE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_EXCHANGE_PROFILE_IC, NftExchange.ASSETS_EXCHANGE_PROFILE_IC.newBuilder()),
     COLLECTION_EXCHANGE_PROFILE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_EXCHANGE_PROFILE_IC, NftExchange.COLLECTION_EXCHANGE_PROFILE_IC.newBuilder()),
-    SELL_CANCEL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.SELL_CANCEL_IC, NftExchange.SELL_CANCEL_IC.newBuilder()),
     OFFER_MAKE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_MAKE_IC, NftExchange.OFFER_MAKE_IC.newBuilder()),
     OFFER_ACCEPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_ACCEPT_IC, NftExchange.OFFER_ACCEPT_IC.newBuilder()),
     OFFER_CANCEL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.OFFER_CANCEL_IC, NftExchange.OFFER_CANCEL_IC.newBuilder()),
@@ -51,14 +47,12 @@ public enum NftInnerCmdTypes implements CmdType {
     ASSETS_BELONGS_UPDATE_IC(NftCmdGroup.PLAYER, NftInnerCmds.ASSETS_BELONGS_UPDATE_IC, NftPlayer.ASSETS_BELONGS_UPDATE_IC.newBuilder()),
 
     //wallet
-    BILL_PAY_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_PAY_IC, NftWallet.BILL_PAY_IC.newBuilder()),
     BILL_DETAIL_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_DETAIL_IC, NftWallet.BILL_DETAIL_IC.newBuilder()),
     RECHARGE_IC(NftCmdGroup.WALLET, NftInnerCmds.RECHARGE_IC, NftWallet.RECHARGE_IC.newBuilder()),
     BILL_INCOME_TRIGGER_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_INCOME_TRIGGER_IC, NftWallet.BILL_INCOME_TRIGGER_IC.newBuilder()),
     BILL_PAY_NOTIFICATION_IC(NftCmdGroup.WALLET, NftInnerCmds.BILL_PAYMENT_NOTIFY_IC, NftWallet.BILL_PAYMENT_NOTIFY_IC.newBuilder()),
 
     //web3 wallet
-    WEB3_PAYMENT_CREATE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_PAYMENT_CREATE_IC, NftWeb3Exchange.WEB3_PAYMENT_CREATE_IC.newBuilder()),
     WEB3_PAYMENT_CONFIRM_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_PAYMENT_CONFIRM_IC, NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC.newBuilder()),
     WEB3_BILL_PAY_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_BILL_PAY_IC, NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder()),
     WEB3_TXN_CHECK_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_TXN_CHECK_IC, NftWeb3Wallet.WEB3_TXN_CHECK_IC.newBuilder()),

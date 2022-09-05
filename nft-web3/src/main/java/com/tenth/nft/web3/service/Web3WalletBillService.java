@@ -219,8 +219,7 @@ public class Web3WalletBillService {
         Web3WalletBillDTO billDTO = Web3WalletBillDTO.from(
                 web3WalletBillDao.findOne(
                         Web3WalletBillQuery.newBuilder()
-                                .accountId(web3Wallet.getWalletAccountId())
-                                .blockchain(web3Wallet.getBlockchain())
+                                .uid(uid)
                                 .id(request.getId())
                                 .build()
                 )

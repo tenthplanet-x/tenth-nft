@@ -1,7 +1,6 @@
 package com.tenth.nft.exchange;
 
 import com.tenth.nft.app.NftApplicationTest;
-import com.tenth.nft.exchange.buildin.service.BuildInExchangeService;
 import com.tenth.nft.exchange.common.service.NftListingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

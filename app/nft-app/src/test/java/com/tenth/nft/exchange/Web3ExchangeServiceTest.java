@@ -53,32 +53,32 @@ public class Web3ExchangeServiceTest {
         //assetsId  46000
         //uid   18000
 
-        web3ExchangeService.confirmListing(
-                NftWeb3Exchange.WEB3_LISTING_CONFIRM_IC.newBuilder()
-                        .setUid(seller)
-                        .setToken("eyJkb21haW4iOnsibmFtZSI6IlRwdWxzZSIsInZlcnNpb24iOiIxIiwiY2hhaW5JZCI6NCwidmVyaWZ5aW5nQ29udHJhY3QiOiIweDk5MGUxMTRhNTk4Y2QyOTNmNDc4MTMwOWRmNzAxYWIzZWVhNTY1NDIiLCJzYWx0IjoiMHgxIn0sImFzc2V0c0lkIjo0NjEwMCwicXVhbnRpdHkiOjEsImN1cnJlbmN5IjoiRVRILUV0aGVyZXVtIiwicHJpY2UiOiIwLjAwMSIsInN0YXJ0QXQiOjE2NjE0Mjk2NDI1OTUsImV4cGlyZUF0IjoxNjYxNTE2MDQyNTk1fQ==.lRVUlrubDygATxMawJesekL2zxvlohpKR6qh+chdwLq/MltiSFu3CkQfmtoF8f/x0E3RJseSdOdixjaBNYcPkFFxV9hXNUSjnnzMaaTDJsXbSglw8Y/uQAJ90q7Eui9w/j9XoV93REvPcKLadOxFCox5katTU7YMZeVMmpqe5P4=")
-                        .setSignature("0x22a2279445ebcbc2ff8a7b216dbf3cc4d4157e537f3a018fb2ad5d1c7f6030952d414c5955ad52282adebb3b48c0b746cc57241dc2111b1dbf4ef2a87ad46e1a1b")
-                        .build()
-        );
+//        web3ExchangeService.confirmListing(
+//                NftWeb3Exchange.WEB3_LISTING_CONFIRM_IC.newBuilder()
+//                        .setUid(seller)
+//                        .setToken("eyJkb21haW4iOnsibmFtZSI6IlRwdWxzZSIsInZlcnNpb24iOiIxIiwiY2hhaW5JZCI6NCwidmVyaWZ5aW5nQ29udHJhY3QiOiIweDk5MGUxMTRhNTk4Y2QyOTNmNDc4MTMwOWRmNzAxYWIzZWVhNTY1NDIiLCJzYWx0IjoiMHgxIn0sImFzc2V0c0lkIjo0NjEwMCwicXVhbnRpdHkiOjEsImN1cnJlbmN5IjoiRVRILUV0aGVyZXVtIiwicHJpY2UiOiIwLjAwMSIsInN0YXJ0QXQiOjE2NjE0Mjk2NDI1OTUsImV4cGlyZUF0IjoxNjYxNTE2MDQyNTk1fQ==.lRVUlrubDygATxMawJesekL2zxvlohpKR6qh+chdwLq/MltiSFu3CkQfmtoF8f/x0E3RJseSdOdixjaBNYcPkFFxV9hXNUSjnnzMaaTDJsXbSglw8Y/uQAJ90q7Eui9w/j9XoV93REvPcKLadOxFCox5katTU7YMZeVMmpqe5P4=")
+//                        .setSignature("0x22a2279445ebcbc2ff8a7b216dbf3cc4d4157e537f3a018fb2ad5d1c7f6030952d414c5955ad52282adebb3b48c0b746cc57241dc2111b1dbf4ef2a87ad46e1a1b")
+//                        .build()
+//        );
     }
 
     @Test
     public void createPayment(){
 
-        NftWeb3Exchange.WEB3_PAYMENT_CREATE_IS response = web3ExchangeService.createPayment(NftWeb3Exchange.WEB3_PAYMENT_CREATE_IC.newBuilder()
-                        .setUid(buyer)
-                        .setAssetsId(assetsId)
-                        .setListingId(listingId)
-                .build());
-        String token = response.getToken();
-        String txnValue = response.getTxnValue();
-        String txnData = response.getTxnData();
-        String txnTo = response.getTxnTo();
-        System.out.println("createPayment: ");
-        System.out.println(token);
-        System.out.println(txnValue);
-        System.out.println(txnData);
-        System.out.println(txnTo);
+//        NftWeb3Exchange.WEB3_PAYMENT_CREATE_IS response = web3ExchangeService.createPayment(NftWeb3Exchange.WEB3_PAYMENT_CREATE_IC.newBuilder()
+//                        .setUid(buyer)
+//                        .setAssetsId(assetsId)
+//                        .setListingId(listingId)
+//                .build());
+//        String token = response.getToken();
+//        String txnValue = response.getTxnValue();
+//        String txnData = response.getTxnData();
+//        String txnTo = response.getTxnTo();
+//        System.out.println("createPayment: ");
+//        System.out.println(token);
+//        System.out.println(txnValue);
+//        System.out.println(txnData);
+//        System.out.println(txnTo);
     }
 
     @Test

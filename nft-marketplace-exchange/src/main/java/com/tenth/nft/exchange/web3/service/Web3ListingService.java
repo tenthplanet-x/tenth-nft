@@ -5,30 +5,23 @@ import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
-import com.tenth.nft.convention.routes.exchange.*;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.templates.*;
-import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
 import com.tenth.nft.convention.web3.sign.StructContentHash;
-import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.exchange.common.service.*;
 import com.tenth.nft.exchange.web3.dto.ListingCreateResponse;
 import com.tenth.nft.exchange.web3.dto.ListingDataForSign;
-import com.tenth.nft.exchange.web3.dto.PaymentCheckResponse;
 import com.tenth.nft.exchange.web3.dto.PaymentCreateResponse;
 import com.tenth.nft.exchange.web3.vo.*;
 import com.tenth.nft.exchange.web3.wallet.Web3WalletProvider;
 import com.tenth.nft.orm.marketplace.dao.NftOrderDao;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.protobuf.NftMarketplace;
-import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
-import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
-import com.tpulse.gs.convention.cypher.rsa.RSAUtils;
 import com.tpulse.gs.convention.cypher.utils.Base64Utils;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -41,17 +34,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.utils.Convert;
 
-import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * @author shijie
  */
 @Service
-public class Web3ListingService extends AbsExchangeService {
+public class Web3ListingService extends AbsListingFlowService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Web3ListingService.class);
 
@@ -60,7 +50,7 @@ public class Web3ListingService extends AbsExchangeService {
     @Autowired
     private RouteClient routeClient;
     @Autowired
-    private NftExchangeEventService nftExchangeEventService;
+    private NftActivityService nftExchangeEventService;
     @Autowired
     private I18nGsTemplates i18nGsTemplates;
     @Autowired
@@ -125,6 +115,17 @@ public class Web3ListingService extends AbsExchangeService {
 
         return createResponse;
 
+    }
+
+    @Override
+    protected void preListingCheck(long uid, long assetsId, int quantity, String currency, String price, long expireAt) {
+        super.preListingCheck(uid, assetsId, quantity, currency, price, expireAt);
+        //Check the blockchain is correct
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        String blockchain = walletCurrencyTemplate.findOne(currency).getBlockchain();
+        if(!web3Properties.getBlockchain().equals(blockchain)){
+            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+        }
     }
 
     /**
@@ -243,29 +244,20 @@ public class Web3ListingService extends AbsExchangeService {
         );
     }
 
-    private void preListingCheck(
-            long uid,
-            long assetsId,
-            int quantity,
-            String currency,
-            String price,
-            long expireAt
-    ) {
-        if(Times.isExpired(expireAt)){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+    @Override
+    protected void preBuyCheck(Long uid, NftListing nftListing) {
+        super.preBuyCheck(uid, nftListing);
+        //Check mint status
+        NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
+                NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
+                        .setId(nftListing.getAssetsId())
+                        .build(),
+                AssetsDetailRouteRequest.class
+        ).getAssets();
+        boolean isMint = assetsDTO.getMint();
+        if(!isMint){
+            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_ILLEGAL_MINT_STATUS);
         }
-        //Quantity check
-        NftBelong nftBelong = nftBelongService.findOne(assetsId, uid);
-        if(null == nftBelong || nftBelong.getQuantity() < quantity){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
-        }
-        //Check the blockchain is correct
-        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
-        String blockchain = walletCurrencyTemplate.findOne(currency).getBlockchain();
-        if(!web3Properties.getBlockchain().equals(blockchain)){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
-        }
-
     }
 
     private void createPaymentOrder(Long orderId, Long expiredAt, Long buyer, NftListing nftListing) {
@@ -293,70 +285,5 @@ public class Web3ListingService extends AbsExchangeService {
     private Long createOrderId() {
         return gsCollectionIdService.incrementAndGet(NftIdModule.EXCHANGE.name());
     }
-
-    private void preBuyCheck(Long uid, NftListing nftListing) {
-        //Check mint status
-        NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
-                NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
-                        .setId(nftListing.getAssetsId())
-                        .build(),
-                AssetsDetailRouteRequest.class
-        ).getAssets();
-        boolean isMint = assetsDTO.getMint();
-        if(!isMint){
-            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_ILLEGAL_MINT_STATUS);
-        }
-        if(null == nftListing || nftListing.getCanceled()){
-            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NO_EXIST);
-        }
-        if(Times.earlierThan(nftListing.getStartAt())){
-            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NOT_START);
-        }
-        if(Times.isExpired(nftListing.getExpireAt())){
-            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_EXPIRED);
-        }
-        if(nftListing.getUid().equals(uid)){
-            throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_BELONGS_TO_YOU);
-        }
-    }
-
-    private List<WalletOrderBizContent.Profit> createProfits(NftListing nftListing) {
-
-        List<WalletOrderBizContent.Profit> profits = new ArrayList<>();
-
-        BigDecimal profitValue = new BigDecimal(nftListing.getPrice());
-        BigDecimal creatorFee = BigDecimal.ZERO;
-        if(!Strings.isNullOrEmpty(nftListing.getCreatorFeeRate())){
-            creatorFee = profitValue.multiply(new BigDecimal(nftListing.getCreatorFeeRate()).divide(new BigDecimal(100)));
-            profitValue = profitValue.subtract(creatorFee);
-        }
-        //seller
-        {
-            WalletOrderBizContent.Profit profit = new WalletOrderBizContent.Profit();
-            profit.setActivityCfgId(WalletOrderType.NftIncome.getActivityCfgId());
-            profit.setCurrency(nftListing.getCurrency());
-            profit.setValue(profitValue.toString());
-            profit.setTo(nftListing.getUid());
-            profit.setToAddress(nftListing.getUidAddress());
-            profits.add(profit);
-        }
-        //creator fee
-        {
-            if(creatorFee.compareTo(BigDecimal.ZERO) > 0){
-                WalletOrderBizContent.Profit profit = new WalletOrderBizContent.Profit();
-                profit.setActivityCfgId(WalletOrderType.CreatorIncome.getActivityCfgId());
-                profit.setCurrency(nftListing.getCurrency());
-                profit.setValue(creatorFee.toString());
-                profit.setTo(nftListing.getCreatorUid());
-                profit.setToAddress(nftListing.getCreatorAddress());
-                profits.add(profit);
-            }
-        }
-        //service fee
-
-        return profits;
-
-    }
-
 
 }

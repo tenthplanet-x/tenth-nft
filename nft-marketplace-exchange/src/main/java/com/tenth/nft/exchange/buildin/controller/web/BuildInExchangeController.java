@@ -2,12 +2,9 @@ package com.tenth.nft.exchange.buildin.controller.web;
 
 import com.tenth.nft.exchange.buildin.ExchangePaths;
 import com.tenth.nft.exchange.buildin.controller.vo.*;
-import com.tenth.nft.exchange.buildin.dto.*;
 import com.tenth.nft.exchange.buildin.service.*;
 import com.tenth.nft.exchange.buildin.vo.*;
-import com.tenth.nft.exchange.common.service.NftListingService;
 import com.tpulse.commons.validation.Validations;
-import com.tpulse.gs.convention.dao.dto.Page;
 import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BuildInExchangeController {
 
     @Autowired
-    private NftMintService nftMintService;
-    @Autowired
-    private NftListingService nftListingService;
-    @Autowired
-    private NftActivityService nftActivityService;
-    @Autowired
-    private NftOwnerService nftOwnerService;
-    @Autowired
-    private BuildInExchangeService nftExchangeService;
+    private BuildInListingService nftExchangeService;
 
     @RequestMapping(ExchangePaths.SELL)
     public Response sell(@RequestBody NftSellRequest request){
         Validations.check(request);
-        nftExchangeService.sell(request);
-        return Response.successBuilder().build();
-    }
-
-    @RequestMapping(ExchangePaths.SELL_CANCEL)
-    public Response sellCancel(@RequestBody SellCancelRequest request){
-        Validations.check(request);
-        nftExchangeService.sellCancel(request);
+        nftExchangeService.create(request);
         return Response.successBuilder().build();
     }
 
@@ -53,36 +35,6 @@ public class BuildInExchangeController {
         NftBuyResponse response = nftExchangeService.buy(request);
         return Response.successBuilder().data(response).build();
     }
-
-    @RequestMapping(ExchangePaths.OWNER_LIST)
-    public Response owner(@RequestBody NftOwnerListRequest request){
-        Validations.check(request);
-        Page<NftOwnerDTO> dataPage = nftOwnerService.list(request);
-        return Response.successBuilder().data(dataPage).build();
-    }
-
-    @RequestMapping(ExchangePaths.MINT)
-    public Response mint(@RequestBody NftMintRequest request){
-        Validations.check(request);
-        NftMintDTO profile = nftMintService.detail(request);
-        return Response.successBuilder().data(profile).build();
-    }
-
-    @RequestMapping(ExchangePaths.LISTING_LIST)
-    public Response listings(@RequestBody NftListingListRequest request){
-        Validations.check(request);
-        Page<NftListingDTO> profile = nftListingService.list(request);
-        return Response.successBuilder().data(profile).build();
-    }
-
-    @RequestMapping(ExchangePaths.ACTIVITY_LIST)
-    public Response activityList(@RequestBody NftActivityListRequest request){
-        Validations.check(request);
-        Page<NftActivityDTO> profile = nftActivityService.list(request);
-        return Response.successBuilder().data(profile).build();
-    }
-
-
 
 
 }

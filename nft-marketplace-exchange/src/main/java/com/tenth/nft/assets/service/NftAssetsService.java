@@ -1,34 +1,30 @@
-package com.tenth.nft.marketplace.service;
+package com.tenth.nft.assets.service;
 
-import com.google.common.base.Strings;
-import com.tenth.nft.convention.NftExchangeErrorCodes;
-import com.tenth.nft.convention.NftModules;
-import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.AssetsRebuildRouteRequest;
-import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
-import com.tenth.nft.convention.routes.exchange.MintRouteRequest;
+import com.tenth.nft.convention.templates.BlockchainConfig;
+import com.tenth.nft.convention.templates.BlockchainTemplate;
+import com.tenth.nft.convention.templates.I18nGsTemplates;
+import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.web3.utils.HexAddresses;
+import com.tenth.nft.exchange.common.service.NftActivityService;
+import com.tenth.nft.exchange.common.service.NftBelongService;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsUpdate;
 import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
-import com.tenth.nft.marketplace.vo.*;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
-import com.tenth.nft.orm.marketplace.entity.NftCollection;
-import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftSearch;
+import com.tpulse.gs.config.TemplateType;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
-import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
-import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.oss.IGsOssService;
 import com.tpulse.gs.oss.qiniu.QiniuProperties;
 import com.tpulse.gs.router.client.RouteClient;
-import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -52,6 +48,13 @@ public class NftAssetsService {
     private RouteClient routeClient;
     @Autowired
     private Web3Properties web3Properties;
+    @Autowired
+    @Lazy
+    private NftBelongService nftBelongService;
+    @Autowired
+    private NftActivityService nftActivityService;
+    @Autowired
+    private I18nGsTemplates i18nGsTemplates;
 
     public NftMarketplace.ASSETS_CREATE_IS create(NftMarketplace.ASSETS_CREATE_IC _request) {
 
@@ -76,30 +79,29 @@ public class NftAssetsService {
         nftAssets.setSignature(_request.getAssets().getSignature());
         nftAssets = nftAssetsDao.insert(nftAssets);
 
-        //mint
-        routeClient.send(
-                NftExchange.MINT_IC.newBuilder()
-                        .setAssetsId(request.getId())
-                        .setBlockchain(request.getBlockchain())
-                        .setOwner(request.getCreator())
-                        .setQuantity(request.getSupply())
-                        .build(),
-                MintRouteRequest.class
-        ).getMint();
+        //Init belong
+        nftBelongService.create(
+                request.getId(),
+                request.getCreator(),
+                request.getSupply()
+        );
+        nftActivityService.sendMintEvent(nftAssets);
+
+        BlockchainTemplate blockchainTemplate = i18nGsTemplates.get(NftTemplateTypes.blockchain);
+        BlockchainConfig blockchainConfig = blockchainTemplate.findOne(request.getBlockchain());
         nftAssets = nftAssetsDao.findAndModify(
                 NftAssetsQuery.newBuilder().id(nftAssets.getId()).build(),
                 NftAssetsUpdate.newBuilder()
-                        .setContractAddress(web3Properties.getContract().getAddress())
-                        .setTokenStandard(web3Properties.getContract().getTokenStandard())
+                        .setContractAddress(blockchainConfig.getContractAddress())
+                        .setTokenStandard(blockchainConfig.getTokenStandard())
                         .setToken(HexAddresses.of(nftAssets.getId()))
                         .build(),
                 UpdateOptions.options().returnNew(true)
         );
 
-        //更新总数量
+        //TODO Update collection stats
         long count = nftAssetsDao.count(NftAssetsQuery.newBuilder().setCollectionId(request.getCollectionId()).build());
         nftCollectionService.updateItems(request.getCollectionId(), count);
-
         rebuildCache(nftAssets.getId());
 
         return NftMarketplace.ASSETS_CREATE_IS.newBuilder()

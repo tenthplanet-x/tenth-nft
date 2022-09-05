@@ -1,4 +1,4 @@
-package com.tenth.nft.marketplace.vo;
+package com.tenth.nft.exchange.web3.vo;
 
 import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 

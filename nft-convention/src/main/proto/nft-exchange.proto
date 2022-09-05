@@ -68,30 +68,30 @@ message NftOfferDTO{
   required int64 expireAt = 8;
 }
 
-message SELL_IC{
-  required int64 assetsId = 1;
-  required int64 uid = 2;
-  required int32 quantity = 3;
-  required string currency = 4;
-  required string price = 5;
-  required int64 startAt = 6;
-  required int64 expireAt = 7;
-}
-message SELL_IS{
-  required NftListingDTO listing = 1;
-}
+//message SELL_IC{
+//  required int64 assetsId = 1;
+//  required int64 uid = 2;
+//  required int32 quantity = 3;
+//  required string currency = 4;
+//  required string price = 5;
+//  required int64 startAt = 6;
+//  required int64 expireAt = 7;
+//}
+//message SELL_IS{
+//  required NftListingDTO listing = 1;
+//}
 
-message BUY_IC{
-  required int64 uid = 1;
-  required int64 assetsId = 2;
-  required int64 listingId = 3;
-}
-message BUY_IS{
-  optional string channel = 1;
-  optional string token = 2;
-  optional string currency = 3;
-  optional string value = 4;
-}
+//message BUY_IC{
+//  required int64 uid = 1;
+//  required int64 assetsId = 2;
+//  required int64 listingId = 3;
+//}
+//message BUY_IS{
+//  optional string channel = 1;
+//  optional string token = 2;
+//  optional string currency = 3;
+//  optional string value = 4;
+//}
 
 message PAYMENT_RECEIVE_IC{
   required int64 assetsId = 1;
@@ -102,15 +102,15 @@ message PAYMENT_RECEIVE_IS{
   required bool refund = 1;
 }
 
-message SELL_CANCEL_IC{
-  required int64 assetsId = 1;
-  required int64 listingId = 2;
-  required int64 seller = 3;
-  required string reason = 4;
-}
-message SELL_CANCEL_IS{
-
-}
+//message SELL_CANCEL_IC{
+//  required int64 assetsId = 1;
+//  required int64 listingId = 2;
+//  required int64 seller = 3;
+//  required string reason = 4;
+//}
+//message SELL_CANCEL_IS{
+//
+//}
 
 message LISTING_LIST_IC{
   required int64 assetsId = 1;
@@ -138,16 +138,16 @@ message ACTIVITY_LIST_IS{
     repeated NftActivityDTO activities = 1;
 }
 
-message MINT_IC{
-  required string blockchain = 1;
-  optional string contractAddress = 2;
-  required int64 assetsId = 3;
-  required int64 owner = 4;
-  required int32 quantity = 5;
-}
-message MINT_IS{
-  required NftMintDTO mint = 1;
-}
+//message MINT_IC{
+//  required string blockchain = 1;
+//  optional string contractAddress = 2;
+//  required int64 assetsId = 3;
+//  required int64 owner = 4;
+//  required int32 quantity = 5;
+//}
+//message MINT_IS{
+//  required NftMintDTO mint = 1;
+//}
 
 message ASSETS_EXCHANGE_PROFILE_IC{
   required int64 assetsId = 1;

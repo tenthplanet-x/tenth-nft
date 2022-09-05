@@ -1,4 +1,4 @@
-package com.tenth.nft.marketplace.vo;
+package com.tenth.nft.exchange.web3.vo;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

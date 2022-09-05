@@ -1,12 +1,11 @@
-package com.tenth.nft.marketplace.controller.routes;
+package com.tenth.nft.assets.controller;
 
+import com.tenth.nft.assets.service.NftCollectionService;
 import com.tenth.nft.convention.routes.marketplace.CollectionCreateRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
-import com.tenth.nft.marketplace.service.NftCollectionService;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
 import com.wallan.router.annotation.Route;
-import com.wallan.router.endpoint.core.security.HttpRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -10,24 +10,17 @@ import com.tenth.nft.convention.routes.exchange.ListingListRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.exchange.buildin.controller.vo.NftListingListRequest;
 import com.tenth.nft.exchange.buildin.dto.NftListingDTO;
-import com.tenth.nft.exchange.buildin.service.NftActivityService;
-import com.tenth.nft.orm.marketplace.dao.NftActivityDao;
 import com.tenth.nft.orm.marketplace.dao.NftListingDao;
 import com.tenth.nft.orm.marketplace.dao.expression.*;
-import com.tenth.nft.orm.marketplace.entity.NftActivity;
-import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
 import com.tenth.nft.orm.marketplace.entity.NftBelong;
 import com.tenth.nft.orm.marketplace.entity.NftListing;
-import com.tenth.nft.orm.marketplace.entity.event.ListCancelEvent;
 import com.tenth.nft.orm.marketplace.entity.event.ListCancelEventReason;
-import com.tenth.nft.orm.marketplace.entity.event.ListEvent;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -48,7 +41,7 @@ public class NftListingService {
     @Autowired
     private NftBelongService nftBelongService;
     @Autowired
-    private NftExchangeEventService nftExchangeEventService;
+    private NftActivityService nftExchangeEventService;
 
     public Page<NftListingDTO> list(NftListingListRequest request) {
 
