@@ -120,23 +120,23 @@ message LISTING_LIST_IC{
 message LISTING_LIST_IS{
   repeated NftListingDTO listings = 1;
 }
-message OWNER_LIST_IC{
-  required int64 assetsId = 1;
-  required int32 page = 2;
-  required int32 pageSize = 3;
-}
-message OWNER_LIST_IS{
-  repeated NftOwnerDTO owners = 1;
-}
-message ACTIVITY_LIST_IC{
-  required int64 assetsId = 1;
-  required int32 page = 2;
-  required int32 pageSize = 3;
-  optional string event = 4;
-}
-message ACTIVITY_LIST_IS{
-    repeated NftActivityDTO activities = 1;
-}
+//message OWNER_LIST_IC{
+//  required int64 assetsId = 1;
+//  required int32 page = 2;
+//  required int32 pageSize = 3;
+//}
+//message OWNER_LIST_IS{
+//  repeated NftOwnerDTO owners = 1;
+//}
+//message ACTIVITY_LIST_IC{
+//  required int64 assetsId = 1;
+//  required int32 page = 2;
+//  required int32 pageSize = 3;
+//  optional string event = 4;
+//}
+//message ACTIVITY_LIST_IS{
+//    repeated NftActivityDTO activities = 1;
+//}
 
 //message MINT_IC{
 //  required string blockchain = 1;

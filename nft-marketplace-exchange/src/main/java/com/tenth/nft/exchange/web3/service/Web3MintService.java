@@ -1,20 +1,18 @@
 package com.tenth.nft.exchange.web3.service;
 
+import com.tenth.nft.assets.service.NftAssetsService;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.marketplace.AssetsMintRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.web3.utils.TokenMintStatus;
-import com.tenth.nft.exchange.common.service.NftAssetsService;
 import com.tenth.nft.exchange.web3.vo.NftAssetsMintCheckRequest;
 import com.tenth.nft.exchange.web3.vo.NftAssetsMintCheckResponse;
-import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContract;
 import com.tenth.nft.solidity.TpulseContractHelper;
-import com.tpulse.gs.convention.dao.SimpleQuery;
 import com.tpulse.gs.router.client.RouteClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +27,9 @@ import java.math.BigInteger;
  * @author shijie
  */
 @Service
-public class Web3AssetsMintService {
+public class Web3MintService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(Web3AssetsMintService.class);
+    private Logger LOGGER = LoggerFactory.getLogger(Web3MintService.class);
 
     @Autowired
     private Web3Properties web3Properties;

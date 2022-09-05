@@ -7,6 +7,7 @@ import com.tenth.nft.convention.templates.BlockchainTemplate;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.web3.utils.HexAddresses;
+import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 import com.tenth.nft.exchange.common.service.NftActivityService;
 import com.tenth.nft.exchange.common.service.NftBelongService;
 import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
@@ -17,7 +18,7 @@ import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftSearch;
-import com.tpulse.gs.config.TemplateType;
+import com.tpulse.gs.convention.dao.SimpleQuery;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.tpulse.gs.oss.IGsOssService;
@@ -87,8 +88,8 @@ public class NftAssetsService {
         );
         nftActivityService.sendMintEvent(nftAssets);
 
-        BlockchainTemplate blockchainTemplate = i18nGsTemplates.get(NftTemplateTypes.blockchain);
-        BlockchainConfig blockchainConfig = blockchainTemplate.findOne(request.getBlockchain());
+        BlockchainConfig blockchainConfig = i18nGsTemplates.get(NftTemplateTypes.blockchain, BlockchainTemplate.class)
+                .findOne(request.getBlockchain());
         nftAssets = nftAssetsDao.findAndModify(
                 NftAssetsQuery.newBuilder().id(nftAssets.getId()).build(),
                 NftAssetsUpdate.newBuilder()
@@ -98,10 +99,9 @@ public class NftAssetsService {
                         .build(),
                 UpdateOptions.options().returnNew(true)
         );
+        //Update collection stats
+        nftCollectionService.bindAssets(request.getCollectionId(), nftAssets.getId());
 
-        //TODO Update collection stats
-        long count = nftAssetsDao.count(NftAssetsQuery.newBuilder().setCollectionId(request.getCollectionId()).build());
-        nftCollectionService.updateItems(request.getCollectionId(), count);
         rebuildCache(nftAssets.getId());
 
         return NftMarketplace.ASSETS_CREATE_IS.newBuilder()
@@ -124,6 +124,21 @@ public class NftAssetsService {
                         .setAssetsId(assetsId)
                         .build(),
                 AssetsRebuildRouteRequest.class
+        );
+    }
+
+    public NftAssets findOne(Long assetsId) {
+        SimpleQuery query = NftAssetsQuery.newBuilder().id(assetsId).build();
+        return nftAssetsDao.findOne(query);
+    }
+
+    public void updateMintStatus(Long assetsId, TokenMintStatus status) {
+        SimpleQuery query = NftAssetsQuery.newBuilder().id(assetsId).build();
+        nftAssetsDao.update(
+                query,
+                NftAssetsUpdate.newBuilder()
+                        .mintStatus(status)
+                        .build()
         );
     }
 }

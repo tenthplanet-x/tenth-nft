@@ -8,11 +8,13 @@ import com.tenth.nft.orm.marketplace.entity.NftActivity;
 import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
 import com.tenth.nft.orm.marketplace.entity.event.*;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tpulse.gs.convention.dao.SimpleResponse;
+import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
 /**
  * @author shijie
  */
-public class NftActivityDTO {
+public class NftActivityDTO{
 
     private Long id;
 
@@ -249,5 +251,77 @@ public class NftActivityDTO {
         }
 
         return builder.build();
+    }
+
+    public static NftActivityDTO from(NftActivity nftActivity) {
+
+        NftActivityDTO nftActivityDTO = new NftActivityDTO();
+        nftActivityDTO.setId(nftActivity.getId());
+        nftActivityDTO.setEvent(nftActivity.getType().name());
+        nftActivityDTO.setCreatedAt(nftActivity.getCreatedAt());
+
+
+        switch (nftActivity.getType()){
+            case Minted:
+                nftActivityDTO.setTo(nftActivity.getMint().getTo());
+                nftActivityDTO.setQuantity(nftActivity.getMint().getQuantity());
+                if(NullAddress.TOKEN.equals(nftActivity.getMint().getFrom())){
+                    //nftActivityDTO.setFrom(0);
+                }
+                break;
+            case List:
+                ListEvent listEvent = nftActivity.getList();
+                nftActivityDTO.setFrom(listEvent.getFrom());
+                nftActivityDTO.setCurrency(listEvent.getCurrency());
+                nftActivityDTO.setPrice(listEvent.getPrice());
+                nftActivityDTO.setQuantity(listEvent.getQuantity());
+                if(!nftActivity.getFreeze() && null != listEvent.getExpireAt() && Times.isExpired(listEvent.getExpireAt())){
+                    nftActivityDTO.setExpired(true);
+                }
+                break;
+            case Sale:
+                SaleEvent saleEvent = nftActivity.getSale();
+                nftActivityDTO.setFrom(saleEvent.getFrom());
+                nftActivityDTO.setTo(saleEvent.getTo());
+                nftActivityDTO.setCurrency(saleEvent.getCurrency());
+                nftActivityDTO.setPrice(saleEvent.getPrice());
+                nftActivityDTO.setQuantity(saleEvent.getQuantity());
+                break;
+            case Transfer:
+                TransferEvent transfer = nftActivity.getTransfer();
+                nftActivityDTO.setFrom(transfer.getFrom());
+                nftActivityDTO.setTo(transfer.getTo());
+                nftActivityDTO.setCurrency(transfer.getCurrency());
+                nftActivityDTO.setPrice(transfer.getPrice());
+                nftActivityDTO.setQuantity(transfer.getQuantity());
+                break;
+            case Cancel:
+                ListCancelEvent cancelEvent = nftActivity.getCancel();
+                nftActivityDTO.setFrom(cancelEvent.getFrom());
+                nftActivityDTO.setCurrency(cancelEvent.getCurrency());
+                nftActivityDTO.setPrice(cancelEvent.getPrice());
+                nftActivityDTO.setQuantity(cancelEvent.getQuantity());
+                nftActivityDTO.setCanceled(true);
+                if(!Strings.isNullOrEmpty(cancelEvent.getReason())){
+                    nftActivityDTO.setReason(cancelEvent.getReason());
+                }
+                break;
+            case OFFER:
+            case OFFER_CANCEL:
+                OfferEvent offerEvent = nftActivity.getOffer();
+                nftActivityDTO.setFrom(offerEvent.getFrom());
+                nftActivityDTO.setCurrency(offerEvent.getCurrency());
+                nftActivityDTO.setPrice(offerEvent.getPrice());
+                nftActivityDTO.setQuantity(offerEvent.getQuantity());
+                nftActivityDTO.setCanceled(null != offerEvent.getCancel()? offerEvent.getCancel(): false);
+                if(!Strings.isNullOrEmpty(offerEvent.getReason())){
+                    nftActivityDTO.setReason(offerEvent.getReason());
+                }
+                if(!nftActivity.getFreeze() && nftActivity.getType() == NftActivityEventType.OFFER && null != offerEvent.getExpireAt() && Times.isExpired(offerEvent.getExpireAt())){
+                    nftActivityDTO.setExpired(true);
+                }
+        }
+
+        return nftActivityDTO;
     }
 }

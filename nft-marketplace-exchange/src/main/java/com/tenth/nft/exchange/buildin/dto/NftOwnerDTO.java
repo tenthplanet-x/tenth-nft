@@ -3,14 +3,17 @@ package com.tenth.nft.exchange.buildin.dto;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.orm.marketplace.entity.NftBelong;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tpulse.gs.convention.dao.SimpleResponse;
+import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
 /**
  * @author shijie
  */
-public class NftOwnerDTO {
+public class NftOwnerDTO implements SimpleResponse {
 
+    @SimpleField(name = "owner")
     private Long uid;
-
+    @SimpleField(name = "quantity")
     private Integer quantity;
 
     private UserProfileDTO userProfile;

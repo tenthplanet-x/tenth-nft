@@ -3,6 +3,7 @@ package com.tenth.nft.convention.templates;
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftHeaders;
 import com.tpulse.gs.config.TemplateType;
+import com.tpulse.gs.config2.GsConfigTemplate;
 import com.tpulse.gs.config2.client.GsConfigTemplateFactory;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,19 @@ public class I18nGsTemplates {
         String language = getLanguage();
         String templateName = concatWithI18n(templateType.getName(), language);
         return (T)gsConfigTemplateFactory.getFromRegeng(templateName);
+    }
 
+    /**
+     * get the i18n template
+     * @param templateType cfg template type without i18n
+     * @param <T>
+     * @return
+     */
+    public <T> T get(TemplateType templateType, Class<T> templateClass) {
+
+        String language = getLanguage();
+        String templateName = concatWithI18n(templateType.getName(), language);
+        return (T)gsConfigTemplateFactory.getFromRegeng(templateName);
     }
 
     /**

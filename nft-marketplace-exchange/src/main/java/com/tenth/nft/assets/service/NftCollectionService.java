@@ -1,12 +1,15 @@
 package com.tenth.nft.assets.service;
 
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
+import com.tenth.nft.orm.marketplace.dao.NftCollectionAssetsDao;
 import com.tenth.nft.orm.marketplace.dao.NftCollectionNoCacheDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionAssetsQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
 import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionUpdate;
 import com.tenth.nft.orm.marketplace.dto.NftCollectionDTO;
 import com.tenth.nft.orm.marketplace.dto.NftCollectionDetailDTO;
 import com.tenth.nft.orm.marketplace.entity.NftCollection;
+import com.tenth.nft.orm.marketplace.entity.NftCollectionAssets;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftSearch;
 import com.tpulse.gs.router.client.RouteClient;
@@ -24,6 +27,8 @@ public class NftCollectionService {
     private NftCollectionNoCacheDao nftCollectionDao;
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private NftCollectionAssetsDao nftCollectionAssetsDao;
 
     public NftMarketplace.COLLECTION_CREATE_IS create(NftMarketplace.COLLECTION_CREATE_IC _request) {
 
@@ -65,10 +70,21 @@ public class NftCollectionService {
                 .build();
     }
 
-    public void updateItems(Long collectionId, long items) {
+    public void bindAssets(Long collectionId, Long assetsId) {
+
+        NftCollectionAssets collectionAssets = new NftCollectionAssets();
+        collectionAssets.setCollectionId(collectionId);
+        collectionAssets.setAssetsId(assetsId);
+        collectionAssets.setCreatedAt(System.currentTimeMillis());
+        collectionAssets.setUpdatedAt(collectionAssets.getCreatedAt());
+        nftCollectionAssetsDao.insert(collectionAssets);
+
+        long total = nftCollectionAssetsDao.count(
+                NftCollectionAssetsQuery.newBuilder().collectionId(collectionId).build()
+        );
         nftCollectionDao.update(
                 NftCollectionQuery.newBuilder().id(collectionId).build(),
-                NftCollectionUpdate.newBuilder().items(items).build()
+                NftCollectionUpdate.newBuilder().items(total).build()
         );
         rebuild(collectionId);
     }

@@ -3,7 +3,6 @@ package com.tenth.nft.exchange.common.service;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
-import com.tenth.nft.convention.routes.exchange.OwnerListRouteRequest;
 import com.tenth.nft.convention.routes.player.AssetsBelongsUpdateRouteRequest;
 import com.tenth.nft.exchange.buildin.controller.vo.NftOwnerListRequest;
 import com.tenth.nft.exchange.buildin.dto.NftOwnerDTO;
@@ -108,46 +107,31 @@ public class NftBelongService {
     }
 
     public Page<NftOwnerDTO> list(NftOwnerListRequest request) {
-        List<NftOwnerDTO> data = routeClient.send(
-                NftExchange.OWNER_LIST_IC.newBuilder()
-                        .setAssetsId(request.getAssetsId())
+
+        Page<NftOwnerDTO> dtos = nftBelongDao.findPage(
+                NftBelongQuery.newBuilder()
+                        .assetsId(request.getAssetsId())
                         .setPage(request.getPage())
                         .setPageSize(request.getPageSize())
+                        .setSortField("_id")
+                        .setReverse(true)
                         .build(),
-                OwnerListRouteRequest.class
-        ).getOwnersList().stream().map(NftOwnerDTO::from).collect(Collectors.toList());
+                NftOwnerDTO.class
+        );
 
         //fill with userProfile
-        Set<Long> fromUids = data.stream().map(dto -> dto.getUid()).filter(Objects::nonNull).collect(Collectors.toSet());
+        Set<Long> fromUids = dtos.getData().stream().map(dto -> dto.getUid()).filter(Objects::nonNull).collect(Collectors.toSet());
         Map<Long, UserProfileDTO> userProfileDTOMap = routeClient.send(
                 Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(fromUids).build(),
                 SearchUserProfileRouteRequest.class
         ).getProfilesList().stream().map(NftBelongService::from).collect(Collectors.toMap(UserProfileDTO::getUid, Function.identity()));
-        data.stream().forEach(dto -> {
+        dtos.getData().stream().forEach(dto -> {
             dto.setUserProfile(userProfileDTOMap.get(dto.getUid()));
         });
 
-        return new Page<>(0, data);
+        return dtos;
     }
 
-    public NftExchange.OWNER_LIST_IS list(NftExchange.OWNER_LIST_IC request){
-
-        int page = request.getPage();
-        int pageSize = request.getPageSize();
-
-        List<NftExchange.NftOwnerDTO> dtos = nftBelongDao.findPage(
-                NftBelongQuery.newBuilder()
-                        .assetsId(request.getAssetsId())
-                        .setPage(page)
-                        .setPageSize(pageSize)
-                        .setSortField("_id")
-                        .setReverse(true)
-                        .build()
-        ).getData().stream().map(NftOwnerDTO::toProto).collect(Collectors.toList());
-        return NftExchange.OWNER_LIST_IS.newBuilder()
-                .addAllOwners(dtos)
-                .build();
-    }
 
     private static UserProfileDTO from(Search.SearchUserDTO searchUserDTO) {
         UserProfileDTO userProfileDTO = new UserProfileDTO();

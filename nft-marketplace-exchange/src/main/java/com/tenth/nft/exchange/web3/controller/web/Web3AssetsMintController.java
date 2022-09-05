@@ -1,7 +1,7 @@
 package com.tenth.nft.exchange.web3.controller.web;
 
 import com.tenth.nft.exchange.web3.Web3ExchangePaths;
-import com.tenth.nft.exchange.web3.service.Web3AssetsMintService;
+import com.tenth.nft.exchange.web3.service.Web3MintService;
 import com.tenth.nft.exchange.web3.vo.NftAssetsMintCheckRequest;
 import com.tenth.nft.exchange.web3.vo.NftAssetsMintCheckResponse;
 import com.tpulse.commons.validation.Validations;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Web3AssetsMintController {
 
     @Autowired
-    private Web3AssetsMintService web3AssetsMintService;
+    private Web3MintService web3AssetsMintService;
 
     @RequestMapping(Web3ExchangePaths.NFT_ASSETS_MINT_CHECK)
     public Response checkMinting(@RequestBody NftAssetsMintCheckRequest request){
