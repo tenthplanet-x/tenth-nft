@@ -113,7 +113,12 @@ public class TpulseContractHelper {
      * @return
      */
     public String createAcceptTransactionData(String uidAddress, Long assetsId, Integer quantity, String price, Long expireAt, String uidSignature) {
-        throw new UnsupportedOperationException();
+        return tpulseContract.accept(
+                uidAddress,
+                BigInteger.valueOf(assetsId),
+                BigInteger.valueOf(quantity),
+                Convert.toWei(price, Convert.Unit.ETHER).toBigInteger()
+        ).encodeFunctionCall();
     }
 
     public DataForSign.EIP712Domain getDomain() {
