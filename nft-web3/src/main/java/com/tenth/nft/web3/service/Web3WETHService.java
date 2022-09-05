@@ -4,6 +4,7 @@ import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
+import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
@@ -50,7 +51,7 @@ public class Web3WETHService {
                 Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
         String txnTo = wethContract.getContractAddress();
-        String txnValue = value.toString();
+        String txnValue = value.toBigInteger().toString();
         return new WETHDepositResponse(txnFrom, txnValue, txnTo, txnData);
 
     }
@@ -72,7 +73,7 @@ public class Web3WETHService {
                 Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
         String txnTo = wethContract.getContractAddress();
-        String txnValue = value.toString();
+        String txnValue = BigInteger.ZERO.toString();
         return new WETHWithDrawResponse(txnFrom, txnValue, txnTo, txnData);
 
     }
@@ -104,5 +105,15 @@ public class Web3WETHService {
         if(receipt.isSuccess()){
             walletService.updateWethApprovalState(true);
         }
+    }
+
+    public TxnStatus checkTxn(WETHTxnCheckRequest request) {
+        ContractTransactionReceipt receipt = tpulseContractHelper.getTxn(request.getTxn());
+        if(receipt.isSuccess()){
+            return TxnStatus.SUCCESS;
+        }else if(receipt.isFail()){
+            return TxnStatus.FAIL;
+        }
+        return TxnStatus.PENDING;
     }
 }

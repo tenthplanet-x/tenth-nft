@@ -1,5 +1,6 @@
 package com.tenth.nft.web3.controller.web;
 
+import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.web3.Web3WalletPaths;
 import com.tenth.nft.web3.service.Web3WETHService;
 import com.tenth.nft.web3.vo.*;
@@ -34,6 +35,14 @@ public class Web3WETHController {
         WETHWithDrawResponse response = web3WETHService.createWithDraw(request);
         return Response.successBuilder().data(response).build();
     }
+
+    @RequestMapping(Web3WalletPaths.WETH_TXN_CHECK)
+    public Response checkTxn(@RequestBody WETHTxnCheckRequest request){
+        Validations.check(request);
+        TxnStatus status = web3WETHService.checkTxn(request);
+        return Response.successBuilder().data(status).build();
+    }
+
 
     @RequestMapping(Web3WalletPaths.WETH_APPROVAL_CREATE)
     public Response createApproval(){
