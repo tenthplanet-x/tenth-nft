@@ -4,7 +4,7 @@ import com.tenth.nft.convention.routes.exchange.Web3ListingConfirmRouteRequest;
 import com.tenth.nft.convention.routes.exchange.Web3ListingCreateRouteRequest;
 import com.tenth.nft.convention.routes.exchange.Web3PaymentConfirmRouteRequest;
 import com.tenth.nft.convention.routes.exchange.Web3PaymentCreateRouteRequest;
-import com.tenth.nft.exchange.web3.service.Web3ExchangeService;
+import com.tenth.nft.exchange.web3.service.Web3ListingService;
 import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
 import com.wallan.router.annotation.Route;
@@ -16,10 +16,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Route
-public class Web3ExchangeRoutesController {
+public class Web3ListingRoutesController {
 
     @Autowired
-    private Web3ExchangeService web3ExchangeService;
+    private Web3ListingService web3ExchangeService;
+
 
     @RouteRequestMapping(Web3ListingCreateRouteRequest.class)
     public NftWeb3Exchange.WEB3_LISTING_CREATE_IS createListing(NftWeb3Exchange.WEB3_LISTING_CREATE_IC request) throws Exception{
@@ -34,11 +35,6 @@ public class Web3ExchangeRoutesController {
     @RouteRequestMapping(Web3PaymentCreateRouteRequest.class)
     public NftWeb3Exchange.WEB3_PAYMENT_CREATE_IS createPayment(NftWeb3Exchange.WEB3_PAYMENT_CREATE_IC request){
         return web3ExchangeService.createPayment(request);
-    }
-
-    @RouteRequestMapping(Web3PaymentConfirmRouteRequest.class)
-    public NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS confirmPayment(NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC request){
-        return web3ExchangeService.confirmPayment(request);
     }
 
 

@@ -4,7 +4,7 @@ import com.tenth.nft.exchange.web3.Web3ExchangePaths;
 import com.tenth.nft.exchange.web3.dto.ListingCreateResponse;
 import com.tenth.nft.exchange.web3.dto.PaymentCheckResponse;
 import com.tenth.nft.exchange.web3.dto.PaymentCreateResponse;
-import com.tenth.nft.exchange.web3.service.Web3ExchangeService;
+import com.tenth.nft.exchange.web3.service.Web3ListingService;
 import com.tenth.nft.exchange.web3.vo.*;
 import com.tpulse.commons.validation.Validations;
 import com.wallan.router.endpoint.core.security.HttpRoute;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Web3ListingFlowController {
 
     @Autowired
-    private Web3ExchangeService web3ExchangeService;
+    private Web3ListingService web3ExchangeService;
 
     @RequestMapping(Web3ExchangePaths.LISTING_CREATE)
     public Response createListing(@RequestBody Web3ExchangeListingAuthRequest request){

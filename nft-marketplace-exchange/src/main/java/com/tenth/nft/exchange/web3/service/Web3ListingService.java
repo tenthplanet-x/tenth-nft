@@ -12,10 +12,7 @@ import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
-import com.tenth.nft.exchange.common.service.NftBelongService;
-import com.tenth.nft.exchange.common.service.NftListingService;
-import com.tenth.nft.exchange.common.service.AbsExchangeService;
-import com.tenth.nft.exchange.common.service.NftExchangeEventService;
+import com.tenth.nft.exchange.common.service.*;
 import com.tenth.nft.exchange.web3.dto.ListingCreateResponse;
 import com.tenth.nft.exchange.web3.dto.ListingDataForSign;
 import com.tenth.nft.exchange.web3.dto.PaymentCheckResponse;
@@ -23,17 +20,13 @@ import com.tenth.nft.exchange.web3.dto.PaymentCreateResponse;
 import com.tenth.nft.exchange.web3.vo.*;
 import com.tenth.nft.exchange.web3.wallet.Web3WalletProvider;
 import com.tenth.nft.orm.marketplace.dao.NftOrderDao;
-import com.tenth.nft.orm.marketplace.dao.expression.NftOrderQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftOrderUpdate;
 import com.tenth.nft.orm.marketplace.entity.*;
-import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tpulse.gs.convention.cypher.rsa.RSAUtils;
 import com.tpulse.gs.convention.cypher.utils.Base64Utils;
-import com.tpulse.gs.convention.dao.SimpleQuery;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -55,9 +48,9 @@ import java.util.List;
  * @author shijie
  */
 @Service
-public class Web3ExchangeService extends AbsExchangeService {
+public class Web3ListingService extends AbsExchangeService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Web3ExchangeService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Web3ListingService.class);
 
     @Autowired
     private NftListingService nftListingService;
@@ -79,6 +72,10 @@ public class Web3ExchangeService extends AbsExchangeService {
     private NftBelongService nftBelongService;
     @Autowired
     private Web3Properties web3Properties;
+    @Autowired
+    private Web3OfferFlowService web3OfferFlowService;
+    @Autowired
+    private NftOfferFlowService nftOfferFlowService;
 
     /**
      * Create listing data for sign for web3 authentication
@@ -123,17 +120,7 @@ public class Web3ExchangeService extends AbsExchangeService {
         if(Times.isExpired(request.getExpireAt())){
             throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
         }
-        //Quantity check
-        NftBelong nftBelong = nftBelongService.findOne(request.getAssetsId(), request.getUid());
-        if(null == nftBelong || nftBelong.getQuantity() < request.getQuantity()){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
-        }
-        //Check the blockchain is correct
-        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
-        String blockchain = walletCurrencyTemplate.findOne(request.getCurrency()).getBlockchain();
-        if(!web3Properties.getBlockchain().equals(blockchain)){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
-        }
+        preListingCheck(request.getUid(), request.getAssetsId(), request.getQuantity(), request.getCurrency(), request.getPrice());
         //Get user web3 address
         String address = routeClient.send(
                 NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
@@ -162,22 +149,6 @@ public class Web3ExchangeService extends AbsExchangeService {
                 .build();
     }
 
-    private String wrapToToken(String content, String signature) {
-        String wrappedStr = String.format("%s.%s", Base64Utils.encode(content.getBytes(StandardCharsets.UTF_8)), signature);
-        return wrappedStr;
-    }
-
-    private String unwrapToken(String token) {
-        String content = new String(Base64Utils.decode(token.substring(0, token.lastIndexOf("."))), StandardCharsets.UTF_8);
-        return content;
-    }
-
-    private String signContent(String content) throws Exception {
-        return Base64Utils.encode(RSAUtils.sign(content.getBytes(StandardCharsets.UTF_8), web3Properties.getRsa().getPrivateKey()));
-    }
-
-
-
     /**
      * Verify and create listing data
      * @param request
@@ -200,11 +171,11 @@ public class Web3ExchangeService extends AbsExchangeService {
 
         String content = unwrapToken(request.getToken());
 
-        ListingDataForSign listingDataForSign = JsonUtil.fromJson(content, ListingDataForSign.class);
+        ListingDataForSign listingRequest = JsonUtil.fromJson(content, ListingDataForSign.class);
+        preListingCheck(request.getUid(), listingRequest.getAssetsId(), listingRequest.getQuantity(), listingRequest.getCurrency(), listingRequest.getPrice());
 
         NftListing nftListing = new NftListing();
         nftListing.setUid(request.getUid());
-
         String uidAddress = routeClient.send(
                 NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
                         .setUid(request.getUid())
@@ -212,14 +183,13 @@ public class Web3ExchangeService extends AbsExchangeService {
                         .build(),
             Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
-
         nftListing.setUidAddress(uidAddress);
-        nftListing.setAssetsId(listingDataForSign.getAssetsId());
-        nftListing.setQuantity(listingDataForSign.getQuantity());
-        nftListing.setCurrency(listingDataForSign.getCurrency());
-        nftListing.setPrice(listingDataForSign.getPrice());
-        nftListing.setStartAt(listingDataForSign.getStartAt());
-        nftListing.setExpireAt(listingDataForSign.getExpireAt());
+        nftListing.setAssetsId(listingRequest.getAssetsId());
+        nftListing.setQuantity(listingRequest.getQuantity());
+        nftListing.setCurrency(listingRequest.getCurrency());
+        nftListing.setPrice(listingRequest.getPrice());
+        nftListing.setStartAt(listingRequest.getStartAt());
+        nftListing.setExpireAt(listingRequest.getExpireAt());
         nftListing.setCreatedAt(System.currentTimeMillis());
         nftListing.setUpdatedAt(nftListing.getCreatedAt());
 
@@ -235,7 +205,6 @@ public class Web3ExchangeService extends AbsExchangeService {
             nftListing.setCreatorFeeRate(assetsDTO.getCreatorFeeRate());
             nftListing.setCreatorAddress(assetsDTO.getCreatorAddress());
         }
-
         nftListingService.insert(nftListing);
 
         return NftWeb3Exchange.WEB3_LISTING_CONFIRM_IS.newBuilder().build();
@@ -280,7 +249,7 @@ public class Web3ExchangeService extends AbsExchangeService {
     public NftWeb3Exchange.WEB3_PAYMENT_CREATE_IS createPayment(NftWeb3Exchange.WEB3_PAYMENT_CREATE_IC request){
 
         NftListing nftListing = nftListingService.findOne(request.getAssetsId(), request.getListingId());
-        checkPaymentState(request.getUid(), nftListing);
+        preBuyCheck(request.getUid(), nftListing);
 
         //Check mint status
         NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
@@ -340,57 +309,38 @@ public class Web3ExchangeService extends AbsExchangeService {
                 .build();
     }
 
-    public NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS confirmPayment(NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC request) {
-
-        NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS.Builder builder = NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IS.newBuilder();
-
-        Long orderId = Long.valueOf(request.getOrderId());
-        SimpleQuery orderQuery = NftOrderQuery.newBuilder().assetsId(request.getAssetsId()).id(orderId).build();
-        NftOrder nftOrder = nftOrderDao.findOne(orderQuery);
-        if(null != nftOrder && NftOrderStatus.CREATE.equals(nftOrder.getStatus())){
-            WalletBillState state = WalletBillState.valueOf(request.getState());
-            switch (state){
-                case PAYED:
-                    //Change(inc) the quantity of assets belongs to buyer
-                    nftBelongService.inc(nftOrder.getAssetsId(), nftOrder.getBuyer(), nftOrder.getQuantity());
-                    //Change(dec) the quantity of assets belongs to buyer
-                    nftBelongService.dec(nftOrder.getAssetsId(), nftOrder.getOwner(), nftOrder.getQuantity());
-                    //Create events
-                    nftExchangeEventService.sendTransferEvent(nftOrder);
-                    nftExchangeEventService.sendSaleEvent(nftOrder);
-                    //Send events to stats
-                    sendExchangeRouteEventToStats(nftOrder.getAssetsId());
-                    nftOrderDao.update(
-                            NftOrderQuery.newBuilder().assetsId(nftOrder.getAssetsId()).id(nftOrder.getId()).build(),
-                            NftOrderUpdate.newBuilder().setStatus(NftOrderStatus.COMPLETE).txn(request.getTxn()).build()
-                    );
-                    nftListingService.remove(nftOrder.getAssetsId(), nftOrder.getListingId());
-                    //owner listing refresh
-                    nftListingService.refreshListingsBelongTo(nftOrder.getOwner(), nftOrder.getAssetsId());
-                    break;
-                case FAIL:
-                    nftOrderDao.update(
-                            orderQuery,
-                            NftOrderUpdate.newBuilder().setStatus(NftOrderStatus.CANCEL).remark("pay failed").build()
-                    );
-                    break;
-                default:
-            }
-        }
-
-        return builder.build();
-    }
-
-    private void sendExchangeRouteEventToStats(Long assetsId) {
-        routeClient.send(
-                NftExchange.EXCHANGE_EVENT_IC.newBuilder().setAssetsId(assetsId).build(),
-                ExchangeEventRouteRequest.class
-        );
-    }
-
 
     public PaymentCheckResponse getPaymentState(Web3PaymentCheckRequest request) {
         throw new UnsupportedOperationException();
+    }
+
+    private void preListingCheck(long uid, long assetsId, int quantity, String currency, String price) {
+        //Quantity check
+        NftBelong nftBelong = nftBelongService.findOne(assetsId, uid);
+        if(null == nftBelong || nftBelong.getQuantity() < quantity){
+            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+        }
+        //Check the blockchain is correct
+        WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
+        String blockchain = walletCurrencyTemplate.findOne(currency).getBlockchain();
+        if(!web3Properties.getBlockchain().equals(blockchain)){
+            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+        }
+
+    }
+
+    private String wrapToToken(String content, String signature) {
+        String wrappedStr = String.format("%s.%s", Base64Utils.encode(content.getBytes(StandardCharsets.UTF_8)), signature);
+        return wrappedStr;
+    }
+
+    private String unwrapToken(String token) {
+        String content = new String(Base64Utils.decode(token.substring(0, token.lastIndexOf("."))), StandardCharsets.UTF_8);
+        return content;
+    }
+
+    private String signContent(String content) throws Exception {
+        return Base64Utils.encode(RSAUtils.sign(content.getBytes(StandardCharsets.UTF_8), web3Properties.getRsa().getPrivateKey()));
     }
 
     private void createPaymentOrder(Long orderId, Long expiredAt, Long buyer, NftListing nftListing) {
@@ -410,16 +360,16 @@ public class Web3ExchangeService extends AbsExchangeService {
         nftOrderDao.insert(nftOrder);
     }
 
-    protected String createPaymentToken(String blockchain, WalletOrderBizContent walletOrder) {
+    private String createPaymentToken(String blockchain, WalletOrderBizContent walletOrder) {
         String token = web3WalletProvider.createToken(walletOrder);
         return token;
     }
 
-    protected Long createOrderId() {
+    private Long createOrderId() {
         return gsCollectionIdService.incrementAndGet(NftIdModule.EXCHANGE.name());
     }
 
-    protected void checkPaymentState(Long uid, NftListing nftListing) {
+    private void preBuyCheck(Long uid, NftListing nftListing) {
         if(null == nftListing || nftListing.getCanceled()){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NO_EXIST);
         }
@@ -434,7 +384,7 @@ public class Web3ExchangeService extends AbsExchangeService {
         }
     }
 
-    protected List<WalletOrderBizContent.Profit> createProfits(NftListing nftListing) {
+    private List<WalletOrderBizContent.Profit> createProfits(NftListing nftListing) {
 
         List<WalletOrderBizContent.Profit> profits = new ArrayList<>();
 
@@ -471,7 +421,6 @@ public class Web3ExchangeService extends AbsExchangeService {
         return profits;
 
     }
-
 
 
 }

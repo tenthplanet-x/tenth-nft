@@ -2,6 +2,8 @@ package com.tenth.nft.exchange.common.service;
 
 import com.tenth.nft.orm.marketplace.dao.NftActivityDao;
 import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
+import com.tenth.nft.orm.marketplace.dao.expression.NftActivityQuery;
+import com.tenth.nft.orm.marketplace.dao.expression.NftActivityUpdate;
 import com.tenth.nft.orm.marketplace.dao.expression.NftOfferQuery;
 import com.tenth.nft.orm.marketplace.entity.NftActivity;
 import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
@@ -51,5 +53,23 @@ public class NftOfferFlowService {
     public NftOffer findOne(Long assetsId, Long offerId) {
         return nftOfferDao.findOne(NftOfferQuery.newBuilder().assetsId(assetsId).id(offerId).build());
 
+    }
+
+    public void remove(Long assetsId, Long offerId) {
+        NftOffer nftOffer = nftOfferDao.findAndRemove(NftOfferQuery.newBuilder()
+                        .assetsId(assetsId)
+                        .id(offerId)
+                .build());
+        freezeOfferEvent(nftOffer);
+    }
+
+    private void freezeOfferEvent(NftOffer nftOffer) {
+
+        if(null != nftOffer.getActivityId()){
+            nftActivityDao.update(
+                    NftActivityQuery.newBuilder().id(nftOffer.getActivityId()).build(),
+                    NftActivityUpdate.newBuilder().freeze(true).build()
+            );
+        }
     }
 }

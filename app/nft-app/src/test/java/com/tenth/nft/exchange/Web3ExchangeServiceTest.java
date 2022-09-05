@@ -1,7 +1,7 @@
 package com.tenth.nft.exchange;
 
 import com.tenth.nft.app.NftApplicationTest;
-import com.tenth.nft.exchange.web3.service.Web3ExchangeService;
+import com.tenth.nft.exchange.web3.service.Web3ListingService;
 import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class Web3ExchangeServiceTest {
 
     @Autowired
-    private Web3ExchangeService web3ExchangeService;
+    private Web3ListingService web3ExchangeService;
     @Autowired
     private TpulseContractHelper tpulseContractHelper;
 
