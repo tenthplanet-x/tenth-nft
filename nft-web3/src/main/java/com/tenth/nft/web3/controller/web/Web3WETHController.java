@@ -23,14 +23,14 @@ public class Web3WETHController {
     public Web3WETHService web3WETHService;
 
     @RequestMapping(Web3WalletPaths.WETH_DEPOSIT)
-    public Response createDeposit(@RequestBody WETHDepositRequest request){
+    public Response createDeposit(@RequestBody WETHDepositRequest request) throws Exception{
         Validations.check(request);
         WETHDepositResponse response = web3WETHService.createDeposit(request);
         return Response.successBuilder().data(response).build();
     }
 
     @RequestMapping(Web3WalletPaths.WETH_WITHDRAW)
-    public Response createWithDraw(@RequestBody WETHWithDrawRequest request){
+    public Response createWithDraw(@RequestBody WETHWithDrawRequest request) throws Exception{
         Validations.check(request);
         WETHWithDrawResponse response = web3WETHService.createWithDraw(request);
         return Response.successBuilder().data(response).build();

@@ -5,6 +5,8 @@ package com.tenth.nft.web3.vo;
  */
 public class WETHTxnCheckRequest {
 
+    private String content;
+
     private String txn;
 
     public String getTxn() {
@@ -13,5 +15,13 @@ public class WETHTxnCheckRequest {
 
     public void setTxn(String txn) {
         this.txn = txn;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

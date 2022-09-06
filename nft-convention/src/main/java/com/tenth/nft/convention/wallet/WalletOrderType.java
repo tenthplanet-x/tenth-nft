@@ -9,7 +9,9 @@ public enum WalletOrderType {
     NftIncome(2),
     FundsIncome(3),
     CreatorIncome(4),
-    ServiceIncome(5)
+    ServiceIncome(5),
+    SwapExpense(6),
+    SwapIncome(7)
     ;
 
     private int activityCfgId;

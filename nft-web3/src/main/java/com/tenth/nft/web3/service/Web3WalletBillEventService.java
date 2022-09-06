@@ -10,13 +10,12 @@ import com.tenth.nft.convention.wallet.WalletProductCode;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.web3.dao.Web3WalletBillDao;
 import com.tenth.nft.web3.dao.Web3WalletDao;
-import com.tenth.nft.web3.dao.Web3WalletEventDao;
-import com.tenth.nft.web3.dao.expression.Web3WalletEventQuery;
+import com.tenth.nft.web3.dao.expression.Web3WalletBillQuery;
 import com.tenth.nft.web3.dao.expression.Web3WalletQuery;
 import com.tenth.nft.web3.dto.Web3WalletBillEventDTO;
 import com.tenth.nft.web3.dto.Web3WalletBillEventListDTO;
 import com.tenth.nft.web3.entity.Web3Wallet;
-import com.tenth.nft.web3.entity.Web3WalletEvent;
+import com.tenth.nft.web3.entity.Web3WalletBill;
 import com.tenth.nft.web3.vo.Web3WalletBillEventDetailRequest;
 import com.tenth.nft.web3.vo.Web3WalletBillEventListRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
@@ -40,8 +39,6 @@ public class Web3WalletBillEventService {
     @Autowired
     private Web3WalletBillDao web3WalletBillDao;
     @Autowired
-    private Web3WalletEventDao web3WalletEventDao;
-    @Autowired
     private I18nGsTemplates i18nGsTemplates;
     @Autowired
     private RouteClient routeClient;
@@ -57,8 +54,8 @@ public class Web3WalletBillEventService {
         String blockchain = web3Wallet.getBlockchain();
         String accountId = web3Wallet.getWalletAccountId();
 
-        Page<Web3WalletEvent> eventPage = web3WalletEventDao.findPage(
-                Web3WalletEventQuery.newBuilder()
+        Page<Web3WalletBill> eventPage = web3WalletBillDao.findPage(
+                Web3WalletBillQuery.newBuilder()
                         .blockchain(blockchain)
                         .accountId(accountId)
                         .setReverse(true)
@@ -98,8 +95,8 @@ public class Web3WalletBillEventService {
         String blockchain = web3Wallet.getBlockchain();
         String accountId = web3Wallet.getWalletAccountId();
 
-        Web3WalletEvent entity = web3WalletEventDao.findOne(
-                Web3WalletEventQuery
+        Web3WalletBill entity = web3WalletBillDao.findOne(
+                Web3WalletBillQuery
                         .newBuilder()
                         .id(request.getId())
                         .blockchain(blockchain)
@@ -116,7 +113,10 @@ public class Web3WalletBillEventService {
             eventDTO.setIncomeExpense(walletActivityConfig.getIncomeExpense());
         }
 
-        if(WalletProductCode.NFT.name().equals(entity.getProductCode())){
+        if(
+                WalletProductCode.NFT.name().equals(entity.getProductCode()) ||
+                        WalletProductCode.NFT_OFFER.name().equals(entity.getProductCode())
+        ){
             eventDTO.setProductName(
                     routeClient.send(
                             NftMarketplace.ASSETS_DETAIL_IC.newBuilder()

@@ -1,0 +1,142 @@
+spring:
+  application:
+    name: tpulse-nft
+    debug: true
+
+server:
+  env: dev
+  region: 1
+  port: 80
+  host: 172.16.16.108
+
+
+db:
+  cache:
+    enable: false #是否开启表缓存，默认是true
+    limit: 10000  #每张表缓存最大缓存键数
+    flusher: 1   #mongo操作异步刷出处理器
+    flush-interval: 1000 #mongo操作异步刷出频率(ms)
+    flush-timeout: 10000 #mongo刷出timeout
+    bin-log-dir: /data/binlog/tpulse
+  mysql:
+    auto-ddl: true #对比数据库，自动生成创/修改表语句
+    #url: "jdbc:mysql://127.0.0.1:3306/tpulsefat"
+    url: jdbc:mysql://192.168.9.96:3306/tpulsefat
+    username: "tpulse"
+    password: "!Tpulse123456"
+    initial-size: 50
+#  mongodb:
+#    url: ${spring.data.mongodb.uri}
+#spring.data.mongodb.uri: mongodb://row:123456@db1.uat.tpulse.cn:27017/row
+
+router:
+  security:
+    open: true  #默认不开启
+  health:
+    open: true  #默认不开启
+  monitor:
+    open: true
+  cors:
+    open: true
+  log:
+    open: true  #默认不开启
+  boot:
+    open: true #
+  tribe:
+    host: 172.16.16.42
+    port: 9999
+  server:
+    port: 9001
+    serverQueueThreads: 200
+
+
+cors:
+  enable:
+    headers: "Content-Type,dctoken,WALLAN-TOKEN,WALLAN-ACCOUNT-ID,CACHE-CONTROL,TPULSE_UID,TPULSE_TOKEN"
+
+operation:
+  material:
+    schedule: true
+  security:
+    debug: false
+
+auth:
+  gateway: http://localhost:${server.port}
+
+im:
+  host: localhost
+  rsa:
+    privatekey: MIIBNgIBADANBgkqhkiG9w0BAQEFAASCASAwggEcAgEAAoGBAKCE8JYKhsbydMPbiO7BJVq1pbuJWJHFxOR7L8Hv3ZVkSG4eNC8DdwAmDHYu/wadfw0ihKFm2gKDcLHp5yz5UQ8PZ8FyDYvgkrvGV0ak4nc40QDJWws621dm01e/INlGKOIStAAsxOityCLv0zm5Vf3+My/YaBvZcB5mGUsPbx8fAgEAAoGAAy0+WanRqwRHXUzt89OsupPXuNNqBlCEqgTqGAt4Nimq6Ur9u2R1KXKXUotxjp71Ubw6JbuUWvJg+5Rmd9RjT0HOUEQF3rvzEepKtaraPhV5ejEIrB+nJWNfGye4yzLdfEXJBGUQzrG+wNe13izfRNXI4dN/6Q5npzqaqv0E1CkCAQACAQACAQACAQACAQA=
+    publickey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCghPCWCobG8nTD24juwSVataW7iViRxcTkey/B792VZEhuHjQvA3cAJgx2Lv8GnX8NIoShZtoCg3Cx6ecs+VEPD2fBcg2L4JK7xldGpOJ3ONEAyVsLOttXZtNXvyDZRijiErQALMTorcgi79M5uVX9/jMv2Ggb2XAeZhlLD28fHwIDAQAB
+  port: 9090
+
+oss:
+  qiniu:
+    ak: jTp01Oa0dw2eLrmZP6MpIAPaHs2hQNpVct5L1QEy
+    sk: FNjvkqBP53JgU6KkFC_i_SoR7YrLtHmslHv231dk
+    buckets: {
+      tpulse: 'http://qiniu.shunye666.cn'
+    }
+    defaultBucket: tpulse
+
+config:
+  download:
+    enable: false
+  regeng:
+    enable: true
+
+
+tencent:
+  tpns:
+    ios:
+      app-id: 1680011355
+      sk: 8b59447d724077255ddad556f044c54f
+      domain: 'https://api.tpns.sh.tencent.com/'
+
+group:
+  recommend:
+    open: true
+
+nft:
+  crawler:
+    open: false
+  lucenedb:
+    dir: /data/lucenedb
+
+security:
+  sms:
+    debug: false
+    duration: 300000
+    send-interval: 60000
+
+wallet:
+  blockchain: "T Planet"
+  rsa:
+    public-key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDoPKhO4v5KQa9WVzJFULY0VkzoJR3l3vcSlKy5gj6AKnWs2GFNE5iTNPxubWB+OCju8aYm2WfPfDYbxTPysASiZ1fhB3Xs+zyvxDIgTs63GLKEgB3DcVmiqSWNOlDhbihTmYnWqw/d8okPeA8g9MjLMCtmB1a9b/wQzoU3DBGIoQIDAQAB
+    private-key: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAOg8qE7i/kpBr1ZXMkVQtjRWTOglHeXe9xKUrLmCPoAqdazYYU0TmJM0/G5tYH44KO7xpibZZ898NhvFM/KwBKJnV+EHdez7PK/EMiBOzrcYsoSAHcNxWaKpJY06UOFuKFOZidarD93yiQ94DyD0yMswK2YHVr1v/BDOhTcMEYihAgMBAAECgYA5DNmd03Z7gGpV0ALZ80tnTQIEj0WqeB0C9AIAamX3LzcMOHWirRswonYWnIj1SM+Jb1SNO6AcYNub89RgnGvuj5mskqcfyJU/pU1hysJCXs49RBclzaH5vIUquSDx/wCQe4WrzncG/rP6b5w995I0f6FlifLiBVpaGdNxyl3f7wJBAPiTsJyee6LpgcBhE/ZH5piXE4+J4ZrpJscc5bxj4ImzizDWHmzJ8YXr5VUiTROSY7L9azCS2CGDWI2tAtr2nF8CQQDvLA1uALUIY7aYwwu5MlZ1VRr9LkB8DZK3jjY5OvTrcZpViesb14faoE+Q9T7+HCycGdqygQQgiQbt3y6/qfr/AkEAkTowOAC7uR11qgDNmdi+F65ERltHDKtk9XWjnyI3IBxemOSwF90QF68PaGLG50VirEM0qcdRMJs9VGCdR3JHPwJAcrZVRqJuMbTpmkFKeSvsjeAgzrgFU7qK2SELXs2pNNfK5yX8LuFkFnb3UpZd/TD0MHayDxWULiqquSJnYKQdbwJBAOE6F27Ys3hiK8CLz9af0Yna3INsob6MxaIXGRwlc8wIz1K2N3xgDSmuNz95s8PFfW5pts7/9KXDg0n0x7lym+M=
+
+ios:
+  sdk:
+    gateway: 'https://sandbox.itunes.apple.com'
+    storekit-gateway: 'https://api.storekit-sandbox.itunes.apple.com'
+    password: 57694d81ac9f4f669f05b71ee2c948bc
+    private-key-id: '5X56RZZQUS'
+    issue-id: '58596d5c-0775-4ae4-9fac-8e0e8e8f83b3'
+    bundle-id: 'com.tpulse.wander'
+    private-key: 'MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgxnybP7JRW/ZbQS5dHAJMSUF1Ru9H2EOF04FIROSfT9CgCgYIKoZIzj0DAQehRANCAAQuRVZA+xXXOTAUTDGiIYP3/KDifsO/OdRlnU182L7ZG1SiQWZRq5sNBhJGoED9lwZ2z1457fCm43WAjpzj/7F5'
+
+web3:
+  network: 'https://rinkeby.infura.io/v3/86b933b4f2754d4cb3bb906dbe9266d4'
+  blockchain: "Ethereum"
+  chainId: 4
+  rsa:
+    public-key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDoPKhO4v5KQa9WVzJFULY0VkzoJR3l3vcSlKy5gj6AKnWs2GFNE5iTNPxubWB+OCju8aYm2WfPfDYbxTPysASiZ1fhB3Xs+zyvxDIgTs63GLKEgB3DcVmiqSWNOlDhbihTmYnWqw/d8okPeA8g9MjLMCtmB1a9b/wQzoU3DBGIoQIDAQAB
+    private-key: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAOg8qE7i/kpBr1ZXMkVQtjRWTOglHeXe9xKUrLmCPoAqdazYYU0TmJM0/G5tYH44KO7xpibZZ898NhvFM/KwBKJnV+EHdez7PK/EMiBOzrcYsoSAHcNxWaKpJY06UOFuKFOZidarD93yiQ94DyD0yMswK2YHVr1v/BDOhTcMEYihAgMBAAECgYA5DNmd03Z7gGpV0ALZ80tnTQIEj0WqeB0C9AIAamX3LzcMOHWirRswonYWnIj1SM+Jb1SNO6AcYNub89RgnGvuj5mskqcfyJU/pU1hysJCXs49RBclzaH5vIUquSDx/wCQe4WrzncG/rP6b5w995I0f6FlifLiBVpaGdNxyl3f7wJBAPiTsJyee6LpgcBhE/ZH5piXE4+J4ZrpJscc5bxj4ImzizDWHmzJ8YXr5VUiTROSY7L9azCS2CGDWI2tAtr2nF8CQQDvLA1uALUIY7aYwwu5MlZ1VRr9LkB8DZK3jjY5OvTrcZpViesb14faoE+Q9T7+HCycGdqygQQgiQbt3y6/qfr/AkEAkTowOAC7uR11qgDNmdi+F65ERltHDKtk9XWjnyI3IBxemOSwF90QF68PaGLG50VirEM0qcdRMJs9VGCdR3JHPwJAcrZVRqJuMbTpmkFKeSvsjeAgzrgFU7qK2SELXs2pNNfK5yX8LuFkFnb3UpZd/TD0MHayDxWULiqquSJnYKQdbwJBAOE6F27Ys3hiK8CLz9af0Yna3INsob6MxaIXGRwlc8wIz1K2N3xgDSmuNz95s8PFfW5pts7/9KXDg0n0x7lym+M=
+  contract:
+    address: '0x0561a7add242d2ecd3d9a0ab1ec717792594fdf9'
+    owner-private-key: 'caa9c4fb931a136165784140361b093063ccc05fb3e9b9bd8e7a54f199ac159d'
+    owner-address: '0xfffcb195b4eb04F9E9676976b16c94aa12c31af3'
+    token-standard: "ERC1155"
+  main-currency: 'ETH-Ethereum'
+  weth-currency: 'WETH'
+  weth-address: '0xc778417E063141139Fce010982780140Aa0cD5Ab'

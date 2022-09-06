@@ -1,6 +1,6 @@
 package com.tenth.nft.web3.dto;
 
-import com.tenth.nft.web3.entity.Web3WalletEvent;
+import com.tenth.nft.web3.entity.Web3WalletBill;
 
 /**
  * @author shijie
@@ -77,7 +77,7 @@ public class Web3WalletBillEventListDTO {
         this.incomeExpense = incomeExpense;
     }
 
-    public static Web3WalletBillEventListDTO from(Web3WalletEvent entity) {
+    public static Web3WalletBillEventListDTO from(Web3WalletBill entity) {
         Web3WalletBillEventListDTO dto = new Web3WalletBillEventListDTO();
         dto.setId(entity.getId());
         dto.setCurrency(entity.getCurrency());

@@ -14,11 +14,14 @@ public class WETHWithDrawResponse {
 
     private String txnData;
 
-    public WETHWithDrawResponse(String txnFrom, String txnValue, String txnTo, String txnData) {
+    private String content;
+
+    public WETHWithDrawResponse(String txnFrom, String txnValue, String txnTo, String txnData, String content) {
         this.from = txnFrom;
         this.txnValue = txnValue;
         this.txnTo = txnTo;
         this.txnData = txnData;
+        this.content = content;
     }
 
     public String getFrom() {
@@ -51,5 +54,13 @@ public class WETHWithDrawResponse {
 
     public void setTxnData(String txnData) {
         this.txnData = txnData;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -13,14 +13,17 @@ public class WETHDepositResponse {
 
     private String txnData;
 
+    private String content;
+
     public WETHDepositResponse() {
     }
 
-    public WETHDepositResponse(String txnFrom, String txnValue, String txnTo, String txnData) {
+    public WETHDepositResponse(String txnFrom, String txnValue, String txnTo, String txnData, String content) {
         this.from = txnFrom;
         this.txnValue = txnValue;
         this.txnTo = txnTo;
         this.txnData = txnData;
+        this.content = content;
     }
 
     public String getFrom() {
@@ -53,5 +56,13 @@ public class WETHDepositResponse {
 
     public void setTxnData(String txnData) {
         this.txnData = txnData;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

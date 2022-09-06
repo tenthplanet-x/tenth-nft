@@ -8,6 +8,9 @@ import com.tenth.nft.convention.routes.web3wallet.Web3TxnCheckRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletPayRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
+import com.tenth.nft.convention.templates.NftTemplateTypes;
+import com.tenth.nft.convention.templates.WalletCurrencyConfig;
+import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
 import com.tenth.nft.convention.wallet.WalletBillState;
 import com.tenth.nft.convention.wallet.WalletMerchantType;
 import com.tenth.nft.convention.wallet.WalletOrderBizContent;
@@ -18,7 +21,6 @@ import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.web3.dao.Web3WalletBillDao;
 import com.tenth.nft.web3.dao.Web3WalletDao;
-import com.tenth.nft.web3.dao.Web3WalletEventDao;
 import com.tenth.nft.web3.dao.expression.Web3WalletBillQuery;
 import com.tenth.nft.web3.dao.expression.Web3WalletBillUpdate;
 import com.tenth.nft.web3.dao.expression.Web3WalletQuery;
@@ -52,8 +54,6 @@ public class Web3WalletBillService {
     private Web3WalletDao web3WalletDao;
     @Autowired
     private Web3WalletBillDao web3WalletBillDao;
-    @Autowired
-    private Web3WalletEventDao web3WalletEventDao;
     @Autowired
     private I18nGsTemplates i18nGsTemplates;
     @Autowired
@@ -135,6 +135,11 @@ public class Web3WalletBillService {
             walletBill.setRemark(bizContent.getRemark());
             walletBill.setTransactionId(request.getTxn());
             walletBill.setProfits(convert(bizContent.getProfits()));
+
+            WalletCurrencyConfig walletCurrencyConfig = i18nGsTemplates.get(NftTemplateTypes.wallet_currency, WalletCurrencyTemplate.class).findOne(bizContent.getCurrency());
+            walletBill.setBlockchain(walletCurrencyConfig.getBlockchain());
+            //walletBill.set
+
             web3WalletBillDao.insert(walletBill);
         }
 

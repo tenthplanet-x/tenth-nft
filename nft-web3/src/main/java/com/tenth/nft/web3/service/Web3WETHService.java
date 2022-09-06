@@ -3,15 +3,22 @@ package com.tenth.nft.web3.service;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
+import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
+import com.tenth.nft.convention.wallet.utils.WalletTimes;
+import com.tenth.nft.convention.web3.sign.StructContentHash;
 import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.solidity.WETHContract;
+import com.tenth.nft.web3.dao.Web3WalletBillDao;
+import com.tenth.nft.web3.entity.Web3WalletBill;
+import com.tenth.nft.web3.entity.Web3WalletBillProfit;
 import com.tenth.nft.web3.vo.*;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
+import com.wallan.json.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.utils.Convert;
@@ -33,8 +40,10 @@ public class Web3WETHService {
     private Web3Properties web3Properties;
     @Autowired
     private Web3WalletService walletService;
+    @Autowired
+    private Web3WalletBillDao web3WalletBillDao;
 
-    public WETHDepositResponse createDeposit(WETHDepositRequest request) {
+    public WETHDepositResponse createDeposit(WETHDepositRequest request) throws Exception {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
@@ -52,11 +61,28 @@ public class Web3WETHService {
         ).getBalance().getAddress();
         String txnTo = wethContract.getContractAddress();
         String txnValue = value.toBigInteger().toString();
-        return new WETHDepositResponse(txnFrom, txnValue, txnTo, txnData);
+
+        Web3WalletBill bill = new Web3WalletBill();
+        bill.setActivityCfgId(WalletOrderType.SwapExpense.getActivityCfgId());
+        bill.setCurrency(web3Properties.getMainCurrency());
+        bill.setValue(txnValue);
+        bill.setAccountId(txnFrom);
+        bill.setProductCode(WalletProductCode.WEB3_WRAP.name());
+        bill.setProductId(web3Properties.getWethAddress());
+        bill.setProductCode(WalletProductCode.WEB3_WRAP.name());
+        bill.setMerchantType(WalletMerchantType.WETH.name());
+        bill.setMerchantId(wethContract.getContractAddress());
+        bill.setCreatedAt(System.currentTimeMillis());
+        bill.setExpiredAt(WalletTimes.getExpiredAt());
+        String content = StructContentHash.wrap(
+                JsonUtil.toJson(bill),
+                web3Properties.getRsa().getPrivateKey()
+        );
+        return new WETHDepositResponse(txnFrom, txnValue, txnTo, txnData, content);
 
     }
 
-    public WETHWithDrawResponse createWithDraw(WETHWithDrawRequest request) {
+    public WETHWithDrawResponse createWithDraw(WETHWithDrawRequest request) throws Exception{
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
@@ -74,7 +100,26 @@ public class Web3WETHService {
         ).getBalance().getAddress();
         String txnTo = wethContract.getContractAddress();
         String txnValue = BigInteger.ZERO.toString();
-        return new WETHWithDrawResponse(txnFrom, txnValue, txnTo, txnData);
+
+        Web3WalletBill bill = new Web3WalletBill();
+        bill.setActivityCfgId(WalletOrderType.SwapIncome.getActivityCfgId());
+        bill.setBlockchain(web3Properties.getBlockchain());
+        bill.setCurrency(web3Properties.getMainCurrency());
+        bill.setValue(txnValue);
+        bill.setAccountId(txnFrom);
+        bill.setProductCode(WalletProductCode.WEB3_WRAP.name());
+        bill.setProductId(web3Properties.getWethAddress());
+        bill.setProductCode(WalletProductCode.WEB3_WRAP.name());
+        bill.setMerchantType(WalletMerchantType.WETH.name());
+        bill.setMerchantId(wethContract.getContractAddress());
+        bill.setCreatedAt(System.currentTimeMillis());
+        bill.setExpiredAt(WalletTimes.getExpiredAt());
+        String content = StructContentHash.wrap(
+                JsonUtil.toJson(bill),
+                web3Properties.getRsa().getPrivateKey()
+        );
+
+        return new WETHWithDrawResponse(txnFrom, txnValue, txnTo, txnData, content);
 
     }
 
@@ -110,6 +155,15 @@ public class Web3WETHService {
     public TxnStatus checkTxn(WETHTxnCheckRequest request) {
         ContractTransactionReceipt receipt = tpulseContractHelper.getTxn(request.getTxn());
         if(receipt.isSuccess()){
+
+            String transactionId = receipt.getReceipt().getTransactionHash();
+            Web3WalletBill bill = JsonUtil.fromJson(StructContentHash.unwrap(request.getContent()), Web3WalletBill.class);
+            bill.setNotified(true);
+            bill.setState(WalletBillState.COMPLETE.name());
+            bill.setTransactionId(transactionId);
+            bill.setOutOrderId(transactionId);
+            web3WalletBillDao.insert(bill);
+
             return TxnStatus.SUCCESS;
         }else if(receipt.isFail()){
             return TxnStatus.FAIL;

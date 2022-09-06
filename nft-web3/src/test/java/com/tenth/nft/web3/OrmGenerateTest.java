@@ -1,8 +1,6 @@
 package com.tenth.nft.web3;
 
 import com.tenth.nft.web3.entity.Web3ContractApproval;
-import com.tenth.nft.web3.entity.Web3WalletBill;
-import com.tenth.nft.web3.entity.Web3WalletEvent;
 import com.tpulse.gs.convention.dao.generate.OrmGenerator;
 import org.junit.Test;
 
