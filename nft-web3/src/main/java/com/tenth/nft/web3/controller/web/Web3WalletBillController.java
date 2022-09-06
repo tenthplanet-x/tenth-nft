@@ -1,20 +1,12 @@
 package com.tenth.nft.web3.controller.web;
 
-import com.tenth.nft.convention.wallet.WalletBillState;
-import com.tenth.nft.convention.wallet.WalletOrderType;
 import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.web3.Web3WalletPaths;
 import com.tenth.nft.web3.dto.Web3WalletBillDTO;
-import com.tenth.nft.web3.dto.Web3WalletBillEventDTO;
-import com.tenth.nft.web3.dto.Web3WalletBillEventListDTO;
-import com.tenth.nft.web3.service.Web3WalletBillEventService;
 import com.tenth.nft.web3.service.Web3WalletBillService;
-import com.tenth.nft.web3.vo.Web3WalletBillEventDetailRequest;
-import com.tenth.nft.web3.vo.Web3WalletBillEventListRequest;
 import com.tenth.nft.web3.vo.Web3WalletBillPayRequest;
 import com.tenth.nft.web3.vo.Web3WalletBillStateRequest;
 import com.tpulse.commons.validation.Validations;
-import com.tpulse.gs.convention.dao.dto.Page;
 import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;

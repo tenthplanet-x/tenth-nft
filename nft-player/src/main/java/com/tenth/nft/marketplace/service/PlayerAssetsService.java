@@ -37,7 +37,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
-import java.util.HexFormat;
 import java.util.stream.Collectors;
 
 /**
@@ -201,7 +200,7 @@ public class PlayerAssetsService {
 
         CreateWeb3NftResponse response = new CreateWeb3NftResponse();
         response.setDataForSign(dataForSign);
-        response.setToken(createToken(JsonUtil.toJson(request)));
+        response.setContent(createToken(JsonUtil.toJson(request)));
 
         String address = routeClient.send(
                 NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
@@ -225,7 +224,7 @@ public class PlayerAssetsService {
         Long uid = context.getLong(TpulseHeaders.UID);
 
         Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
-        NftAssetsCreateRequest request = unwrapToken(confirmRequest.getToken());
+        NftAssetsCreateRequest request = unwrapToken(confirmRequest.getContent());
 
         //create
         NftAssets nftAssets = new NftAssets();

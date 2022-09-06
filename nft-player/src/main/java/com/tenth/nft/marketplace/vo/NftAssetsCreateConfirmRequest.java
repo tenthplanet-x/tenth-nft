@@ -2,7 +2,6 @@ package com.tenth.nft.marketplace.vo;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author shijie
@@ -11,17 +10,17 @@ import javax.validation.constraints.NotNull;
 public class NftAssetsCreateConfirmRequest {
 
     @NotEmpty
-    private String token;
+    private String content;
 
     @NotEmpty
     private String signature;
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getSignature() {

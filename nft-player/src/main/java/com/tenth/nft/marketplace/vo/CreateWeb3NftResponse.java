@@ -9,7 +9,7 @@ public class CreateWeb3NftResponse {
 
     private String dataForSign;
 
-    private String token;
+    private String content;
 
     public void setDataForSign(String dataForSign) {
         this.dataForSign = dataForSign;
@@ -19,12 +19,12 @@ public class CreateWeb3NftResponse {
         return dataForSign;
     }
 
-    public String getToken() {
-        return token;
+    public String getContent() {
+        return content;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getFrom() {
