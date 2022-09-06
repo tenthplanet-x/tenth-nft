@@ -35,6 +35,12 @@ public class Web3WalletController {
         return Response.successBuilder().data(profile).build();
     }
 
+    @RequestMapping(Web3WalletPaths.WALLET_CREATE_AUTH)
+    public Response createAuth(){
+        String walletBridgeUrl = web3WalletService.createAuth();
+        return Response.successBuilder().data(walletBridgeUrl).build();
+    }
+
     @RequestMapping(Web3WalletPaths.WALLET_BALANCE)
     public Response balance() throws Exception{
         List<Web3WalletBalance> balance = web3WalletService.balance();

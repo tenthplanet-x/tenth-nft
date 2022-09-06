@@ -251,7 +251,7 @@ public class Web3ListingService extends AbsListingFlowService {
                 uidAddress
         );
         String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
-                .sign()
+                .transaction()
                 .put("from", response.getFrom())
                 .put("txnTo", response.getTxnTo())
                 .put("txnValue", response.getTxnValue())

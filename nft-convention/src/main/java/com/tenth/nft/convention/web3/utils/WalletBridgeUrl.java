@@ -2,6 +2,7 @@ package com.tenth.nft.convention.web3.utils;
 
 import com.google.common.base.Joiner;
 import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.convention.templates.BlockchainConfig;
 import org.apache.catalina.mbeans.SparseUserDatabaseMBean;
 
 import java.security.Signature;
@@ -43,6 +44,16 @@ public class WalletBridgeUrl {
             String gateway = web3Properties.getWalletBridgeGateway();
             String queryString = Joiner.on("&").join(params.entrySet().stream().map(entry -> String.format("%s=%s", entry.getKey(), entry.getValue())).collect(Collectors.toList()));
             return String.format("%s?%s", gateway, queryString);
+        }
+
+        public Builder auth() {
+            params.put("cmd", 1);
+            return this;
+        }
+
+        public Builder transaction() {
+            params.put("cmd", 3);
+            return this;
         }
     }
 }

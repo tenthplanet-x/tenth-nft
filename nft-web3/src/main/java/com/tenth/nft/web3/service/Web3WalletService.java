@@ -2,6 +2,7 @@ package com.tenth.nft.web3.service;
 
 import com.ruixi.tpulse.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.web3.dao.Web3WalletDao;
@@ -42,6 +43,12 @@ public class Web3WalletService {
     private Web3Properties web3Properties;
     @Autowired
     private TpulseContractHelper tpulseContractHelper;
+
+    public String createAuth() {
+        return WalletBridgeUrl.newBuilder(web3Properties)
+                .auth()
+                .build();
+    }
 
     public void bind(Web3WalletBindRequest request) {
 
@@ -163,4 +170,6 @@ public class Web3WalletService {
                         .build()
         );
     }
+
+
 }

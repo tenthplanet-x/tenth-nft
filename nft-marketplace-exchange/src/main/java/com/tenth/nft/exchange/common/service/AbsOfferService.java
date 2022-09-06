@@ -93,7 +93,7 @@ public class AbsOfferService {
         }
         //creator fee
         {
-            if(new BigDecimal(nftOffer.getCreatorFeeRate()).compareTo(BigDecimal.ZERO) > 0){
+            if(!Strings.isNullOrEmpty(nftOffer.getCreatorFeeRate()) &&  new BigDecimal(nftOffer.getCreatorFeeRate()).compareTo(BigDecimal.ZERO) > 0){
                 WalletOrderBizContent.Profit profit = new WalletOrderBizContent.Profit();
                 profit.setActivityCfgId(WalletOrderType.CreatorIncome.getActivityCfgId());
                 profit.setCurrency(nftOffer.getCurrency());
