@@ -11,6 +11,8 @@ public class WETHApprovalCreateResponse {
 
     private String txnData;
 
+    private String walletBridgeUrl;
+
     public WETHApprovalCreateResponse(String from, String txnTo, String txnValue) {
         this.from = from;
         this.txnTo = txnTo;
@@ -39,5 +41,13 @@ public class WETHApprovalCreateResponse {
 
     public void setTxnData(String txnData) {
         this.txnData = txnData;
+    }
+
+    public void setWalletBridgeUrl(String walletBridgeUrl) {
+        this.walletBridgeUrl = walletBridgeUrl;
+    }
+
+    public String getWalletBridgeUrl() {
+        return walletBridgeUrl;
     }
 }

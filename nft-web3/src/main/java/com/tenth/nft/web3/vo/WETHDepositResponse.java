@@ -15,6 +15,8 @@ public class WETHDepositResponse {
 
     private String content;
 
+    private String walletBridgeUrl;
+
     public WETHDepositResponse() {
     }
 
@@ -64,5 +66,13 @@ public class WETHDepositResponse {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getWalletBridgeUrl() {
+        return walletBridgeUrl;
+    }
+
+    public void setWalletBridgeUrl(String walletBridgeUrl) {
+        this.walletBridgeUrl = walletBridgeUrl;
     }
 }

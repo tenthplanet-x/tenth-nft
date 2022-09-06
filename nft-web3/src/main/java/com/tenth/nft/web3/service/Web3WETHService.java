@@ -8,6 +8,7 @@ import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
 import com.tenth.nft.convention.web3.sign.StructContentHash;
 import com.tenth.nft.convention.web3.utils.TxnStatus;
+import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
@@ -78,7 +79,19 @@ public class Web3WETHService {
                 JsonUtil.toJson(bill),
                 web3Properties.getRsa().getPrivateKey()
         );
-        return new WETHDepositResponse(txnFrom, txnValue, txnTo, txnData, content);
+        WETHDepositResponse response = new WETHDepositResponse(txnFrom, txnValue, txnTo, txnData, content);
+
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .transaction()
+                .put("from", response.getFrom())
+                .put("txnTo", response.getTxnTo())
+                .put("txnValue", response.getTxnValue())
+                .put("txnData", response.getTxnData())
+                .put("content", response.getContent())
+                .build();
+        response.setWalletBridgeUrl(walletBridgeUrl);
+
+        return response;
 
     }
 
@@ -119,7 +132,17 @@ public class Web3WETHService {
                 web3Properties.getRsa().getPrivateKey()
         );
 
-        return new WETHWithDrawResponse(txnFrom, txnValue, txnTo, txnData, content);
+        WETHWithDrawResponse response = new WETHWithDrawResponse(txnFrom, txnValue, txnTo, txnData, content);
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .transaction()
+                .put("from", response.getFrom())
+                .put("txnTo", response.getTxnTo())
+                .put("txnValue", response.getTxnValue())
+                .put("txnData", response.getTxnData())
+                .put("content", response.getContent())
+                .build();
+        response.setWalletBridgeUrl(walletBridgeUrl);
+        return response;
 
     }
 
@@ -141,7 +164,16 @@ public class Web3WETHService {
         String txnTo = tpulseContractHelper.getWETHContract().getContractAddress();
         String from = uidAddress;
 
-        return new WETHApprovalCreateResponse(from, txnTo, txnValue);
+        WETHApprovalCreateResponse response = new WETHApprovalCreateResponse(from, txnTo, txnValue);
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .transaction()
+                .put("from", response.getFrom())
+                .put("txnTo", response.getTxnTo())
+                .put("txnData", response.getTxnData())
+                .build();
+        response.setWalletBridgeUrl(walletBridgeUrl);
+
+        return response;
     }
 
     public void confirmApproval(WETHApprovalConfirmRequest request) {

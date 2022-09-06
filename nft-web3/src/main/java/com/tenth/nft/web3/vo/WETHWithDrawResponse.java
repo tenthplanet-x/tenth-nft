@@ -16,6 +16,8 @@ public class WETHWithDrawResponse {
 
     private String content;
 
+    private String walletBridgeUrl;
+
     public WETHWithDrawResponse(String txnFrom, String txnValue, String txnTo, String txnData, String content) {
         this.from = txnFrom;
         this.txnValue = txnValue;
@@ -62,5 +64,13 @@ public class WETHWithDrawResponse {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setWalletBridgeUrl(String walletBridgeUrl) {
+        this.walletBridgeUrl = walletBridgeUrl;
+    }
+
+    public String getWalletBridgeUrl() {
+        return walletBridgeUrl;
     }
 }
