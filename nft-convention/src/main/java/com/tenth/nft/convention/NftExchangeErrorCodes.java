@@ -58,7 +58,9 @@ public enum NftExchangeErrorCodes implements ErrorCode {
      */
     WEB3WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN("020800", "uncorrect pay token"),
     WEB3WALLET_PAY_EXCEPTION_LACK_OF_BALANCE("020801", "don't have enough balance"),
-    WEB3WALLET_DONT_HAVE_BIND("020802", "don't have bind wallet")
+    WEB3WALLET_DONT_HAVE_BIND("020802", "don't have bind wallet"),
+    WEB3WALLET_BILL_DOES_NOT_EXIST("020803", "bill doesn't exist"),
+    WEB3WALLET_BILL_HAS_FAIL_STATUS("020804", "bill doesn't exist")
 
     ;
 

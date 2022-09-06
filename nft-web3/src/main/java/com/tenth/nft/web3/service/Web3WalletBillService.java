@@ -15,6 +15,7 @@ import com.tenth.nft.convention.wallet.WalletBillState;
 import com.tenth.nft.convention.wallet.WalletMerchantType;
 import com.tenth.nft.convention.wallet.WalletOrderBizContent;
 import com.tenth.nft.convention.wallet.WalletToken;
+import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
@@ -214,23 +215,32 @@ public class Web3WalletBillService {
     }
 
 
-    public Web3WalletBillDTO state(Web3WalletBillStateRequest request) {
+    public TxnStatus state(Web3WalletBillStateRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
         //get web3 accountId
         Web3Wallet web3Wallet = web3WalletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
-
-        Web3WalletBillDTO billDTO = Web3WalletBillDTO.from(
-                web3WalletBillDao.findOne(
-                        Web3WalletBillQuery.newBuilder()
-                                .uid(uid)
-                                .id(request.getId())
-                                .build()
-                )
+        Web3WalletBill bill = web3WalletBillDao.findOne(
+                Web3WalletBillQuery.newBuilder()
+                        .uid(uid)
+                        .id(request.getId())
+                        .build()
         );
 
-        return billDTO;
+        if(null == bill){
+            throw BizException.newInstance(NftExchangeErrorCodes.WEB3WALLET_BILL_DOES_NOT_EXIST);
+        }
+
+        WalletBillState state = WalletBillState.valueOf(bill.getState());
+        if(state == WalletBillState.COMPLETE){
+            return TxnStatus.SUCCESS;
+        }
+        if(state == WalletBillState.FAIL){
+            throw BizException.newInstance(NftExchangeErrorCodes.WEB3WALLET_BILL_DOES_NOT_EXIST);
+        }
+
+        return TxnStatus.PENDING;
     }
 
     /**

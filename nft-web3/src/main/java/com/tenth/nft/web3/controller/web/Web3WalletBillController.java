@@ -1,5 +1,8 @@
 package com.tenth.nft.web3.controller.web;
 
+import com.tenth.nft.convention.wallet.WalletBillState;
+import com.tenth.nft.convention.wallet.WalletOrderType;
+import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.web3.Web3WalletPaths;
 import com.tenth.nft.web3.dto.Web3WalletBillDTO;
 import com.tenth.nft.web3.dto.Web3WalletBillEventDTO;
@@ -39,8 +42,8 @@ public class Web3WalletBillController {
     @RequestMapping(Web3WalletPaths.WALLET_BILL_STATE)
     public Response state(@RequestBody Web3WalletBillStateRequest request){
         Validations.check(request);
-        Web3WalletBillDTO bill = web3WalletBillService.state(request);
-        return Response.successBuilder().data(bill).build();
+        TxnStatus status = web3WalletBillService.state(request);
+        return Response.successBuilder().data(status).build();
     }
 
 
