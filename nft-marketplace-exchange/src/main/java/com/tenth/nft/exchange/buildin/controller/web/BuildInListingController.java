@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @HttpRoute(userAuth = true)
-public class BuildInExchangeController {
+public class BuildInListingController {
 
     @Autowired
     private BuildInListingService nftExchangeService;

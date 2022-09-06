@@ -105,7 +105,10 @@ public class BuildInListingService extends AbsListingFlowService {
         listing.setCreatedAt(System.currentTimeMillis());
         listing.setUpdatedAt(listing.getCreatedAt());
         listing.setCanceled(false);
-        if(!listing.getUid().equals(assetsDTO.getCreator()) && !Strings.isNullOrEmpty(assetsDTO.getCreatorFeeRate())){
+        if(
+                !listing.getUid().equals(assetsDTO.getCreator()) &&
+                !Strings.isNullOrEmpty(assetsDTO.getCreatorFeeRate())
+        ){
             listing.setCreatorUid(assetsDTO.getCreator());
             listing.setCreatorFeeRate(assetsDTO.getCreatorFeeRate());
         }

@@ -257,7 +257,7 @@ public class NftActivityDTO{
 
         NftActivityDTO nftActivityDTO = new NftActivityDTO();
         nftActivityDTO.setId(nftActivity.getId());
-        nftActivityDTO.setEvent(nftActivity.getType().name());
+        nftActivityDTO.setEvent(nftActivity.getType().getLabel());
         nftActivityDTO.setCreatedAt(nftActivity.getCreatedAt());
 
 
