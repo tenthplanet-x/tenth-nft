@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 public class StructContentHash {
 
     public static String wrap(String content, String privateKey) throws Exception {
-        String encodedContent = sign(content, privateKey);
-        return wrapToToken(encodedContent, privateKey);
+        String signature = sign(content, privateKey);
+        return wrapToToken(content, signature);
     }
 
 

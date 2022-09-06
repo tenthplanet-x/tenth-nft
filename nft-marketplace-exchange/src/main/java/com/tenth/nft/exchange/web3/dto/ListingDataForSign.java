@@ -88,14 +88,12 @@ public class ListingDataForSign extends DataForSign {
     @Override
     protected Object getMessage() {
 
-        Map<String, Object> output = new HashMap<>();
-
         Map<String, Object> message = new HashMap<>();
-        message.put("seller", assetsId);
+        message.put("seller", seller);
         message.put("assetsId", assetsId);
         message.put("quantity", quantity);
 
-        return output;
+        return message;
     }
 
     @Override

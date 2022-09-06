@@ -70,7 +70,6 @@ public class OfferDataForSign extends DataForSign{
 
     @Override
     protected Object getMessage() {
-        Map<String, Object> output = new HashMap<>();
 
         Map<String, Object> message = new HashMap<>();
         message.put("assetsId", assetsId);
@@ -78,7 +77,7 @@ public class OfferDataForSign extends DataForSign{
         message.put("price", price);
         message.put("expireAt", expireAt);
 
-        return output;
+        return message;
     }
 
     @Override

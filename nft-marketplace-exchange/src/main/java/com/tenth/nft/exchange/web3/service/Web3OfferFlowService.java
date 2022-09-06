@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
+import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
@@ -16,6 +17,7 @@ import com.tenth.nft.convention.wallet.WalletOrderType;
 import com.tenth.nft.convention.wallet.WalletProductCode;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
 import com.tenth.nft.convention.web3.sign.OfferDataForSign;
+import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.exchange.buildin.dto.NftOfferDTO;
 import com.tenth.nft.exchange.common.service.NftBelongService;
 import com.tenth.nft.exchange.common.service.NftOfferFlowService;
@@ -59,6 +61,8 @@ public class Web3OfferFlowService extends AbsSignService {
     private GsCollectionIdService gsCollectionIdService;
     @Autowired
     private Web3OrderService web3OrderService;
+    @Autowired
+    private Web3Properties web3Properties;
 
     public Web3OfferCreateResponse createOffer(Web3OfferCreateRequest request) {
 
@@ -101,8 +105,16 @@ public class Web3OfferFlowService extends AbsSignService {
         ).getBalance().getAddress();
         String token = wrap(request);
 
-        return new Web3OfferCreateResponse(from, dataForSign, token);
+        Web3OfferCreateResponse response = new Web3OfferCreateResponse(from, dataForSign, token);
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .sign()
+                .put("from", response.getFrom())
+                .put("dataForSign", response.getDataForSign())
+                .put("content", response.getContent())
+                .build();
+        response.setWalletBridgeUrl(walletBridgeUrl);
 
+        return response;
     }
 
 
@@ -221,6 +233,16 @@ public class Web3OfferFlowService extends AbsSignService {
         response.setTxnTo(txnTo);
         response.setTxnValue(txnValue);
         response.setTxnData(txnData);
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .sign()
+                .put("from", response.getFrom())
+                .put("txnTo", response.getTxnTo())
+                .put("txnValue", response.getTxnValue())
+                .put("txnData", response.getTxnData())
+                .put("content", response.getContent())
+                .build();
+        response.setWalletBridgeUrl(walletBridgeUrl);
+
         return response;
     }
 

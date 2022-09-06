@@ -11,6 +11,8 @@ public class Web3OfferCreateResponse {
 
     private String content;
 
+    private String walletBridgeUrl;
+
     public Web3OfferCreateResponse() {
     }
 
@@ -42,5 +44,13 @@ public class Web3OfferCreateResponse {
 
     public void setDataForSign(String dataForSign) {
         this.dataForSign = dataForSign;
+    }
+
+    public void setWalletBridgeUrl(String walletBridgeUrl) {
+        this.walletBridgeUrl = walletBridgeUrl;
+    }
+
+    public String getWalletBridgeUrl() {
+        return walletBridgeUrl;
     }
 }

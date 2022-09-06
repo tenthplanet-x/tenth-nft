@@ -15,6 +15,8 @@ public class PaymentCreateResponse {
 
     private String from;
 
+    private String walletBridgeUrl;
+
     public PaymentCreateResponse() {
 
     }
@@ -65,5 +67,13 @@ public class PaymentCreateResponse {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public void setWalletBridgeUrl(String walletBridgeUrl) {
+        this.walletBridgeUrl = walletBridgeUrl;
+    }
+
+    public String getWalletBridgeUrl() {
+        return walletBridgeUrl;
     }
 }

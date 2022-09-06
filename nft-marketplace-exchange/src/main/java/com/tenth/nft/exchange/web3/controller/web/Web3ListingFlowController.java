@@ -1,13 +1,11 @@
 package com.tenth.nft.exchange.web3.controller.web;
 
-import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.exchange.web3.Web3ExchangePaths;
 import com.tenth.nft.exchange.web3.dto.ListingCreateResponse;
 import com.tenth.nft.exchange.web3.dto.PaymentCreateResponse;
 import com.tenth.nft.exchange.web3.service.Web3ListingService;
 import com.tenth.nft.exchange.web3.vo.Web3ExchangeListingAuthRequest;
 import com.tenth.nft.exchange.web3.vo.Web3ExchangeListingConfirmRequest;
-import com.tenth.nft.exchange.web3.vo.Web3PaymentCheckRequest;
 import com.tenth.nft.exchange.web3.vo.Web3PaymentCreateRequest;
 import com.tpulse.commons.validation.Validations;
 import com.wallan.router.endpoint.core.security.HttpRoute;

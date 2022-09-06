@@ -12,6 +12,7 @@ import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.utils.Precisions;
 import com.tenth.nft.convention.web3.sign.MintDataForSign;
 import com.tenth.nft.convention.web3.utils.HexAddresses;
+import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.marketplace.dao.PlayerAssetsDao;
 import com.tenth.nft.marketplace.dao.expression.PlayerAssetsQuery;
 import com.tenth.nft.orm.marketplace.dto.NftAssetsDTO;
@@ -210,6 +211,14 @@ public class PlayerAssetsService {
                 Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
         response.setFrom(address);
+
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .sign()
+                .put("from", response.getFrom())
+                .put("dataForSign", dataForSign)
+                .put("content", response.getContent())
+                .build();
+        response.setWalletBridgeUrl(walletBridgeUrl);
 
         return response;
     }

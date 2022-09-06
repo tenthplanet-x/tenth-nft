@@ -15,6 +15,8 @@ public class Web3AcceptCreateResponse {
 
     private String content;
 
+    private String walletBridgeUrl;
+
     public String getFrom() {
         return from;
     }
@@ -53,5 +55,13 @@ public class Web3AcceptCreateResponse {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setWalletBridgeUrl(String walletBridgeUrl) {
+        this.walletBridgeUrl = walletBridgeUrl;
+    }
+
+    public String getWalletBridgeUrl() {
+        return walletBridgeUrl;
     }
 }

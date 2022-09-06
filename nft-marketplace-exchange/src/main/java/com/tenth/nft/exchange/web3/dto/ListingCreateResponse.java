@@ -11,6 +11,8 @@ public class ListingCreateResponse {
 
     private String content;
 
+    private String walletBridgeUrl;
+
     public ListingCreateResponse() {
     }
 
@@ -40,5 +42,13 @@ public class ListingCreateResponse {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getWalletBridgeUrl() {
+        return walletBridgeUrl;
+    }
+
+    public void setWalletBridgeUrl(String walletBridgeUrl) {
+        this.walletBridgeUrl = walletBridgeUrl;
     }
 }

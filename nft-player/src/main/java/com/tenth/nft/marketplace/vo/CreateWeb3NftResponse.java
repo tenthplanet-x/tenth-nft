@@ -11,6 +11,8 @@ public class CreateWeb3NftResponse {
 
     private String content;
 
+    private String walletBridgeUrl;
+
     public void setDataForSign(String dataForSign) {
         this.dataForSign = dataForSign;
     }
@@ -33,5 +35,13 @@ public class CreateWeb3NftResponse {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getWalletBridgeUrl() {
+        return walletBridgeUrl;
+    }
+
+    public void setWalletBridgeUrl(String walletBridgeUrl) {
+        this.walletBridgeUrl = walletBridgeUrl;
     }
 }

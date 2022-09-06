@@ -11,6 +11,7 @@ import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
 import com.tenth.nft.convention.web3.sign.StructContentHash;
+import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.exchange.common.service.*;
 import com.tenth.nft.exchange.web3.dto.ListingCreateResponse;
 import com.tenth.nft.exchange.web3.dto.ListingDataForSign;
@@ -105,13 +106,20 @@ public class Web3ListingService extends AbsListingFlowService {
         dataForSign.setCurrency(request.getCurrency());
         dataForSign.setStartAt(request.getStartAt());
         dataForSign.setExpireAt(request.getExpireAt());
-        String content = JsonUtil.toJson(dataForSign.toDataForSign());
-        String token = StructContentHash.wrap(JsonUtil.toJson(dataForSign.toDataForSign()), web3Properties.getRsa().getPrivateKey());
+        String _dataForSign = Base64Utils.encode(JsonUtil.toJson(dataForSign.toDataForSign()).getBytes(StandardCharsets.UTF_8));
+        String content = StructContentHash.wrap(JsonUtil.toJson(dataForSign), web3Properties.getRsa().getPrivateKey());
 
         ListingCreateResponse createResponse = new ListingCreateResponse();
         createResponse.setFrom(sellerAddress);
-        createResponse.setContent(token);
-        createResponse.setDataForSign(Base64Utils.encode(content.getBytes(StandardCharsets.UTF_8)));
+        createResponse.setContent(content);
+        createResponse.setDataForSign(_dataForSign);
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .sign()
+                .put("from", createResponse.getFrom())
+                .put("dataForSign", createResponse.getDataForSign())
+                .put("content", createResponse.getContent())
+                .build();
+        createResponse.setWalletBridgeUrl(walletBridgeUrl);
 
         return createResponse;
 
@@ -235,13 +243,24 @@ public class Web3ListingService extends AbsListingFlowService {
                         .build(),
                 Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
-        return new PaymentCreateResponse(
+        PaymentCreateResponse response = new PaymentCreateResponse(
                 token,
                 txnData,
                 txnValue,
                 txnTo,
                 uidAddress
         );
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .sign()
+                .put("from", response.getFrom())
+                .put("txnTo", response.getTxnTo())
+                .put("txnValue", response.getTxnValue())
+                .put("txnData", response.getTxnData())
+                .put("content", response.getContent())
+                .build();
+        response.setWalletBridgeUrl(walletBridgeUrl);
+
+        return response;
     }
 
     @Override

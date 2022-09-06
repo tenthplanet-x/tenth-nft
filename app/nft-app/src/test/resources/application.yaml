@@ -140,3 +140,4 @@ web3:
   main-currency: 'ETH-Ethereum'
   weth-currency: 'WETH'
   weth-address: '0xc778417E063141139Fce010982780140Aa0cD5Ab'
+  wallet-bridge-gateway: 'https://bridge.shunye666.cn/latest'

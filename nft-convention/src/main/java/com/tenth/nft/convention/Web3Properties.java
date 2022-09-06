@@ -23,6 +23,8 @@ public class Web3Properties {
 
     private String deepLinkGateway;
 
+    private String walletBridgeGateway;
+
     public String getBlockchain() {
         return blockchain;
     }
@@ -93,6 +95,14 @@ public class Web3Properties {
 
     public void setDeepLinkGateway(String deepLinkGateway) {
         this.deepLinkGateway = deepLinkGateway;
+    }
+
+    public String getWalletBridgeGateway() {
+        return walletBridgeGateway;
+    }
+
+    public void setWalletBridgeGateway(String walletBridgeGateway) {
+        this.walletBridgeGateway = walletBridgeGateway;
     }
 
     public static class Rsa {
