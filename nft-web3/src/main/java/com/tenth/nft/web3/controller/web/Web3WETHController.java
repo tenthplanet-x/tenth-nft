@@ -52,6 +52,7 @@ public class Web3WETHController {
 
     @RequestMapping(Web3WalletPaths.WETH_APPROVAL_CONFIRM)
     public Response confirmApproval(@RequestBody WETHApprovalConfirmRequest request){
+        Validations.check(request);
         web3WETHService.confirmApproval(request);
         return Response.successBuilder().build();
     }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
@@ -141,7 +142,7 @@ public class TpulseContractHelper {
             boolean isMain = walletCurrencyTemplate.findOne(currency).getMain();
 
             if(isMain){
-                BigInteger balanceUseWei = web3j.ethGetBalance(address, DefaultBlockParameter.valueOf(blockNumber)).send().getBalance();
+                BigInteger balanceUseWei = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send().getBalance();
                 return Convert.fromWei(new BigDecimal(balanceUseWei), Convert.Unit.WEI);
             }else{
                 //TODO
