@@ -17,7 +17,7 @@ public class ListingDataForSign extends DataForSign {
         messageTypeDefine = DataForSignTypeDefine.newBuilder()
                 .add("seller", "address")
                 .add("assetsId", "uint256")
-                .add("quantity", "quality")
+                .add("quantity", "uint256")
                 .build();
     }
 
