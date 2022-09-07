@@ -98,7 +98,7 @@ public class Web3WalletBillEventService {
         Web3WalletBill entity = web3WalletBillDao.findOne(
                 Web3WalletBillQuery
                         .newBuilder()
-                        .id(request.getId())
+                        .id(request.getBillId())
                         .blockchain(blockchain)
                         .accountId(accountId)
                         .build()

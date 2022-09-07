@@ -1,7 +1,5 @@
 package com.tenth.nft.wallet.dto;
 
-import com.tenth.nft.wallet.entity.WalletBill;
-
 /**
  * @author shijie
  */
@@ -9,9 +7,9 @@ public class WalletBillSimpleDTO {
 
     private Long id;
 
-    private String icon;
+    private String displayIcon;
 
-    private String title;
+    private String displayName;
 
     private Long createdAt;
 
@@ -29,20 +27,20 @@ public class WalletBillSimpleDTO {
         this.id = id;
     }
 
-    public String getIcon() {
-        return icon;
+    public String getDisplayIcon() {
+        return displayIcon;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setDisplayIcon(String displayIcon) {
+        this.displayIcon = displayIcon;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public Long getCreatedAt() {

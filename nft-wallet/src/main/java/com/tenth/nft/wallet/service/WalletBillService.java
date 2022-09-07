@@ -248,8 +248,8 @@ public class WalletBillService {
                     if(null != walletActivityTemplate){
                         WalletActivityConfig walletActivityConfig = walletActivityTemplate.findOne(bill.getActivityCfgId());
                         if(null != walletActivityConfig){
-                            walletBillSimpleDTO.setTitle(walletActivityConfig.getName());
-                            walletBillSimpleDTO.setIcon(walletActivityConfig.getIcon());
+                            walletBillSimpleDTO.setDisplayName(walletActivityConfig.getName());
+                            walletBillSimpleDTO.setDisplayIcon(walletActivityConfig.getIcon());
                             walletBillSimpleDTO.setIncomeExpense(walletActivityConfig.getIncomeExpense());
                         }
                     }

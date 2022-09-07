@@ -10,13 +10,13 @@ import javax.validation.constraints.NotNull;
 public class Web3WalletBillEventDetailRequest {
 
     @NotNull
-    private Long id;
+    private Long billId;
 
-    public Long getId() {
-        return id;
+    public Long getBillId() {
+        return billId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBillId(Long billId) {
+        this.billId = billId;
     }
 }
