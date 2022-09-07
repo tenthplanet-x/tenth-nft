@@ -2,10 +2,7 @@ package com.tenth.nft.web3.service;
 
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
-import com.tenth.nft.convention.templates.I18nGsTemplates;
-import com.tenth.nft.convention.templates.NftTemplateTypes;
-import com.tenth.nft.convention.templates.WalletActivityConfig;
-import com.tenth.nft.convention.templates.WalletActivityTemplate;
+import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.wallet.WalletProductCode;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.web3.dao.Web3WalletBillDao;
@@ -71,6 +68,9 @@ public class Web3WalletBillEventService {
                     eventPage.getData().stream()
                             .map(entity -> {
                                 Web3WalletBillEventListDTO dto = Web3WalletBillEventListDTO.from(entity);
+                                String gasCurrency = i18nGsTemplates.get(NftTemplateTypes.wallet_currency, WalletCurrencyTemplate.class).findMainCurrency(entity.getBlockchain()).getCode();
+                                dto.setGasCurrency(gasCurrency);
+
                                 WalletActivityTemplate walletActivityTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_activity);
                                 WalletActivityConfig walletActivityConfig = walletActivityTemplate.findOne(entity.getActivityCfgId());
                                 if(null != walletActivityConfig){
@@ -104,6 +104,8 @@ public class Web3WalletBillEventService {
                         .build()
         );
         Web3WalletBillEventDTO eventDTO = Web3WalletBillEventDTO.from(entity);
+        String gasCurrency = i18nGsTemplates.get(NftTemplateTypes.wallet_currency, WalletCurrencyTemplate.class).findMainCurrency(entity.getBlockchain()).getCode();
+        eventDTO.setGasCurrency(gasCurrency);
 
         WalletActivityTemplate walletActivityTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_activity);
         WalletActivityConfig walletActivityConfig = walletActivityTemplate.findOne(entity.getActivityCfgId());

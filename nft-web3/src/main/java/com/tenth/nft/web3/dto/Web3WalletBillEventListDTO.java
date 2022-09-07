@@ -21,6 +21,10 @@ public class Web3WalletBillEventListDTO {
 
     private String incomeExpense;
 
+    private String gasCurrency;
+
+    private String gasUsed;
+
     public Long getId() {
         return id;
     }
@@ -77,12 +81,29 @@ public class Web3WalletBillEventListDTO {
         this.incomeExpense = incomeExpense;
     }
 
+    public String getGasCurrency() {
+        return gasCurrency;
+    }
+
+    public void setGasCurrency(String gasCurrency) {
+        this.gasCurrency = gasCurrency;
+    }
+
+    public String getGasUsed() {
+        return gasUsed;
+    }
+
+    public void setGasUsed(String gasUsed) {
+        this.gasUsed = gasUsed;
+    }
+
     public static Web3WalletBillEventListDTO from(Web3WalletBill entity) {
         Web3WalletBillEventListDTO dto = new Web3WalletBillEventListDTO();
         dto.setId(entity.getId());
         dto.setCurrency(entity.getCurrency());
         dto.setValue(entity.getValue());
         dto.setCreatedAt(entity.getCreatedAt());
+        dto.setGasCurrency(entity.getUsedGasValue());
         return dto;
     }
 }

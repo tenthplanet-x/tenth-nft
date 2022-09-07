@@ -194,6 +194,7 @@ public class Web3WETHService {
             bill.setState(WalletBillState.COMPLETE.name());
             bill.setTransactionId(transactionId);
             bill.setOutOrderId(transactionId);
+            bill.setUsedGasValue(receipt.getUsedGasValue());
             web3WalletBillDao.insert(bill);
 
             return TxnStatus.SUCCESS;
