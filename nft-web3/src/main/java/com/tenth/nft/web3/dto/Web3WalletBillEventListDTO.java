@@ -103,7 +103,7 @@ public class Web3WalletBillEventListDTO {
         dto.setCurrency(entity.getCurrency());
         dto.setValue(entity.getValue());
         dto.setCreatedAt(entity.getCreatedAt());
-        dto.setGasCurrency(entity.getUsedGasValue());
+        dto.setGasUsed(entity.getUsedGasValue());
         return dto;
     }
 }

@@ -64,9 +64,11 @@ public class Web3WETHService {
         String txnValue = value.toBigInteger().toString();
 
         Web3WalletBill bill = new Web3WalletBill();
+        bill.setUid(uid);
         bill.setActivityCfgId(WalletOrderType.SwapExpense.getActivityCfgId());
         bill.setCurrency(web3Properties.getMainCurrency());
-        bill.setValue(txnValue);
+        bill.setBlockchain(web3Properties.getBlockchain());
+        bill.setValue(request.getValue());
         bill.setAccountId(txnFrom);
         bill.setProductCode(WalletProductCode.WEB3_WRAP.name());
         bill.setProductId(web3Properties.getWethAddress());
@@ -115,11 +117,12 @@ public class Web3WETHService {
         String txnValue = BigInteger.ZERO.toString();
 
         Web3WalletBill bill = new Web3WalletBill();
+        bill.setUid(uid);
+        bill.setAccountId(txnFrom);
         bill.setActivityCfgId(WalletOrderType.SwapIncome.getActivityCfgId());
         bill.setBlockchain(web3Properties.getBlockchain());
         bill.setCurrency(web3Properties.getMainCurrency());
         bill.setValue(txnValue);
-        bill.setAccountId(txnFrom);
         bill.setProductCode(WalletProductCode.WEB3_WRAP.name());
         bill.setProductId(web3Properties.getWethAddress());
         bill.setProductCode(WalletProductCode.WEB3_WRAP.name());
