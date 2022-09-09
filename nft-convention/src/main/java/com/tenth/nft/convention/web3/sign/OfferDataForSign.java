@@ -12,10 +12,10 @@ public class OfferDataForSign extends DataForSign{
     static {
 
         messageTypeDefine = DataForSignTypeDefine.newBuilder()
-                .add("assetsId", "uint64")
-                .add("quantity", "uint32")
-                .add("price", "uint256")
-                .add("expireAt", "uint64")
+                .add("assetsId", "uint256")
+                .add("quantity", "uint256")
+                .add("price", "string")
+                .add("expireAt", "uint256")
                 .build();
     }
 
