@@ -129,6 +129,13 @@ public class Web3WalletService {
         Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
         String walletAddress = web3Wallet.getWalletAccountId();
         TpulseContractHelper.ApprovalTxn approvalTxn = tpulseContractHelper.createApprovalTxn(walletAddress);
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .transaction()
+                .put("from", approvalTxn.getFrom())
+                .put("txnTo", approvalTxn.getTxnTo())
+                .put("txnData", approvalTxn.getTxnData())
+                .build();
+        approvalTxn.setWalletBridgeUrl(walletBridgeUrl);
         return approvalTxn;
     }
 

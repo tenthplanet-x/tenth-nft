@@ -208,7 +208,7 @@ public class TpulseContractHelper {
 
     public static class ApprovalTxn{
 
-        private String gateway;
+        private String walletBridgeUrl;
         private String from;
         private String txnTo;
         private String txnData;
@@ -237,12 +237,12 @@ public class TpulseContractHelper {
             this.txnData = txnData;
         }
 
-        public String getGateway() {
-            return gateway;
+        public String getWalletBridgeUrl() {
+            return walletBridgeUrl;
         }
 
-        public void setGateway(String gateway) {
-            this.gateway = gateway;
+        public void setWalletBridgeUrl(String walletBridgeUrl) {
+            this.walletBridgeUrl = walletBridgeUrl;
         }
     }
 }
