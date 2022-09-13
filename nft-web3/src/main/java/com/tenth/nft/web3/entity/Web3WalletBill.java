@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Document("tpulse.web3_wallet_bill")
 @CompoundIndex(def = "{'accountId': 1, 'blockchain': 1, 'transactionId': 1}")
-@CompoundIndex(def = "{'uid': 1, 'productCode': 1, 'outOrderId': 1}")
+@CompoundIndex(def = "{'accountId': 1, 'productCode': 1, 'outOrderId': 1}")
 public class Web3WalletBill {
 
     @Id

@@ -23,6 +23,8 @@ public class Web3WalletBillQuery extends SimplePageQuery {
     private String outOrderId;
     @SimpleQueryParam
     private String blockchain;
+    @SimpleQueryParam
+    private String productId;
 
     public Long getId() {
         return id;
@@ -46,6 +48,10 @@ public class Web3WalletBillQuery extends SimplePageQuery {
 
     public String getBlockchain() {
         return blockchain;
+    }
+
+    public String getProductId() {
+        return productId;
     }
 
     public static Builder newBuilder() {
@@ -88,6 +94,11 @@ public class Web3WalletBillQuery extends SimplePageQuery {
 
         public Builder blockchain(String blockchain) {
             query.blockchain = blockchain;
+            return this;
+        }
+
+        public Builder productId(String productId) {
+            query.productId = productId;
             return this;
         }
     }

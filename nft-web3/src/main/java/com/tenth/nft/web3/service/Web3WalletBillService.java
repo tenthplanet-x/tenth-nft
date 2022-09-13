@@ -95,18 +95,6 @@ public class Web3WalletBillService {
 
         //check
         WalletOrderBizContent bizContent = walletToken.getBizContent();
-//        BigDecimal balance = tpulseContractHelper.getBalance(bizContent.getCurrency(), accountId);
-//        if(balance.compareTo(new BigDecimal(bizContent.getValue())) > 0){
-//            throw BizException.newInstance(NftExchangeErrorCodes.WEB3WALLET_PAY_EXCEPTION_LACK_OF_BALANCE);
-//        }
-
-        //exist check
-        Web3WalletBill walletBill = web3WalletBillDao.findOne(Web3WalletBillQuery.newBuilder()
-                .uid(request.getUid())
-                .productCode(bizContent.getProductCode())
-                .outOrderId(bizContent.getOutOrderId())
-                .build()
-        );
 
         String address = routeClient.send(
                 NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
@@ -115,6 +103,14 @@ public class Web3WalletBillService {
                         .build(),
                 Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
+
+        //exist check
+        Web3WalletBill walletBill = web3WalletBillDao.findOne(Web3WalletBillQuery.newBuilder()
+                .accountId(address)
+                .productCode(bizContent.getProductCode())
+                .outOrderId(bizContent.getOutOrderId())
+                .build()
+        );
 
 
         if(null == walletBill){
@@ -152,7 +148,7 @@ public class Web3WalletBillService {
         //Use async task to check the txn state
         routeClient.send(
                 NftWeb3Wallet.WEB3_TXN_CHECK_IC.newBuilder()
-                        .setUid(walletBill.getUid())
+                        .setAddress(walletBill.getAccountId())
                         .setBillId(walletBill.getId())
                         .build(),
                 Web3TxnCheckRouteRequest.class
@@ -250,10 +246,10 @@ public class Web3WalletBillService {
     public void txnStateCheck(NftWeb3Wallet.WEB3_TXN_CHECK_IC request){
 
         //get web3 accountId
-        Web3Wallet web3Wallet = web3WalletDao.findOne(Web3WalletQuery.newBuilder().uid(request.getUid()).build());
+        //Web3Wallet web3Wallet = web3WalletDao.findOne(Web3WalletQuery.newBuilder().uid(request.getUid()).build());
 
         SimpleQuery web3WalletBillQuery = Web3WalletBillQuery.newBuilder()
-                .accountId(web3Wallet.getWalletAccountId())
+                .accountId(request.getAddress())
                 .id(request.getBillId())
                 .build();
         Web3WalletBill web3WalletBill = web3WalletBillDao.findOne(web3WalletBillQuery);
@@ -347,10 +343,10 @@ public class Web3WalletBillService {
         String address = web3Wallet.getWalletAccountId();
         builder.setAddress(address);
         builder.setCurrency(web3Properties.getMainCurrency());
-        if(request.hasNeedBalance()){
-            String balance = tpulseContractHelper.getBalance(web3Properties.getMainCurrency(), address).toString();
-            builder.setValue(balance);
-        }
+//        if(request.hasNeedBalance()){
+//            String balance = tpulseContractHelper.getBalance(web3Properties.getMainCurrency(), address).toString();
+//            builder.setValue(balance);
+//        }
 
         return NftWeb3Wallet.WEB3_WALLET_BALANCE_IS.newBuilder()
                 .setBalance(builder.build())

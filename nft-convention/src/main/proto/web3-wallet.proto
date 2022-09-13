@@ -22,7 +22,7 @@ message Web3BillDTO{
 message Web3WalletBalanceDTO{
   required string address = 1;
   required string currency = 2;
-  required string value = 3;
+  optional string value = 3;
 }
 
 message WEB3_WALLET_BALANCE_IC{
@@ -43,7 +43,7 @@ message WEB3_BILL_PAY_IS{
 }
 
 message WEB3_TXN_CHECK_IC{
-  required int64 uid = 1;
+  required string address = 1;
   required int64 billId = 2;
 }
 message WEB3_TXN_CHECK_IS{

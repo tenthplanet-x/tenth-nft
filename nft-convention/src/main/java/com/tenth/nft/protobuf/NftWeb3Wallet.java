@@ -2591,17 +2591,17 @@ public final class NftWeb3Wallet {
         getCurrencyBytes();
 
     /**
-     * <code>required string value = 3;</code>
+     * <code>optional string value = 3;</code>
      * @return Whether the value field is set.
      */
     boolean hasValue();
     /**
-     * <code>required string value = 3;</code>
+     * <code>optional string value = 3;</code>
      * @return The value.
      */
     java.lang.String getValue();
     /**
-     * <code>required string value = 3;</code>
+     * <code>optional string value = 3;</code>
      * @return The bytes for value.
      */
     com.google.protobuf.ByteString
@@ -2806,7 +2806,7 @@ public final class NftWeb3Wallet {
     public static final int VALUE_FIELD_NUMBER = 3;
     private volatile java.lang.Object value_;
     /**
-     * <code>required string value = 3;</code>
+     * <code>optional string value = 3;</code>
      * @return Whether the value field is set.
      */
     @java.lang.Override
@@ -2814,7 +2814,7 @@ public final class NftWeb3Wallet {
       return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>required string value = 3;</code>
+     * <code>optional string value = 3;</code>
      * @return The value.
      */
     @java.lang.Override
@@ -2833,7 +2833,7 @@ public final class NftWeb3Wallet {
       }
     }
     /**
-     * <code>required string value = 3;</code>
+     * <code>optional string value = 3;</code>
      * @return The bytes for value.
      */
     @java.lang.Override
@@ -2863,10 +2863,6 @@ public final class NftWeb3Wallet {
         return false;
       }
       if (!hasCurrency()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasValue()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3213,9 +3209,6 @@ public final class NftWeb3Wallet {
         if (!hasCurrency()) {
           return false;
         }
-        if (!hasValue()) {
-          return false;
-        }
         return true;
       }
 
@@ -3409,14 +3402,14 @@ public final class NftWeb3Wallet {
 
       private java.lang.Object value_ = "";
       /**
-       * <code>required string value = 3;</code>
+       * <code>optional string value = 3;</code>
        * @return Whether the value field is set.
        */
       public boolean hasValue() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>required string value = 3;</code>
+       * <code>optional string value = 3;</code>
        * @return The value.
        */
       public java.lang.String getValue() {
@@ -3434,7 +3427,7 @@ public final class NftWeb3Wallet {
         }
       }
       /**
-       * <code>required string value = 3;</code>
+       * <code>optional string value = 3;</code>
        * @return The bytes for value.
        */
       public com.google.protobuf.ByteString
@@ -3451,7 +3444,7 @@ public final class NftWeb3Wallet {
         }
       }
       /**
-       * <code>required string value = 3;</code>
+       * <code>optional string value = 3;</code>
        * @param value The value to set.
        * @return This builder for chaining.
        */
@@ -3466,7 +3459,7 @@ public final class NftWeb3Wallet {
         return this;
       }
       /**
-       * <code>required string value = 3;</code>
+       * <code>optional string value = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearValue() {
@@ -3476,7 +3469,7 @@ public final class NftWeb3Wallet {
         return this;
       }
       /**
-       * <code>required string value = 3;</code>
+       * <code>optional string value = 3;</code>
        * @param value The bytes for value to set.
        * @return This builder for chaining.
        */
@@ -6380,15 +6373,21 @@ public final class NftWeb3Wallet {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required int64 uid = 1;</code>
-     * @return Whether the uid field is set.
+     * <code>required string address = 1;</code>
+     * @return Whether the address field is set.
      */
-    boolean hasUid();
+    boolean hasAddress();
     /**
-     * <code>required int64 uid = 1;</code>
-     * @return The uid.
+     * <code>required string address = 1;</code>
+     * @return The address.
      */
-    long getUid();
+    java.lang.String getAddress();
+    /**
+     * <code>required string address = 1;</code>
+     * @return The bytes for address.
+     */
+    com.google.protobuf.ByteString
+        getAddressBytes();
 
     /**
      * <code>required int64 billId = 2;</code>
@@ -6414,6 +6413,7 @@ public final class NftWeb3Wallet {
       super(builder);
     }
     private WEB3_TXN_CHECK_IC() {
+      address_ = "";
     }
 
     @java.lang.Override
@@ -6447,9 +6447,10 @@ public final class NftWeb3Wallet {
             case 0:
               done = true;
               break;
-            case 8: {
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              uid_ = input.readInt64();
+              address_ = bs;
               break;
             }
             case 16: {
@@ -6490,23 +6491,52 @@ public final class NftWeb3Wallet {
     }
 
     private int bitField0_;
-    public static final int UID_FIELD_NUMBER = 1;
-    private long uid_;
+    public static final int ADDRESS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object address_;
     /**
-     * <code>required int64 uid = 1;</code>
-     * @return Whether the uid field is set.
+     * <code>required string address = 1;</code>
+     * @return Whether the address field is set.
      */
     @java.lang.Override
-    public boolean hasUid() {
+    public boolean hasAddress() {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>required int64 uid = 1;</code>
-     * @return The uid.
+     * <code>required string address = 1;</code>
+     * @return The address.
      */
     @java.lang.Override
-    public long getUid() {
-      return uid_;
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          address_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string address = 1;</code>
+     * @return The bytes for address.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAddressBytes() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        address_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int BILLID_FIELD_NUMBER = 2;
@@ -6535,7 +6565,7 @@ public final class NftWeb3Wallet {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasUid()) {
+      if (!hasAddress()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -6551,7 +6581,7 @@ public final class NftWeb3Wallet {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeInt64(1, uid_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, address_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         output.writeInt64(2, billId_);
@@ -6566,8 +6596,7 @@ public final class NftWeb3Wallet {
 
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, uid_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, address_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
@@ -6588,10 +6617,10 @@ public final class NftWeb3Wallet {
       }
       com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_TXN_CHECK_IC other = (com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_TXN_CHECK_IC) obj;
 
-      if (hasUid() != other.hasUid()) return false;
-      if (hasUid()) {
-        if (getUid()
-            != other.getUid()) return false;
+      if (hasAddress() != other.hasAddress()) return false;
+      if (hasAddress()) {
+        if (!getAddress()
+            .equals(other.getAddress())) return false;
       }
       if (hasBillId() != other.hasBillId()) return false;
       if (hasBillId()) {
@@ -6609,10 +6638,9 @@ public final class NftWeb3Wallet {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasUid()) {
-        hash = (37 * hash) + UID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getUid());
+      if (hasAddress()) {
+        hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+        hash = (53 * hash) + getAddress().hashCode();
       }
       if (hasBillId()) {
         hash = (37 * hash) + BILLID_FIELD_NUMBER;
@@ -6752,7 +6780,7 @@ public final class NftWeb3Wallet {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        uid_ = 0L;
+        address_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
         billId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -6785,9 +6813,9 @@ public final class NftWeb3Wallet {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.uid_ = uid_;
           to_bitField0_ |= 0x00000001;
         }
+        result.address_ = address_;
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.billId_ = billId_;
           to_bitField0_ |= 0x00000002;
@@ -6841,8 +6869,10 @@ public final class NftWeb3Wallet {
 
       public Builder mergeFrom(com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_TXN_CHECK_IC other) {
         if (other == com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_TXN_CHECK_IC.getDefaultInstance()) return this;
-        if (other.hasUid()) {
-          setUid(other.getUid());
+        if (other.hasAddress()) {
+          bitField0_ |= 0x00000001;
+          address_ = other.address_;
+          onChanged();
         }
         if (other.hasBillId()) {
           setBillId(other.getBillId());
@@ -6854,7 +6884,7 @@ public final class NftWeb3Wallet {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasUid()) {
+        if (!hasAddress()) {
           return false;
         }
         if (!hasBillId()) {
@@ -6883,41 +6913,86 @@ public final class NftWeb3Wallet {
       }
       private int bitField0_;
 
-      private long uid_ ;
+      private java.lang.Object address_ = "";
       /**
-       * <code>required int64 uid = 1;</code>
-       * @return Whether the uid field is set.
+       * <code>required string address = 1;</code>
+       * @return Whether the address field is set.
        */
-      @java.lang.Override
-      public boolean hasUid() {
+      public boolean hasAddress() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>required int64 uid = 1;</code>
-       * @return The uid.
+       * <code>required string address = 1;</code>
+       * @return The address.
        */
-      @java.lang.Override
-      public long getUid() {
-        return uid_;
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            address_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 uid = 1;</code>
-       * @param value The uid to set.
+       * <code>required string address = 1;</code>
+       * @return The bytes for address.
+       */
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string address = 1;</code>
+       * @param value The address to set.
        * @return This builder for chaining.
        */
-      public Builder setUid(long value) {
-        bitField0_ |= 0x00000001;
-        uid_ = value;
+      public Builder setAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        address_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>required string address = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearUid() {
+      public Builder clearAddress() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        uid_ = 0L;
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        address_ = value;
         onChanged();
         return this;
       }
@@ -7489,17 +7564,17 @@ public final class NftWeb3Wallet {
       "\002(\t\022\021\n\tcreatedAt\030\013 \002(\003\022\024\n\014merchantType\030\014" +
       " \001(\t\022\022\n\nmerchantId\030\r \001(\t\"H\n\024Web3WalletBa" +
       "lanceDTO\022\017\n\007address\030\001 \002(\t\022\020\n\010currency\030\002 " +
-      "\002(\t\022\r\n\005value\030\003 \002(\t\":\n\026WEB3_WALLET_BALANC" +
+      "\002(\t\022\r\n\005value\030\003 \001(\t\":\n\026WEB3_WALLET_BALANC" +
       "E_IC\022\013\n\003uid\030\001 \002(\003\022\023\n\013needBalance\030\002 \001(\010\"\\" +
       "\n\026WEB3_WALLET_BALANCE_IS\022B\n\007balance\030\001 \002(" +
       "\01321.com.ruixi.tpulse.convention.Web3Wall" +
       "etBalanceDTO\";\n\020WEB3_BILL_PAY_IC\022\013\n\003uid\030" +
       "\001 \002(\003\022\r\n\005token\030\002 \002(\t\022\013\n\003txn\030\003 \002(\t\"J\n\020WEB" +
       "3_BILL_PAY_IS\0226\n\004bill\030\001 \002(\0132(.com.ruixi." +
-      "tpulse.convention.Web3BillDTO\"0\n\021WEB3_TX" +
-      "N_CHECK_IC\022\013\n\003uid\030\001 \002(\003\022\016\n\006billId\030\002 \002(\003\"" +
-      "\023\n\021WEB3_TXN_CHECK_ISB\'\n\026com.tenth.nft.pr" +
-      "otobufB\rNftWeb3Wallet"
+      "tpulse.convention.Web3BillDTO\"4\n\021WEB3_TX" +
+      "N_CHECK_IC\022\017\n\007address\030\001 \002(\t\022\016\n\006billId\030\002 " +
+      "\002(\003\"\023\n\021WEB3_TXN_CHECK_ISB\'\n\026com.tenth.nf" +
+      "t.protobufB\rNftWeb3Wallet"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7546,7 +7621,7 @@ public final class NftWeb3Wallet {
     internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IC_descriptor,
-        new java.lang.String[] { "Uid", "BillId", });
+        new java.lang.String[] { "Address", "BillId", });
     internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IS_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IS_fieldAccessorTable = new
