@@ -81,6 +81,7 @@ public abstract class AbsListingFlowService {
             profit.setCurrency(nftListing.getCurrency());
             profit.setValue(profitValue.toString());
             profit.setTo(nftListing.getUid());
+            profit.setToAddress(nftListing.getUidAddress());
             profits.add(profit);
         }
         //creator fee
@@ -91,6 +92,7 @@ public abstract class AbsListingFlowService {
                 profit.setCurrency(nftListing.getCurrency());
                 profit.setValue(creatorFee.toString());
                 profit.setTo(nftListing.getCreatorUid());
+                profit.setToAddress(nftListing.getCreatorAddress());
                 profits.add(profit);
             }
         }

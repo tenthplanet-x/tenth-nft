@@ -10,6 +10,7 @@ import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.convention.routes.exchange.*;
 import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
 import com.tenth.nft.convention.utils.Times;
+import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
 import com.tenth.nft.exchange.buildin.controller.vo.NftBuyRequest;
 import com.tenth.nft.exchange.buildin.controller.vo.NftBuyResponse;
@@ -314,16 +315,29 @@ public class BuildInListingService extends AbsListingFlowService {
         NftExchange.NftCollectionProfileDTO.Builder collectionProfileDTOBuilder = NftExchange.NftCollectionProfileDTO.newBuilder();
         Set<Long> ownerLists = new HashSet<>();
 
-        request.getAssetsIdsList().stream().forEach(assetsId -> {
+
+        BigDecimal totalVolume = null;
+        BigDecimal floorPrice = null;
+        for(Long assetsId: request.getAssetsIdsList()){
 
             NftAssetsStats stats = nftAssetsStatsDao.findOne(NftAssetsStatsQuery.newBuilder().assetsId(assetsId).build());
             if(null != stats){
-                if(!Strings.isNullOrEmpty(stats.getTotalVolume()) && new BigDecimal(stats.getTotalVolume()).compareTo(BigDecimal.ZERO) > 0){
-                    collectionProfileDTOBuilder.setTotalVolume(collectionProfileDTOBuilder.getTotalVolume() + stats.getTotalVolume());
+                if(!Strings.isNullOrEmpty(stats.getTotalVolume())){
+                    //collectionProfileDTOBuilder.setTotalVolume(collectionProfileDTOBuilder.getTotalVolume() + stats.getTotalVolume());
+                    if(null != totalVolume){
+                        totalVolume.add(new BigDecimal(stats.getTotalVolume()));
+                    }else{
+                        totalVolume = new BigDecimal(stats.getTotalVolume());
+                    }
                     collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
                 }
-                if(!Strings.isNullOrEmpty(stats.getFloorPrice()) && new BigDecimal(stats.getFloorPrice()).compareTo(BigDecimal.ZERO) > 0){
-                    collectionProfileDTOBuilder.setFloorPrice(collectionProfileDTOBuilder.getFloorPrice() + stats.getFloorPrice());
+                if(!Strings.isNullOrEmpty(stats.getFloorPrice())){
+                    //collectionProfileDTOBuilder.setFloorPrice(collectionProfileDTOBuilder.getFloorPrice() + stats.getFloorPrice());
+                    if(null != floorPrice){
+                        floorPrice.min(new BigDecimal(stats.getFloorPrice()));
+                    }else{
+                        floorPrice = new BigDecimal(stats.getFloorPrice());
+                    }
                     collectionProfileDTOBuilder.setCurrency(stats.getCurrency());
                 }
             }
@@ -334,8 +348,14 @@ public class BuildInListingService extends AbsListingFlowService {
                     .map(belong -> belong.getOwner())
                     .collect(Collectors.toList()));
 
-        });
+        }
 
+        if(null != totalVolume){
+            collectionProfileDTOBuilder.setTotalVolume(totalVolume.toPlainString());
+        }
+        if(null != floorPrice){
+            collectionProfileDTOBuilder.setFloorPrice(floorPrice.toPlainString());
+        }
         collectionProfileDTOBuilder.setOwners(ownerLists.size());
         if(request.hasObserver()){
             collectionProfileDTOBuilder.setOwned(ownerLists.contains(request.getObserver()));

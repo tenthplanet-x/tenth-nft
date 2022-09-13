@@ -214,7 +214,7 @@ public class Web3ListingService extends AbsListingFlowService {
                 .productId(String.valueOf(nftListing.getAssetsId()))
                 .outOrderId(String.valueOf(orderId))
                 .merchantType(WalletMerchantType.PERSONAL.name())
-                .merchantId(String.valueOf(nftListing.getUid()))
+                .merchantId(nftListing.getUidAddress())
                 .currency(nftListing.getCurrency())
                 .value(nftListing.getPrice())
                 .expiredAt(expiredAt)

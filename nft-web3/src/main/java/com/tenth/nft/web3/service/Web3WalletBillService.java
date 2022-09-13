@@ -286,7 +286,7 @@ public class Web3WalletBillService {
                         payForBill.setAccountId(profit.getToAddress());
                         payForBill.setActivityCfgId(profit.getActivityCfgId());
                         payForBill.setMerchantType(WalletMerchantType.PERSONAL.name());
-                        payForBill.setMerchantId(String.valueOf(web3WalletBill.getUid()));
+                        payForBill.setMerchantId(profit.getToAddress());
                         payForBill.setCurrency(profit.getCurrency());
                         payForBill.setValue(profit.getValue());
                         payForBill.setState(WalletBillState.COMPLETE.name());
