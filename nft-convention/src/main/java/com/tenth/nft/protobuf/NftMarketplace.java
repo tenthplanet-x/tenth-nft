@@ -30,15 +30,21 @@ public final class NftMarketplace {
     long getId();
 
     /**
-     * <code>required int64 creator = 2;</code>
+     * <code>required string creator = 2;</code>
      * @return Whether the creator field is set.
      */
     boolean hasCreator();
     /**
-     * <code>required int64 creator = 2;</code>
+     * <code>required string creator = 2;</code>
      * @return The creator.
      */
-    long getCreator();
+    java.lang.String getCreator();
+    /**
+     * <code>required string creator = 2;</code>
+     * @return The bytes for creator.
+     */
+    com.google.protobuf.ByteString
+        getCreatorBytes();
 
     /**
      * <code>required string name = 3;</code>
@@ -188,6 +194,7 @@ public final class NftMarketplace {
       super(builder);
     }
     private CollectionDTO() {
+      creator_ = "";
       name_ = "";
       desc_ = "";
       logoImage_ = "";
@@ -232,9 +239,10 @@ public final class NftMarketplace {
               id_ = input.readInt64();
               break;
             }
-            case 16: {
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              creator_ = input.readInt64();
+              creator_ = bs;
               break;
             }
             case 26: {
@@ -341,9 +349,9 @@ public final class NftMarketplace {
     }
 
     public static final int CREATOR_FIELD_NUMBER = 2;
-    private long creator_;
+    private volatile java.lang.Object creator_;
     /**
-     * <code>required int64 creator = 2;</code>
+     * <code>required string creator = 2;</code>
      * @return Whether the creator field is set.
      */
     @java.lang.Override
@@ -351,12 +359,41 @@ public final class NftMarketplace {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>required int64 creator = 2;</code>
+     * <code>required string creator = 2;</code>
      * @return The creator.
      */
     @java.lang.Override
-    public long getCreator() {
-      return creator_;
+    public java.lang.String getCreator() {
+      java.lang.Object ref = creator_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          creator_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string creator = 2;</code>
+     * @return The bytes for creator.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCreatorBytes() {
+      java.lang.Object ref = creator_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        creator_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int NAME_FIELD_NUMBER = 3;
@@ -738,7 +775,7 @@ public final class NftMarketplace {
         output.writeInt64(1, id_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeInt64(2, creator_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, creator_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
@@ -781,8 +818,7 @@ public final class NftMarketplace {
           .computeInt64Size(1, id_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, creator_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, creator_);
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
@@ -836,8 +872,8 @@ public final class NftMarketplace {
       }
       if (hasCreator() != other.hasCreator()) return false;
       if (hasCreator()) {
-        if (getCreator()
-            != other.getCreator()) return false;
+        if (!getCreator()
+            .equals(other.getCreator())) return false;
       }
       if (hasName() != other.hasName()) return false;
       if (hasName()) {
@@ -902,8 +938,7 @@ public final class NftMarketplace {
       }
       if (hasCreator()) {
         hash = (37 * hash) + CREATOR_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getCreator());
+        hash = (53 * hash) + getCreator().hashCode();
       }
       if (hasName()) {
         hash = (37 * hash) + NAME_FIELD_NUMBER;
@@ -1078,7 +1113,7 @@ public final class NftMarketplace {
         super.clear();
         id_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        creator_ = 0L;
+        creator_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1131,9 +1166,9 @@ public final class NftMarketplace {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.creator_ = creator_;
           to_bitField0_ |= 0x00000002;
         }
+        result.creator_ = creator_;
         if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -1223,7 +1258,9 @@ public final class NftMarketplace {
           setId(other.getId());
         }
         if (other.hasCreator()) {
-          setCreator(other.getCreator());
+          bitField0_ |= 0x00000002;
+          creator_ = other.creator_;
+          onChanged();
         }
         if (other.hasName()) {
           bitField0_ |= 0x00000004;
@@ -1345,41 +1382,86 @@ public final class NftMarketplace {
         return this;
       }
 
-      private long creator_ ;
+      private java.lang.Object creator_ = "";
       /**
-       * <code>required int64 creator = 2;</code>
+       * <code>required string creator = 2;</code>
        * @return Whether the creator field is set.
        */
-      @java.lang.Override
       public boolean hasCreator() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>required int64 creator = 2;</code>
+       * <code>required string creator = 2;</code>
        * @return The creator.
        */
-      @java.lang.Override
-      public long getCreator() {
-        return creator_;
+      public java.lang.String getCreator() {
+        java.lang.Object ref = creator_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            creator_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 creator = 2;</code>
+       * <code>required string creator = 2;</code>
+       * @return The bytes for creator.
+       */
+      public com.google.protobuf.ByteString
+          getCreatorBytes() {
+        java.lang.Object ref = creator_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          creator_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string creator = 2;</code>
        * @param value The creator to set.
        * @return This builder for chaining.
        */
-      public Builder setCreator(long value) {
-        bitField0_ |= 0x00000002;
+      public Builder setCreator(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         creator_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 creator = 2;</code>
+       * <code>required string creator = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearCreator() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        creator_ = 0L;
+        creator_ = getDefaultInstance().getCreator();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string creator = 2;</code>
+       * @param value The bytes for creator to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        creator_ = value;
         onChanged();
         return this;
       }
@@ -2259,15 +2341,21 @@ public final class NftMarketplace {
         getTokenBytes();
 
     /**
-     * <code>required int64 creator = 14;</code>
+     * <code>required string creator = 14;</code>
      * @return Whether the creator field is set.
      */
     boolean hasCreator();
     /**
-     * <code>required int64 creator = 14;</code>
+     * <code>required string creator = 14;</code>
      * @return The creator.
      */
-    long getCreator();
+    java.lang.String getCreator();
+    /**
+     * <code>required string creator = 14;</code>
+     * @return The bytes for creator.
+     */
+    com.google.protobuf.ByteString
+        getCreatorBytes();
 
     /**
      * <code>optional string creatorFeeRate = 15;</code>
@@ -2285,23 +2373,6 @@ public final class NftMarketplace {
      */
     com.google.protobuf.ByteString
         getCreatorFeeRateBytes();
-
-    /**
-     * <code>optional string creatorAddress = 16;</code>
-     * @return Whether the creatorAddress field is set.
-     */
-    boolean hasCreatorAddress();
-    /**
-     * <code>optional string creatorAddress = 16;</code>
-     * @return The creatorAddress.
-     */
-    java.lang.String getCreatorAddress();
-    /**
-     * <code>optional string creatorAddress = 16;</code>
-     * @return The bytes for creatorAddress.
-     */
-    com.google.protobuf.ByteString
-        getCreatorAddressBytes();
 
     /**
      * <code>optional string signature = 17;</code>
@@ -2353,8 +2424,8 @@ public final class NftMarketplace {
       contractAddress_ = "";
       tokenStandard_ = "";
       token_ = "";
+      creator_ = "";
       creatorFeeRate_ = "";
-      creatorAddress_ = "";
       signature_ = "";
     }
 
@@ -2463,9 +2534,10 @@ public final class NftMarketplace {
               token_ = bs;
               break;
             }
-            case 112: {
+            case 114: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00002000;
-              creator_ = input.readInt64();
+              creator_ = bs;
               break;
             }
             case 122: {
@@ -2474,20 +2546,14 @@ public final class NftMarketplace {
               creatorFeeRate_ = bs;
               break;
             }
-            case 130: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00008000;
-              creatorAddress_ = bs;
-              break;
-            }
             case 138: {
               com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00010000;
+              bitField0_ |= 0x00008000;
               signature_ = bs;
               break;
             }
             case 144: {
-              bitField0_ |= 0x00020000;
+              bitField0_ |= 0x00010000;
               mint_ = input.readBool();
               break;
             }
@@ -3033,9 +3099,9 @@ public final class NftMarketplace {
     }
 
     public static final int CREATOR_FIELD_NUMBER = 14;
-    private long creator_;
+    private volatile java.lang.Object creator_;
     /**
-     * <code>required int64 creator = 14;</code>
+     * <code>required string creator = 14;</code>
      * @return Whether the creator field is set.
      */
     @java.lang.Override
@@ -3043,12 +3109,41 @@ public final class NftMarketplace {
       return ((bitField0_ & 0x00002000) != 0);
     }
     /**
-     * <code>required int64 creator = 14;</code>
+     * <code>required string creator = 14;</code>
      * @return The creator.
      */
     @java.lang.Override
-    public long getCreator() {
-      return creator_;
+    public java.lang.String getCreator() {
+      java.lang.Object ref = creator_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          creator_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string creator = 14;</code>
+     * @return The bytes for creator.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCreatorBytes() {
+      java.lang.Object ref = creator_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        creator_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CREATORFEERATE_FIELD_NUMBER = 15;
@@ -3099,54 +3194,6 @@ public final class NftMarketplace {
       }
     }
 
-    public static final int CREATORADDRESS_FIELD_NUMBER = 16;
-    private volatile java.lang.Object creatorAddress_;
-    /**
-     * <code>optional string creatorAddress = 16;</code>
-     * @return Whether the creatorAddress field is set.
-     */
-    @java.lang.Override
-    public boolean hasCreatorAddress() {
-      return ((bitField0_ & 0x00008000) != 0);
-    }
-    /**
-     * <code>optional string creatorAddress = 16;</code>
-     * @return The creatorAddress.
-     */
-    @java.lang.Override
-    public java.lang.String getCreatorAddress() {
-      java.lang.Object ref = creatorAddress_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          creatorAddress_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string creatorAddress = 16;</code>
-     * @return The bytes for creatorAddress.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getCreatorAddressBytes() {
-      java.lang.Object ref = creatorAddress_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        creatorAddress_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     public static final int SIGNATURE_FIELD_NUMBER = 17;
     private volatile java.lang.Object signature_;
     /**
@@ -3155,7 +3202,7 @@ public final class NftMarketplace {
      */
     @java.lang.Override
     public boolean hasSignature() {
-      return ((bitField0_ & 0x00010000) != 0);
+      return ((bitField0_ & 0x00008000) != 0);
     }
     /**
      * <code>optional string signature = 17;</code>
@@ -3203,7 +3250,7 @@ public final class NftMarketplace {
      */
     @java.lang.Override
     public boolean hasMint() {
-      return ((bitField0_ & 0x00020000) != 0);
+      return ((bitField0_ & 0x00010000) != 0);
     }
     /**
      * <code>optional bool mint = 18;</code>
@@ -3300,18 +3347,15 @@ public final class NftMarketplace {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 13, token_);
       }
       if (((bitField0_ & 0x00002000) != 0)) {
-        output.writeInt64(14, creator_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 14, creator_);
       }
       if (((bitField0_ & 0x00004000) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 15, creatorFeeRate_);
       }
       if (((bitField0_ & 0x00008000) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 16, creatorAddress_);
-      }
-      if (((bitField0_ & 0x00010000) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 17, signature_);
       }
-      if (((bitField0_ & 0x00020000) != 0)) {
+      if (((bitField0_ & 0x00010000) != 0)) {
         output.writeBool(18, mint_);
       }
       unknownFields.writeTo(output);
@@ -3367,19 +3411,15 @@ public final class NftMarketplace {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, token_);
       }
       if (((bitField0_ & 0x00002000) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(14, creator_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, creator_);
       }
       if (((bitField0_ & 0x00004000) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, creatorFeeRate_);
       }
       if (((bitField0_ & 0x00008000) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, creatorAddress_);
-      }
-      if (((bitField0_ & 0x00010000) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, signature_);
       }
-      if (((bitField0_ & 0x00020000) != 0)) {
+      if (((bitField0_ & 0x00010000) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(18, mint_);
       }
@@ -3465,18 +3505,13 @@ public final class NftMarketplace {
       }
       if (hasCreator() != other.hasCreator()) return false;
       if (hasCreator()) {
-        if (getCreator()
-            != other.getCreator()) return false;
+        if (!getCreator()
+            .equals(other.getCreator())) return false;
       }
       if (hasCreatorFeeRate() != other.hasCreatorFeeRate()) return false;
       if (hasCreatorFeeRate()) {
         if (!getCreatorFeeRate()
             .equals(other.getCreatorFeeRate())) return false;
-      }
-      if (hasCreatorAddress() != other.hasCreatorAddress()) return false;
-      if (hasCreatorAddress()) {
-        if (!getCreatorAddress()
-            .equals(other.getCreatorAddress())) return false;
       }
       if (hasSignature() != other.hasSignature()) return false;
       if (hasSignature()) {
@@ -3556,16 +3591,11 @@ public final class NftMarketplace {
       }
       if (hasCreator()) {
         hash = (37 * hash) + CREATOR_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getCreator());
+        hash = (53 * hash) + getCreator().hashCode();
       }
       if (hasCreatorFeeRate()) {
         hash = (37 * hash) + CREATORFEERATE_FIELD_NUMBER;
         hash = (53 * hash) + getCreatorFeeRate().hashCode();
-      }
-      if (hasCreatorAddress()) {
-        hash = (37 * hash) + CREATORADDRESS_FIELD_NUMBER;
-        hash = (53 * hash) + getCreatorAddress().hashCode();
       }
       if (hasSignature()) {
         hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
@@ -3735,16 +3765,14 @@ public final class NftMarketplace {
         bitField0_ = (bitField0_ & ~0x00000800);
         token_ = "";
         bitField0_ = (bitField0_ & ~0x00001000);
-        creator_ = 0L;
+        creator_ = "";
         bitField0_ = (bitField0_ & ~0x00002000);
         creatorFeeRate_ = "";
         bitField0_ = (bitField0_ & ~0x00004000);
-        creatorAddress_ = "";
-        bitField0_ = (bitField0_ & ~0x00008000);
         signature_ = "";
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00008000);
         mint_ = false;
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         return this;
       }
 
@@ -3826,9 +3854,9 @@ public final class NftMarketplace {
         }
         result.token_ = token_;
         if (((from_bitField0_ & 0x00002000) != 0)) {
-          result.creator_ = creator_;
           to_bitField0_ |= 0x00002000;
         }
+        result.creator_ = creator_;
         if (((from_bitField0_ & 0x00004000) != 0)) {
           to_bitField0_ |= 0x00004000;
         }
@@ -3836,14 +3864,10 @@ public final class NftMarketplace {
         if (((from_bitField0_ & 0x00008000) != 0)) {
           to_bitField0_ |= 0x00008000;
         }
-        result.creatorAddress_ = creatorAddress_;
-        if (((from_bitField0_ & 0x00010000) != 0)) {
-          to_bitField0_ |= 0x00010000;
-        }
         result.signature_ = signature_;
-        if (((from_bitField0_ & 0x00020000) != 0)) {
+        if (((from_bitField0_ & 0x00010000) != 0)) {
           result.mint_ = mint_;
-          to_bitField0_ |= 0x00020000;
+          to_bitField0_ |= 0x00010000;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -3952,20 +3976,17 @@ public final class NftMarketplace {
           onChanged();
         }
         if (other.hasCreator()) {
-          setCreator(other.getCreator());
+          bitField0_ |= 0x00002000;
+          creator_ = other.creator_;
+          onChanged();
         }
         if (other.hasCreatorFeeRate()) {
           bitField0_ |= 0x00004000;
           creatorFeeRate_ = other.creatorFeeRate_;
           onChanged();
         }
-        if (other.hasCreatorAddress()) {
-          bitField0_ |= 0x00008000;
-          creatorAddress_ = other.creatorAddress_;
-          onChanged();
-        }
         if (other.hasSignature()) {
-          bitField0_ |= 0x00010000;
+          bitField0_ |= 0x00008000;
           signature_ = other.signature_;
           onChanged();
         }
@@ -4938,41 +4959,86 @@ public final class NftMarketplace {
         return this;
       }
 
-      private long creator_ ;
+      private java.lang.Object creator_ = "";
       /**
-       * <code>required int64 creator = 14;</code>
+       * <code>required string creator = 14;</code>
        * @return Whether the creator field is set.
        */
-      @java.lang.Override
       public boolean hasCreator() {
         return ((bitField0_ & 0x00002000) != 0);
       }
       /**
-       * <code>required int64 creator = 14;</code>
+       * <code>required string creator = 14;</code>
        * @return The creator.
        */
-      @java.lang.Override
-      public long getCreator() {
-        return creator_;
+      public java.lang.String getCreator() {
+        java.lang.Object ref = creator_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            creator_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>required int64 creator = 14;</code>
+       * <code>required string creator = 14;</code>
+       * @return The bytes for creator.
+       */
+      public com.google.protobuf.ByteString
+          getCreatorBytes() {
+        java.lang.Object ref = creator_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          creator_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string creator = 14;</code>
        * @param value The creator to set.
        * @return This builder for chaining.
        */
-      public Builder setCreator(long value) {
-        bitField0_ |= 0x00002000;
+      public Builder setCreator(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00002000;
         creator_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 creator = 14;</code>
+       * <code>required string creator = 14;</code>
        * @return This builder for chaining.
        */
       public Builder clearCreator() {
         bitField0_ = (bitField0_ & ~0x00002000);
-        creator_ = 0L;
+        creator_ = getDefaultInstance().getCreator();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string creator = 14;</code>
+       * @param value The bytes for creator to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00002000;
+        creator_ = value;
         onChanged();
         return this;
       }
@@ -5061,97 +5127,13 @@ public final class NftMarketplace {
         return this;
       }
 
-      private java.lang.Object creatorAddress_ = "";
-      /**
-       * <code>optional string creatorAddress = 16;</code>
-       * @return Whether the creatorAddress field is set.
-       */
-      public boolean hasCreatorAddress() {
-        return ((bitField0_ & 0x00008000) != 0);
-      }
-      /**
-       * <code>optional string creatorAddress = 16;</code>
-       * @return The creatorAddress.
-       */
-      public java.lang.String getCreatorAddress() {
-        java.lang.Object ref = creatorAddress_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            creatorAddress_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string creatorAddress = 16;</code>
-       * @return The bytes for creatorAddress.
-       */
-      public com.google.protobuf.ByteString
-          getCreatorAddressBytes() {
-        java.lang.Object ref = creatorAddress_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          creatorAddress_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string creatorAddress = 16;</code>
-       * @param value The creatorAddress to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCreatorAddress(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00008000;
-        creatorAddress_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string creatorAddress = 16;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCreatorAddress() {
-        bitField0_ = (bitField0_ & ~0x00008000);
-        creatorAddress_ = getDefaultInstance().getCreatorAddress();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string creatorAddress = 16;</code>
-       * @param value The bytes for creatorAddress to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCreatorAddressBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00008000;
-        creatorAddress_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object signature_ = "";
       /**
        * <code>optional string signature = 17;</code>
        * @return Whether the signature field is set.
        */
       public boolean hasSignature() {
-        return ((bitField0_ & 0x00010000) != 0);
+        return ((bitField0_ & 0x00008000) != 0);
       }
       /**
        * <code>optional string signature = 17;</code>
@@ -5198,7 +5180,7 @@ public final class NftMarketplace {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00010000;
+  bitField0_ |= 0x00008000;
         signature_ = value;
         onChanged();
         return this;
@@ -5208,7 +5190,7 @@ public final class NftMarketplace {
        * @return This builder for chaining.
        */
       public Builder clearSignature() {
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00008000);
         signature_ = getDefaultInstance().getSignature();
         onChanged();
         return this;
@@ -5223,7 +5205,7 @@ public final class NftMarketplace {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00010000;
+  bitField0_ |= 0x00008000;
         signature_ = value;
         onChanged();
         return this;
@@ -5236,7 +5218,7 @@ public final class NftMarketplace {
        */
       @java.lang.Override
       public boolean hasMint() {
-        return ((bitField0_ & 0x00020000) != 0);
+        return ((bitField0_ & 0x00010000) != 0);
       }
       /**
        * <code>optional bool mint = 18;</code>
@@ -5252,7 +5234,7 @@ public final class NftMarketplace {
        * @return This builder for chaining.
        */
       public Builder setMint(boolean value) {
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00010000;
         mint_ = value;
         onChanged();
         return this;
@@ -5262,7 +5244,7 @@ public final class NftMarketplace {
        * @return This builder for chaining.
        */
       public Builder clearMint() {
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         mint_ = false;
         onChanged();
         return this;
@@ -11278,36 +11260,35 @@ public final class NftMarketplace {
     java.lang.String[] descriptorData = {
       "\n\021marketplace.proto\022\033com.ruixi.tpulse.co" +
       "nvention\"\322\001\n\rCollectionDTO\022\n\n\002id\030\001 \002(\003\022\017" +
-      "\n\007creator\030\002 \002(\003\022\014\n\004name\030\003 \002(\t\022\014\n\004desc\030\004 " +
+      "\n\007creator\030\002 \002(\t\022\014\n\004name\030\003 \002(\t\022\014\n\004desc\030\004 " +
       "\001(\t\022\021\n\tlogoImage\030\005 \001(\t\022\025\n\rfeaturedImage\030" +
       "\006 \001(\t\022\021\n\tcreatedAt\030\007 \001(\003\022\022\n\nblockchain\030\010" +
       " \002(\t\022\026\n\016creatorFeeRate\030\t \001(\t\022\020\n\010category" +
-      "\030\n \001(\003\022\r\n\005items\030\013 \001(\005\"\320\002\n\tAssetsDTO\022\n\n\002i" +
+      "\030\n \001(\003\022\r\n\005items\030\013 \001(\005\"\270\002\n\tAssetsDTO\022\n\n\002i" +
       "d\030\001 \002(\003\022\014\n\004type\030\002 \001(\t\022\024\n\014collectionId\030\003 " +
       "\002(\003\022\013\n\003url\030\004 \002(\t\022\022\n\npreviewUrl\030\005 \001(\t\022\014\n\004" +
       "name\030\006 \002(\t\022\014\n\004desc\030\007 \001(\t\022\016\n\006supply\030\010 \002(\005" +
       "\022\021\n\tcreatedAt\030\t \002(\003\022\022\n\nblockchain\030\n \002(\t\022" +
       "\027\n\017contractAddress\030\013 \001(\t\022\025\n\rtokenStandar" +
-      "d\030\014 \001(\t\022\r\n\005token\030\r \001(\t\022\017\n\007creator\030\016 \002(\003\022" +
-      "\026\n\016creatorFeeRate\030\017 \001(\t\022\026\n\016creatorAddres" +
-      "s\030\020 \001(\t\022\021\n\tsignature\030\021 \001(\t\022\014\n\004mint\030\022 \001(\010" +
-      "\"V\n\024COLLECTION_CREATE_IC\022>\n\ncollection\030\001" +
-      " \002(\0132*.com.ruixi.tpulse.convention.Colle" +
-      "ctionDTO\"V\n\024COLLECTION_CREATE_IS\022>\n\ncoll" +
-      "ection\030\001 \002(\0132*.com.ruixi.tpulse.conventi" +
-      "on.CollectionDTO\"\"\n\024COLLECTION_DETAIL_IC" +
-      "\022\n\n\002id\030\001 \002(\003\"V\n\024COLLECTION_DETAIL_IS\022>\n\n" +
-      "collection\030\001 \002(\0132*.com.ruixi.tpulse.conv" +
-      "ention.CollectionDTO\"J\n\020ASSETS_CREATE_IC" +
+      "d\030\014 \001(\t\022\r\n\005token\030\r \001(\t\022\017\n\007creator\030\016 \002(\t\022" +
+      "\026\n\016creatorFeeRate\030\017 \001(\t\022\021\n\tsignature\030\021 \001" +
+      "(\t\022\014\n\004mint\030\022 \001(\010\"V\n\024COLLECTION_CREATE_IC" +
+      "\022>\n\ncollection\030\001 \002(\0132*.com.ruixi.tpulse." +
+      "convention.CollectionDTO\"V\n\024COLLECTION_C" +
+      "REATE_IS\022>\n\ncollection\030\001 \002(\0132*.com.ruixi" +
+      ".tpulse.convention.CollectionDTO\"\"\n\024COLL" +
+      "ECTION_DETAIL_IC\022\n\n\002id\030\001 \002(\003\"V\n\024COLLECTI" +
+      "ON_DETAIL_IS\022>\n\ncollection\030\001 \002(\0132*.com.r" +
+      "uixi.tpulse.convention.CollectionDTO\"J\n\020" +
+      "ASSETS_CREATE_IC\0226\n\006assets\030\001 \002(\0132&.com.r" +
+      "uixi.tpulse.convention.AssetsDTO\"J\n\020ASSE" +
+      "TS_CREATE_IS\0226\n\006assets\030\001 \002(\0132&.com.ruixi" +
+      ".tpulse.convention.AssetsDTO\"\036\n\020ASSETS_D" +
+      "ETAIL_IC\022\n\n\002id\030\001 \002(\003\"J\n\020ASSETS_DETAIL_IS" +
       "\0226\n\006assets\030\001 \002(\0132&.com.ruixi.tpulse.conv" +
-      "ention.AssetsDTO\"J\n\020ASSETS_CREATE_IS\0226\n\006" +
-      "assets\030\001 \002(\0132&.com.ruixi.tpulse.conventi" +
-      "on.AssetsDTO\"\036\n\020ASSETS_DETAIL_IC\022\n\n\002id\030\001" +
-      " \002(\003\"J\n\020ASSETS_DETAIL_IS\0226\n\006assets\030\001 \002(\013" +
-      "2&.com.ruixi.tpulse.convention.AssetsDTO" +
-      "\"\034\n\016ASSETS_MINT_IC\022\n\n\002id\030\001 \002(\003\"\020\n\016ASSETS" +
-      "_MINT_ISB(\n\026com.tenth.nft.protobufB\016NftM" +
-      "arketplace"
+      "ention.AssetsDTO\"\034\n\016ASSETS_MINT_IC\022\n\n\002id" +
+      "\030\001 \002(\003\"\020\n\016ASSETS_MINT_ISB(\n\026com.tenth.nf" +
+      "t.protobufB\016NftMarketplace"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -11324,7 +11305,7 @@ public final class NftMarketplace {
     internal_static_com_ruixi_tpulse_convention_AssetsDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_AssetsDTO_descriptor,
-        new java.lang.String[] { "Id", "Type", "CollectionId", "Url", "PreviewUrl", "Name", "Desc", "Supply", "CreatedAt", "Blockchain", "ContractAddress", "TokenStandard", "Token", "Creator", "CreatorFeeRate", "CreatorAddress", "Signature", "Mint", });
+        new java.lang.String[] { "Id", "Type", "CollectionId", "Url", "PreviewUrl", "Name", "Desc", "Supply", "CreatedAt", "Blockchain", "ContractAddress", "TokenStandard", "Token", "Creator", "CreatorFeeRate", "Signature", "Mint", });
     internal_static_com_ruixi_tpulse_convention_COLLECTION_CREATE_IC_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_ruixi_tpulse_convention_COLLECTION_CREATE_IC_fieldAccessorTable = new

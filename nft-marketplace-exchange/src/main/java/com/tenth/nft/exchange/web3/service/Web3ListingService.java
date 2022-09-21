@@ -5,7 +5,7 @@ import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.wallet.*;
@@ -178,7 +178,7 @@ public class Web3ListingService extends AbsListingFlowService {
                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                         .setId(nftListing.getAssetsId())
                         .build(),
-                AssetsDetailRouteRequest.class
+                AbsAssetsDetailRouteRequest.class
         ).getAssets();
         if(!Strings.isNullOrEmpty(assetsDTO.getCreatorFeeRate())){
             nftListing.setCreatorUid(assetsDTO.getCreator());
@@ -271,7 +271,7 @@ public class Web3ListingService extends AbsListingFlowService {
                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                         .setId(nftListing.getAssetsId())
                         .build(),
-                AssetsDetailRouteRequest.class
+                AbsAssetsDetailRouteRequest.class
         ).getAssets();
         boolean isMint = assetsDTO.getMint();
         if(!isMint){

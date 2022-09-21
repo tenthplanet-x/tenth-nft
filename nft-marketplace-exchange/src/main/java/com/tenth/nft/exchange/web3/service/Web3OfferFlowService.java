@@ -5,7 +5,7 @@ import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
@@ -23,7 +23,6 @@ import com.tenth.nft.exchange.common.service.NftBelongService;
 import com.tenth.nft.exchange.common.service.NftOfferFlowService;
 import com.tenth.nft.exchange.web3.vo.*;
 import com.tenth.nft.exchange.web3.wallet.Web3WalletProvider;
-import com.tenth.nft.orm.marketplace.dao.NftOrderDao;
 import com.tenth.nft.orm.marketplace.entity.*;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
@@ -72,7 +71,7 @@ public class Web3OfferFlowService extends AbsSignService {
                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                         .setId(request.getAssetsId())
                         .build(),
-                AssetsDetailRouteRequest.class
+                AbsAssetsDetailRouteRequest.class
         ).getAssets();
         if(assetsDTO.getSupply() < request.getQuantity()){
             throw BizException.newInstance(NftExchangeErrorCodes.OFFER_EXCEPTION_INVALID_PARAMS);
@@ -148,7 +147,7 @@ public class Web3OfferFlowService extends AbsSignService {
                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                         .setId(nftOffer.getAssetsId())
                         .build(),
-                AssetsDetailRouteRequest.class
+                AbsAssetsDetailRouteRequest.class
         ).getAssets();
         if(!Strings.isNullOrEmpty(assetsDTO.getCreatorFeeRate())){
             nftOffer.setCreatorUid(assetsDTO.getCreator());

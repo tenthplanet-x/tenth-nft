@@ -5,13 +5,8 @@ import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
-import com.tenth.nft.convention.utils.Prices;
-import com.tenth.nft.orm.marketplace.dao.NftAssetsNoCacheDao;
-import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
-import com.tenth.nft.orm.marketplace.entity.NftCollection;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsCollectionDetailRouteRequest;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
@@ -80,7 +75,7 @@ public class CollectionSearchService {
                         NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()
                                 .setId(collectionId)
                                 .build(),
-                        CollectionDetailRouteRequest.class
+                        AbsCollectionDetailRouteRequest.class
                 ).getCollection()
         );
 
@@ -124,7 +119,7 @@ public class CollectionSearchService {
                         NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()
                                 .setId(collectionId)
                                 .build(),
-                        CollectionDetailRouteRequest.class
+                        AbsCollectionDetailRouteRequest.class
                 ).getCollection()
         );
     }
@@ -141,7 +136,7 @@ public class CollectionSearchService {
                         NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()
                                 .setId(request.getId())
                                 .build(),
-                        CollectionDetailRouteRequest.class
+                        AbsCollectionDetailRouteRequest.class
                 ).getCollection(),
                 CollectionDetailSearchDTO.class
         );
@@ -203,7 +198,7 @@ public class CollectionSearchService {
                                         NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                                                 .setId(assetsId)
                                                 .build(),
-                                        AssetsDetailRouteRequest.class
+                                        AbsAssetsDetailRouteRequest.class
                                 ).getAssets()
                         );
                     }).collect(Collectors.toList());

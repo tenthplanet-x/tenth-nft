@@ -1,4 +1,4 @@
-package com.tenth.nft.marketplace.vo;
+package com.tenth.nft.marketplace.common.vo;
 
 import com.tpulse.commons.biz.dto.PageRequest;
 

@@ -1,5 +1,6 @@
-package com.tenth.nft.orm.marketplace.dao.expression;
+package com.tenth.nft.marketplace.common.dao.expression;
 
+import com.tenth.nft.marketplace.common.entity.AbsNftBelong;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 import com.tpulse.gs.convention.dao.defination.WriteOpt;
@@ -8,7 +9,7 @@ import com.tpulse.gs.convention.dao.defination.WriteOpt;
  * @author gs-orm-generator
  * @createdAt 2022/07/05 12:01
  */
-public class NftBelongUpdate extends SimpleUpdate {
+public class AbsNftBelongUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
     private Long assetsId;
@@ -27,6 +28,8 @@ public class NftBelongUpdate extends SimpleUpdate {
 
     @SimpleWriteParam(name = "quantity", opt = WriteOpt.INC)
     private Integer quantityInc;
+    @SimpleWriteParam
+    private Long collectionId;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -52,13 +55,17 @@ public class NftBelongUpdate extends SimpleUpdate {
         return quantityInc;
     }
 
+    public Long getCollectionId() {
+        return collectionId;
+    }
+
     public static Builder newBuilder(){
         return new Builder();
     }
 
     public static class Builder{
 
-        private NftBelongUpdate update = new NftBelongUpdate();
+        private AbsNftBelongUpdate update = new AbsNftBelongUpdate();
 
         public Builder setAssetsId(Long assetsId){
             update.assetsId = assetsId;
@@ -75,7 +82,7 @@ public class NftBelongUpdate extends SimpleUpdate {
             return this;
         }
 
-        public NftBelongUpdate build(){
+        public AbsNftBelongUpdate build(){
             return update;
         }
 
@@ -88,6 +95,13 @@ public class NftBelongUpdate extends SimpleUpdate {
             update.quantityInc = quantity;
             return this;
         }
+
+
+        public Builder setCollectionId(Long collectionId) {
+            update.collectionId = collectionId;
+            return this;
+        }
+
 
     }
 

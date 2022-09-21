@@ -2,6 +2,8 @@ package com.tenth.nft.marketplace.buildin.controller.routes;
 
 import com.tenth.nft.convention.routes.marketplace.AbsCollectionCreateRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.AbsCollectionDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.buildin.BuildInCollectionCreateRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.buildin.BuildInCollectionDetailRouteRequest;
 import com.tenth.nft.marketplace.buildin.service.BuildInNftCollectionService;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.router.requestmapping.annotation.RouteRequestMapping;
@@ -15,17 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Route
-public class NftCollectionRoutesController {
+public class BuildInNftCollectionRoutesController {
 
     @Autowired
     private BuildInNftCollectionService nftCollectionService;
 
-    @RouteRequestMapping(AbsCollectionCreateRouteRequest.class)
+    @RouteRequestMapping(BuildInCollectionCreateRouteRequest.class)
     public NftMarketplace.COLLECTION_CREATE_IS create(NftMarketplace.COLLECTION_CREATE_IC request){
         return nftCollectionService.create(request);
     }
 
-    @RouteRequestMapping(AbsCollectionDetailRouteRequest.class)
+    @RouteRequestMapping(BuildInCollectionDetailRouteRequest.class)
     public NftMarketplace.COLLECTION_DETAIL_IS detail(NftMarketplace.COLLECTION_DETAIL_IC request){
         return nftCollectionService.detail(request);
     }

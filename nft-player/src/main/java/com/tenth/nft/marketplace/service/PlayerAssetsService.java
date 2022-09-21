@@ -6,8 +6,8 @@ import com.tenth.nft.convention.NftModules;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.AssetsCreateRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsCreateRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.utils.Precisions;
 import com.tenth.nft.convention.web3.sign.MintDataForSign;
@@ -81,7 +81,7 @@ public class PlayerAssetsService {
         //create
         NftAssets nftAssets = new NftAssets();
         nftAssets.setId(assetsId);
-        nftAssets.setCreator(uid);
+        nftAssets.setCreator(String.valueOf(uid));
         nftAssets.setType(request.getType());
         nftAssets.setCollectionId(request.getCollectionId());
         String dir = request.getUrl().substring(request.getUrl().indexOf("tmp/") + 4, request.getUrl().lastIndexOf("/"));
@@ -103,7 +103,7 @@ public class PlayerAssetsService {
                 NftMarketplace.ASSETS_CREATE_IC.newBuilder()
                         .setAssets(NftAssetsDTO.toProto(nftAssets))
                         .build(),
-                AssetsCreateRouteRequest.class
+                AbsAssetsCreateRouteRequest.class
         ).getAssets();
 
         //insert relation
@@ -155,7 +155,7 @@ public class PlayerAssetsService {
                                     NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                                             .setId(entity.getAssetsId())
                                             .build(),
-                                    AssetsDetailRouteRequest.class
+                                    AbsAssetsDetailRouteRequest.class
                             ).getAssets()
                     );
 
@@ -238,7 +238,7 @@ public class PlayerAssetsService {
         //create
         NftAssets nftAssets = new NftAssets();
         nftAssets.setId(assetsId);
-        nftAssets.setCreator(uid);
+        nftAssets.setCreator(String.valueOf(uid));
         nftAssets.setType(request.getType());
         nftAssets.setCollectionId(request.getCollectionId());
         String dir = request.getUrl().substring(request.getUrl().indexOf("tmp/") + 4, request.getUrl().lastIndexOf("/"));
@@ -266,14 +266,14 @@ public class PlayerAssetsService {
         nftAssets.setUpdatedAt(System.currentTimeMillis());
         PlayerCollection collection = nftCollectionService.detail(uid, request.getCollectionId());
         nftAssets.setCreatorFeeRate(collection.getCreatorFeeRate());
-        nftAssets.setCreatorAddress(uidAddress);
+        nftAssets.setCreator(uidAddress);
         nftAssets.setToken(HexAddresses.of(assetsId));
         nftAssets.setSignature(confirmRequest.getSignature());
         NftMarketplace.AssetsDTO assetsDTO = routeClient.send(
                 NftMarketplace.ASSETS_CREATE_IC.newBuilder()
                         .setAssets(NftAssetsDTO.toProto(nftAssets))
                         .build(),
-                AssetsCreateRouteRequest.class
+                AbsAssetsCreateRouteRequest.class
         ).getAssets();
 
         //insert relation

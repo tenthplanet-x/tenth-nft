@@ -6,19 +6,10 @@ import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
-import com.tenth.nft.convention.utils.Prices;
-import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
-import com.tenth.nft.orm.marketplace.dao.NftCollectionDao;
-import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
-import com.tenth.nft.orm.marketplace.dao.expression.NftAssetsQuery;
-import com.tenth.nft.orm.marketplace.dao.expression.NftCollectionQuery;
-import com.tenth.nft.orm.marketplace.entity.NftAssets;
-import com.tenth.nft.orm.marketplace.entity.NftCollection;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsCollectionDetailRouteRequest;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftMarketplace;
-import com.tenth.nft.protobuf.NftSearch;
 import com.tenth.nft.search.dto.AssetsOwnSearchDTO;
 import com.tenth.nft.search.dto.AssetsSearchDTO;
 import com.tenth.nft.search.lucenedao.NftAssetsLuceneDao;
@@ -58,7 +49,7 @@ public class AssetsSearchService {
                                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                                         .setId(id)
                                         .build(),
-                                AssetsDetailRouteRequest.class
+                                AbsAssetsDetailRouteRequest.class
                         ).getAssets()
                 );
 
@@ -101,7 +92,7 @@ public class AssetsSearchService {
                         NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                                 .setId(assetsId)
                                 .build(),
-                        AssetsDetailRouteRequest.class
+                        AbsAssetsDetailRouteRequest.class
                 ).getAssets()
         );
     }
@@ -116,7 +107,7 @@ public class AssetsSearchService {
                         NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                                 .setId(request.getAssetsId())
                                 .build(),
-                        AssetsDetailRouteRequest.class
+                        AbsAssetsDetailRouteRequest.class
                 ).getAssets(),
                 AssetsDetailSearchDTO.class
         );
@@ -185,7 +176,7 @@ public class AssetsSearchService {
                                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                                         .setId(id)
                                         .build(),
-                                AssetsDetailRouteRequest.class
+                                AbsAssetsDetailRouteRequest.class
                         ).getAssets()
                 );
 
@@ -194,7 +185,7 @@ public class AssetsSearchService {
                         NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()
                                 .setId(dto.getCollectionId())
                                 .build(),
-                        CollectionDetailRouteRequest.class
+                        AbsCollectionDetailRouteRequest.class
                 ).getCollection().getName();
                 dto.setCollectionName(collectionName);
 

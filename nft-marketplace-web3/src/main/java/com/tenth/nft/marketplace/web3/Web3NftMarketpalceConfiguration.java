@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("com.tenth.nft.marketplace.web3")
-public class NftMarketpalceWeb3Configuration {
+public class Web3NftMarketpalceConfiguration {
 
-    
+
 
 }

@@ -4,8 +4,8 @@ import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.AssetsExchangeProfileRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsCollectionDetailRouteRequest;
 import com.tenth.nft.marketplace.dao.PlayerAssetsBelongsDao;
 import com.tenth.nft.marketplace.dao.expression.PlayerAssetsBelongsQuery;
 import com.tenth.nft.marketplace.dao.expression.PlayerAssetsBelongsUpdate;
@@ -71,7 +71,7 @@ public class PlayerAssetsBelongsService {
                                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                                         .setId(assetsId)
                                         .build(),
-                                AssetsDetailRouteRequest.class
+                                AbsAssetsDetailRouteRequest.class
                         ).getAssets()
                 );
 
@@ -80,7 +80,7 @@ public class PlayerAssetsBelongsService {
                         NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()
                                 .setId(dto.getCollectionId())
                                 .build(),
-                        CollectionDetailRouteRequest.class
+                        AbsCollectionDetailRouteRequest.class
                 ).getCollection().getName();
                 dto.setCollectionName(collectionName);
 

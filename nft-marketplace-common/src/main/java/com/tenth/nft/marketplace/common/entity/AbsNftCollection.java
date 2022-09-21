@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 /**
  * @author shijie
  */
-public abstract class NftCollection {
+public abstract class AbsNftCollection {
 
     @Id
     private Long id;

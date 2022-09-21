@@ -1,9 +1,7 @@
-package com.tenth.nft.orm.marketplace.dao.expression;
+package com.tenth.nft.marketplace.common.dao.expression;
 
-import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
-import com.tenth.nft.orm.marketplace.entity.NftActivity;
-import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
-import com.tenth.nft.orm.marketplace.entity.event.*;
+import com.tenth.nft.marketplace.common.entity.NftActivityEventType;
+import com.tenth.nft.marketplace.common.entity.event.*;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 
@@ -11,7 +9,7 @@ import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
  * @author gs-orm-generator
  * @createdAt 2022/07/05 12:01
  */
-public class NftActivityUpdate extends SimpleUpdate {
+public class AbsNftUbtLogUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
     private Long assetsId;
@@ -81,7 +79,7 @@ public class NftActivityUpdate extends SimpleUpdate {
 
     public static class Builder{
 
-        private NftActivityUpdate update = new NftActivityUpdate();
+        private AbsNftUbtLogUpdate update = new AbsNftUbtLogUpdate();
 
         public Builder setAssetsId(Long assetsId){
             update.assetsId = assetsId;
@@ -113,7 +111,7 @@ public class NftActivityUpdate extends SimpleUpdate {
             return this;
         }
 
-        public NftActivityUpdate build(){
+        public AbsNftUbtLogUpdate build(){
             return update;
         }
 

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
  * @author shijie
  */
 @Component
-public class We3NftAssetsDao extends AbsNftAssetsDao<Web3NftAssets> {
+public class Web3NftAssetsDao extends AbsNftAssetsDao<Web3NftAssets> {
 
-    public We3NftAssetsDao(Class<Web3NftAssets> collection) {
-        super(collection);
+    public Web3NftAssetsDao() {
+        super(Web3NftAssets.class);
     }
 }

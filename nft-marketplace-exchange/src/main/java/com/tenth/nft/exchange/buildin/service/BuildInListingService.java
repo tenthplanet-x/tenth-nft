@@ -8,9 +8,8 @@ import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
 import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.convention.routes.exchange.*;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
 import com.tenth.nft.convention.utils.Times;
-import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
 import com.tenth.nft.convention.wallet.utils.WalletTimes;
 import com.tenth.nft.exchange.buildin.controller.vo.NftBuyRequest;
 import com.tenth.nft.exchange.buildin.controller.vo.NftBuyResponse;
@@ -93,7 +92,7 @@ public class BuildInListingService extends AbsListingFlowService {
                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                         .setId(request.getAssetsId())
                         .build(),
-                AssetsDetailRouteRequest.class
+                AbsAssetsDetailRouteRequest.class
         ).getAssets();
         NftListing listing = new NftListing();
         listing.setUid(uid);
@@ -248,7 +247,7 @@ public class BuildInListingService extends AbsListingFlowService {
                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                         .setId(assetsId)
                         .build(),
-                AssetsDetailRouteRequest.class
+                AbsAssetsDetailRouteRequest.class
         ).getAssets();
         String blockchain = assetsDTO.getBlockchain();
         WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);

@@ -1,12 +1,6 @@
-package com.tenth.nft.orm.marketplace.dto;
+package com.tenth.nft.marketplace.common.dto;
 
-import com.google.common.base.Strings;
-import com.tenth.nft.convention.utils.Prices;
-import com.tenth.nft.convention.web3.utils.TokenMintStatus;
-import com.tenth.nft.orm.marketplace.entity.NftAssets;
-import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
-import com.tenth.nft.protobuf.NftExchange;
-import com.tenth.nft.protobuf.NftMarketplace;
+import com.tenth.nft.marketplace.common.entity.NftAssetsType;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -220,81 +214,81 @@ public class NftAssetsDTO implements SimpleResponse {
             this.expireAt = expireAt;
         }
 
-        public static ListingDTO from(NftExchange.NftListingDTO listing) {
-            ListingDTO dto = new ListingDTO();
-            dto.setId(listing.getId());
-            dto.setCurrency(listing.getCurrency());
-            dto.setExpireAt(listing.getExpireAt());
-            dto.setPrice(listing.getPrice());
-            dto.setQuantity(listing.getQuantity());
-            dto.setStartAt(listing.getStartAt());
-            return dto;
-        }
+//        public static ListingDTO from(NftExchange.NftListingDTO listing) {
+//            ListingDTO dto = new ListingDTO();
+//            dto.setId(listing.getId());
+//            dto.setCurrency(listing.getCurrency());
+//            dto.setExpireAt(listing.getExpireAt());
+//            dto.setPrice(listing.getPrice());
+//            dto.setQuantity(listing.getQuantity());
+//            dto.setStartAt(listing.getStartAt());
+//            return dto;
+//        }
     }
 
-    public static NftMarketplace.AssetsDTO toProto(NftAssets nftAssets) {
-        NftMarketplace.AssetsDTO.Builder builder = NftMarketplace.AssetsDTO.newBuilder();
-        builder.setId(nftAssets.getId());
-        if(null != nftAssets.getType()){
-            builder.setType(nftAssets.getType().name());
-        }
-        builder.setCollectionId(nftAssets.getCollectionId());
-        builder.setUrl(nftAssets.getUrl());
-        if(!Strings.isNullOrEmpty(nftAssets.getPreviewUrl())){
-            builder.setPreviewUrl(nftAssets.getPreviewUrl());
-        }
-        builder.setName(nftAssets.getName());
-        if(!Strings.isNullOrEmpty(nftAssets.getDesc())){
-            builder.setDesc(nftAssets.getDesc());
-        }
-        builder.setSupply(nftAssets.getSupply());
-        builder.setCreatedAt(nftAssets.getCreatedAt());
-        builder.setBlockchain(nftAssets.getBlockchain());
-        builder.setCreator(String.valueOf(nftAssets.getCreator()));
-        if(!Strings.isNullOrEmpty(nftAssets.getCreatorFeeRate())){
-            builder.setCreatorFeeRate(nftAssets.getCreatorFeeRate());
-        }
-        if(!Strings.isNullOrEmpty(nftAssets.getCreatorAddress())){
-            builder.setCreatorAddress(nftAssets.getCreatorAddress());
-        }
-        if(!Strings.isNullOrEmpty(nftAssets.getSignature())){
-            builder.setSignature(nftAssets.getSignature());
-        }
-
-        if(null != nftAssets.getContractAddress()){
-            builder.setContractAddress(nftAssets.getContractAddress());
-            builder.setTokenStandard(nftAssets.getTokenStandard());
-            builder.setToken(nftAssets.getToken());
-        }
-
-        if(TokenMintStatus.SUCCESS.equals(nftAssets.getMintStatus())){
-            builder.setMint(true);
-        }
-
-        return builder.build();
-    }
-
-    public static NftAssetsDTO from(NftMarketplace.AssetsDTO proto) {
-
-        NftAssetsDTO nftAssetsDTO = new NftAssetsDTO();
-        nftAssetsDTO.setId(proto.getId());
-        if(proto.hasType()){
-            nftAssetsDTO.setType(NftAssetsType.valueOf(proto.getType()));
-        }
-        nftAssetsDTO.setCollectionId(proto.getCollectionId());
-        nftAssetsDTO.setUrl(proto.getUrl());
-        nftAssetsDTO.setPreviewUrl(Strings.emptyToNull(proto.getPreviewUrl()));
-        nftAssetsDTO.setName(proto.getName());
-        nftAssetsDTO.setDesc(Strings.emptyToNull(proto.getDesc()));
-        nftAssetsDTO.setSupply(proto.getSupply());
-
-        nftAssetsDTO.setBlockchain(Strings.emptyToNull(proto.getBlockchain()));
-        nftAssetsDTO.setContractAddress(Strings.emptyToNull(proto.getContractAddress()));
-        nftAssetsDTO.setTokenStandard(Strings.emptyToNull(proto.getTokenStandard()));
-        nftAssetsDTO.setToken(Strings.emptyToNull(proto.getToken()));
-
-
-
-        return nftAssetsDTO;
-    }
+//    public static NftMarketplace.AssetsDTO toProto(NftAssets nftAssets) {
+//        NftMarketplace.AssetsDTO.Builder builder = NftMarketplace.AssetsDTO.newBuilder();
+//        builder.setId(nftAssets.getId());
+//        if(null != nftAssets.getType()){
+//            builder.setType(nftAssets.getType().name());
+//        }
+//        builder.setCollectionId(nftAssets.getCollectionId());
+//        builder.setUrl(nftAssets.getUrl());
+//        if(!Strings.isNullOrEmpty(nftAssets.getPreviewUrl())){
+//            builder.setPreviewUrl(nftAssets.getPreviewUrl());
+//        }
+//        builder.setName(nftAssets.getName());
+//        if(!Strings.isNullOrEmpty(nftAssets.getDesc())){
+//            builder.setDesc(nftAssets.getDesc());
+//        }
+//        builder.setSupply(nftAssets.getSupply());
+//        builder.setCreatedAt(nftAssets.getCreatedAt());
+//        builder.setBlockchain(nftAssets.getBlockchain());
+//        builder.setCreator(String.valueOf(nftAssets.getCreator()));
+//        if(!Strings.isNullOrEmpty(nftAssets.getCreatorFeeRate())){
+//            builder.setCreatorFeeRate(nftAssets.getCreatorFeeRate());
+//        }
+//        if(!Strings.isNullOrEmpty(nftAssets.getCreatorAddress())){
+//            builder.setCreatorAddress(nftAssets.getCreatorAddress());
+//        }
+//        if(!Strings.isNullOrEmpty(nftAssets.getSignature())){
+//            builder.setSignature(nftAssets.getSignature());
+//        }
+//
+//        if(null != nftAssets.getContractAddress()){
+//            builder.setContractAddress(nftAssets.getContractAddress());
+//            builder.setTokenStandard(nftAssets.getTokenStandard());
+//            builder.setToken(nftAssets.getToken());
+//        }
+//
+//        if(TokenMintStatus.SUCCESS.equals(nftAssets.getMintStatus())){
+//            builder.setMint(true);
+//        }
+//
+//        return builder.build();
+//    }
+//
+//    public static NftAssetsDTO from(NftMarketplace.AssetsDTO proto) {
+//
+//        NftAssetsDTO nftAssetsDTO = new NftAssetsDTO();
+//        nftAssetsDTO.setId(proto.getId());
+//        if(proto.hasType()){
+//            nftAssetsDTO.setType(NftAssetsType.valueOf(proto.getType()));
+//        }
+//        nftAssetsDTO.setCollectionId(proto.getCollectionId());
+//        nftAssetsDTO.setUrl(proto.getUrl());
+//        nftAssetsDTO.setPreviewUrl(Strings.emptyToNull(proto.getPreviewUrl()));
+//        nftAssetsDTO.setName(proto.getName());
+//        nftAssetsDTO.setDesc(Strings.emptyToNull(proto.getDesc()));
+//        nftAssetsDTO.setSupply(proto.getSupply());
+//
+//        nftAssetsDTO.setBlockchain(Strings.emptyToNull(proto.getBlockchain()));
+//        nftAssetsDTO.setContractAddress(Strings.emptyToNull(proto.getContractAddress()));
+//        nftAssetsDTO.setTokenStandard(Strings.emptyToNull(proto.getTokenStandard()));
+//        nftAssetsDTO.setToken(Strings.emptyToNull(proto.getToken()));
+//
+//
+//
+//        return nftAssetsDTO;
+//    }
 }

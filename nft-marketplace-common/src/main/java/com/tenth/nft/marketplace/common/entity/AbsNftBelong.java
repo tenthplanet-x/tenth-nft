@@ -1,24 +1,23 @@
-package com.tenth.nft.orm.marketplace.entity;
+package com.tenth.nft.marketplace.common.entity;
 
-import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author shijie
  */
-@Document("tpulse.nft_exchange_belong")
-@SimpleCache(cacheField = "assetsId")
-public class NftBelong {
+public abstract class AbsNftBelong {
 
     @Id
     private Long id;
 
     @Indexed
+    private Long collectionId;
+
+    @Indexed
     private Long assetsId;
 
-    private Long owner;
+    private String owner;
 
     private Integer quantity;
 
@@ -66,11 +65,19 @@ public class NftBelong {
         this.updatedAt = updatedAt;
     }
 
-    public Long getOwner() {
+    public Long getCollectionId() {
+        return collectionId;
+    }
+
+    public void setCollectionId(Long collectionId) {
+        this.collectionId = collectionId;
+    }
+
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(Long owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 }

@@ -1,15 +1,15 @@
-package com.tenth.nft.orm.marketplace.entity.event;
+package com.tenth.nft.marketplace.common.entity.event;
 
-import com.tenth.nft.orm.marketplace.entity.NftActivityEvent;
+import com.tenth.nft.marketplace.common.entity.NftActivityEvent;
 
 /**
  * @author shijie
  */
 public class ListCancelEvent implements NftActivityEvent {
 
-    private Long from;
+    private String from;
 
-    private Long to;
+    private String to;
 
     private Integer quantity;
 
@@ -19,12 +19,20 @@ public class ListCancelEvent implements NftActivityEvent {
 
     private String reason;
 
-    public Long getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Long from) {
+    public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public Integer getQuantity() {
@@ -49,14 +57,6 @@ public class ListCancelEvent implements NftActivityEvent {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public Long getTo() {
-        return to;
-    }
-
-    public void setTo(Long to) {
-        this.to = to;
     }
 
     public String getReason() {

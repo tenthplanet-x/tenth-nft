@@ -2,6 +2,7 @@ package com.tenth.nft.convention;
 
 import com.ruixi.tpulse.convention.TpulseConventionConfiguration;
 import com.tenth.nft.convention.cmd.NftInnerCmdTypes;
+import com.tenth.nft.convention.cmd.Web3NftCmdTypes;
 import com.tpulse.gs.convention.cmd.CmdTypeRegister;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,7 @@ public class NftConventionConfiguration {
     public CmdTypeRegister nftCmdTypeRegister(){
         return CmdTypeRegister.newBuilder()
                 .add(NftInnerCmdTypes.values())
+                .add(Web3NftCmdTypes.values())
                 .build();
     }
 

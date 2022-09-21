@@ -185,7 +185,7 @@ public class AssetsSearchDTO implements SimpleResponse {
         output.setContractAddress(Strings.emptyToNull(assets.getContractAddress()));
         output.setTokenStandard(Strings.emptyToNull(assets.getTokenStandard()));
         output.setToken(Strings.emptyToNull(assets.getToken()));
-        output.setCreator(assets.getCreator());
+        output.setCreator(Long.valueOf(assets.getCreator()));
         output.setName(assets.getName());
         output.setSupply(assets.getSupply());
         output.setDesc(Strings.emptyToNull(assets.getDesc()));

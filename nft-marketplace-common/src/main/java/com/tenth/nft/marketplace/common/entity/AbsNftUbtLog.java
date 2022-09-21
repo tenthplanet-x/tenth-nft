@@ -1,5 +1,6 @@
 package com.tenth.nft.marketplace.common.entity;
 
+import com.tenth.nft.marketplace.common.entity.event.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -7,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * @author shijie
  */
-public abstract class AbsNftUbtLong {
+public abstract class AbsNftUbtLog {
 
     @Id
     private Long id;

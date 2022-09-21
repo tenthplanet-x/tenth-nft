@@ -1,6 +1,6 @@
-package com.tenth.nft.exchange.buildin.controller.vo;
+package com.tenth.nft.marketplace.common.vo;
 
-import com.tenth.nft.orm.marketplace.entity.NftActivityEventType;
+import com.tenth.nft.marketplace.common.entity.NftActivityEventType;
 import com.tpulse.commons.biz.dto.PageRequest;
 
 import javax.validation.Valid;

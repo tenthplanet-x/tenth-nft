@@ -1,17 +1,13 @@
-package com.tenth.nft.orm.marketplace.dao.expression;
+package com.tenth.nft.marketplace.common.dao.expression;
 
-import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
-import com.tpulse.gs.convention.dao.defination.QueryOpt;
-
-import java.util.List;
 
 /**
  * @author gs-orm-generator
  * @createdAt 2022/06/21 11:07
  */
-public class NftAssetsQuery extends SimplePageQuery {
+public class AbsNftAssetsQuery extends SimplePageQuery {
 
     @SimpleQueryParam(name = "_id")
     private Long id;
@@ -32,11 +28,11 @@ public class NftAssetsQuery extends SimplePageQuery {
 
     public static class Builder extends SimplePageQuery.Builder{
 
-        NftAssetsQuery query;
+        AbsNftAssetsQuery query;
 
         public Builder() {
-            super(new NftAssetsQuery());
-            this.query = (NftAssetsQuery) super.query;
+            super(new AbsNftAssetsQuery());
+            this.query = (AbsNftAssetsQuery) super.query;
         }
 
         public Builder id(Long id) {

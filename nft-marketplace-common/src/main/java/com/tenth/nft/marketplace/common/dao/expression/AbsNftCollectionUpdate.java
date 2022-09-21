@@ -1,4 +1,4 @@
-package com.tenth.nft.orm.marketplace.dao.expression;
+package com.tenth.nft.marketplace.common.dao.expression;
 
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
@@ -7,7 +7,7 @@ import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
  * @author gs-orm-generator
  * @createdAt 2022/06/21 11:07
  */
-public class NftCollectionUpdate extends SimpleUpdate {
+public class AbsNftCollectionUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
     private Long uid;
@@ -85,7 +85,7 @@ public class NftCollectionUpdate extends SimpleUpdate {
 
     public static class Builder{
 
-        private NftCollectionUpdate update = new NftCollectionUpdate();
+        private AbsNftCollectionUpdate update = new AbsNftCollectionUpdate();
 
         public Builder setUid(Long uid){
             update.uid = uid;
@@ -127,7 +127,7 @@ public class NftCollectionUpdate extends SimpleUpdate {
             return this;
         }
 
-        public NftCollectionUpdate build(){
+        public AbsNftCollectionUpdate build(){
             return update;
         }
 

@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Configuration;
  * @author shijie
  */
 @Configuration
-@ComponentScan("com.tenth.nft.orm")
-public class NftMarketpalceBuildInConfiguration {
-
+@ComponentScan("com.tenth.nft.marketplace.buildin")
+public class BuildInNftMarketplaceConfiguration {
 
 
 }

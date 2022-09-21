@@ -139,7 +139,7 @@ public class NftCollectionLuceneDao extends SimpleLuceneDao<NftCollectionLuceneD
 
         nftCollectionLuceneDTO.setId(nftCollection.getId());
         nftCollectionLuceneDTO.setCategoryNull(0l);
-        nftCollectionLuceneDTO.setUid(nftCollection.getCreator());
+        nftCollectionLuceneDTO.setUid(Long.valueOf(nftCollection.getCreator()));
         nftCollectionLuceneDTO.setCreatedAt(nftCollection.getCreatedAt());
         nftCollectionLuceneDTO.setCategory(nftCollection.getCategory());
         nftCollectionLuceneDTO.setItems(nftCollection.getItems());

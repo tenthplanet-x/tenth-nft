@@ -139,7 +139,7 @@ public class NftCollectionDTO implements SimpleResponse {
 
         NftMarketplace.CollectionDTO.Builder builder = NftMarketplace.CollectionDTO.newBuilder();
         builder.setId(nftCollection.getId());
-        builder.setCreator(nftCollection.getUid());
+        builder.setCreator(String.valueOf(nftCollection.getUid()));
         if(null != nftCollection.getCategory()){
             builder.setCategory(nftCollection.getCategory());
         }
@@ -175,7 +175,7 @@ public class NftCollectionDTO implements SimpleResponse {
         }
 
         nftCollectionDTO.setId(collectionDTO.getId());
-        nftCollectionDTO.setUid(collectionDTO.getCreator());
+        nftCollectionDTO.setUid(Long.valueOf(collectionDTO.getCreator()));
         if(collectionDTO.hasCategory()){
             nftCollectionDTO.setCategory(collectionDTO.getCategory());
         }

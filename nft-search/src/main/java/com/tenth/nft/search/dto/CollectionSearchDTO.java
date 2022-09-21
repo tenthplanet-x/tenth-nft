@@ -202,7 +202,7 @@ public class CollectionSearchDTO implements SimpleResponse {
         output.setName(collection.getName());
         output.setDesc(Strings.emptyToNull(collection.getDesc()));
         output.setBlockchain(collection.getBlockchain());
-        output.setUid(collection.getCreator());
+        output.setUid(Long.valueOf(collection.getCreator()));
         output.setItems(collection.getItems());
 
         output.setLogoImage(Strings.emptyToNull(collection.getLogoImage()));

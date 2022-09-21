@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
  * @author shijie
  */
 @Component
-public class BuildInCollectionCreateRouteRequest extends AbsCollectionCreateRouteRequest {
+public class BuildInCollectionDetailRouteRequest extends AbsCollectionCreateRouteRequest {
 
-    public BuildInCollectionCreateRouteRequest() {
-        super(NftInnerCmds.COLLECTION_CREATE_IC);
+    public BuildInCollectionDetailRouteRequest() {
+        super(NftInnerCmds.COLLECTION_DETAIL_IC);
     }
 }

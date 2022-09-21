@@ -8,10 +8,9 @@ import org.springframework.stereotype.Component;
 /**
  * @author shijie
  */
-@Component
-public class CollectionDetailRouteRequest extends AbsRouteRequest<NftMarketplace.COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IS> {
+public abstract class AbsCollectionDetailRouteRequest extends AbsRouteRequest<NftMarketplace.COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IS> {
 
-    public CollectionDetailRouteRequest() {
-        super(NftInnerCmds.COLLECTION_DETAIL_IC, false, false);
+    public AbsCollectionDetailRouteRequest(int cmd) {
+        super(cmd, false, false);
     }
 }

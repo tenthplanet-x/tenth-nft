@@ -179,9 +179,7 @@ public class WalletOrderBizContent {
 
     public static class Profit{
 
-        private Long to;
-
-        private String toAddress;
+        private String to;
 
         private Integer activityCfgId;
 
@@ -189,20 +187,12 @@ public class WalletOrderBizContent {
 
         private String value;
 
-        public Long getTo() {
+        public String getTo() {
             return to;
         }
 
-        public void setTo(Long to) {
+        public void setTo(String to) {
             this.to = to;
-        }
-
-        public String getToAddress() {
-            return toAddress;
-        }
-
-        public void setToAddress(String toAddress) {
-            this.toAddress = toAddress;
         }
 
         public Integer getActivityCfgId() {

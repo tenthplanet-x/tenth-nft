@@ -22,6 +22,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     SELL_EXCEPTION_CREATE_CONTRACT_ERROR("020302", "create contract error"),
     SELL_CANCEL_EXCEPTION_NOT_EXIST("020303", "does not exist"),
     SELL_CANCEL_EXCEPTION_EXPIRED("020304", "expire"),
+    SELL_EXPCETION_NO_ENOUGH_ASSETS("020305", "no enough assets"),
     /**
      * 20400 buy
      */

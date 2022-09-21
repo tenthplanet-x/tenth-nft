@@ -1,19 +1,15 @@
-package com.tenth.nft.orm.marketplace.entity.event;
+package com.tenth.nft.marketplace.common.entity.event;
 
-import com.tenth.nft.orm.marketplace.entity.NftActivityEvent;
+import com.tenth.nft.marketplace.common.entity.NftActivityEvent;
 
 /**
  * @author shijie
  */
 public class ListEvent implements NftActivityEvent {
 
-    private Long from;
+    private String from;
 
-    private String fromAddress;
-
-    private Long to;
-
-    private String toAddress;
+    private String to;
 
     private Integer quantity;
 
@@ -23,12 +19,20 @@ public class ListEvent implements NftActivityEvent {
 
     private Long expireAt;
 
-    public Long getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Long from) {
+    public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public Integer getQuantity() {
@@ -55,35 +59,11 @@ public class ListEvent implements NftActivityEvent {
         this.currency = currency;
     }
 
-    public Long getTo() {
-        return to;
-    }
-
-    public void setTo(Long to) {
-        this.to = to;
-    }
-
     public Long getExpireAt() {
         return expireAt;
     }
 
     public void setExpireAt(Long expireAt) {
         this.expireAt = expireAt;
-    }
-
-    public String getFromAddress() {
-        return fromAddress;
-    }
-
-    public void setFromAddress(String fromAddress) {
-        this.fromAddress = fromAddress;
-    }
-
-    public String getToAddress() {
-        return toAddress;
-    }
-
-    public void setToAddress(String toAddress) {
-        this.toAddress = toAddress;
     }
 }

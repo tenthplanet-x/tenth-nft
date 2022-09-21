@@ -1,4 +1,4 @@
-package com.tenth.nft.orm.marketplace.entity.event;
+package com.tenth.nft.marketplace.common.entity.event;
 
 /**
  * @author shijie

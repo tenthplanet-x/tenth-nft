@@ -8,8 +8,8 @@ import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.convention.routes.exchange.CollectionsExchangeProfileRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.CollectionCreateRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.CollectionDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsCollectionCreateRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsCollectionDetailRouteRequest;
 import com.tenth.nft.marketplace.dao.PlayerAssetsDao;
 import com.tenth.nft.marketplace.dao.PlayerCollectionDao;
 import com.tenth.nft.marketplace.dao.expression.PlayerAssetsQuery;
@@ -95,7 +95,7 @@ public class PlayerCollectionService {
                 NftMarketplace.COLLECTION_CREATE_IC.newBuilder()
                         .setCollection(NftCollectionDTO.toProto(nftCollection))
                         .build(),
-                CollectionCreateRouteRequest.class
+                AbsCollectionCreateRouteRequest.class
         ).getCollection();
 
         //insert relation
@@ -160,7 +160,7 @@ public class PlayerCollectionService {
                                     NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()
                                             .setId(entity.getCollectionId())
                                             .build(),
-                                    CollectionDetailRouteRequest.class
+                                    AbsCollectionDetailRouteRequest.class
                             ).getCollection()
                     );
                     dto.setCreatorProfile(NftUserProfileDTO.from(creatorProfile));
@@ -181,7 +181,7 @@ public class PlayerCollectionService {
                         NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()
                                 .setId(request.getId())
                                 .build(),
-                        CollectionDetailRouteRequest.class
+                        AbsCollectionDetailRouteRequest.class
                 ).getCollection(),
                 NftCollectionDetailDTO.class
         );

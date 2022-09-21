@@ -6,7 +6,7 @@ import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.wallet.WalletPayRouteRequest;
 import com.tenth.nft.convention.wallet.WalletMerchantType;
 import com.tenth.nft.convention.wallet.WalletOrderBizContent;
@@ -19,8 +19,6 @@ import com.tenth.nft.exchange.buildin.wallet.BuildInWalletProvider;
 import com.tenth.nft.exchange.common.service.AbsOfferService;
 import com.tenth.nft.exchange.common.service.NftActivityService;
 import com.tenth.nft.exchange.common.service.NftOrderService;
-import com.tenth.nft.orm.marketplace.dao.NftAssetsDao;
-import com.tenth.nft.orm.marketplace.dao.NftBelongDao;
 import com.tenth.nft.orm.marketplace.dao.NftOfferDao;
 import com.tenth.nft.orm.marketplace.dao.expression.*;
 import com.tenth.nft.orm.marketplace.entity.*;
@@ -39,7 +37,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -120,7 +117,7 @@ public class BuildInOfferService extends AbsOfferService {
                 NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                         .setId(request.getAssetsId())
                         .build(),
-                AssetsDetailRouteRequest.class
+                AbsAssetsDetailRouteRequest.class
         ).getAssets();
         nftOffer.setCreatorUid(assetsDTO.getCreator());
         nftOffer.setCreatorFeeRate(assetsDTO.getCreatorFeeRate());

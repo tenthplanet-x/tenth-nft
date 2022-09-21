@@ -6,7 +6,7 @@ import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.exchange.PaymentReceiveRouteRequest;
-import com.tenth.nft.convention.routes.marketplace.AssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.wallet.BillIncomeTriggerRouteRequest;
 import com.tenth.nft.convention.routes.wallet.BillPaymentNotifyRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
@@ -197,7 +197,7 @@ public class WalletBillService {
                             NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
                                     .setId(Long.valueOf(walletBill.getProductId()))
                                     .build(),
-                            AssetsDetailRouteRequest.class
+                            AbsAssetsDetailRouteRequest.class
                     ).getAssets().getName()
             );
         }

@@ -1,10 +1,6 @@
-package com.tenth.nft.marketplace.dto;
+package com.tenth.nft.marketplace.common.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.vo.UserProfileDTO;
-import com.tenth.nft.orm.marketplace.entity.NftCollection;
-import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -12,29 +8,28 @@ import com.tpulse.gs.convention.dao.annotation.SimpleField;
  * @author gs-orm-generator
  * @createdAt 2022/06/21 11:07
  */
-public class NftCollectionDTO {
+public class NftCollectionDTO implements SimpleResponse {
 
+    @SimpleField(name = "_id")
     public Long id;
-
+    @SimpleField
     private String uid;
-
+    @SimpleField
     private String name;
-
+    @SimpleField
     private String desc;
-
+    @SimpleField
     private String logoImage;
-
+    @SimpleField
     private String featuredImage;
-
+    @SimpleField
     private Long category;
-
+    @SimpleField
     private String creatorFeeRate;
-
+    @SimpleField
     private String blockchain;
-
+    @SimpleField
     private Integer items;
-
-    private UserProfileDTO creatorProfile;
 
     public Long getId() {
         return id;
@@ -116,11 +111,4 @@ public class NftCollectionDTO {
         this.items = items;
     }
 
-    public UserProfileDTO getCreatorProfile() {
-        return creatorProfile;
-    }
-
-    public void setCreatorProfile(UserProfileDTO creatorProfile) {
-        this.creatorProfile = creatorProfile;
-    }
 }

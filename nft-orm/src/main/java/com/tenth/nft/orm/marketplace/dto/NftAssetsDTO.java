@@ -1,8 +1,6 @@
 package com.tenth.nft.orm.marketplace.dto;
 
 import com.google.common.base.Strings;
-import com.tenth.nft.convention.utils.Prices;
-import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 import com.tenth.nft.orm.marketplace.entity.NftAssets;
 import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
 import com.tenth.nft.protobuf.NftExchange;
@@ -250,16 +248,16 @@ public class NftAssetsDTO implements SimpleResponse {
         builder.setSupply(nftAssets.getSupply());
         builder.setCreatedAt(nftAssets.getCreatedAt());
         builder.setBlockchain(nftAssets.getBlockchain());
-        builder.setCreator(nftAssets.getCreator());
+        builder.setCreator(String.valueOf(nftAssets.getCreator()));
         if(!Strings.isNullOrEmpty(nftAssets.getCreatorFeeRate())){
             builder.setCreatorFeeRate(nftAssets.getCreatorFeeRate());
         }
-        if(!Strings.isNullOrEmpty(nftAssets.getCreatorAddress())){
-            builder.setCreatorAddress(nftAssets.getCreatorAddress());
-        }
-        if(!Strings.isNullOrEmpty(nftAssets.getSignature())){
-            builder.setSignature(nftAssets.getSignature());
-        }
+//        if(!Strings.isNullOrEmpty(nftAssets.getCreator())){
+//            builder.setCreatorAddress(nftAssets.getCreator());
+//        }
+//        if(!Strings.isNullOrEmpty(nftAssets.getSignature())){
+//            builder.setSignature(nftAssets.getSignature());
+//        }
 
         if(null != nftAssets.getContractAddress()){
             builder.setContractAddress(nftAssets.getContractAddress());
@@ -267,9 +265,9 @@ public class NftAssetsDTO implements SimpleResponse {
             builder.setToken(nftAssets.getToken());
         }
 
-        if(TokenMintStatus.SUCCESS.equals(nftAssets.getMintStatus())){
-            builder.setMint(true);
-        }
+//        if(TokenMintStatus.SUCCESS.equals(nftAssets.getMintStatus())){
+//            builder.setMint(true);
+//        }
 
         return builder.build();
     }

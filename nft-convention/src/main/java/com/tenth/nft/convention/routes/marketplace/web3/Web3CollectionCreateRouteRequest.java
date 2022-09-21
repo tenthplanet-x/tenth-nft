@@ -1,14 +1,17 @@
-package com.tenth.nft.convention.routes.marketplace.buildin;
+package com.tenth.nft.convention.routes.marketplace.web3;
 
 import com.tenth.nft.convention.cmd.NftInnerCmds;
+import com.tenth.nft.convention.cmd.NftWeb3Cmds;
 import com.tenth.nft.convention.routes.marketplace.AbsCollectionCreateRouteRequest;
+import org.springframework.stereotype.Component;
 
 /**
  * @author shijie
  */
-public class BuildInCollectionCreateRouteRequest extends AbsCollectionCreateRouteRequest {
+@Component
+public class Web3CollectionCreateRouteRequest extends AbsCollectionCreateRouteRequest {
 
-    public BuildInCollectionCreateRouteRequest() {
-        super(NftInnerCmds.COLLECTION_CREATE_IC);
+    public Web3CollectionCreateRouteRequest() {
+        super(NftWeb3Cmds.COLLECTION_CREATE_IC);
     }
 }

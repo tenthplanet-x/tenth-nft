@@ -1,8 +1,7 @@
-package com.tenth.nft.orm.marketplace.dao.expression;
+package com.tenth.nft.marketplace.common.dao.expression;
 
 import com.tenth.nft.convention.web3.utils.TokenMintStatus;
-import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
-import com.tenth.nft.orm.marketplace.entity.NftAssetsType;
+import com.tenth.nft.marketplace.common.entity.NftAssetsType;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 
@@ -10,7 +9,7 @@ import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
  * @author gs-orm-generator
  * @createdAt 2022/06/21 11:07
  */
-public class NftAssetsUpdate extends SimpleUpdate {
+public class AbsNftAssetsUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
     private NftAssetsType type;
@@ -104,7 +103,7 @@ public class NftAssetsUpdate extends SimpleUpdate {
 
     public static class Builder{
 
-        private NftAssetsUpdate update = new NftAssetsUpdate();
+        private AbsNftAssetsUpdate update = new AbsNftAssetsUpdate();
         private String contractAddress;
 
         public Builder setType(NftAssetsType type){
@@ -142,7 +141,7 @@ public class NftAssetsUpdate extends SimpleUpdate {
             return this;
         }
 
-        public NftAssetsUpdate build(){
+        public AbsNftAssetsUpdate build(){
             return update;
         }
 

@@ -1,9 +1,9 @@
-package com.tenth.nft.marketplace.vo;
+package com.tenth.nft.marketplace.web3.dto;
 
 /**
  * @author shijie
  */
-public class CreateWeb3NftResponse {
+public class CreateWeb3NftSignRequest {
 
     private String from;
 

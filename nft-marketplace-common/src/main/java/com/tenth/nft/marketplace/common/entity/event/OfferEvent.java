@@ -1,13 +1,13 @@
-package com.tenth.nft.orm.marketplace.entity.event;
+package com.tenth.nft.marketplace.common.entity.event;
 
-import com.tenth.nft.orm.marketplace.entity.NftActivityEvent;
+import com.tenth.nft.marketplace.common.entity.NftActivityEvent;
 
 /**
  * @author shijie
  */
 public class OfferEvent implements NftActivityEvent {
 
-    private Long from;
+    private String from;
     private Integer quantity;
     private String price;
     private String currency;
@@ -15,12 +15,12 @@ public class OfferEvent implements NftActivityEvent {
     private String reason;
     private Long expireAt;
 
-    public void setFrom(Long from) {
-        this.from = from;
+    public String getFrom() {
+        return from;
     }
 
-    public Long getFrom() {
-        return from;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public void setQuantity(Integer quantity) {

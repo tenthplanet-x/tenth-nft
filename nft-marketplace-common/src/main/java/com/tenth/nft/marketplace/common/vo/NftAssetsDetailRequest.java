@@ -1,4 +1,4 @@
-package com.tenth.nft.marketplace.vo;
+package com.tenth.nft.marketplace.common.vo;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

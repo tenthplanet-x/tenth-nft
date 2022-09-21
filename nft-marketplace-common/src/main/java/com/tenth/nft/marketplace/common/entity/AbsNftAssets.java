@@ -1,18 +1,13 @@
-package com.tenth.nft.orm.marketplace.entity;
+package com.tenth.nft.marketplace.common.entity;
 
-import com.tenth.nft.convention.web3.utils.TokenMintStatus;
-import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import com.tpulse.gs.convention.dao.annotation.columns.SimpleColumnTypeText;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author shijie
  */
-@Document("tpulse.nft_assets")
-@SimpleCache(cacheField = "_id")
-public class NftAssets {
+public class AbsNftAssets {
 
     @Id
     private Long id;
@@ -45,15 +40,9 @@ public class NftAssets {
 
     private String token;
 
-    private Long creator;
+    private String creator;
 
     private String creatorFeeRate;
-
-    private String creatorAddress;
-
-    private TokenMintStatus mintStatus;
-
-    private String signature;
 
     public Long getId() {
         return id;
@@ -167,11 +156,11 @@ public class NftAssets {
         this.token = token;
     }
 
-    public Long getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(Long creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 
@@ -183,27 +172,4 @@ public class NftAssets {
         this.creatorFeeRate = creatorFeeRate;
     }
 
-    public String getCreatorAddress() {
-        return creatorAddress;
-    }
-
-    public void setCreatorAddress(String creatorAddress) {
-        this.creatorAddress = creatorAddress;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
-
-    public TokenMintStatus getMintStatus() {
-        return mintStatus;
-    }
-
-    public void setMintStatus(TokenMintStatus mintStatus) {
-        this.mintStatus = mintStatus;
-    }
 }

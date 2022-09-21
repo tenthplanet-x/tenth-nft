@@ -23,6 +23,7 @@ public class NftCollectionCreateRequest {
 
     private Long category;
 
+    @NotEmpty
     private String creatorFeeRate;
 
     @NotEmpty

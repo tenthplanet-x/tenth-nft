@@ -1,4 +1,4 @@
-package com.tenth.nft.orm.marketplace.dao.expression;
+package com.tenth.nft.marketplace.common.dao.expression;
 
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
@@ -7,19 +7,19 @@ import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
  * @author gs-orm-generator
  * @createdAt 2022/06/21 11:07
  */
-public class NftCollectionQuery extends SimplePageQuery {
+public class AbsNftCollectionQuery extends SimplePageQuery {
 
     @SimpleQueryParam(name = "_id")
     private Long id;
     @SimpleQueryParam
-    private Long uid;
+    private String creator;
 
     public Long getId() {
         return id;
     }
 
-    public Long getUid() {
-        return uid;
+    public String getCreator() {
+        return creator;
     }
 
     public static Builder newBuilder() {
@@ -28,11 +28,11 @@ public class NftCollectionQuery extends SimplePageQuery {
 
     public static class Builder extends SimplePageQuery.Builder{
 
-        NftCollectionQuery query;
+        AbsNftCollectionQuery query;
 
         public Builder() {
-            super(new NftCollectionQuery());
-            this.query = (NftCollectionQuery) super.query;
+            super(new AbsNftCollectionQuery());
+            this.query = (AbsNftCollectionQuery) super.query;
         }
 
         public Builder id(Long id) {
@@ -40,10 +40,12 @@ public class NftCollectionQuery extends SimplePageQuery {
             return this;
         }
 
-        public Builder uid(Long uid) {
-            query.uid = uid;
+        public Builder creator(String creator) {
+            query.creator = creator;
             return this;
         }
+
+
     }
 
 }

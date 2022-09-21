@@ -1,5 +1,13 @@
-package com.tenth.nft.marketplace.buildin.entity;/**
+package com.tenth.nft.marketplace.buildin.entity;
+
+import com.tenth.nft.marketplace.common.entity.AbsNftAssets;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+/**
  * @author shijie
  */
-public class BuildInNftAssets {
+@Document("tpulse.buildin_nft_assets")
+public class BuildInNftAssets extends AbsNftAssets {
+
+
 }

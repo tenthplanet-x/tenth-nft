@@ -1,22 +1,20 @@
-package com.tenth.nft.orm.marketplace.dao.expression;
+package com.tenth.nft.marketplace.common.dao.expression;
 
-import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
-import com.tpulse.gs.convention.dao.defination.QueryOpt;
 
 /**
  * @author gs-orm-generator
  * @createdAt 2022/07/05 12:01
  */
-public class NftBelongQuery extends SimplePageQuery {
+public class AbsNftBelongQuery extends SimplePageQuery {
 
     @SimpleQueryParam(name = "_id")
     private Long id;
     @SimpleQueryParam
     private Long assetsId;
     @SimpleQueryParam
-    private Long owner;
+    private String owner;
 
     public Long getId() {
         return id;
@@ -26,7 +24,7 @@ public class NftBelongQuery extends SimplePageQuery {
         return assetsId;
     }
 
-    public Long getOwner() {
+    public String getOwner() {
         return owner;
     }
 
@@ -36,11 +34,11 @@ public class NftBelongQuery extends SimplePageQuery {
 
     public static class Builder extends SimplePageQuery.Builder{
 
-        NftBelongQuery query;
+        AbsNftBelongQuery query;
 
         public Builder() {
-            super(new NftBelongQuery());
-            this.query = (NftBelongQuery) super.query;
+            super(new AbsNftBelongQuery());
+            this.query = (AbsNftBelongQuery) super.query;
         }
 
         public Builder id(Long id) {
@@ -53,7 +51,7 @@ public class NftBelongQuery extends SimplePageQuery {
             return this;
         }
 
-        public Builder owner(Long uid) {
+        public Builder owner(String uid) {
             query.owner = uid;
             return this;
         }
