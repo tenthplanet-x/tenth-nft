@@ -7,29 +7,24 @@ import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.utils.Precisions;
 import com.tenth.nft.convention.web3.sign.MintDataForSign;
 import com.tenth.nft.convention.web3.sign.StructContentHash;
-import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftAssetsService;
 import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
 import com.tenth.nft.marketplace.web3.dao.Web3NftAssetsDao;
-import com.tenth.nft.marketplace.web3.dto.CreateWeb3NftSignRequest;
+import com.tenth.nft.marketplace.web3.dto.Web3NftCreateSignTicket;
 import com.tenth.nft.marketplace.web3.entity.Web3NftAssets;
 import com.tenth.nft.marketplace.web3.entity.Web3NftCollection;
-import com.tenth.nft.marketplace.web3.vo.NftAssetsCreateConfirmRequest;
+import com.tenth.nft.marketplace.web3.vo.Web3NftAssetsCreateConfirmRequest;
 import com.tenth.nft.marketplace.web3.vo.Web3NftAssetsCreateRequest;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.TpulseContractHelper;
-import com.tpulse.gs.convention.cypher.rsa.RSAUtils;
-import com.tpulse.gs.convention.cypher.utils.Base64Utils;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.json.JsonUtil;
 import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author shijie
@@ -65,7 +60,7 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
 
     }
 
-    public CreateWeb3NftSignRequest create(NftAssetsCreateRequest request) throws Exception {
+    public Web3NftCreateSignTicket create(NftAssetsCreateRequest request) throws Exception {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         String creator = routeClient.send(
@@ -94,7 +89,7 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
         mintDataForSign.setCreatorFeeRatePrecision(Precisions.getCreatorFeeRatePrecision());
         String dataForSign = mintDataForSign.toDataForSignBase64();
 
-        CreateWeb3NftSignRequest response = new CreateWeb3NftSignRequest();
+        Web3NftCreateSignTicket response = new Web3NftCreateSignTicket();
         response.setDataForSign(dataForSign);
         response.setContent(StructContentHash.wrap(JsonUtil.toJson(request), web3Properties.getRsa().getPrivateKey()));
         response.setFrom(creator);
@@ -110,7 +105,7 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
         return response;
     }
 
-    public NftAssetsDTO createConfirm(NftAssetsCreateConfirmRequest _request) {
+    public NftAssetsDTO createConfirm(Web3NftAssetsCreateConfirmRequest _request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         String creator = routeClient.send(

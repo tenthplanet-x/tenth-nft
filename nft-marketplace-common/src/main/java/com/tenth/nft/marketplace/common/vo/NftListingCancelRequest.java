@@ -1,4 +1,4 @@
-package com.tenth.nft.exchange.buildin.vo;
+package com.tenth.nft.marketplace.common.vo;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
  * @author shijie
  */
 @Valid
-public class SellCancelRequest {
+public class NftListingCancelRequest {
 
     @NotNull
     private Long assetsId;

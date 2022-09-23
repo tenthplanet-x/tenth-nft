@@ -14,20 +14,21 @@ import com.tenth.nft.marketplace.common.entity.AbsNftBuyOrder;
 import com.tenth.nft.marketplace.common.entity.AbsNftListing;
 import com.tenth.nft.marketplace.common.entity.NftOrderStatus;
 import com.tenth.nft.marketplace.common.entity.event.ListCancelEventReason;
-import com.tenth.nft.marketplace.common.vo.NftBuyRequest;
-import com.tenth.nft.marketplace.common.vo.NftListingRequest;
+import com.tenth.nft.marketplace.common.vo.NftListingBuyRequest;
+import com.tenth.nft.marketplace.common.vo.NftListingCancelRequest;
+import com.tenth.nft.marketplace.common.vo.NftListingListRequest;
+import com.tenth.nft.marketplace.common.vo.NftListingCreateRequest;
 import com.tenth.nft.marketplace.common.wallet.IWalletProvider;
 import com.tenth.nft.marketplace.common.wallet.WalletProviderFactory;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tpulse.gs.convention.dao.dto.Page;
 import com.wallan.router.exception.BizException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -41,23 +42,25 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
     private AbsNftListingDao<T> nftListingDao;
     private AbsNftBelongService nftBelongService;
     private AbsNftUbtLogService nftUbtLogService;
+    private AbsNftBuyOrderService nftBuyOrderService;
     @Autowired
     private Web3Properties web3Properties;
     @Autowired
     private WalletProviderFactory walletProviderFactory;
-    @Autowired
-    private AbsNftBuyOrderService nftBuyOrderService;
+
 
     public AbsNftListingService(
             AbsNftAssetsService nftAssetsService,
             AbsNftListingDao<T> nftListingDao,
             AbsNftBelongService nftBelongService,
-            AbsNftUbtLogService nftUbtLogService
+            AbsNftUbtLogService nftUbtLogService,
+            AbsNftBuyOrderService nftBuyOrderService
     ) {
         this.nftAssetsService = nftAssetsService;
         this.nftListingDao = nftListingDao;
         this.nftBelongService = nftBelongService;
         this.nftUbtLogService = nftUbtLogService;
+        this.nftBuyOrderService = nftBuyOrderService;
     }
 
     /**
@@ -66,7 +69,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
      * @param request
      * @return
      */
-    public NftListingDTO listing(String seller, NftListingRequest request){
+    public NftListingDTO create(String seller, NftListingCreateRequest request){
 
         AbsNftAssets assets = nftAssetsService.findById(request.getAssetsId());
         preListingCheck(seller, request, assets);
@@ -82,7 +85,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
      * @param request
      * @return
      */
-    public NftWalletPayTicket buy(String buyer, NftBuyRequest request) {
+    public NftWalletPayTicket buy(String buyer, NftListingBuyRequest request) {
 
         //listing check
         T nftListing = nftListingDao.findOne(
@@ -155,7 +158,52 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
 
     }
 
-    protected void preBuyCheck(String buyer, NftBuyRequest request, AbsNftListing nftListing, AbsNftAssets nftAssets) {
+    public <T extends NftListingDTO> Page<T> list(NftListingListRequest request, Class<T> dtoClass) {
+
+        return nftListingDao.findPage(
+                AbsNftListingQuery.newBuilder()
+                        .assetsId(request.getAssetsId())
+                        .setPage(request.getPage())
+                        .setPageSize(request.getPageSize())
+                .build(),
+                dtoClass
+        );
+
+//        List<NftListingDTO> data = routeClient.send(
+//                NftExchange.LISTING_LIST_IC.newBuilder()
+//                        .setAssetsId(request.getAssetsId())
+//                        .setPage(request.getPage())
+//                        .setPageSize(request.getPageSize())
+//                        .build(),
+//                ListingListRouteRequest.class
+//        ).getListingsList().stream().map(NftListingDTO::from).collect(Collectors.toList());
+//
+//        //fill with userProfile
+//        Collection<Long> sellerUids = data.stream().map(dto -> dto.getSeller()).collect(Collectors.toSet());
+//        Map<Long, UserProfileDTO> userProfileDTOMap = routeClient.send(
+//                Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(sellerUids).build(),
+//                SearchUserProfileRouteRequest.class
+//        ).getProfilesList().stream().map(NftListingService::from).collect(Collectors.toMap(UserProfileDTO::getUid, Function.identity()));
+//        data.stream().forEach(dto -> {
+//            dto.setSellerProfile(userProfileDTOMap.get(dto.getSeller()));
+//        });
+
+//        return new Page<>(0, data);
+    }
+
+    public void cancel(String seller, NftListingCancelRequest request) {
+        AbsNftListing nftListing = nftListingDao.findAndRemove(
+                AbsNftListingQuery.newBuilder().assetsId(request.getAssetsId()).id(request.getListingId()).seller(seller).build()
+        );
+        if(null == nftListing){
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_CANCEL_EXCEPTION_NOT_EXIST);
+        }
+        nftUbtLogService.createCancelEvent(nftListing, request.getReason());
+//        sendListingRouteEventToStats(assetsId);
+//        sendListingRouteEventToSearch(nftListing.getAssetsId());
+    }
+
+    protected void preBuyCheck(String buyer, NftListingBuyRequest request, AbsNftListing nftListing, AbsNftAssets nftAssets) {
 
         if(null == nftListing){
             throw BizException.newInstance(NftExchangeErrorCodes.BUY_EXCEPTION_NO_EXIST);
@@ -174,7 +222,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
 
     }
 
-    protected T buildEntity(String seller, NftListingRequest request, AbsNftAssets assets) {
+    protected T buildEntity(String seller, NftListingCreateRequest request, AbsNftAssets assets) {
 
         T listing = newListingEntity();
         listing.setSeller(seller);
@@ -193,14 +241,14 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         return listing;
     }
 
-    protected void preListingCheck(String seller, NftListingRequest request, AbsNftAssets assets) throws BizException {
+    protected void preListingCheck(String seller, NftListingCreateRequest request, AbsNftAssets assets) throws BizException {
         if(Times.isExpired(request.getExpireAt())){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_EXCEPTION_INVALID_PARAMS);
         }
         //Quantity check
         int owns = nftBelongService.owns(assets.getId(), seller);
         if(owns < request.getQuantity()){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXPCETION_NO_ENOUGH_ASSETS);
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_BUY_EXPCETION_NO_ENOUGH_ASSETS);
         }
     }
 

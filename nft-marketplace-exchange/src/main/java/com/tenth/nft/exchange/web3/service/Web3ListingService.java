@@ -132,7 +132,7 @@ public class Web3ListingService extends AbsListingFlowService {
         WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
         String blockchain = walletCurrencyTemplate.findOne(currency).getBlockchain();
         if(!web3Properties.getBlockchain().equals(blockchain)){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_EXCEPTION_INVALID_PARAMS);
         }
     }
 

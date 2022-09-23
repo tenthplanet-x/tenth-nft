@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
  * @author shijie
  */
 @Valid
-public class NftAssetsCreateConfirmRequest {
+public class Web3NftAssetsCreateConfirmRequest {
 
     @NotEmpty
     private String content;

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
  * @author shijie
  */
 @Valid
-public class NftBuyRequest {
+public class NftListingBuyRequest {
 
     @NotNull
     private Long listingId;

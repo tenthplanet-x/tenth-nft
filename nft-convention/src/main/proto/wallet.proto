@@ -62,5 +62,13 @@ message BILL_PAYMENT_NOTIFY_IS{
 
 }
 
+message PASSWORD_CHECK_IC{
+  required int64 uid = 1;
+  required string password = 2;
+}
+message PASSWORD_CHECK_IS{
+  required bool success = 1;
+}
+
 
 

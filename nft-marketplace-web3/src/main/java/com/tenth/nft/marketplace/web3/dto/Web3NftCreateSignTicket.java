@@ -3,7 +3,7 @@ package com.tenth.nft.marketplace.web3.dto;
 /**
  * @author shijie
  */
-public class CreateWeb3NftSignRequest {
+public class Web3NftCreateSignTicket {
 
     private String from;
 

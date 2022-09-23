@@ -1,9 +1,9 @@
-package com.tenth.nft.exchange.web3.dto;
+package com.tenth.nft.marketplace.web3.dto;
 
 /**
  * @author shijie
  */
-public class ListingCreateResponse {
+public class WebListingSignTicket {
 
     private String from;
 
@@ -13,11 +13,11 @@ public class ListingCreateResponse {
 
     private String walletBridgeUrl;
 
-    public ListingCreateResponse() {
+    public WebListingSignTicket() {
 
     }
 
-    public ListingCreateResponse(String content) {
+    public WebListingSignTicket(String content) {
         this.dataForSign = content;
     }
 

@@ -133,7 +133,7 @@ public class NftListingService {
                 NftListingQuery.newBuilder().assetsId(assetsId).id(listingId).build()
         );
         if(null == nftListing){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_CANCEL_EXCEPTION_NOT_EXIST);
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_CANCEL_EXCEPTION_NOT_EXIST);
         }
         nftExchangeEventService.createCancelEvent(nftListing, reason);
         sendListingRouteEventToStats(assetsId);

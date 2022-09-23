@@ -18,11 +18,13 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     /**
      * 20300 sell
      */
-    SELL_EXCEPTION_INVALID_PARAMS("020301", "invalid params"),
-    SELL_EXCEPTION_CREATE_CONTRACT_ERROR("020302", "create contract error"),
-    SELL_CANCEL_EXCEPTION_NOT_EXIST("020303", "does not exist"),
-    SELL_CANCEL_EXCEPTION_EXPIRED("020304", "expire"),
-    SELL_EXPCETION_NO_ENOUGH_ASSETS("020305", "no enough assets"),
+    LISTING_EXCEPTION_INVALID_PARAMS("020301", "Illegal params"),
+    LISTING_EXCEPTION_CREATE_CONTRACT_ERROR("020302", "create contract error"),
+    LISTING_CANCEL_EXCEPTION_NOT_EXIST("020303", "Does not exist"),
+    LISTING_CANCEL_EXCEPTION_EXPIRED("020304", "Expired"),
+    LISTING_BUY_EXPCETION_NO_ENOUGH_ASSETS("020305", "Doesn't have enough assets"),
+    LISTING_CREATE_EXCEPTION_ILLEGAL_SIGNATURE("020306", "Illegal signature"),
+
     /**
      * 20400 buy
      */
@@ -54,6 +56,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     WALLET_EXCEPTION_UNCORRECT_PASSWORD("0207002", "uncorrect password"),
     WALLET_PAY_EXCEPTION_BIZ_VERIFY_FAILED("0207003", "biz verify failed"),
 
+
     /**
      * 20800
      */
@@ -64,6 +67,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     WEB3WALLET_BILL_HAS_FAIL_STATUS("020804", "bill doesn't exist")
 
     ;
+
 
 
     private String code;

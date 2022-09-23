@@ -39,7 +39,6 @@ public class WalletProviderFactory {
     }
 
     public IWalletProvider getByCurrency(String currency){
-
         WalletCurrencyTemplate walletCurrencyTemplate = i18nGsTemplates.get(NftTemplateTypes.wallet_currency);
         WalletCurrencyConfig walletCurrencyConfig = walletCurrencyTemplate.findOne(currency);
         return get(walletCurrencyConfig.getBlockchain());

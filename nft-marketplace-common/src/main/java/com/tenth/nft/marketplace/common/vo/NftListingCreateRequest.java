@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
  * @author shijie
  */
 @Valid
-public class NftListingRequest {
+public class NftListingCreateRequest {
 
     @NotNull
     private Long assetsId;
@@ -24,7 +24,7 @@ public class NftListingRequest {
     private Long startAt;
     @NotNull
     private Long expireAt;
-
+    @NotNull
     private String signature;
 
     public Long getAssetsId() {

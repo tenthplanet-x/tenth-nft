@@ -40,12 +40,12 @@ public abstract class AbsListingFlowService {
             long expireAt
     ) {
         if(Times.isExpired(expireAt)){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_EXCEPTION_INVALID_PARAMS);
         }
         //Quantity check
         NftBelong nftBelong = nftBelongService.findOne(assetsId, uid);
         if(null == nftBelong || nftBelong.getQuantity() < quantity){
-            throw BizException.newInstance(NftExchangeErrorCodes.SELL_EXCEPTION_INVALID_PARAMS);
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_EXCEPTION_INVALID_PARAMS);
         }
     }
 

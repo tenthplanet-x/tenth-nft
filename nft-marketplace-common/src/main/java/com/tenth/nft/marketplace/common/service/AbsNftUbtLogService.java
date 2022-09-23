@@ -9,7 +9,7 @@ import com.tenth.nft.marketplace.common.dao.expression.AbsNftUbtLogUpdate;
 import com.tenth.nft.marketplace.common.dto.NftUbtLogDTO;
 import com.tenth.nft.marketplace.common.entity.*;
 import com.tenth.nft.marketplace.common.entity.event.*;
-import com.tenth.nft.marketplace.common.vo.NftActivityListRequest;
+import com.tenth.nft.marketplace.common.vo.NftUbtLogListRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
         this.nftUbtLogDao = nftUbtLogDao;
     }
 
-    public Page<NftUbtLogDTO> list(NftActivityListRequest request) {
+    public Page<NftUbtLogDTO> list(NftUbtLogListRequest request) {
 
         Page<T> dataPage = nftUbtLogDao.findPage(
                 AbsNftUbtLogQuery.newBuilder()
@@ -231,7 +231,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
 //    }
 
     protected NftUbtLogDTO toDTO(T nftActivity) {
-        NftUbtLogDTO nftActivityDTO = new NftUbtLogDTO();
+        NftUbtLogDTO nftActivityDTO = newDTO();
         nftActivityDTO.setId(nftActivity.getId());
         nftActivityDTO.setEvent(nftActivity.getType().getLabel());
         nftActivityDTO.setCreatedAt(nftActivity.getCreatedAt());
@@ -299,5 +299,9 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
         }
 
         return nftActivityDTO;
+    }
+
+    protected NftUbtLogDTO newDTO() {
+        return new NftUbtLogDTO();
     }
 }
