@@ -19,7 +19,7 @@ public class AbsNftBuyOrderQuery extends SimplePageQuery {
     @SimpleQueryParam
     private NftOrderStatus status;
     @SimpleQueryParam
-    private Long owner;
+    private Long seller;
 
     public Long getId() {
         return id;
@@ -37,8 +37,8 @@ public class AbsNftBuyOrderQuery extends SimplePageQuery {
         return status;
     }
 
-    public Long getOwner() {
-        return owner;
+    public Long getSeller() {
+        return seller;
     }
 
     public static Builder newBuilder() {
@@ -74,8 +74,8 @@ public class AbsNftBuyOrderQuery extends SimplePageQuery {
             return this;
         }
 
-        public Builder owner(Long owner) {
-            query.owner = owner;
+        public Builder seller(Long seller) {
+            query.seller = seller;
             return this;
         }
 

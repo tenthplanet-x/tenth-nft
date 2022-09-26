@@ -3,6 +3,7 @@ package com.tenth.nft.wallet.service;
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
+import com.tenth.nft.protobuf.NftWallet;
 import com.tenth.nft.wallet.dao.WalletSettingDao;
 import com.tenth.nft.wallet.dao.expression.WalletSettingQuery;
 import com.tenth.nft.wallet.dao.expression.WalletSettingUpdate;
@@ -55,5 +56,19 @@ public class WalletSettingService {
                         .build(),
                 UpdateOptions.options().upsert(true)
         );
+    }
+
+    public NftWallet.PASSWORD_CHECK_IS checkPassword(NftWallet.PASSWORD_CHECK_IC request) {
+
+        try {
+            checkPassword(request.getUid(), request.getPassword());
+            return NftWallet.PASSWORD_CHECK_IS.newBuilder()
+                    .setSuccess(true)
+                    .build();
+        }catch (BizException e){
+            return NftWallet.PASSWORD_CHECK_IS.newBuilder()
+                    .setSuccess(false)
+                    .build();
+        }
     }
 }

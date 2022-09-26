@@ -63,10 +63,10 @@ public class BuildInNftUbtLogService extends AbsNftUbtLogService<BuildInNftUbtLo
             ).getProfilesList().stream().map(NftUserProfileDTO::from).collect(Collectors.toMap(NftUserProfileDTO::getUid, Function.identity()));
             dtos.stream().forEach(dto -> {
                 if(null != dto.getFrom()){
-                    ((BuildInNftUbtLogDTO)dto).setFromProfile(userProfileDTOMap.get(dto.getFrom()));
+                    ((BuildInNftUbtLogDTO)dto).setFromProfile(userProfileDTOMap.get(Long.valueOf(dto.getFrom())));
                 }
                 if(null != dto.getTo()){
-                    ((BuildInNftUbtLogDTO)dto).setToProfile(userProfileDTOMap.get(dto.getTo()));
+                    ((BuildInNftUbtLogDTO)dto).setToProfile(userProfileDTOMap.get(Long.valueOf(dto.getTo())));
                 }
             });
         }

@@ -5,6 +5,7 @@ import com.tenth.nft.marketplace.common.dao.expression.AbsNftBuyOrderUpdate;
 import com.tenth.nft.marketplace.common.entity.NftOrderStatus;
 import com.tenth.nft.marketplace.common.service.AbsNftOrderService;
 import com.tenth.nft.marketplace.web3.dao.Web3NftBuyOrderDao;
+import com.tenth.nft.marketplace.web3.dao.expression.Web3NftBuyOrderUpdate;
 import com.tenth.nft.marketplace.web3.entity.Web3NftBuyOrder;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,9 @@ public class Web3NftBuyOrderService extends AbsNftOrderService<Web3NftBuyOrder> 
                         .assetsId(assetsId)
                         .id(orderId)
                         .build(),
-                AbsNftBuyOrderUpdate.newBuilder()
-                        .setStatus(NftOrderStatus.COMPLETE)
+                Web3NftBuyOrderUpdate.newWeb3Builder()
                         .txn(txn)
+                        .setStatus(NftOrderStatus.COMPLETE)
                         .build()
         );
     }

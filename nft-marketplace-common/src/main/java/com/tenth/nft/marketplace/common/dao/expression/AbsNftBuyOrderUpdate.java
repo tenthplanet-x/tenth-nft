@@ -14,9 +14,6 @@ public class AbsNftBuyOrderUpdate extends SimpleUpdate {
     private Long assetsId;
 
     @SimpleWriteParam
-    private Long listingId;
-
-    @SimpleWriteParam
     private Long buyer;
 
     @SimpleWriteParam
@@ -28,19 +25,12 @@ public class AbsNftBuyOrderUpdate extends SimpleUpdate {
     @SimpleWriteParam
     private String remark;
 
-    @SimpleWriteParam
-    private String txn;
-
     public Long getUpdatedAt() {
         return updatedAt;
     }
 
     public Long getAssetsId(){
         return assetsId;
-    }
-
-    public Long getListingId(){
-        return listingId;
     }
 
     public Long getBuyer(){
@@ -55,25 +45,17 @@ public class AbsNftBuyOrderUpdate extends SimpleUpdate {
         return remark;
     }
 
-    public String getTxn() {
-        return txn;
-    }
-
     public static Builder newBuilder(){
         return new Builder();
     }
 
     public static class Builder{
 
-        private AbsNftBuyOrderUpdate update = new AbsNftBuyOrderUpdate();
+        private AbsNftBuyOrderUpdate update = newUpdate();
+
 
         public Builder setAssetsId(Long assetsId){
             update.assetsId = assetsId;
-            return this;
-        }
-
-        public Builder setListingId(Long listingId){
-            update.listingId = listingId;
             return this;
         }
 
@@ -87,19 +69,19 @@ public class AbsNftBuyOrderUpdate extends SimpleUpdate {
             return this;
         }
 
-        public AbsNftBuyOrderUpdate build(){
-            return update;
-        }
-
         public Builder remark(String remark) {
             update.remark = remark;
             return this;
         }
 
-        public Builder txn(String txn) {
-            update.txn = txn;
-            return this;
+        protected AbsNftBuyOrderUpdate newUpdate() {
+            return new AbsNftBuyOrderUpdate();
         }
+
+        public AbsNftBuyOrderUpdate build(){
+            return update;
+        }
+
     }
 
 }

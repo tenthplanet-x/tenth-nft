@@ -15,6 +15,8 @@ public enum NftExchangeErrorCodes implements ErrorCode {
      */
     MINT_EXCEPTION("020201", "mint excepiton"),
     MINT_EXCEPTION_INVALID_PARAMS("020202", "invalid mint params"),
+    CREATE_EXCEPTION_ILEGAL_BLOCKCHAIN("020203", "illegal blockchain"),
+
     /**
      * 20300 sell
      */
@@ -67,11 +69,8 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     WEB3WALLET_PAY_EXCEPTION_LACK_OF_BALANCE("020801", "don't have enough balance"),
     WEB3WALLET_DONT_HAVE_BIND("020802", "don't have bind wallet"),
     WEB3WALLET_BILL_DOES_NOT_EXIST("020803", "bill doesn't exist"),
-    WEB3WALLET_BILL_HAS_FAIL_STATUS("020804", "bill doesn't exist")
+    WEB3WALLET_BILL_HAS_FAIL_STATUS("020804", "bill doesn't exist"),
 
-    /**
-     *
-     */
 
     ;
 

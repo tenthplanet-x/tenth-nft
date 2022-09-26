@@ -5,6 +5,7 @@ import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.wallet.utils.BigNumberUtils;
 import com.tenth.nft.protobuf.NftOperation;
+import com.tenth.nft.protobuf.NftWallet;
 import com.tenth.nft.wallet.dao.WalletDao;
 import com.tenth.nft.wallet.dao.expression.WalletQuery;
 import com.tenth.nft.wallet.dao.expression.WalletUpdate;
@@ -154,5 +155,6 @@ public class WalletService {
                 UpdateOptions.options().upsert(true)
         );
     }
+
 
 }

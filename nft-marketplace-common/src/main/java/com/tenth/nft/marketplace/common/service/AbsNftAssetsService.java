@@ -1,6 +1,7 @@
 package com.tenth.nft.marketplace.common.service;
 
 import com.google.common.base.Strings;
+import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.NftModules;
 import com.tenth.nft.convention.OssPaths;
 import com.tenth.nft.convention.templates.BlockchainConfig;
@@ -21,6 +22,7 @@ import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
+import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -57,6 +59,8 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
 
     public NftAssetsDTO create(String creator, NftAssetsCreateRequest request) {
 
+        beforeCreate(creator, request);
+
         //Create
         T nftAssets = buildEntity(creator, request);
         nftAssets = nftAssetsDao.insert(nftAssets);
@@ -91,6 +95,14 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
                 AbsNftAssetsQuery.newBuilder().id(nftAssets.getId()).build(),
                 NftAssetsDTO.class
         );
+    }
+
+    protected void beforeCreate(String creator, NftAssetsCreateRequest request) {
+
+        AbsNftCollection collection = nftCollectionService.findById(request.getCollectionId());
+        if(!collection.getBlockchain().equals(request.getBlockchain())){
+            throw BizException.newInstance(NftExchangeErrorCodes.CREATE_EXCEPTION_ILEGAL_BLOCKCHAIN);
+        }
     }
 
     public NftMarketplace.ASSETS_DETAIL_IS detail(NftMarketplace.ASSETS_DETAIL_IC request) {

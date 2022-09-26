@@ -76,6 +76,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
 
         T listing = buildEntity(seller, request, assets);
         listing = nftListingDao.insert(listing);
+        this.nftUbtLogService.sendListingEvent(listing);
         return toDTO(listing);
     }
 
@@ -103,6 +104,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
                 .price(nftListing.getPrice())
                 .quantity(nftListing.getQuantity())
                 .currency(nftListing.getCurrency())
+                .seller(nftListing.getSeller())
                 .build();
         AbsNftOrder order = nftBuyOrderService.create(buyer, outerProduct, nftAssets);
 
