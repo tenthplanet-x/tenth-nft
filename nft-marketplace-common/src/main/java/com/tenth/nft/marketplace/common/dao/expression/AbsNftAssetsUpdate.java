@@ -42,8 +42,6 @@ public class AbsNftAssetsUpdate extends SimpleUpdate {
     private String tokenStandard;
     @SimpleWriteParam
     private String token;
-    @SimpleWriteParam
-    private TokenMintStatus mintStatus;
 
     public Long getUpdatedAt() {
         return updatedAt;
@@ -93,17 +91,18 @@ public class AbsNftAssetsUpdate extends SimpleUpdate {
         return token;
     }
 
-    public TokenMintStatus getMintStatus() {
-        return mintStatus;
-    }
-
     public static Builder newBuilder(){
         return new Builder();
     }
 
     public static class Builder{
 
-        private AbsNftAssetsUpdate update = new AbsNftAssetsUpdate();
+        private AbsNftAssetsUpdate update = newUpdate();
+
+        protected AbsNftAssetsUpdate newUpdate() {
+            return new AbsNftAssetsUpdate();
+        }
+
         private String contractAddress;
 
         public Builder setType(NftAssetsType type){
@@ -165,10 +164,7 @@ public class AbsNftAssetsUpdate extends SimpleUpdate {
             return this;
         }
 
-        public Builder mintStatus(TokenMintStatus mintStatus) {
-            update.mintStatus = mintStatus;
-            return this;
-        }
+
     }
 
 }

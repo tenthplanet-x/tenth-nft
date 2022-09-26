@@ -20,7 +20,7 @@ public class NftCollectionDTO implements SimpleResponse {
 
     @JsonIgnore
     @SimpleField
-    private Long uid;
+    private String creator;
 
     @SimpleField
     private String name;
@@ -119,12 +119,12 @@ public class NftCollectionDTO implements SimpleResponse {
         this.items = items;
     }
 
-    public Long getUid() {
-        return uid;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public UserProfileDTO getCreatorProfile() {
@@ -135,58 +135,5 @@ public class NftCollectionDTO implements SimpleResponse {
         this.creatorProfile = creatorProfile;
     }
 
-    public static NftMarketplace.CollectionDTO toProto(NftCollection nftCollection) {
 
-        NftMarketplace.CollectionDTO.Builder builder = NftMarketplace.CollectionDTO.newBuilder();
-        builder.setId(nftCollection.getId());
-        builder.setCreator(String.valueOf(nftCollection.getUid()));
-        if(null != nftCollection.getCategory()){
-            builder.setCategory(nftCollection.getCategory());
-        }
-        builder.setName(nftCollection.getName());
-        if(!Strings.isNullOrEmpty(nftCollection.getDesc())){
-            builder.setDesc(nftCollection.getDesc());
-        }
-        builder.setLogoImage(nftCollection.getLogoImage());
-        if(!Strings.isNullOrEmpty(nftCollection.getFeaturedImage())){
-            builder.setFeaturedImage(nftCollection.getFeaturedImage());
-        }
-        builder.setCreatedAt(nftCollection.getCreatedAt());
-        builder.setBlockchain(nftCollection.getBlockchain());
-        if(!Strings.isNullOrEmpty(nftCollection.getCreatorFeeRate())){
-            builder.setCreatorFeeRate(nftCollection.getCreatorFeeRate());
-        }
-        builder.setItems(nftCollection.getItems());
-
-        return builder.build();
-    }
-
-    public static NftCollectionDTO from(NftMarketplace.CollectionDTO collectionDTO) {
-        return from(collectionDTO, NftCollectionDTO.class);
-    }
-
-    public static <T extends NftCollectionDTO> T from(NftMarketplace.CollectionDTO collectionDTO, Class<T> reflectionDTO) {
-
-        T nftCollectionDTO = null;
-        try {
-            nftCollectionDTO = reflectionDTO.getDeclaredConstructor().newInstance();
-        }catch (Exception e){
-            throw new RuntimeException("", e);
-        }
-
-        nftCollectionDTO.setId(collectionDTO.getId());
-        nftCollectionDTO.setUid(Long.valueOf(collectionDTO.getCreator()));
-        if(collectionDTO.hasCategory()){
-            nftCollectionDTO.setCategory(collectionDTO.getCategory());
-        }
-        nftCollectionDTO.setName(collectionDTO.getName());
-        nftCollectionDTO.setDesc(Strings.emptyToNull(collectionDTO.getDesc()));
-        nftCollectionDTO.setLogoImage(Strings.emptyToNull(collectionDTO.getLogoImage()));
-        nftCollectionDTO.setFeaturedImage(Strings.emptyToNull(collectionDTO.getFeaturedImage()));
-        nftCollectionDTO.setBlockchain(collectionDTO.getBlockchain());
-        nftCollectionDTO.setCreatorFeeRate(collectionDTO.getCreatorFeeRate());
-        nftCollectionDTO.setItems(collectionDTO.getItems());
-
-        return nftCollectionDTO;
-    }
 }

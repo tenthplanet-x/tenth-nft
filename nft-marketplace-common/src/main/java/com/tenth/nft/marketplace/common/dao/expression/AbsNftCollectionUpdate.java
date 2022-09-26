@@ -10,9 +10,6 @@ import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 public class AbsNftCollectionUpdate extends SimpleUpdate {
 
     @SimpleWriteParam
-    private Long uid;
-
-    @SimpleWriteParam
     private String name;
 
     @SimpleWriteParam
@@ -41,10 +38,6 @@ public class AbsNftCollectionUpdate extends SimpleUpdate {
 
     public Long getUpdatedAt() {
         return updatedAt;
-    }
-
-    public Long getUid(){
-        return uid;
     }
 
     public String getName(){
@@ -86,11 +79,6 @@ public class AbsNftCollectionUpdate extends SimpleUpdate {
     public static class Builder{
 
         private AbsNftCollectionUpdate update = new AbsNftCollectionUpdate();
-
-        public Builder setUid(Long uid){
-            update.uid = uid;
-            return this;
-        }
 
         public Builder setName(String name){
             update.name = name;

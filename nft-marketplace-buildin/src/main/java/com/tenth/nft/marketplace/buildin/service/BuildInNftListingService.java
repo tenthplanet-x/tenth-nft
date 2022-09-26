@@ -7,16 +7,14 @@ import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.wallet.PasswordCheckRouteRequest;
+import com.tenth.nft.convention.web3.utils.TxnStatus;
 import com.tenth.nft.marketplace.buildin.dao.BuildInNftListingDao;
 import com.tenth.nft.marketplace.buildin.dto.BuildInNftListingDTO;
 import com.tenth.nft.marketplace.buildin.entity.BuildInNftListing;
 import com.tenth.nft.marketplace.common.dto.NftListingDTO;
 import com.tenth.nft.marketplace.common.dto.NftWalletPayTicket;
 import com.tenth.nft.marketplace.common.service.AbsNftListingService;
-import com.tenth.nft.marketplace.common.vo.NftListingBuyRequest;
-import com.tenth.nft.marketplace.common.vo.NftListingCancelRequest;
-import com.tenth.nft.marketplace.common.vo.NftListingCreateRequest;
-import com.tenth.nft.marketplace.common.vo.NftListingListRequest;
+import com.tenth.nft.marketplace.common.vo.*;
 import com.tenth.nft.protobuf.NftWallet;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -112,4 +110,6 @@ public class BuildInNftListingService extends AbsNftListingService<BuildInNftLis
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         return super.buy(String.valueOf(uid), request);
     }
+
+
 }

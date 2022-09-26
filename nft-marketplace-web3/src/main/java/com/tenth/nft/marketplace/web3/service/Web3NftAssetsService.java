@@ -7,11 +7,15 @@ import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.utils.Precisions;
 import com.tenth.nft.convention.web3.sign.MintDataForSign;
 import com.tenth.nft.convention.web3.sign.StructContentHash;
+import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
+import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsQuery;
+import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsUpdate;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftAssetsService;
 import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
 import com.tenth.nft.marketplace.web3.dao.Web3NftAssetsDao;
+import com.tenth.nft.marketplace.web3.dao.expression.Web3NftAssetsUpdate;
 import com.tenth.nft.marketplace.web3.dto.Web3NftCreateSignTicket;
 import com.tenth.nft.marketplace.web3.entity.Web3NftAssets;
 import com.tenth.nft.marketplace.web3.entity.Web3NftCollection;
@@ -39,6 +43,8 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
     @Autowired
     private TpulseContractHelper tpulseContractHelper;
 
+    private Web3NftAssetsDao web3NftAssetsDao;
+
     private Web3NftCollectionService nftCollectionService;
 
     public Web3NftAssetsService(
@@ -47,12 +53,13 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
             Web3NftBelongService nftBelongService,
             Web3NftUbtLogService nftUbtLogService) {
         super(nftAssetsDao, nftCollectionService, nftBelongService, nftUbtLogService);
+        this.web3NftAssetsDao = nftAssetsDao;
         this.nftCollectionService = nftCollectionService;
     }
 
     @Override
     protected Web3NftAssets newNftAssets() {
-        return null;
+        return new Web3NftAssets();
     }
 
     @Override
@@ -130,5 +137,17 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
         Web3NftAssets web3NftAssets = super.buildEntity(creator, request);
         web3NftAssets.setSignature(((Web3NftAssetsCreateRequest)request).getSignature());
         return web3NftAssets;
+    }
+
+    public void updateMintStatus(Long assetsId, TokenMintStatus status) {
+
+        web3NftAssetsDao.update(
+                AbsNftAssetsQuery.newBuilder()
+                        .id(assetsId)
+                        .build(),
+                Web3NftAssetsUpdate.newWeb3Builder()
+                        .mintStatus(status)
+                        .build()
+        );
     }
 }

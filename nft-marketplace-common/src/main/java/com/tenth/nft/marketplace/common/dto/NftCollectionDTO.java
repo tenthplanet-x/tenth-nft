@@ -1,6 +1,5 @@
 package com.tenth.nft.marketplace.common.dto;
 
-import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -13,7 +12,7 @@ public class NftCollectionDTO implements SimpleResponse {
     @SimpleField(name = "_id")
     public Long id;
     @SimpleField
-    private String uid;
+    private String creator;
     @SimpleField
     private String name;
     @SimpleField
@@ -39,12 +38,12 @@ public class NftCollectionDTO implements SimpleResponse {
         this.id = id;
     }
 
-    public String getUid() {
-        return uid;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public String getName() {

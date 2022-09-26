@@ -22,11 +22,6 @@ public class BuildInNftCollectionRoutesController {
     @Autowired
     private BuildInNftCollectionService nftCollectionService;
 
-    @RouteRequestMapping(BuildInCollectionCreateRouteRequest.class)
-    public NftMarketplace.COLLECTION_CREATE_IS create(NftMarketplace.COLLECTION_CREATE_IC request){
-        return nftCollectionService.create(request);
-    }
-
     @RouteRequestMapping(BuildInCollectionDetailRouteRequest.class)
     public NftMarketplace.COLLECTION_DETAIL_IS detail(NftMarketplace.COLLECTION_DETAIL_IC request){
         return nftCollectionService.detail(request);

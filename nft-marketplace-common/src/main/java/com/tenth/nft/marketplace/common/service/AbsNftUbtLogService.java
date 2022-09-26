@@ -108,7 +108,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
 
     }
 
-    public void sendTransferEvent(AbsNftBuyOrder nftOrder) {
+    public void sendTransferEvent(AbsNftOrder nftOrder) {
 
         T activity = newNftUbtLog();
         activity.setAssetsId(nftOrder.getAssetsId());
@@ -128,7 +128,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
 
     }
 
-    public void sendSaleEvent(AbsNftBuyOrder nftOrder) {
+    public void sendSaleEvent(AbsNftOrder nftOrder) {
 
         T activity = newNftUbtLog();
         activity.setAssetsId(nftOrder.getAssetsId());
@@ -181,54 +181,54 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
 
     }
 
-//    public Long sendOfferEvent(NftOffer nftOffer) {
-//
-//        NftActivity nftActivity = new NftActivity();
-//        nftActivity.setAssetsId(nftOffer.getAssetsId());
-//        nftActivity.setType(NftActivityEventType.OFFER);
-//        nftActivity.setCreatedAt(System.currentTimeMillis());
-//        nftActivity.setUpdatedAt(nftActivity.getCreatedAt());
-//
-//        OfferEvent offerEvent = new OfferEvent();
-//        offerEvent.setFrom(nftOffer.getUid());
-//        offerEvent.setQuantity(nftOffer.getQuantity());
-//        offerEvent.setPrice(nftOffer.getPrice());
-//        offerEvent.setCurrency(nftOffer.getCurrency());
-//        offerEvent.setExpireAt(nftOffer.getExpireAt());
-//        nftActivity.setOffer(offerEvent);
-//
-//        return nftActivityDao.insert(nftActivity).getId();
-//    }
+    public Long sendOfferEvent(AbsNftOffer nftOffer) {
 
-//    public void sendOfferCancelEvent(NftOffer nftOffer) {
-//
-//        //freeze offer event
-//        freezeOfferEvent(nftOffer.getActivityId());
-//
-//        //cancel event
-//        NftActivity nftActivity = new NftActivity();
-//        nftActivity.setAssetsId(nftOffer.getAssetsId());
-//        nftActivity.setType(NftActivityEventType.OFFER_CANCEL);
-//        nftActivity.setCreatedAt(System.currentTimeMillis());
-//        nftActivity.setUpdatedAt(nftActivity.getCreatedAt());
-//        OfferEvent offerEvent = new OfferEvent();
-//        offerEvent.setFrom(nftOffer.getUid());
-//        offerEvent.setQuantity(nftOffer.getQuantity());
-//        offerEvent.setPrice(nftOffer.getPrice());
-//        offerEvent.setCurrency(nftOffer.getCurrency());
-//        offerEvent.setCancel(true);
-//        nftActivity.setOffer(offerEvent);
-//        nftActivityDao.insert(nftActivity);
-//    }
+        T activity = newNftUbtLog();
+        activity.setAssetsId(nftOffer.getAssetsId());
+        activity.setType(NftActivityEventType.OFFER);
+        activity.setCreatedAt(System.currentTimeMillis());
+        activity.setUpdatedAt(activity.getCreatedAt());
 
-//    public void freezeOfferEvent(Long activityId) {
-//        if(null != activityId){
-//            nftActivityDao.update(
-//                    NftActivityQuery.newBuilder().id(activityId).build(),
-//                    NftActivityUpdate.newBuilder().freeze(true).build()
-//            );
-//        }
-//    }
+        OfferEvent offerEvent = new OfferEvent();
+        offerEvent.setFrom(nftOffer.getBuyer());
+        offerEvent.setQuantity(nftOffer.getQuantity());
+        offerEvent.setPrice(nftOffer.getPrice());
+        offerEvent.setCurrency(nftOffer.getCurrency());
+        offerEvent.setExpireAt(nftOffer.getExpireAt());
+        activity.setOffer(offerEvent);
+
+        return nftUbtLogDao.insert(activity).getId();
+    }
+
+    public void sendOfferCancelEvent(AbsNftOffer nftOffer) {
+
+        //freeze offer event
+        freezeOfferEvent(nftOffer);
+
+        //cancel event
+        T activity = newNftUbtLog();
+        activity.setAssetsId(nftOffer.getAssetsId());
+        activity.setType(NftActivityEventType.OFFER_CANCEL);
+        activity.setCreatedAt(System.currentTimeMillis());
+        activity.setUpdatedAt(activity.getCreatedAt());
+        OfferEvent offerEvent = new OfferEvent();
+        offerEvent.setFrom(nftOffer.getBuyer());
+        offerEvent.setQuantity(nftOffer.getQuantity());
+        offerEvent.setPrice(nftOffer.getPrice());
+        offerEvent.setCurrency(nftOffer.getCurrency());
+        offerEvent.setCancel(true);
+        activity.setOffer(offerEvent);
+        nftUbtLogDao.insert(activity);
+    }
+
+    public void freezeOfferEvent(AbsNftOffer nftOffer) {
+        if(null != nftOffer && null != nftOffer.getActivityId()){
+            nftUbtLogDao.update(
+                    AbsNftUbtLogQuery.newBuilder().id(nftOffer.getActivityId()).build(),
+                    AbsNftUbtLogUpdate.newBuilder().freeze(true).build()
+            );
+        }
+    }
 
     protected NftUbtLogDTO toDTO(T nftActivity) {
         NftUbtLogDTO nftActivityDTO = newDTO();

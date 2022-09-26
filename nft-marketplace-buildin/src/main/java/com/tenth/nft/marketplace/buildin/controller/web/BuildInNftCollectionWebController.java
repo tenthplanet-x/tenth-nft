@@ -4,10 +4,12 @@ import com.tenth.nft.marketplace.buildin.BuildInNftCollectionPaths;
 import com.tenth.nft.marketplace.buildin.dto.BuildInNftCollectionDTO;
 import com.tenth.nft.marketplace.buildin.service.BuildInNftCollectionService;
 import com.tenth.nft.marketplace.common.dto.NftCollectionDTO;
+import com.tenth.nft.marketplace.common.vo.NftCollectionCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionListRequest;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
+import com.tpulse.gs.oss.vo.OSSToken;
 import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,13 @@ public class BuildInNftCollectionWebController {
 
     @Autowired
     private BuildInNftCollectionService nftCollectionService;
+
+    @RequestMapping(BuildInNftCollectionPaths.NFTCOLLECTION_CREATE)
+    public Response create(@RequestBody NftCollectionCreateRequest request){
+        Validations.check(request);
+        NftCollectionDTO collectionDTO = nftCollectionService.create(request);
+        return Response.successBuilder().data(collectionDTO).build();
+    }
 
     @RequestMapping(BuildInNftCollectionPaths.NFTCOLLECTION_LIST)
     public Response list(@RequestBody NftCollectionListRequest request){

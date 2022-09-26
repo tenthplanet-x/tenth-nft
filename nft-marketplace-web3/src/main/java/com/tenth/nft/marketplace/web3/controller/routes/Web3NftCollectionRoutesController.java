@@ -20,11 +20,6 @@ public class Web3NftCollectionRoutesController {
     @Autowired
     private Web3NftCollectionService nftCollectionService;
 
-    @RouteRequestMapping(Web3CollectionCreateRouteRequest.class)
-    public NftMarketplace.COLLECTION_CREATE_IS create(NftMarketplace.COLLECTION_CREATE_IC request){
-        return nftCollectionService.create(request);
-    }
-
     @RouteRequestMapping(Web3CollectionDetailRouteRequest.class)
     public NftMarketplace.COLLECTION_DETAIL_IS detail(NftMarketplace.COLLECTION_DETAIL_IC request){
         return nftCollectionService.detail(request);

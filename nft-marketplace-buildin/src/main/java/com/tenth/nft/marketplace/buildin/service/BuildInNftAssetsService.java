@@ -20,8 +20,8 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
     public BuildInNftAssetsService(
             BuildInNftAssetsDao nftAssetsDao,
             BuildInNftCollectionService nftCollectionService,
-            AbsNftBelongService nftBelongService,
-            AbsNftUbtLogService nftUbtLogService
+            BuildInNftBelongService nftBelongService,
+            BuildInNftUbtLogService nftUbtLogService
     ) {
         super(nftAssetsDao, nftCollectionService, nftBelongService, nftUbtLogService);
     }

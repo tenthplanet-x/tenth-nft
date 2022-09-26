@@ -1,10 +1,14 @@
 package com.tenth.nft.marketplace.buildin.controller.web;
 
 import com.tenth.nft.marketplace.buildin.BuildInNftAssetsPaths;
+import com.tenth.nft.marketplace.buildin.dto.BuildInNftAssetsOwnerDTO;
 import com.tenth.nft.marketplace.buildin.service.BuildInNftAssetsService;
+import com.tenth.nft.marketplace.buildin.service.BuildInNftBelongService;
+import com.tenth.nft.marketplace.common.dto.NftAseetsOwnerDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftAssetsListRequest;
+import com.tenth.nft.marketplace.common.vo.NftOwnerListRequest;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.wallan.router.endpoint.core.security.HttpRoute;
@@ -24,6 +28,8 @@ public class BuildInNftAssetsWebController {
 
     @Autowired
     private BuildInNftAssetsService nftAssetsService;
+    @Autowired
+    private BuildInNftBelongService buildInNftBelongService;
 
     @RequestMapping(BuildInNftAssetsPaths.NFT_ASSETS_LIST)
     public Response list(@RequestBody NftAssetsListRequest request){
@@ -38,5 +44,14 @@ public class BuildInNftAssetsWebController {
         NftAssetsDTO assetsDTO = nftAssetsService.create(request);
         return Response.successBuilder().data(assetsDTO).build();
     }
+
+    @RequestMapping(BuildInNftAssetsPaths.NFT_ASSETS_OWNER_LIST)
+    public Response ownerList(@RequestBody NftOwnerListRequest request){
+        Validations.check(request);
+        Page<BuildInNftAssetsOwnerDTO> assetsDTO = buildInNftBelongService.ownerList(request);
+        return Response.successBuilder().data(assetsDTO).build();
+    }
+
+
 
 }

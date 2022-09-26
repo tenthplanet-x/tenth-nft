@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * @author shijie
  */
-@Document("tpulse.nft_assets")
+@Document("tpulse.nft_assets_v1")
 @SimpleCache(cacheField = "_id")
 public class NftAssets {
 

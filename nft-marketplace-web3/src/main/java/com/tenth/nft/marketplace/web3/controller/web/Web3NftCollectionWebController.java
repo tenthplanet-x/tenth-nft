@@ -1,6 +1,7 @@
 package com.tenth.nft.marketplace.web3.controller.web;
 
 import com.tenth.nft.marketplace.common.dto.NftCollectionDTO;
+import com.tenth.nft.marketplace.common.vo.NftCollectionCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionListRequest;
 import com.tenth.nft.marketplace.web3.Web3NftCollectionPaths;
@@ -24,6 +25,13 @@ public class Web3NftCollectionWebController {
 
     @Autowired
     private Web3NftCollectionService nftCollectionService;
+
+    @RequestMapping(Web3NftCollectionPaths.NFTCOLLECTION_CREATE)
+    public Response create(@RequestBody NftCollectionCreateRequest request){
+        Validations.check(request);
+        NftCollectionDTO collectionDTO = nftCollectionService.create(request);
+        return Response.successBuilder().data(collectionDTO).build();
+    }
 
     @RequestMapping(Web3NftCollectionPaths.NFTCOLLECTION_LIST)
     public Response list(@RequestBody NftCollectionListRequest request){

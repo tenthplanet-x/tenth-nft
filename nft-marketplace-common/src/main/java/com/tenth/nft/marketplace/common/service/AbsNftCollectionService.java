@@ -2,19 +2,27 @@ package com.tenth.nft.marketplace.common.service;
 
 import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.TpulseHeaders;
+import com.ruixi.tpulse.convention.TpulseIdModules;
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
+import com.tenth.nft.convention.OssPaths;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.marketplace.AbsCollectionDetailRouteRequest;
 import com.tenth.nft.marketplace.common.dao.AbsNftCollectionDao;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftCollectionQuery;
+import com.tenth.nft.marketplace.common.dao.expression.AbsNftCollectionUpdate;
 import com.tenth.nft.marketplace.common.dto.NftCollectionDTO;
 import com.tenth.nft.marketplace.common.entity.AbsNftCollection;
+import com.tenth.nft.marketplace.common.vo.NftCollectionCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionListRequest;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.dto.Page;
+import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
+import com.tpulse.gs.oss.IGsOssService;
+import com.tpulse.gs.oss.qiniu.service.QiniuOSSService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,27 +32,36 @@ import java.util.stream.Collectors;
  */
 public abstract class AbsNftCollectionService<T extends AbsNftCollection> {
 
+    @Autowired
+    private GsCollectionIdService gsCollectionIdService;
+    @Autowired
+    private QiniuOSSService qiniuOSSService;
+
     private AbsNftCollectionDao<T> nftCollectionDao;
 
-    public AbsNftCollectionService(AbsNftCollectionDao<T> nftCollectionDao) {
+    private AbsNftAssetsService nftAssetsService;
+
+    public AbsNftCollectionService(AbsNftCollectionDao<T> nftCollectionDao, AbsNftAssetsService nftAssetsService) {
         this.nftCollectionDao = nftCollectionDao;
+        this.nftAssetsService = nftAssetsService;
     }
 
     /**
      * 创建合集
-     * @param _request
+     * @param request
      * @return
      */
-    public NftMarketplace.COLLECTION_CREATE_IS create(NftMarketplace.COLLECTION_CREATE_IC _request) {
+    public <DTO extends NftCollectionDTO> DTO create(String creator, NftCollectionCreateRequest request, Class<DTO> dtoClass) {
 
-        NftMarketplace.CollectionDTO request = _request.getCollection();
-        AbsNftCollection collection = insert(request);
+        AbsNftCollection collection = insert(creator, request);
         afterInsert(collection);
-        NftMarketplace.CollectionDTO dto = toProto(collection);
-        return NftMarketplace.COLLECTION_CREATE_IS.newBuilder()
-                .setCollection(dto)
-                .build();
+
+        NftCollectionDetailRequest detailRequest = new NftCollectionDetailRequest();
+        detailRequest.setId(collection.getId());
+        return detail(detailRequest, dtoClass);
+
     }
+
 
     /**
      * 获取合集详情
@@ -62,18 +79,23 @@ public abstract class AbsNftCollectionService<T extends AbsNftCollection> {
                 .build();
     }
 
-    protected AbsNftCollection insert(NftMarketplace.CollectionDTO request) {
+    protected AbsNftCollection insert(String creator, NftCollectionCreateRequest request) {
 
         T nftCollection = newCollection();
+        Long id = gsCollectionIdService.incrementAndGet(TpulseIdModules.COLLECTION);
+        String logoImageDir = OssPaths.create(OssPaths.COLLECTION, id, "logo");
+        String logoImageUrl = qiniuOSSService.copyToPath(request.getLogoImage(), logoImageDir);
+        String featuredImageDir = OssPaths.create(OssPaths.COLLECTION, id, "feature");
+        String featuredImageUrl = qiniuOSSService.copyToPath(request.getFeaturedImage(), featuredImageDir);
 
-        nftCollection.setId(request.getId());
-        nftCollection.setCreator(request.getCreator());
+        nftCollection.setId(id);
+        nftCollection.setCreator(creator);
         nftCollection.setCreatedAt(System.currentTimeMillis());
         nftCollection.setUpdatedAt(System.currentTimeMillis());
         nftCollection.setName(request.getName());
         nftCollection.setDesc(request.getDesc());
-        nftCollection.setLogoImage(request.getLogoImage());
-        nftCollection.setFeaturedImage(request.getFeaturedImage());
+        nftCollection.setLogoImage(logoImageUrl);
+        nftCollection.setFeaturedImage(featuredImageUrl);
         nftCollection.setCategory(request.getCategory());
         nftCollection.setCreatorFeeRate(request.getCreatorFeeRate());
         nftCollection.setBlockchain(request.getBlockchain());
@@ -113,7 +135,13 @@ public abstract class AbsNftCollectionService<T extends AbsNftCollection> {
     }
 
     public void updateAssetsCount(Long collectionId, Long assetsId) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+
+        Long items = nftAssetsService.totalByCollectionId(collectionId);
+        nftCollectionDao.update(
+                AbsNftCollectionQuery.newBuilder().id(collectionId).build(),
+                AbsNftCollectionUpdate.newBuilder().items(items).build()
+        );
     }
 
     public <DTO extends NftCollectionDTO> Page<DTO> list(NftCollectionListRequest request, Optional<String> creator, Class<DTO> dtoClass) {

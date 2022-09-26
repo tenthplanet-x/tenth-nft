@@ -1,23 +1,15 @@
 package com.tenth.nft.marketplace.web3.service;
 
-import com.tenth.nft.convention.NftIdModule;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
-import com.tenth.nft.convention.templates.NftTemplateTypes;
-import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
-import com.tenth.nft.convention.wallet.WalletMerchantType;
-import com.tenth.nft.convention.wallet.WalletOrderBizContent;
-import com.tenth.nft.convention.wallet.WalletOrderType;
-import com.tenth.nft.convention.wallet.WalletProductCode;
-import com.tenth.nft.convention.wallet.utils.WalletTimes;
 import com.tenth.nft.convention.web3.sign.ListingDataForSign;
 import com.tenth.nft.convention.web3.sign.StructContentHash;
 import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.marketplace.common.dto.NftListingDTO;
 import com.tenth.nft.marketplace.common.dto.NftWalletPayTicket;
-import com.tenth.nft.marketplace.common.entity.AbsNftBuyOrder;
+import com.tenth.nft.marketplace.common.entity.AbsNftOrder;
 import com.tenth.nft.marketplace.common.service.AbsNftListingService;
 import com.tenth.nft.marketplace.common.vo.NftListingBuyRequest;
 import com.tenth.nft.marketplace.common.vo.NftListingCancelRequest;
@@ -38,7 +30,6 @@ import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.json.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.web3j.utils.Convert;
 
 import java.nio.charset.StandardCharsets;
 
@@ -162,9 +153,9 @@ public class Web3NftListingService extends AbsNftListingService<Web3NftListing> 
                 .setState(request.getState())
                 .build();
 
-        NftExchange.PAYMENT_RECEIVE_IS res = receivePayment(receive);
+        NftExchange.PAYMENT_RECEIVE_IS res = receiveReceipt(receive);
 
-        AbsNftBuyOrder nftOrder = web3NftBuyOrderService.findOne(
+        AbsNftOrder nftOrder = web3NftBuyOrderService.findOne(
                 request.getAssetsId(),
                 Long.valueOf(request.getOrderId())
         );

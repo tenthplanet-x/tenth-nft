@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 /**
  * @author shijie
  */
-public class AbsNftListing {
+public abstract class AbsNftListing {
 
     @Id
     private Long id;

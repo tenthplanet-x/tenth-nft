@@ -6,6 +6,7 @@ package com.tenth.nft.marketplace.buildin;
  */
 public class BuildInNftCollectionPaths {
 
+    public static final String NFTCOLLECTION_CREATE = "/nft/collection/create/buildin";
     public static final String NFTCOLLECTION_LIST = "/nft/collection/list/buildin";
     public static final String NFTCOLLECTION_DETAIL = "/nft/collection/detail/buildin";
 

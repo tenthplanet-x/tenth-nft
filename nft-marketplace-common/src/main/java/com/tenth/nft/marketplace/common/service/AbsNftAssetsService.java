@@ -2,6 +2,7 @@ package com.tenth.nft.marketplace.common.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftModules;
+import com.tenth.nft.convention.OssPaths;
 import com.tenth.nft.convention.templates.BlockchainConfig;
 import com.tenth.nft.convention.templates.BlockchainTemplate;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
@@ -29,6 +30,8 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
 
     @Autowired
     private I18nGsTemplates i18nGsTemplates;
+    @Autowired
+    private GsCollectionIdService gsCollectionIdService;
 
     private AbsNftCollectionService nftCollectionService;
 
@@ -38,7 +41,6 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
 
     private AbsNftUbtLogService nftUbtLogService;
 
-    private GsCollectionIdService gsCollectionIdService;
 
     public AbsNftAssetsService(
             AbsNftAssetsDao<T> nftAssetsDao,
@@ -136,11 +138,13 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
         T nftAssets = newNftAssets();
         nftAssets.setCollectionId(collection.getId());
         Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
+        String previewUrl = OssPaths.create(OssPaths.COLLECTION, assetsId, "preview");
+
         nftAssets.setId(assetsId);
         nftAssets.setType(request.getType());
         nftAssets.setCollectionId(request.getCollectionId());
         nftAssets.setUrl(request.getUrl());
-        nftAssets.setPreviewUrl(request.getPreviewUrl());
+        nftAssets.setPreviewUrl(previewUrl);
         nftAssets.setName(request.getName());
         nftAssets.setDesc(request.getDesc());
         nftAssets.setSupply(request.getSupply());
@@ -196,4 +200,7 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
     }
 
 
+    public Long totalByCollectionId(Long collectionId) {
+        return nftAssetsDao.count(AbsNftAssetsQuery.newBuilder().setCollectionId(collectionId).build());
+    }
 }

@@ -33,7 +33,8 @@ public enum NftInnerCmdTypes implements CmdType {
     COLLECTION_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_CREATE_IC, NftMarketplace.COLLECTION_CREATE_IC.newBuilder()),
     COLLECTION_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()),
     NFT_BLOCKCHAIN_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.NFT_BLOCKCHAIN_IC, NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()),
-    PAYMENT_RECEIVE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.PAYMENT_RECEIVE_IC, NftExchange.PAYMENT_RECEIVE_IC.newBuilder()),
+    BUILDIN_BUY_WALLET_RECEIPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUILDIN_BUY_RECEIPT_IC, NftExchange.PAYMENT_RECEIVE_IC.newBuilder()),
+    BUILDIN_ACCEPT_WALLET_RECEIPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUILDIN_ACCEPT_WALLET_RECEIPT_IC, NftExchange.PAYMENT_RECEIVE_IC.newBuilder()),
     ASSETS_MINT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_MINT_IC, NftMarketplace.ASSETS_MINT_IC.newBuilder()),
 
 
@@ -49,7 +50,8 @@ public enum NftInnerCmdTypes implements CmdType {
     WALLET_PASSWORD_CHECK(NftCmdGroup.WALLET, NftInnerCmds.WALLET_PASSWORD_CHECK_IC, NftWallet.PASSWORD_CHECK_IC.newBuilder()),
 
     //web3 wallet
-    WEB3_PAYMENT_CONFIRM_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_PAYMENT_CONFIRM_IC, NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC.newBuilder()),
+    WEB3_BUY_RECEIPT_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_BUY_RECEIPT_IC, NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC.newBuilder()),
+    WEB3_ACCEPT_RECEIPT_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_ACCEPT_RECEIPT_IC, NftWeb3Exchange.WEB3_PAYMENT_CONFIRM_IC.newBuilder()),
     WEB3_BILL_PAY_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_BILL_PAY_IC, NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder()),
     WEB3_TXN_CHECK_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_TXN_CHECK_IC, NftWeb3Wallet.WEB3_TXN_CHECK_IC.newBuilder()),
     WEB3_WALLET_BALANCE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_WALLET_BALANCE_IC, NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()),

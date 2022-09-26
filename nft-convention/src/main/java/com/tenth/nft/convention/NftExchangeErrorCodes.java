@@ -34,6 +34,8 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     BUY_EXCEPTION_NO_ENOUGH_QUANTITY("020404", "no enough quantity"),
     BUY_EXCEPTION_BELONGS_TO_YOU("020405", "belongs to you"),
     BUY_EXCEPTION_ILLEGAL_MINT_STATUS("020406", "Illegal mint status"),
+
+
     /**
      * 20500 offer
      */
@@ -42,6 +44,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     OFFER_EXCEPTION_EXPIRED("020503", "expired"),
     OFFER_EXCEPTION_NOT_EXIST("020504", "does not exist"),
     OFFER_EXCEPTION_INVALID_SIGNATURE("020505", "invalid signature"),
+
 
     /**
      * 20600 accept
@@ -65,6 +68,10 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     WEB3WALLET_DONT_HAVE_BIND("020802", "don't have bind wallet"),
     WEB3WALLET_BILL_DOES_NOT_EXIST("020803", "bill doesn't exist"),
     WEB3WALLET_BILL_HAS_FAIL_STATUS("020804", "bill doesn't exist")
+
+    /**
+     *
+     */
 
     ;
 

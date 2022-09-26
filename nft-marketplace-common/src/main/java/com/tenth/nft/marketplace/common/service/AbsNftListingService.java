@@ -10,7 +10,7 @@ import com.tenth.nft.marketplace.common.dao.expression.AbsNftListingQuery;
 import com.tenth.nft.marketplace.common.dto.NftListingDTO;
 import com.tenth.nft.marketplace.common.dto.NftWalletPayTicket;
 import com.tenth.nft.marketplace.common.entity.AbsNftAssets;
-import com.tenth.nft.marketplace.common.entity.AbsNftBuyOrder;
+import com.tenth.nft.marketplace.common.entity.AbsNftOrder;
 import com.tenth.nft.marketplace.common.entity.AbsNftListing;
 import com.tenth.nft.marketplace.common.entity.NftOrderStatus;
 import com.tenth.nft.marketplace.common.entity.event.ListCancelEventReason;
@@ -42,7 +42,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
     private AbsNftListingDao<T> nftListingDao;
     private AbsNftBelongService nftBelongService;
     private AbsNftUbtLogService nftUbtLogService;
-    private AbsNftBuyOrderService nftBuyOrderService;
+    private AbsNftOrderService nftBuyOrderService;
     @Autowired
     private Web3Properties web3Properties;
     @Autowired
@@ -54,7 +54,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
             AbsNftListingDao<T> nftListingDao,
             AbsNftBelongService nftBelongService,
             AbsNftUbtLogService nftUbtLogService,
-            AbsNftBuyOrderService nftBuyOrderService
+            AbsNftOrderService nftBuyOrderService
     ) {
         this.nftAssetsService = nftAssetsService;
         this.nftListingDao = nftListingDao;
@@ -98,7 +98,13 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         preBuyCheck(buyer, request, nftListing, nftAssets);
 
         //Create order
-        AbsNftBuyOrder order = nftBuyOrderService.create(buyer, nftListing, nftAssets);
+        NftOuterProduct outerProduct = NftOuterProduct.newBuilder()
+                .outerOrderId(String.valueOf(nftListing.getId()))
+                .price(nftListing.getPrice())
+                .quantity(nftListing.getQuantity())
+                .currency(nftListing.getCurrency())
+                .build();
+        AbsNftOrder order = nftBuyOrderService.create(buyer, outerProduct, nftAssets);
 
         //Create pay content
         IWalletProvider walletProvider = walletProviderFactory.get(nftAssets.getBlockchain());
@@ -113,13 +119,13 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
 
     }
 
-    public NftExchange.PAYMENT_RECEIVE_IS receivePayment(NftExchange.PAYMENT_RECEIVE_IC request){
+    public NftExchange.PAYMENT_RECEIVE_IS receiveReceipt(NftExchange.PAYMENT_RECEIVE_IC request){
 
         NftExchange.PAYMENT_RECEIVE_IS.Builder builder = NftExchange.PAYMENT_RECEIVE_IS.newBuilder();
 
         Long orderId = Long.valueOf(request.getOrderId());
         //SimpleQuery orderQuery = NftOrderQuery.newBuilder().assetsId(request.getAssetsId()).id(orderId).build();
-        AbsNftBuyOrder nftOrder = nftBuyOrderService.findOne(request.getAssetsId(), orderId);
+        AbsNftOrder nftOrder = nftBuyOrderService.findOne(request.getAssetsId(), orderId);
         if(null != nftOrder && NftOrderStatus.CREATE.equals(nftOrder.getStatus())){
             WalletBillState state = WalletBillState.valueOf(request.getState());
             switch (state){
@@ -137,7 +143,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
                         nftBuyOrderService.updateStatus(nftOrder.getAssetsId(), nftOrder.getId(), NftOrderStatus.COMPLETE);
                         doTransfer(nftOrder);
                     }
-                    removeListing(nftOrder.getAssetsId(), nftOrder.getListingId());
+                    removeListing(nftOrder.getAssetsId(), Long.valueOf(nftOrder.getOuterOrderId()));
                     refreshListingsBelongTo(nftOrder.getAssetsId(), nftOrder.getSeller());
                     builder.setRefund(false);
                     break;
@@ -274,7 +280,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
             T nftListing,
             AbsNftAssets nftAssets,
             IWalletProvider walletProvider,
-            AbsNftBuyOrder nftBuyOrder) {
+            AbsNftOrder nftBuyOrder) {
         WalletOrderBizContent payContent = WalletOrderBizContent.newBuilder()
                 .activityCfgId(WalletOrderType.NftExpense.getActivityCfgId())
                 .productCode(WalletProductCode.NFT.name())
@@ -328,7 +334,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
 
     }
 
-    protected void doTransfer(AbsNftBuyOrder nftOrder) {
+    protected void doTransfer(AbsNftOrder nftOrder) {
 
         //Change(inc) the quantity of assets belongs to buyer
         nftBelongService.inc(nftOrder.getAssetsId(), nftOrder.getBuyer(), nftOrder.getQuantity());
