@@ -2,7 +2,6 @@ package com.tenth.nft.marketplace.common.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
-import com.tenth.nft.convention.routes.wallet.WalletPayRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.marketplace.common.dao.AbsNftOfferDao;
@@ -16,10 +15,8 @@ import com.tenth.nft.marketplace.common.vo.NftMakeOfferRequest;
 import com.tenth.nft.marketplace.common.vo.NftOfferAcceptRequest;
 import com.tenth.nft.marketplace.common.vo.NftOfferCancelRequest;
 import com.tenth.nft.marketplace.common.vo.NftOfferListRequest;
-import com.tenth.nft.marketplace.common.wallet.IWalletProvider;
 import com.tenth.nft.marketplace.common.wallet.WalletProviderFactory;
 import com.tenth.nft.protobuf.NftExchange;
-import com.tenth.nft.protobuf.NftWallet;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.dto.Page;
@@ -96,7 +93,7 @@ public abstract class AbsNftOfferService<T extends AbsNftOffer>{
 
     public NftOfferDTO makeOffer(String buyer, NftMakeOfferRequest request){
 
-        AbsNftAssets nftAssets = nftAssetsService.findById(request.getAssetsId());
+        AbsNftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         preMakeOfferCheck(
                 buyer,
                 request,
@@ -151,7 +148,7 @@ public abstract class AbsNftOfferService<T extends AbsNftOffer>{
 
     public AbsNftOrder accept(String seller, NftOfferAcceptRequest request){
 
-        AbsNftAssets nftAssets = nftAssetsService.findById(request.getAssetsId());
+        AbsNftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         T nftOffer = nftOfferDao.findOne(AbsNftOfferQuery.newBuilder()
                 .assetsId(request.getAssetsId())
                 .id(request.getOfferId())

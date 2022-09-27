@@ -71,42 +71,16 @@ public class Web3WalletBillService {
     public Web3WalletBillDTO pay(Web3WalletBillPayRequest request){
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
-
-        NftWeb3Wallet.WEB3_BILL_PAY_IC innerRequest = NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder()
-                .setUid(uid)
-                .setToken(request.getContent())
-                .setTxn(request.getTxn())
-                .build();
-
-        NftWeb3Wallet.Web3BillDTO web3BillDTO = routeClient.send(
-                innerRequest,
-                Web3WalletPayRouteRequest.class
-        ).getBill();
-
-        Web3WalletBillDTO billDTO = Web3WalletBillDTO.from(web3BillDTO);
-        return billDTO;
-
-    }
-
-    public NftWeb3Wallet.WEB3_BILL_PAY_IS pay(NftWeb3Wallet.WEB3_BILL_PAY_IC request){
+        String address = web3WalletService.findOne(uid).getWalletAccountId();
 
         //token verify
-        WalletToken walletToken = WalletToken.decode(request.getToken());
+        WalletToken walletToken = WalletToken.decode(request.getContent());
         if(!walletToken.verify(web3Properties.getRsa().getPublickey())){
             throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
         }
 
         //check
         WalletOrderBizContent bizContent = walletToken.getBizContent();
-
-        String address = routeClient.send(
-                NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
-                        .setUid(request.getUid())
-                        .setNeedBalance(false)
-                        .build(),
-                Web3WalletBalanceRouteRequest.class
-        ).getBalance().getAddress();
-
         //exist check
         Web3WalletBill walletBill = web3WalletBillDao.findOne(Web3WalletBillQuery.newBuilder()
                 .accountId(address)
@@ -144,7 +118,7 @@ public class Web3WalletBillService {
 
         WalletBillState currentState = WalletBillState.valueOf(walletBill.getState());
         if(!WalletBillState.CREATE.equals(currentState)){
-            throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_UNCORRECT_PAY_TOKEN);
+            throw BizException.newInstance(NftExchangeErrorCodes.WALLET_PAY_EXCEPTION_PAYED);
         }
 
         //Use async task to check the txn state
@@ -158,11 +132,7 @@ public class Web3WalletBillService {
 
         //changeState(walletBill, WalletBillState.PAYED, "ok");
 
-        NftWeb3Wallet.Web3BillDTO web3BillDTO = toWeb3BillDTO(walletBill);
-        return NftWeb3Wallet.WEB3_BILL_PAY_IS.newBuilder()
-                .setBill(web3BillDTO)
-                .build();
-
+        return Web3WalletBillDTO.from(walletBill);
     }
 
     private List<Web3WalletBillProfit> convert(List<WalletOrderBizContent.Profit> profits) {
@@ -175,25 +145,6 @@ public class Web3WalletBillService {
             web3WalletBillProfit.setActivityCfgId(profit.getActivityCfgId());
             return web3WalletBillProfit;
         }).collect(Collectors.toList());
-    }
-
-    private NftWeb3Wallet.Web3BillDTO toWeb3BillDTO(Web3WalletBill web3WalletBill) {
-
-        NftWeb3Wallet.Web3BillDTO.Builder builder = NftWeb3Wallet.Web3BillDTO.newBuilder();
-        builder.setAccountId(web3WalletBill.getAccountId());
-        builder.setBillId(web3WalletBill.getId());
-        builder.setProductCode(web3WalletBill.getProductCode());
-        builder.setProductId(web3WalletBill.getProductId());
-        builder.setOutOrderId(web3WalletBill.getOutOrderId());
-        builder.setMerchantType(web3WalletBill.getMerchantType());
-        builder.setMerchantId(web3WalletBill.getMerchantId());
-        builder.setCurrency(web3WalletBill.getCurrency());
-        builder.setValue(web3WalletBill.getValue());
-        builder.setCreatedAt(web3WalletBill.getCreatedAt());
-        builder.setActivityCfgId(web3WalletBill.getActivityCfgId());
-        builder.setState(web3WalletBill.getState());
-
-        return builder.build();
     }
 
     private void changeState(Web3WalletBill walletBill, WalletBillState state, String remark) {

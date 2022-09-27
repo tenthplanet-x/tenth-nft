@@ -20,11 +20,6 @@ public class Web3WalletRouteController {
     @Autowired
     private Web3WalletBillService web3WalletBillService;
 
-    @RouteRequestMapping(Web3WalletPayRouteRequest.class)
-    public NftWeb3Wallet.WEB3_BILL_PAY_IS pay(NftWeb3Wallet.WEB3_BILL_PAY_IC request){
-        return web3WalletBillService.pay(request);
-    }
-
     @RouteRequestMapping(Web3TxnCheckRouteRequest.class)
     public void checkTxnState(NftWeb3Wallet.WEB3_TXN_CHECK_IC request){
         web3WalletBillService.txnStateCheck(request);

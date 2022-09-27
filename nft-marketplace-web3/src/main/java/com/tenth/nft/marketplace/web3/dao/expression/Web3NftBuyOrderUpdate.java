@@ -21,7 +21,7 @@ public class Web3NftBuyOrderUpdate extends AbsNftBuyOrderUpdate {
 
     public static class Builder extends AbsNftBuyOrderUpdate.Builder{
 
-        private Web3NftBuyOrderUpdate update = new Web3NftBuyOrderUpdate();
+        private Web3NftBuyOrderUpdate update;
 
         public Builder txn(String txn) {
             update.txn = txn;
@@ -30,6 +30,7 @@ public class Web3NftBuyOrderUpdate extends AbsNftBuyOrderUpdate {
 
         @Override
         protected AbsNftBuyOrderUpdate newUpdate() {
+            update = new Web3NftBuyOrderUpdate();
             return update;
         }
     }

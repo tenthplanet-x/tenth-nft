@@ -16,9 +16,11 @@ import com.tenth.nft.marketplace.common.vo.NftListingCancelRequest;
 import com.tenth.nft.marketplace.common.vo.NftListingCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftListingListRequest;
 import com.tenth.nft.marketplace.web3.dao.Web3NftListingDao;
+import com.tenth.nft.marketplace.web3.dto.Web3SendTransactionTicket;
 import com.tenth.nft.marketplace.web3.dto.WebListingSignTicket;
+import com.tenth.nft.marketplace.web3.entity.Web3NftAssets;
 import com.tenth.nft.marketplace.web3.entity.Web3NftListing;
-import com.tenth.nft.marketplace.web3.vo.Web3ListingCreateConfirmRequest;
+import com.tenth.nft.marketplace.web3.vo.Web3NftAssetsCreateConfirmRequest;
 import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftWeb3Exchange;
 import com.tenth.nft.protobuf.NftWeb3Wallet;
@@ -30,6 +32,7 @@ import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.json.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.web3j.utils.Convert;
 
 import java.nio.charset.StandardCharsets;
 
@@ -77,6 +80,13 @@ public class Web3NftListingService extends AbsNftListingService<Web3NftListing> 
         //Get user web3 address
         String seller = getUidAddress(uid);
 
+        Web3NftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
+        preListingCheck(
+                seller,
+                request,
+                nftAssets
+        );
+
         ListingDataForSign dataForSign = new ListingDataForSign();
 
         dataForSign.setSeller(seller);
@@ -106,7 +116,7 @@ public class Web3NftListingService extends AbsNftListingService<Web3NftListing> 
 
     }
 
-    public NftListingDTO createConfirm(Web3ListingCreateConfirmRequest request) {
+    public NftListingDTO createConfirm(Web3NftAssetsCreateConfirmRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         String seller = getUidAddress(uid);
@@ -128,10 +138,42 @@ public class Web3NftListingService extends AbsNftListingService<Web3NftListing> 
         return super.list(request, NftListingDTO.class);
     }
 
-    public NftWalletPayTicket buy(NftListingBuyRequest request) {
+    public Web3SendTransactionTicket buy(NftListingBuyRequest request) {
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         String buyer = getUidAddress(uid);
-        return buy(buyer, request);
+        NftWalletPayTicket ticket = super.buy(buyer, request);
+
+        Web3NftListing nftListing = findOne(request.getAssetsId(), request.getListingId());
+        //create transaction params
+        //get walletAddress
+        String txnData = tpulseContractHelper.createPaymentTransactionData(
+                nftListing.getSeller(),
+                nftListing.getAssetsId(),
+                nftListing.getQuantity(),
+                nftListing.getPrice(),
+                nftListing.getSignature()
+        );
+        String txnValue = Convert.toWei(nftListing.getPrice(), Convert.Unit.ETHER).toBigInteger().toString();
+        String txnTo = tpulseContractHelper.getContractAddress();
+        Web3SendTransactionTicket response = new Web3SendTransactionTicket(
+                ticket.getContent(),
+                txnData,
+                txnValue,
+                txnTo,
+                buyer
+        );
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .transaction()
+                .put("from", response.getFrom())
+                .put("txnTo", response.getTxnTo())
+                .put("txnValue", response.getTxnValue())
+                .put("txnData", response.getTxnData())
+                .put("content", response.getContent())
+                .build();
+        response.setWalletBridgeUrl(walletBridgeUrl);
+
+        return response;
+
     }
 
     protected String getUidAddress(Long uid) {

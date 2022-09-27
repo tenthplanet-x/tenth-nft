@@ -3,6 +3,10 @@ package com.tenth.nft.marketplace.common.service;
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.convention.templates.I18nGsTemplates;
+import com.tenth.nft.convention.templates.NftTemplateTypes;
+import com.tenth.nft.convention.templates.WalletCurrencyConfig;
+import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.marketplace.common.dao.AbsNftListingDao;
@@ -47,6 +51,8 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
     private Web3Properties web3Properties;
     @Autowired
     private WalletProviderFactory walletProviderFactory;
+    @Autowired
+    private I18nGsTemplates i18nGsTemplates;
 
 
     public AbsNftListingService(
@@ -71,7 +77,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
      */
     public NftListingDTO create(String seller, NftListingCreateRequest request){
 
-        AbsNftAssets assets = nftAssetsService.findById(request.getAssetsId());
+        AbsNftAssets assets = nftAssetsService.findOne(request.getAssetsId());
         preListingCheck(seller, request, assets);
 
         T listing = buildEntity(seller, request, assets);
@@ -95,7 +101,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
                         .id(request.getListingId())
                         .build()
         );
-        AbsNftAssets nftAssets = nftAssetsService.findById(nftListing.getAssetsId());
+        AbsNftAssets nftAssets = nftAssetsService.findOne(nftListing.getAssetsId());
         preBuyCheck(buyer, request, nftListing, nftAssets);
 
         //Create order
@@ -250,8 +256,19 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
     }
 
     protected void preListingCheck(String seller, NftListingCreateRequest request, AbsNftAssets assets) throws BizException {
+
+        //assets.getBlockchain();
+        //assets.getBlockchain()
+        WalletCurrencyConfig currencyConfig = i18nGsTemplates
+                .get(NftTemplateTypes.wallet_currency, WalletCurrencyTemplate.class)
+                .findOne(request.getCurrency())
+        ;
+        if(!currencyConfig.getBlockchain().equals(assets.getBlockchain())){
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_EXCEPTION_ILLEGAL_CURRENCY);
+        }
+
         if(Times.isExpired(request.getExpireAt())){
-            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_EXCEPTION_INVALID_PARAMS);
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_EXCEPTION_ILLEGAL_TIME);
         }
         //Quantity check
         int owns = nftBelongService.owns(assets.getId(), seller);
@@ -376,6 +393,10 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
             AbsNftListing nftListing = removeListing(assetsId, listingId);
             nftUbtLogService.createCancelEvent(nftListing, reason);
         }
+    }
+
+    protected T findOne(Long assetsId, Long listingId) {
+        return nftListingDao.findOne(AbsNftListingQuery.newBuilder().assetsId(assetsId).id(listingId).build());
     }
 
 }

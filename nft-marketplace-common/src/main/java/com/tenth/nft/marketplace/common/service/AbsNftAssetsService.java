@@ -137,7 +137,7 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
         );
     }
 
-    public T findById(Long assetsId) {
+    public T findOne(Long assetsId) {
         return nftAssetsDao.findOne(
                 AbsNftAssetsQuery.newBuilder().id(assetsId).build()
         );

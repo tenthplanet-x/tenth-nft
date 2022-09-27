@@ -44,7 +44,7 @@ public class Web3NftMintService {
      */
     public NftAssetsMintCheckResponse checkMinting(NftAssetsMintCheckRequest request) {
 
-        Web3NftAssets nftAssets = nftAssetsService.findById(request.getAssetsId());
+        Web3NftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         TokenMintStatus mintStatus = nftAssets.getMintStatus();
         if(null == mintStatus){
             if(web3Properties.getBlockchain().equals(nftAssets.getBlockchain())){
@@ -63,7 +63,7 @@ public class Web3NftMintService {
 
     public void mint(NftMarketplace.ASSETS_MINT_IC request){
 
-        Web3NftAssets nftAssets = nftAssetsService.findById(request.getId());
+        Web3NftAssets nftAssets = nftAssetsService.findOne(request.getId());
         String creatorAddress = nftAssets.getCreator();
         TpulseContract tpulseContract = tpulseContractHelper.getTpulseContract();
         try{

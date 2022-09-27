@@ -15,7 +15,6 @@ import com.tenth.nft.marketplace.buildin.entity.BuildInNftOffer;
 import com.tenth.nft.marketplace.common.dto.NftOfferDTO;
 import com.tenth.nft.marketplace.common.entity.AbsNftAssets;
 import com.tenth.nft.marketplace.common.entity.AbsNftOrder;
-import com.tenth.nft.marketplace.common.entity.NftOrderStatus;
 import com.tenth.nft.marketplace.common.service.AbsNftOfferService;
 import com.tenth.nft.marketplace.common.vo.NftMakeOfferRequest;
 import com.tenth.nft.marketplace.common.vo.NftOfferAcceptRequest;
@@ -23,7 +22,6 @@ import com.tenth.nft.marketplace.common.vo.NftOfferCancelRequest;
 import com.tenth.nft.marketplace.common.vo.NftOfferListRequest;
 import com.tenth.nft.marketplace.common.wallet.IWalletProvider;
 import com.tenth.nft.marketplace.common.wallet.WalletProviderFactory;
-import com.tenth.nft.protobuf.NftExchange;
 import com.tenth.nft.protobuf.NftWallet;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -125,7 +123,7 @@ public class BuildInNftOfferService extends AbsNftOfferService<BuildInNftOffer> 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         String seller = String.valueOf(uid);
         AbsNftOrder order = accept(String.valueOf(uid), request);
-        AbsNftAssets nftAssets = nftAssetsService.findById(request.getAssetsId());
+        AbsNftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         BuildInNftOffer nftOffer = findOne(request.getAssetsId(), request.getOfferId());
         afterCreateAcceptOrder(
                 seller,

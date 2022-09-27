@@ -9,5 +9,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("tpulse.web3_nft_buy_order")
 public class Web3NftBuyOrder extends AbsNftOrder {
 
+    private String txn;
 
+    public String getTxn() {
+        return txn;
+    }
+
+    public void setTxn(String txn) {
+        this.txn = txn;
+    }
 }

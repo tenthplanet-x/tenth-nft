@@ -20,12 +20,13 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     /**
      * 20300 sell
      */
-    LISTING_EXCEPTION_INVALID_PARAMS("020301", "Illegal params"),
+    LISTING_EXCEPTION_ILLEGAL_TIME("020301", "Illegal time"),
     LISTING_EXCEPTION_CREATE_CONTRACT_ERROR("020302", "create contract error"),
     LISTING_CANCEL_EXCEPTION_NOT_EXIST("020303", "Does not exist"),
     LISTING_CANCEL_EXCEPTION_EXPIRED("020304", "Expired"),
     LISTING_BUY_EXPCETION_NO_ENOUGH_ASSETS("020305", "Doesn't have enough assets"),
     LISTING_CREATE_EXCEPTION_ILLEGAL_SIGNATURE("020306", "Illegal signature"),
+    LISTING_EXCEPTION_ILLEGAL_CURRENCY("020307", "Illegal currency"),
 
     /**
      * 20400 buy
@@ -60,7 +61,7 @@ public enum NftExchangeErrorCodes implements ErrorCode {
     WALLET_PAY_EXCEPTION_LACK_OF_BALANCE("0207001", "don't have enough balance"),
     WALLET_EXCEPTION_UNCORRECT_PASSWORD("0207002", "uncorrect password"),
     WALLET_PAY_EXCEPTION_BIZ_VERIFY_FAILED("0207003", "biz verify failed"),
-
+    WALLET_PAY_EXCEPTION_PAYED("0207004", "Payed"),
 
     /**
      * 20800

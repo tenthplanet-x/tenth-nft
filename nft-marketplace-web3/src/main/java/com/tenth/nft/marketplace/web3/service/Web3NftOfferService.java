@@ -12,7 +12,6 @@ import com.tenth.nft.convention.web3.sign.OfferDataForSign;
 import com.tenth.nft.convention.web3.sign.StructContentHash;
 import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.marketplace.common.dto.NftOfferDTO;
-import com.tenth.nft.marketplace.common.entity.AbsNftAssets;
 import com.tenth.nft.marketplace.common.entity.AbsNftOrder;
 import com.tenth.nft.marketplace.common.service.AbsNftOfferService;
 import com.tenth.nft.marketplace.common.vo.NftMakeOfferRequest;
@@ -37,7 +36,6 @@ import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.json.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.web3j.crypto.Wallet;
 
 import java.math.BigDecimal;
 
@@ -100,7 +98,7 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
-        Web3NftAssets nftAssets = nftAssetsService.findById(request.getAssetsId());
+        Web3NftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         preMakeOfferCheck(
                 String.valueOf(uid),
                request,
@@ -174,7 +172,7 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
 
         //create transaction params
         Web3NftOffer nftOffer = findOne(request.getAssetsId(), request.getOfferId());
-        Web3NftAssets nftAssets = nftAssetsService.findById(request.getAssetsId());
+        Web3NftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         //get walletAddress
         String txnData = tpulseContractHelper.createAcceptTransactionData(
                 seller,
