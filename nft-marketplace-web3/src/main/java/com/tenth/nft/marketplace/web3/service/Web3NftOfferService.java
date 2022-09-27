@@ -97,10 +97,11 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
     public Web3OfferCreateSignTicket makeOffer(NftMakeOfferRequest request) throws Exception {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        String buyer = getUidAddress(uid);
 
         Web3NftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         preMakeOfferCheck(
-                String.valueOf(uid),
+                buyer,
                request,
                 nftAssets
         );
@@ -112,13 +113,7 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
         offerDataForSign.setExpireAt(request.getExpireAt());
         offerDataForSign.setDomain(tpulseContractHelper.getDomain());
         String dataForSign = offerDataForSign.toDataForSignBase64();
-        String from = routeClient.send(
-                NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
-                        .setUid(uid)
-                        .setNeedBalance(false)
-                        .build(),
-                Web3WalletBalanceRouteRequest.class
-        ).getBalance().getAddress();
+        String from = buyer;
         String content = StructContentHash.wrap(JsonUtil.toJson(request), web3Properties.getRsa().getPrivateKey());
 
         Web3OfferCreateSignTicket response = new Web3OfferCreateSignTicket(from, dataForSign, content);
@@ -137,12 +132,13 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
     public NftOfferDTO makeOfferConfirm(Web3OfferConfirmRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        String buyer = getUidAddress(uid);
 
         String content = request.getContent();
         NftMakeOfferRequest makeOfferRequest = JsonUtil.fromJson(StructContentHash.unwrap(content), NftMakeOfferRequest.class);
         makeOfferRequest.setSignature(request.getSignature());
 
-        NftOfferDTO dto = (NftOfferDTO)makeOffer(String.valueOf(uid), makeOfferRequest);
+        NftOfferDTO dto = (NftOfferDTO)makeOffer(buyer, makeOfferRequest);
 //        dto.setUserProfile(
 //                NftUserProfileDTO.from(
 //                        routeClient.send(
@@ -161,7 +157,8 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
 
     public void cancel(NftOfferCancelRequest request) {
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
-        cancel(String.valueOf(uid), request);
+        String buyer = getUidAddress(uid);
+        cancel(buyer, request);
     }
 
     public Web3AcceptCreateSignTicket accept(NftOfferAcceptRequest request) {
@@ -175,7 +172,7 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
         Web3NftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
         //get walletAddress
         String txnData = tpulseContractHelper.createAcceptTransactionData(
-                seller,
+                nftOffer.getBuyer(),
                 nftOffer.getAssetsId(),
                 nftOffer.getQuantity(),
                 nftOffer.getPrice(),
