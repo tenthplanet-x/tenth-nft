@@ -69,3 +69,10 @@ message ASSETS_MINT_IS{
 
 }
 
+message ASSETS_DETAIL_BATCH_IC{
+  repeated int64 assetsId = 1;
+}
+message ASSETS_DETAIL_BATCH_IS{
+  repeated AssetsDTO assets = 1;
+}
+

@@ -2,21 +2,20 @@ package com.tenth.nft.marketplace.buildin.service;
 
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
-import com.ruixi.tpulse.convention.vo.UserProfileDTO;
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
-import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.stats.CollectionVolumeStatsRouteRequest;
 import com.tenth.nft.marketplace.buildin.dao.BuildInNftCollectionDao;
-import com.tenth.nft.marketplace.buildin.dto.BuildInNftCollectionDTO;
 import com.tenth.nft.marketplace.buildin.entity.BuildInNftCollection;
-import com.tenth.nft.marketplace.common.dao.AbsNftCollectionDao;
 import com.tenth.nft.marketplace.common.dto.NftCollectionDTO;
+import com.tenth.nft.marketplace.common.dto.NftCollectionDetailDTO;
 import com.tenth.nft.marketplace.common.entity.AbsNftCollection;
 import com.tenth.nft.marketplace.common.service.AbsNftCollectionService;
 import com.tenth.nft.marketplace.common.vo.NftCollectionCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionListRequest;
-import com.tenth.nft.protobuf.NftSearch;
+import com.tenth.nft.marketplace.common.vo.NftCollectionOwnListRequest;
+import com.tenth.nft.protobuf.NftMarketplaceStats;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -24,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,11 +36,15 @@ public class BuildInNftCollectionService extends AbsNftCollectionService<BuildIn
     @Autowired
     private RouteClient routeClient;
 
+    private BuildInNftListingService buildInNftListingService;
+
     public BuildInNftCollectionService(
             BuildInNftCollectionDao nftCollectionDao,
-            @Lazy BuildInNftAssetsService buildInNftAssetsService
+            @Lazy BuildInNftAssetsService buildInNftAssetsService,
+            @Lazy BuildInNftListingService buildInNftListingService
             ) {
         super(nftCollectionDao, buildInNftAssetsService);
+        this.buildInNftListingService = buildInNftListingService;
     }
 
     public NftCollectionDTO create(NftCollectionCreateRequest request) {
@@ -70,11 +73,11 @@ public class BuildInNftCollectionService extends AbsNftCollectionService<BuildIn
 //        );
     }
 
-    public Page<BuildInNftCollectionDTO> list(NftCollectionListRequest request) {
+    public Page<NftCollectionDTO> list(NftCollectionListRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
-        Page<BuildInNftCollectionDTO> dataPage = super.list(request, Optional.of(String.valueOf(uid)), BuildInNftCollectionDTO.class);
+        Page<NftCollectionDTO> dataPage = super.list(request, Optional.of(String.valueOf(uid)), NftCollectionDTO.class);
 
         NftUserProfileDTO userProfileDTO = NftUserProfileDTO.from(
                 routeClient.send(
@@ -94,7 +97,7 @@ public class BuildInNftCollectionService extends AbsNftCollectionService<BuildIn
         );
     }
 
-    public BuildInNftCollectionDTO detail(NftCollectionDetailRequest request){
+    public NftCollectionDetailDTO detail(NftCollectionDetailRequest request){
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
@@ -107,11 +110,32 @@ public class BuildInNftCollectionService extends AbsNftCollectionService<BuildIn
                 ).getProfiles(0)
         );
 
-        BuildInNftCollectionDTO dto = detail(request, BuildInNftCollectionDTO.class);
+        NftCollectionDetailDTO dto = detail(request, NftCollectionDetailDTO.class);
         dto.setCreatorProfile(creatorProfileDTO);
+
+        //floor price
+        Optional<BigDecimal> floorPrice = buildInNftListingService.getFloorPrice(request.getId());
+        if(floorPrice.isPresent()){
+            dto.setFloorPrice(floorPrice.get().toPlainString());
+        }
+
+        //totalVolume
+        NftMarketplaceStats.COLLECTION_VOLUME_STATS_IS routeResponse = routeClient.send(
+                NftMarketplaceStats.COLLECTION_VOLUME_STATS_IC.newBuilder()
+                        .setCollectionId(request.getId())
+                        .build(),
+                CollectionVolumeStatsRouteRequest.class
+        );
+        if(routeResponse.hasStats()){
+            dto.setTotalVolume(routeResponse.getStats().getTotalVolume());
+            dto.setCurrency(routeResponse.getStats().getCurrency());
+        }
 
         return dto;
     }
 
 
+    public Page<NftCollectionDTO> ownList(NftCollectionOwnListRequest request) {
+        return list(request, Optional.of(String.valueOf(request.getOwner())), NftCollectionDTO.class);
+    }
 }

@@ -2,9 +2,7 @@ package com.tenth.nft.marketplace.web3.controller.web;
 
 import com.tenth.nft.marketplace.common.dto.NftAseetsOwnerDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
-import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
-import com.tenth.nft.marketplace.common.vo.NftAssetsListRequest;
-import com.tenth.nft.marketplace.common.vo.NftOwnerListRequest;
+import com.tenth.nft.marketplace.common.vo.*;
 import com.tenth.nft.marketplace.web3.Web3NftAssetsPaths;
 import com.tenth.nft.marketplace.web3.dto.Web3NftCreateSignTicket;
 import com.tenth.nft.marketplace.web3.service.Web3NftAssetsService;
@@ -59,6 +57,20 @@ public class Web3NftAssetsWebController {
         Validations.check(request);
         Page<NftAseetsOwnerDTO> assetsDTO = web3NftBelongService.ownerList(request);
         return Response.successBuilder().data(assetsDTO).build();
+    }
+
+    @RequestMapping(Web3NftAssetsPaths.NFT_ASSETS_DETAIL)
+    public Response detail(@RequestBody NftAssetsDetailRequest request){
+        Validations.check(request);
+        NftAssetsDTO nftAssetsDTO = nftAssetsService.detail(request);
+        return Response.successBuilder().data(nftAssetsDTO).build();
+    }
+
+    @RequestMapping(Web3NftAssetsPaths.NFT_ASSETS_OWN_LIST)
+    public Response myAssets(@RequestBody NftAssetsOwnRequest request){
+        Validations.check(request);
+        Page<NftAssetsDTO> dataPage = web3NftBelongService.myAssets(request);
+        return Response.successBuilder().data(dataPage).build();
     }
 
 

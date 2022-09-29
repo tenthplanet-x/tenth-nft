@@ -1,5 +1,7 @@
 package com.tenth.nft.marketplace.common.dto;
 
+import com.ruixi.tpulse.convention.vo.UserProfileDTO;
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -14,7 +16,7 @@ public class NftListingDTO implements SimpleResponse {
     private Long assetsId;
     @SimpleField
     private String currency;
-    @SimpleField
+    @SimpleField(decoder = BigDecimalToStringDecoder.class)
     private String price;
     @SimpleField
     private Integer quantity;
@@ -27,7 +29,7 @@ public class NftListingDTO implements SimpleResponse {
     @SimpleField
     private Long createdAt;
 
-    //private UserProfileDTO sellerProfile;
+    private NftUserProfileDTO sellerProfile;
 
     public Long getAssetsId() {
         return assetsId;
@@ -109,7 +111,15 @@ public class NftListingDTO implements SimpleResponse {
         this.id = id;
     }
 
-//    public static NftListingDTO from(NftExchange.NftListingDTO result) {
+    public NftUserProfileDTO getSellerProfile() {
+        return sellerProfile;
+    }
+
+    public void setSellerProfile(NftUserProfileDTO sellerProfile) {
+        this.sellerProfile = sellerProfile;
+    }
+
+    //    public static NftListingDTO from(NftExchange.NftListingDTO result) {
 //
 //        NftListingDTO dto = new NftListingDTO();
 //        dto.setId(result.getId());

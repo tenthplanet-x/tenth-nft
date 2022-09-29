@@ -1,5 +1,6 @@
 package com.tenth.nft.marketplace.common.dto;
 
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -29,6 +30,16 @@ public class NftCollectionDTO implements SimpleResponse {
     private String blockchain;
     @SimpleField
     private Integer items;
+
+    private NftUserProfileDTO creatorProfile;
+
+    public NftUserProfileDTO getCreatorProfile() {
+        return creatorProfile;
+    }
+
+    public void setCreatorProfile(NftUserProfileDTO creatorProfile) {
+        this.creatorProfile = creatorProfile;
+    }
 
     public Long getId() {
         return id;

@@ -17,6 +17,7 @@ public abstract class AbsNftBelong {
     @Indexed
     private Long assetsId;
 
+    @Indexed
     private String owner;
 
     private Integer quantity;

@@ -104,7 +104,7 @@ public abstract class AbsNftOfferService<T extends AbsNftOffer>{
         nftOffer.setAssetsId(request.getAssetsId());
         nftOffer.setBuyer(buyer);
         nftOffer.setQuantity(request.getQuantity());
-        nftOffer.setPrice(request.getPrice());
+        nftOffer.setPrice(new BigDecimal(request.getPrice()));
         nftOffer.setCurrency(request.getCurrency());
         nftOffer.setCreatedAt(System.currentTimeMillis());
         nftOffer.setUpdatedAt(nftOffer.getCreatedAt());
@@ -164,7 +164,7 @@ public abstract class AbsNftOfferService<T extends AbsNftOffer>{
                 NftOuterProduct.newBuilder()
                         .outerOrderId(String.valueOf(nftOffer.getId()))
                         .seller(seller)
-                        .price(nftOffer.getPrice())
+                        .price(nftOffer.getPrice().toString())
                         .quantity(nftOffer.getQuantity())
                         .currency(nftOffer.getCurrency())
                         .build(),
@@ -184,7 +184,7 @@ public abstract class AbsNftOfferService<T extends AbsNftOffer>{
         dto.setBuyer(nftOffer.getBuyer());
         dto.setAssetsId(nftOffer.getAssetsId());
         dto.setQuantity(nftOffer.getQuantity());
-        dto.setPrice(nftOffer.getPrice());
+        dto.setPrice(nftOffer.getPrice().toString());
         dto.setCurrency(nftOffer.getCurrency());
         dto.setCreatedAt(nftOffer.getCreatedAt());
         dto.setExpireAt(nftOffer.getExpireAt());
@@ -233,7 +233,7 @@ public abstract class AbsNftOfferService<T extends AbsNftOffer>{
 
         List<WalletOrderBizContent.Profit> profits = new ArrayList<>();
 
-        BigDecimal profitValue = new BigDecimal(nftOffer.getPrice());
+        BigDecimal profitValue = nftOffer.getPrice();
         BigDecimal creatorFee = BigDecimal.ZERO;
         if(!Strings.isNullOrEmpty(nftOffer.getCreatorFeeRate())){
             creatorFee = profitValue.multiply(new BigDecimal(nftOffer.getCreatorFeeRate()).divide(new BigDecimal(100)));

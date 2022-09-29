@@ -11,13 +11,13 @@ import javax.validation.constraints.NotNull;
 public class NftAssetsDetailRequest {
 
     @NotNull
-    private Long id;
+    private Long assetsId;
 
-    public Long getId() {
-        return id;
+    public Long getAssetsId() {
+        return assetsId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAssetsId(Long assetsId) {
+        this.assetsId = assetsId;
     }
 }

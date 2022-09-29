@@ -175,7 +175,7 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
                 nftOffer.getBuyer(),
                 nftOffer.getAssetsId(),
                 nftOffer.getQuantity(),
-                nftOffer.getPrice(),
+                nftOffer.getPrice().toString(),
                 nftOffer.getExpireAt(),
                 null
         );
@@ -190,7 +190,7 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
                 .merchantType(WalletMerchantType.PERSONAL.name())
                 .merchantId(seller)
                 .currency(nftOffer.getCurrency())
-                .value(nftOffer.getPrice())
+                .value(nftOffer.getPrice().toString())
                 .expiredAt(order.getExpiredAt())
                 .remark("")
                 .profits(createProfits(seller, nftOffer))

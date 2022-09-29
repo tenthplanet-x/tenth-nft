@@ -7,11 +7,15 @@ import com.tenth.nft.marketplace.buildin.dao.BuildInNftBelongDao;
 import com.tenth.nft.marketplace.buildin.dto.BuildInNftAssetsOwnerDTO;
 import com.tenth.nft.marketplace.buildin.entity.BuildInNftBelong;
 import com.tenth.nft.marketplace.common.dto.NftAseetsOwnerDTO;
+import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftBelongService;
+import com.tenth.nft.marketplace.common.vo.NftAssetsDetailRequest;
+import com.tenth.nft.marketplace.common.vo.NftAssetsOwnRequest;
 import com.tenth.nft.marketplace.common.vo.NftOwnerListRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -29,8 +33,11 @@ public class BuildInNftBelongService extends AbsNftBelongService<BuildInNftBelon
     @Autowired
     private RouteClient routeClient;
 
-    public BuildInNftBelongService(BuildInNftBelongDao nftBelongDao) {
-        super(nftBelongDao);
+    public BuildInNftBelongService(
+            BuildInNftBelongDao nftBelongDao,
+            @Lazy BuildInNftAssetsService nftAssetsService
+            ) {
+        super(nftBelongDao, nftAssetsService);
     }
 
     @Override
@@ -52,5 +59,10 @@ public class BuildInNftBelongService extends AbsNftBelongService<BuildInNftBelon
         });
 
         return ownerDataPage;
+    }
+
+
+    public Page<NftAssetsDTO> myAssets(NftAssetsOwnRequest request) {
+        return myAssets(request, String.valueOf(request.getOwner()), NftAssetsDTO.class);
     }
 }

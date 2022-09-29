@@ -1,5 +1,6 @@
 package com.tenth.nft.marketplace.common.dto;
 
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.marketplace.common.entity.NftAssetsType;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
@@ -47,6 +48,11 @@ public class NftAssetsDTO implements SimpleResponse {
     private String token;
 
     private ListingDTO currentListing;
+
+    @SimpleField
+    private String creator;
+
+    private NftUserProfileDTO creatorProfile;
 
     public Long getId() {
         return id;
@@ -150,6 +156,22 @@ public class NftAssetsDTO implements SimpleResponse {
 
     public void setCurrentListing(ListingDTO currentListing) {
         this.currentListing = currentListing;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public NftUserProfileDTO getCreatorProfile() {
+        return creatorProfile;
+    }
+
+    public void setCreatorProfile(NftUserProfileDTO creatorProfile) {
+        this.creatorProfile = creatorProfile;
     }
 
     public static class ListingDTO{

@@ -3,6 +3,7 @@ package com.tenth.nft.marketplace.common.dao.expression;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
 import com.tpulse.gs.convention.dao.defination.QueryOpt;
+import com.tpulse.gs.convention.dao.dto.Page;
 
 /**
  * @author gs-orm-generator
@@ -18,6 +19,8 @@ public class AbsNftListingQuery extends SimplePageQuery {
     private String seller;
     @SimpleQueryParam(name = "expireAt", opt = QueryOpt.LT)
     private Long expireAtLt;
+    @SimpleQueryParam
+    private Long collectionId;
 
     public Long getId() {
         return id;
@@ -33,6 +36,10 @@ public class AbsNftListingQuery extends SimplePageQuery {
 
     public Long getExpireAtLt() {
         return expireAtLt;
+    }
+
+    public Long getCollectionId() {
+        return collectionId;
     }
 
     public static Builder newBuilder() {
@@ -65,6 +72,11 @@ public class AbsNftListingQuery extends SimplePageQuery {
 
         public Builder expireAtLt(Long expireAtLt) {
             query.expireAtLt = expireAtLt;
+            return this;
+        }
+
+        public Builder collectionId(Long collectionId) {
+            query.collectionId = collectionId;
             return this;
         }
     }

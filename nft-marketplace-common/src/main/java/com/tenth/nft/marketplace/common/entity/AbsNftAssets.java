@@ -40,6 +40,7 @@ public abstract class AbsNftAssets {
 
     private String token;
 
+    @Indexed
     private String creator;
 
     private String creatorFeeRate;

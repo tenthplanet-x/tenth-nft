@@ -16,7 +16,9 @@ import com.tenth.nft.marketplace.common.entity.AbsNftCollection;
 import com.tenth.nft.marketplace.common.vo.NftCollectionCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionListRequest;
+import com.tenth.nft.marketplace.common.vo.NftCollectionOwnListRequest;
 import com.tenth.nft.protobuf.NftMarketplace;
+import com.tpulse.commons.biz.dto.PageRequest;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -144,7 +146,7 @@ public abstract class AbsNftCollectionService<T extends AbsNftCollection> {
         );
     }
 
-    public <DTO extends NftCollectionDTO> Page<DTO> list(NftCollectionListRequest request, Optional<String> creator, Class<DTO> dtoClass) {
+    public <DTO extends NftCollectionDTO> Page<DTO> list(PageRequest request, Optional<String> creator, Class<DTO> dtoClass) {
 
         String sortField = request.getSortField();
         boolean reverse = request.isReverse();
@@ -181,4 +183,6 @@ public abstract class AbsNftCollectionService<T extends AbsNftCollection> {
                 AbsNftCollectionQuery.newBuilder().id(collectionId).build()
         );
     }
+
+
 }

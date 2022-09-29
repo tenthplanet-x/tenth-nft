@@ -10,6 +10,7 @@ import com.tenth.nft.marketplace.common.service.AbsNftCollectionService;
 import com.tenth.nft.marketplace.common.vo.NftCollectionCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftCollectionListRequest;
+import com.tenth.nft.marketplace.common.vo.NftCollectionOwnListRequest;
 import com.tenth.nft.marketplace.web3.dao.Web3NftCollectionDao;
 import com.tenth.nft.marketplace.web3.entity.Web3NftCollection;
 import com.tenth.nft.protobuf.NftSearch;
@@ -89,4 +90,10 @@ public class Web3NftCollectionService extends AbsNftCollectionService<Web3NftCol
     }
 
 
+    public Page<NftCollectionDTO> ownList(NftCollectionOwnListRequest request) {
+
+        String address = getUidAddress(request.getOwner());
+        return list(request, Optional.of(address), NftCollectionDTO.class);
+
+    }
 }

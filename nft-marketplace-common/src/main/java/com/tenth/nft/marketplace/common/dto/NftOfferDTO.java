@@ -17,7 +17,7 @@ public class NftOfferDTO implements SimpleResponse {
     private String buyer;
     @SimpleField
     private Integer quantity;
-    @SimpleField
+    @SimpleField(decoder = BigDecimalToStringDecoder.class)
     private String price;
     @SimpleField
     private String currency;

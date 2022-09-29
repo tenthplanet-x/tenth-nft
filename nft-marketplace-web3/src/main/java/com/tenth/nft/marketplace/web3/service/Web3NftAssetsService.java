@@ -14,6 +14,7 @@ import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsUpdate;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftAssetsService;
 import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
+import com.tenth.nft.marketplace.common.vo.NftAssetsDetailRequest;
 import com.tenth.nft.marketplace.web3.dao.Web3NftAssetsDao;
 import com.tenth.nft.marketplace.web3.dao.expression.Web3NftAssetsUpdate;
 import com.tenth.nft.marketplace.web3.dto.Web3NftCreateSignTicket;
@@ -28,6 +29,7 @@ import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.json.JsonUtil;
 import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -51,8 +53,10 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
             Web3NftAssetsDao nftAssetsDao,
             Web3NftCollectionService nftCollectionService,
             Web3NftBelongService nftBelongService,
-            Web3NftUbtLogService nftUbtLogService) {
-        super(nftAssetsDao, nftCollectionService, nftBelongService, nftUbtLogService);
+            Web3NftUbtLogService nftUbtLogService,
+            @Lazy Web3NftListingService nftListingService
+            ) {
+        super(nftAssetsDao, nftCollectionService, nftBelongService, nftUbtLogService, nftListingService);
         this.web3NftAssetsDao = nftAssetsDao;
         this.nftCollectionService = nftCollectionService;
     }
@@ -149,5 +153,9 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
                         .mintStatus(status)
                         .build()
         );
+    }
+
+    public NftAssetsDTO detail(NftAssetsDetailRequest request) {
+        return detail(request, NftAssetsDTO.class);
     }
 }

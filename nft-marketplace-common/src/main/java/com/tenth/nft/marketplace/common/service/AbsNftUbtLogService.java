@@ -97,7 +97,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
 
         ListEvent listEvent = new ListEvent();
         listEvent.setFrom(listing.getSeller());
-        listEvent.setPrice(listing.getPrice());
+        listEvent.setPrice(listing.getPrice().toString());
         listEvent.setQuantity(listing.getQuantity());
         listEvent.setCurrency(listing.getCurrency());
         listEvent.setExpireAt(listing.getExpireAt());
@@ -120,7 +120,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
         transfer.setFrom(nftOrder.getSeller());
         transfer.setTo(nftOrder.getBuyer());
         transfer.setQuantity(nftOrder.getQuantity());
-        transfer.setPrice(nftOrder.getPrice());
+        transfer.setPrice(nftOrder.getPrice().toString());
         transfer.setCurrency(nftOrder.getCurrency());
         activity.setTransfer(transfer);
 
@@ -140,7 +140,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
         sale.setFrom(nftOrder.getSeller());
         sale.setTo(nftOrder.getBuyer());
         sale.setQuantity(nftOrder.getQuantity());
-        sale.setPrice(nftOrder.getPrice());
+        sale.setPrice(nftOrder.getPrice().toString());
         sale.setCurrency(nftOrder.getCurrency());
         activity.setSale(sale);
 
@@ -172,7 +172,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
         ListCancelEvent list = new ListCancelEvent();
         list.setFrom(nftListing.getSeller());
         list.setQuantity(nftListing.getQuantity());
-        list.setPrice(nftListing.getPrice());
+        list.setPrice(nftListing.getPrice().toString());
         list.setCurrency(nftListing.getCurrency());
         list.setReason(reason);
         activity.setCancel(list);
@@ -192,7 +192,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
         OfferEvent offerEvent = new OfferEvent();
         offerEvent.setFrom(nftOffer.getBuyer());
         offerEvent.setQuantity(nftOffer.getQuantity());
-        offerEvent.setPrice(nftOffer.getPrice());
+        offerEvent.setPrice(nftOffer.getPrice().toString());
         offerEvent.setCurrency(nftOffer.getCurrency());
         offerEvent.setExpireAt(nftOffer.getExpireAt());
         activity.setOffer(offerEvent);
@@ -214,7 +214,7 @@ public abstract class AbsNftUbtLogService<T extends AbsNftUbtLog> {
         OfferEvent offerEvent = new OfferEvent();
         offerEvent.setFrom(nftOffer.getBuyer());
         offerEvent.setQuantity(nftOffer.getQuantity());
-        offerEvent.setPrice(nftOffer.getPrice());
+        offerEvent.setPrice(nftOffer.getPrice().toString());
         offerEvent.setCurrency(nftOffer.getCurrency());
         offerEvent.setCancel(true);
         activity.setOffer(offerEvent);

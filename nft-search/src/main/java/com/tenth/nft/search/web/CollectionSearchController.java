@@ -27,12 +27,12 @@ public class CollectionSearchController {
     @Autowired
     private CollectionSearchService collectionSearchService;
 
-    @RequestMapping(NftSearchPaths.COLLECTION_RECOMMEND_LIST)
-    public Response recommendList(@RequestBody CollectionRecommentListSearchRequest request){
-        Validations.check(request);
-        Page<CollectionSearchDTO> collections = collectionSearchService.recommendList(request);
-        return Response.successBuilder().data(collections).build();
-    }
+//    @RequestMapping(NftSearchPaths.COLLECTION_RECOMMEND_LIST)
+//    public Response recommendList(@RequestBody CollectionRecommentListSearchRequest request){
+//        Validations.check(request);
+//        Page<CollectionSearchDTO> collections = collectionSearchService.recommendList(request);
+//        return Response.successBuilder().data(collections).build();
+//    }
 
     @RequestMapping(NftSearchPaths.COLLECTION_LIST)
     public Response list(@RequestBody CollectionListSearchRequest request){

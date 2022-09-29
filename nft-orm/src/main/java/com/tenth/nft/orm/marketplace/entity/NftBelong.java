@@ -18,6 +18,7 @@ public class NftBelong {
     @Indexed
     private Long assetsId;
 
+    @Indexed
     private Long owner;
 
     private Integer quantity;

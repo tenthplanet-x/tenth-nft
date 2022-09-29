@@ -107,7 +107,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         //Create order
         NftOuterProduct outerProduct = NftOuterProduct.newBuilder()
                 .outerOrderId(String.valueOf(nftListing.getId()))
-                .price(nftListing.getPrice())
+                .price(nftListing.getPrice().toString())
                 .quantity(nftListing.getQuantity())
                 .currency(nftListing.getCurrency())
                 .seller(nftListing.getSeller())
@@ -121,7 +121,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         NftWalletPayTicket response = new NftWalletPayTicket();
         response.setContent(content);
         response.setCurrency(nftListing.getCurrency());
-        response.setValue(nftListing.getPrice());
+        response.setValue(nftListing.getPrice().toString());
 
         return response;
 
@@ -240,9 +240,10 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
 
         T listing = newListingEntity();
         listing.setSeller(seller);
+        listing.setCollectionId(assets.getCollectionId());
         listing.setAssetsId(request.getAssetsId());
         listing.setQuantity(request.getQuantity());
-        listing.setPrice(request.getPrice());
+        listing.setPrice(new BigDecimal(request.getPrice()));
         listing.setCurrency(request.getCurrency());
         listing.setStartAt(request.getStartAt());
         listing.setExpireAt(request.getExpireAt());
@@ -285,7 +286,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         dto.setId(listing.getId());
         dto.setAssetsId(listing.getAssetsId());
         dto.setCurrency(listing.getCurrency());
-        dto.setPrice(listing.getPrice());
+        dto.setPrice(listing.getPrice().toString());
         dto.setQuantity(listing.getQuantity());
         dto.setSeller(listing.getSeller());
         dto.setStartAt(listing.getStartAt());
@@ -308,7 +309,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
                 .merchantType(WalletMerchantType.PERSONAL.name())
                 .merchantId(nftListing.getSeller())
                 .currency(nftListing.getCurrency())
-                .value(nftListing.getPrice())
+                .value(nftListing.getPrice().toPlainString())
                 .expiredAt(nftBuyOrder.getExpiredAt())
                 .remark("")
                 .profits(createProfits(nftListing))
@@ -321,7 +322,7 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
 
         List<WalletOrderBizContent.Profit> profits = new ArrayList<>();
 
-        BigDecimal profitValue = new BigDecimal(nftListing.getPrice());
+        BigDecimal profitValue = new BigDecimal(nftListing.getPrice().toPlainString());
         BigDecimal creatorFee = BigDecimal.ZERO;
         if(!Strings.isNullOrEmpty(nftListing.getCreatorFeeRate())){
             creatorFee = profitValue.multiply(new BigDecimal(nftListing.getCreatorFeeRate()).divide(new BigDecimal(100)));
@@ -399,4 +400,29 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         return nftListingDao.findOne(AbsNftListingQuery.newBuilder().assetsId(assetsId).id(listingId).build());
     }
 
+    public Optional<BigDecimal> getFloorPrice(Long collectionId) {
+        T nftListing = nftListingDao.findOne(AbsNftListingQuery.newBuilder()
+                .collectionId(collectionId)
+                .setSortField("price")
+                .setReverse(false)
+                .build()
+        );
+        if(null != nftListing){
+            return Optional.of(nftListing.getPrice());
+        }
+        return Optional.empty();
+    }
+
+    public NftListingDTO getCurrentListing(Long assetsId) {
+        T nftListing = nftListingDao.findOne(AbsNftListingQuery.newBuilder()
+                .assetsId(assetsId)
+                .setSortField("_id")
+                .setReverse(true)
+                .build()
+        );
+        if(null != nftListing){
+            return toDTO(nftListing);
+        }
+        return null;
+    }
 }

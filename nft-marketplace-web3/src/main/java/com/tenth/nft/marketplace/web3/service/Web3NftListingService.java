@@ -150,7 +150,7 @@ public class Web3NftListingService extends AbsNftListingService<Web3NftListing> 
                 nftListing.getSeller(),
                 nftListing.getAssetsId(),
                 nftListing.getQuantity(),
-                nftListing.getPrice(),
+                nftListing.getPrice().toString(),
                 nftListing.getSignature()
         );
         String txnValue = Convert.toWei(nftListing.getPrice(), Convert.Unit.ETHER).toBigInteger().toString();

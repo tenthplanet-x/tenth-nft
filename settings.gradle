@@ -13,4 +13,6 @@ include 'nft-marketplace'
 include 'nft-marketplace-buildin'
 include 'nft-marketplace-web3'
 include 'nft-marketplace-common'
+include 'nft-marketplace-stats'
+include 'nft-marketplace-rec'
 

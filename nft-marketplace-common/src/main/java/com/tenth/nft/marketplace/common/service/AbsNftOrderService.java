@@ -13,6 +13,8 @@ import com.tenth.nft.marketplace.common.vo.NftOrderStatusRequest;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+
 /**
  * @author shijie
  */
@@ -40,7 +42,7 @@ public abstract class AbsNftOrderService<T extends AbsNftOrder> {
         nftOrder.setCreatedAt(System.currentTimeMillis());
         nftOrder.setUpdatedAt(nftOrder.getCreatedAt());
         nftOrder.setCurrency(product.getCurrency());
-        nftOrder.setPrice(product.getPrice());
+        nftOrder.setPrice(new BigDecimal(product.getPrice()));
         nftOrder.setQuantity(product.getQuantity());
         nftOrder.setStatus(NftOrderStatus.CREATE);
         nftOrder.setExpiredAt(expiredAt);

@@ -31,12 +31,21 @@ public enum NftInnerCmdTypes implements CmdType {
     ASSETS_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_CREATE_IC, NftMarketplace.ASSETS_CREATE_IC.newBuilder()),
     ASSETS_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_DETAIL_IC, NftMarketplace.ASSETS_DETAIL_IC.newBuilder()),
     COLLECTION_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_CREATE_IC, NftMarketplace.COLLECTION_CREATE_IC.newBuilder()),
-    COLLECTION_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()),
+    COLLECTION_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUILDIN_COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()),
     NFT_BLOCKCHAIN_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.NFT_BLOCKCHAIN_IC, NftOperation.NFT_BLOCKCHAIN_IC.newBuilder()),
     BUILDIN_BUY_WALLET_RECEIPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUILDIN_BUY_RECEIPT_IC, NftExchange.PAYMENT_RECEIVE_IC.newBuilder()),
     BUILDIN_ACCEPT_WALLET_RECEIPT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUILDIN_ACCEPT_WALLET_RECEIPT_IC, NftExchange.PAYMENT_RECEIVE_IC.newBuilder()),
     ASSETS_MINT_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.ASSETS_MINT_IC, NftMarketplace.ASSETS_MINT_IC.newBuilder()),
 
+    //buildIn marketplace
+    BUILDIN_ASSETS_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUILDIN_ASSETS_DETAIL_IC, NftMarketplace.ASSETS_DETAIL_IC.newBuilder()),
+    BUILDIN_ASSETS_DETAIL_BATCH_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.BUILDIN_ASSETS_DETAIL_BATCH_IC, NftMarketplace.ASSETS_DETAIL_BATCH_IC.newBuilder()),
+
+    //web3 marketplace
+    WE3_COLLECTION_CREATE_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_COLLECTION_CREATE_IC, NftMarketplace.COLLECTION_CREATE_IC.newBuilder()),
+    WE3_COLLECTION_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_COLLECTION_DETAIL_IC, NftMarketplace.COLLECTION_DETAIL_IC.newBuilder()),
+    WEB3_ASSETS_DETAIL_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_ASSETS_DETAIL_IC, NftMarketplace.ASSETS_DETAIL_IC.newBuilder()),
+    WEB3_ASSETS_DETAIL_BATCH_IC(NftCmdGroup.EXCHANGE, NftInnerCmds.WEB3_ASSETS_DETAIL_BATCH_IC, NftMarketplace.ASSETS_DETAIL_BATCH_IC.newBuilder()),
 
     //player
     ASSETS_BELONGS_UPDATE_IC(NftCmdGroup.PLAYER, NftInnerCmds.ASSETS_BELONGS_UPDATE_IC, NftPlayer.ASSETS_BELONGS_UPDATE_IC.newBuilder()),
@@ -55,6 +64,10 @@ public enum NftInnerCmdTypes implements CmdType {
     WEB3_BILL_PAY_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_BILL_PAY_IC, NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder()),
     WEB3_TXN_CHECK_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_TXN_CHECK_IC, NftWeb3Wallet.WEB3_TXN_CHECK_IC.newBuilder()),
     WEB3_WALLET_BALANCE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_WALLET_BALANCE_IC, NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()),
+
+    //stats
+    COLLECTION_VOLUME_STATS_IC(NftCmdGroup.MARKETPLACE_STATS, NftInnerCmds.COLLECTION_VOLUME_STATS_IC, NftMarketplaceStats.COLLECTION_VOLUME_STATS_IC.newBuilder()),
+    EXCHANGE_LOG_IC(NftCmdGroup.MARKETPLACE_STATS, NftInnerCmds.EXCHANGE_LOG_IC, NftMarketplaceStats.EXCHANGE_LOG_IC.newBuilder()),
 
     ;
 

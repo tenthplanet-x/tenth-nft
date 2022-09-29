@@ -146,7 +146,7 @@ public class BuildInNftOfferService extends AbsNftOfferService<BuildInNftOffer> 
                 .merchantType(WalletMerchantType.PERSONAL.name())
                 .merchantId(seller)
                 .currency(nftOffer.getCurrency())
-                .value(nftOffer.getPrice())
+                .value(nftOffer.getPrice().toString())
                 .expiredAt(order.getExpiredAt())
                 .remark("")
                 .profits(createProfits(seller, nftOffer))

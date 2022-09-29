@@ -3,6 +3,8 @@ package com.tenth.nft.marketplace.common.dao.expression;
 import com.tpulse.gs.convention.dao.SimpleUpdate;
 import com.tpulse.gs.convention.dao.annotation.SimpleWriteParam;
 
+import java.math.BigDecimal;
+
 /**
  * @author gs-orm-generator
  * @createdAt 2022/07/18 08:24
@@ -16,7 +18,7 @@ public class AbsNftOfferUpdate extends SimpleUpdate {
     private String buyer;
 
     @SimpleWriteParam
-    private Float price;
+    private BigDecimal price;
 
     @SimpleWriteParam
     private String currency;
@@ -39,7 +41,7 @@ public class AbsNftOfferUpdate extends SimpleUpdate {
         return buyer;
     }
 
-    public Float getPrice(){
+    public BigDecimal getPrice(){
         return price;
     }
 
@@ -69,7 +71,7 @@ public class AbsNftOfferUpdate extends SimpleUpdate {
             return this;
         }
 
-        public Builder setPrice(Float price){
+        public Builder setPrice(BigDecimal price){
             update.price = price;
             return this;
         }

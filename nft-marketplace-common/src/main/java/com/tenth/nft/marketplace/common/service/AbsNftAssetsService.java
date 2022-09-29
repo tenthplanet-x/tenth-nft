@@ -13,17 +13,22 @@ import com.tenth.nft.marketplace.common.dao.AbsNftAssetsDao;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsQuery;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsUpdate;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftListingDTO;
 import com.tenth.nft.marketplace.common.entity.AbsNftAssets;
 import com.tenth.nft.marketplace.common.entity.AbsNftCollection;
 import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftAssetsDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftAssetsListRequest;
+import com.tenth.nft.marketplace.common.vo.NftAssetsOwnRequest;
 import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
 import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author shijie
@@ -43,17 +48,21 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
 
     private AbsNftUbtLogService nftUbtLogService;
 
+    private AbsNftListingService nftListingService;
+
 
     public AbsNftAssetsService(
             AbsNftAssetsDao<T> nftAssetsDao,
             AbsNftCollectionService nftCollectionService,
             AbsNftBelongService nftBelongService,
-            AbsNftUbtLogService nftUbtLogService
+            AbsNftUbtLogService nftUbtLogService,
+            AbsNftListingService nftListingService
             ) {
         this.nftAssetsDao = nftAssetsDao;
         this.nftCollectionService = nftCollectionService;
         this.nftBelongService = nftBelongService;
         this.nftUbtLogService = nftUbtLogService;
+        this.nftListingService = nftListingService;
     }
 
 
@@ -131,10 +140,23 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
 
         //TODO current listing
 
-        return nftAssetsDao.findOne(
-                AbsNftAssetsQuery.newBuilder().id(request.getId()).build(),
+        DTO nftAssetsDTO = nftAssetsDao.findOne(
+                AbsNftAssetsQuery.newBuilder().id(request.getAssetsId()).build(),
                 dtoClass
         );
+
+        NftListingDTO _listingDTO = nftListingService.getCurrentListing(request.getAssetsId());
+        if(null != _listingDTO){
+            NftAssetsDTO.ListingDTO listingDTO = new NftAssetsDTO.ListingDTO();
+            listingDTO.setId(_listingDTO.getAssetsId());
+            listingDTO.setCurrency(_listingDTO.getCurrency());
+            listingDTO.setPrice(_listingDTO.getPrice());
+            listingDTO.setExpireAt(_listingDTO.getExpireAt());
+            listingDTO.setQuantity(_listingDTO.getQuantity());
+            listingDTO.setStartAt(_listingDTO.getStartAt());
+            nftAssetsDTO.setCurrentListing(listingDTO);
+        }
+        return nftAssetsDTO;
     }
 
     public T findOne(Long assetsId) {
@@ -214,5 +236,28 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
 
     public Long totalByCollectionId(Long collectionId) {
         return nftAssetsDao.count(AbsNftAssetsQuery.newBuilder().setCollectionId(collectionId).build());
+    }
+
+    public NftMarketplace.ASSETS_DETAIL_BATCH_IS batchDetail(NftMarketplace.ASSETS_DETAIL_BATCH_IC request){
+
+        return NftMarketplace.ASSETS_DETAIL_BATCH_IS.newBuilder()
+                .addAllAssets(
+                        nftAssetsDao.find(
+                                AbsNftAssetsQuery.newBuilder().idIn(request.getAssetsIdList()).build()
+                        ).stream().map(this::toProto).collect(Collectors.toList())
+                )
+                .build();
+
+    }
+
+
+    public <DTO extends NftAssetsDTO> List<DTO> findByIds(List<Long> assetsIds, Class<DTO> dtoClass) {
+
+        return nftAssetsDao.find(
+                AbsNftAssetsQuery.newBuilder()
+                        .idIn(assetsIds)
+                        .build(),
+                dtoClass
+        );
     }
 }

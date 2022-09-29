@@ -10,6 +10,8 @@ public class Web3NftAssetsPaths {
     public static final String NFTASSETS_CREATE = "/nft/assets/create/web3";
     public static final String NFT_ASSETS_OWNER_LIST = "/nft/assets/owner/list/web3";
     public static final String NFT_ASSETS_MINT_CHECK = "/nft/assets/mint/check";
+    public static final String NFT_ASSETS_DETAIL = "/nft/assets/detail/web3";
+    public static final String NFT_ASSETS_OWN_LIST = "/nft/assets/own/list/web3";
 
     public static final String NFTASSETS_CREATE_CONFIRM = "/nft/assets/create/confirm/web3";
     public static final String NFT_LISTING_CREATE = "/nft/exchange/sell/web3";

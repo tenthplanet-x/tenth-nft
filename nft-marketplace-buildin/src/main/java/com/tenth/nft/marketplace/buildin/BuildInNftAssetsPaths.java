@@ -9,6 +9,8 @@ public class BuildInNftAssetsPaths {
     public static final String NFT_ASSETS_LIST = "/nft/assets/list/buildin";
     public static final String NFT_ASSETS_CREATE = "/nft/assets/create/buildin";
     public static final String NFT_ASSETS_OWNER_LIST = "/nft/assets/owner/list/buildin";
+    public static final String NFT_ASSETS_DETAIL = "/nft/assets/detail/buildin";
+    public static final String NFT_ASSETS_OWN_LIST = "/nft/assets/own/list/buildin";
 
     public static final String NFT_LISTING_CREATE = "/nft/exchange/sell/buildin";
     public static final String NFT_LISTING_LIST = "/nft/exchange/listing/list/buildin";

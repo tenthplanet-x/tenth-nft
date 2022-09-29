@@ -3,6 +3,8 @@ package com.tenth.nft.marketplace.common.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
+import java.math.BigDecimal;
+
 /**
  * @author shijie
  */
@@ -20,7 +22,7 @@ public abstract class AbsNftOrder {
 
     private String currency;
 
-    private String price;
+    private BigDecimal price;
 
     private String seller;
 
@@ -76,11 +78,11 @@ public abstract class AbsNftOrder {
         this.currency = currency;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

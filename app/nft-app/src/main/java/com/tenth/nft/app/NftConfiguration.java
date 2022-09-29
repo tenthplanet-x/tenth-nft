@@ -6,6 +6,7 @@ import com.tenth.nft.crawler.NftCrawlerConfiguration;
 import com.tenth.nft.marketplace.NftMarketplaceConfiguration;
 import com.tenth.nft.marketplace.buildin.BuildInNftMarketplaceConfiguration;
 import com.tenth.nft.marketplace.common.NftMarketplaceCommonConfiguration;
+import com.tenth.nft.marketplace.stats.NftMarketplaceStatsConfiguration;
 import com.tenth.nft.marketplace.web3.Web3NftMarketpalceConfiguration;
 import com.tenth.nft.operation.NftOperationConfiguration;
 import com.tenth.nft.orm.NftOrmConfiguration;
@@ -48,7 +49,8 @@ import org.springframework.context.annotation.Import;
         BuildInNftMarketplaceConfiguration.class,
         Web3NftMarketpalceConfiguration.class,
         NftMarketplaceCommonConfiguration.class,
-        NftMarketplaceConfiguration.class
+        NftMarketplaceConfiguration.class,
+        NftMarketplaceStatsConfiguration.class
 })
 public class NftConfiguration {
 

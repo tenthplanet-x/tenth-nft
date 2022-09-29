@@ -12,6 +12,7 @@ dependencies {
     implementation project(":nft-marketplace-web3")
     implementation project(":nft-wallet-buildin")
     implementation project(":nft-wallet-web3")
+    implementation project(":nft-marketplace-stats")
     implementation libs.tpulse_convention
     implementation libs.starter_web
     implementation libs.gs_config
