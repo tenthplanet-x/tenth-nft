@@ -16,6 +16,8 @@ public class NftAssetsExchangeLogService {
 
     @Autowired
     private NftAssetsExchangeLogDao nftAssetsExchangeLogDao;
+    @Autowired
+    private NftExchangeStatsService exchangeStatsService;
 
     public void insert(NftMarketplaceStats.EXCHANGE_LOG_IC request) {
 
@@ -29,6 +31,8 @@ public class NftAssetsExchangeLogService {
         log.setCreatedAt(System.currentTimeMillis());
         log.setUpdatedAt(log.getCreatedAt());
         nftAssetsExchangeLogDao.insert(log);
+
+        exchangeStatsService.doStats();
 
     }
 

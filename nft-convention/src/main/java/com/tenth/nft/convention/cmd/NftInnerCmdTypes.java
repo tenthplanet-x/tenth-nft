@@ -69,6 +69,9 @@ public enum NftInnerCmdTypes implements CmdType {
     COLLECTION_VOLUME_STATS_IC(NftCmdGroup.MARKETPLACE_STATS, NftInnerCmds.COLLECTION_VOLUME_STATS_IC, NftMarketplaceStats.COLLECTION_VOLUME_STATS_IC.newBuilder()),
     EXCHANGE_LOG_IC(NftCmdGroup.MARKETPLACE_STATS, NftInnerCmds.EXCHANGE_LOG_IC, NftMarketplaceStats.EXCHANGE_LOG_IC.newBuilder()),
 
+    //rec
+    REC_DO_STATS_IC(NftCmdGroup.MARKETPLACE_STATS, NftInnerCmds.REC_DO_STATS_IC, NftMarketplaceRec.REC_DO_STATS_IC.newBuilder()),
+
     ;
 
 

@@ -6,9 +6,9 @@ package com.tenth.nft.convention.cmd;
 public class NftInnerCmds {
 
 
-    public static final int EXTERNAL_NFT_CATEGORY_REBUILD_IC = 1001;
-    public static final int EXTERNAL_NFT_COLLECTION_REBUILD_IC = 1002;
-    public static final int EXTERNAL_NFT_ITEM_REBUILD_IC = 1003;
+    public static final int EXTERNAL_NFT_CATEGORY_REBUILD_IC = -101;
+    public static final int EXTERNAL_NFT_COLLECTION_REBUILD_IC = -102;
+    public static final int EXTERNAL_NFT_ITEM_REBUILD_IC = -103;
 
     public static final int NFT_CATEGORY_REBUILD_IC = -20001;
     public static final int NFT_COLLECTION_REBUILD_IC = -20002;
@@ -77,5 +77,6 @@ public class NftInnerCmds {
     public static final int WEB3_COLLECTION_CREATE_IC = -90001;
     public static final int WEB3_COLLECTION_DETAIL_IC = -90002;
 
-
+    //marketplace rec
+    public static final int REC_DO_STATS_IC = -1001;
 }

@@ -3,6 +3,7 @@ package com.tenth.nft.marketplace.common.service;
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.convention.routes.marketplace.stats.ExchangeLogRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.templates.WalletCurrencyConfig;
@@ -25,7 +26,9 @@ import com.tenth.nft.marketplace.common.vo.NftListingCreateRequest;
 import com.tenth.nft.marketplace.common.wallet.IWalletProvider;
 import com.tenth.nft.marketplace.common.wallet.WalletProviderFactory;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftMarketplaceStats;
 import com.tpulse.gs.convention.dao.dto.Page;
+import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.router.exception.BizException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +56,8 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
     private WalletProviderFactory walletProviderFactory;
     @Autowired
     private I18nGsTemplates i18nGsTemplates;
+    @Autowired
+    private RouteClient routeClient;
 
 
     public AbsNftListingService(
@@ -150,6 +155,8 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
                     }else{
                         nftBuyOrderService.updateStatus(nftOrder.getAssetsId(), nftOrder.getId(), NftOrderStatus.COMPLETE);
                         doTransfer(nftOrder);
+                        //log
+                        pushExchangeLog(nftOrder);
                     }
                     removeListing(nftOrder.getAssetsId(), Long.valueOf(nftOrder.getOuterOrderId()));
                     refreshListingsBelongTo(nftOrder.getAssetsId(), nftOrder.getSeller());
@@ -171,6 +178,8 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         return builder.build();
 
     }
+
+
 
     public <T extends NftListingDTO> Page<T> list(NftListingListRequest request, Class<T> dtoClass) {
 
@@ -215,6 +224,32 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         nftUbtLogService.createCancelEvent(nftListing, request.getReason());
 //        sendListingRouteEventToStats(assetsId);
 //        sendListingRouteEventToSearch(nftListing.getAssetsId());
+    }
+
+    public Optional<BigDecimal> getFloorPrice(Long collectionId) {
+        T nftListing = nftListingDao.findOne(AbsNftListingQuery.newBuilder()
+                .collectionId(collectionId)
+                .setSortField("price")
+                .setReverse(false)
+                .build()
+        );
+        if(null != nftListing){
+            return Optional.of(nftListing.getPrice());
+        }
+        return Optional.empty();
+    }
+
+    public NftListingDTO getCurrentListing(Long assetsId) {
+        T nftListing = nftListingDao.findOne(AbsNftListingQuery.newBuilder()
+                .assetsId(assetsId)
+                .setSortField("_id")
+                .setReverse(true)
+                .build()
+        );
+        if(null != nftListing){
+            return toDTO(nftListing);
+        }
+        return null;
     }
 
     protected void preBuyCheck(String buyer, NftListingBuyRequest request, AbsNftListing nftListing, AbsNftAssets nftAssets) {
@@ -400,29 +435,32 @@ public abstract class AbsNftListingService<T extends AbsNftListing>{
         return nftListingDao.findOne(AbsNftListingQuery.newBuilder().assetsId(assetsId).id(listingId).build());
     }
 
-    public Optional<BigDecimal> getFloorPrice(Long collectionId) {
-        T nftListing = nftListingDao.findOne(AbsNftListingQuery.newBuilder()
-                .collectionId(collectionId)
-                .setSortField("price")
-                .setReverse(false)
-                .build()
-        );
-        if(null != nftListing){
-            return Optional.of(nftListing.getPrice());
+    /**
+     * Push exchange log to stats service
+     * @param nftOrder
+     */
+    protected void pushExchangeLog(AbsNftOrder nftOrder) {
+        try{
+            AbsNftAssets assets = nftAssetsService.findOne(nftOrder.getAssetsId());
+            routeClient.send(
+                    NftMarketplaceStats.EXCHANGE_LOG_IC.newBuilder()
+                            .setLog(
+                                    NftMarketplaceStats.ExchangeLog.newBuilder()
+                                            .setBlockchain(assets.getBlockchain())
+                                            .setCollectionId(assets.getCollectionId())
+                                            .setAssetsId(assets.getId())
+                                            .setQuantity(nftOrder.getQuantity())
+                                            .setPrice(nftOrder.getPrice().toString())
+                                            .setExchangedAt(System.currentTimeMillis())
+                                            .build()
+                            )
+                            .build(),
+                    ExchangeLogRouteRequest.class
+            );
+        }catch (Exception e){
+            LOGGER.error("", e);
         }
-        return Optional.empty();
     }
 
-    public NftListingDTO getCurrentListing(Long assetsId) {
-        T nftListing = nftListingDao.findOne(AbsNftListingQuery.newBuilder()
-                .assetsId(assetsId)
-                .setSortField("_id")
-                .setReverse(true)
-                .build()
-        );
-        if(null != nftListing){
-            return toDTO(nftListing);
-        }
-        return null;
-    }
+
 }

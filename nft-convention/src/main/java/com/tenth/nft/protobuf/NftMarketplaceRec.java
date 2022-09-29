@@ -14,41 +14,30 @@ public final class NftMarketplaceRec {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface REC_STATS_ICOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.REC_STATS_IC)
+  public interface REC_DO_STATS_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.REC_DO_STATS_IC)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required int64 time = 1;</code>
-     * @return Whether the time field is set.
-     */
-    boolean hasTime();
-    /**
-     * <code>required int64 time = 1;</code>
-     * @return The time.
-     */
-    long getTime();
   }
   /**
-   * Protobuf type {@code com.ruixi.tpulse.convention.REC_STATS_IC}
+   * Protobuf type {@code com.ruixi.tpulse.convention.REC_DO_STATS_IC}
    */
-  public static final class REC_STATS_IC extends
+  public static final class REC_DO_STATS_IC extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.REC_STATS_IC)
-      REC_STATS_ICOrBuilder {
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.REC_DO_STATS_IC)
+      REC_DO_STATS_ICOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use REC_STATS_IC.newBuilder() to construct.
-    private REC_STATS_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use REC_DO_STATS_IC.newBuilder() to construct.
+    private REC_DO_STATS_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private REC_STATS_IC() {
+    private REC_DO_STATS_IC() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new REC_STATS_IC();
+      return new REC_DO_STATS_IC();
     }
 
     @java.lang.Override
@@ -56,7 +45,7 @@ public final class NftMarketplaceRec {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private REC_STATS_IC(
+    private REC_DO_STATS_IC(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -64,7 +53,6 @@ public final class NftMarketplaceRec {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -75,11 +63,6 @@ public final class NftMarketplaceRec {
             case 0:
               done = true;
               break;
-            case 8: {
-              bitField0_ |= 0x00000001;
-              time_ = input.readInt64();
-              break;
-            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -101,35 +84,15 @@ public final class NftMarketplaceRec {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_descriptor;
+      return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_fieldAccessorTable
+      return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC.class, com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int TIME_FIELD_NUMBER = 1;
-    private long time_;
-    /**
-     * <code>required int64 time = 1;</code>
-     * @return Whether the time field is set.
-     */
-    @java.lang.Override
-    public boolean hasTime() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required int64 time = 1;</code>
-     * @return The time.
-     */
-    @java.lang.Override
-    public long getTime() {
-      return time_;
+              com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC.class, com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -139,10 +102,6 @@ public final class NftMarketplaceRec {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -150,9 +109,6 @@ public final class NftMarketplaceRec {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeInt64(1, time_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -162,10 +118,6 @@ public final class NftMarketplaceRec {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, time_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -176,16 +128,11 @@ public final class NftMarketplaceRec {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC)) {
+      if (!(obj instanceof com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC)) {
         return super.equals(obj);
       }
-      com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC other = (com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC) obj;
+      com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC other = (com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC) obj;
 
-      if (hasTime() != other.hasTime()) return false;
-      if (hasTime()) {
-        if (getTime()
-            != other.getTime()) return false;
-      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -197,79 +144,74 @@ public final class NftMarketplaceRec {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasTime()) {
-        hash = (37 * hash) + TIME_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getTime());
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(byte[] data)
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseDelimitedFrom(java.io.InputStream input)
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseDelimitedFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parseFrom(
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -282,7 +224,7 @@ public final class NftMarketplaceRec {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC prototype) {
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -298,26 +240,26 @@ public final class NftMarketplaceRec {
       return builder;
     }
     /**
-     * Protobuf type {@code com.ruixi.tpulse.convention.REC_STATS_IC}
+     * Protobuf type {@code com.ruixi.tpulse.convention.REC_DO_STATS_IC}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.REC_STATS_IC)
-        com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_ICOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.REC_DO_STATS_IC)
+        com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_ICOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_descriptor;
+        return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_fieldAccessorTable
+        return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC.class, com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC.Builder.class);
+                com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC.class, com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC.Builder.class);
       }
 
-      // Construct using com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC.newBuilder()
+      // Construct using com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -335,25 +277,23 @@ public final class NftMarketplaceRec {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        time_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_descriptor;
+        return com.tenth.nft.protobuf.NftMarketplaceRec.internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_descriptor;
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC getDefaultInstanceForType() {
-        return com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC.getDefaultInstance();
+      public com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC build() {
-        com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC result = buildPartial();
+      public com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC build() {
+        com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -361,15 +301,8 @@ public final class NftMarketplaceRec {
       }
 
       @java.lang.Override
-      public com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC buildPartial() {
-        com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC result = new com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.time_ = time_;
-          to_bitField0_ |= 0x00000001;
-        }
-        result.bitField0_ = to_bitField0_;
+      public com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC buildPartial() {
+        com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC result = new com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC(this);
         onBuilt();
         return result;
       }
@@ -408,19 +341,16 @@ public final class NftMarketplaceRec {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC) {
-          return mergeFrom((com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC)other);
+        if (other instanceof com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC other) {
-        if (other == com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC.getDefaultInstance()) return this;
-        if (other.hasTime()) {
-          setTime(other.getTime());
-        }
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC other) {
+        if (other == com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC.getDefaultInstance()) return this;
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -428,9 +358,6 @@ public final class NftMarketplaceRec {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasTime()) {
-          return false;
-        }
         return true;
       }
 
@@ -439,57 +366,17 @@ public final class NftMarketplaceRec {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC parsedMessage = null;
+        com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC) e.getUnfinishedMessage();
+          parsedMessage = (com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-      private int bitField0_;
-
-      private long time_ ;
-      /**
-       * <code>required int64 time = 1;</code>
-       * @return Whether the time field is set.
-       */
-      @java.lang.Override
-      public boolean hasTime() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required int64 time = 1;</code>
-       * @return The time.
-       */
-      @java.lang.Override
-      public long getTime() {
-        return time_;
-      }
-      /**
-       * <code>required int64 time = 1;</code>
-       * @param value The time to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTime(long value) {
-        bitField0_ |= 0x00000001;
-        time_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int64 time = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearTime() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        time_ = 0L;
-        onChanged();
         return this;
       }
       @java.lang.Override
@@ -505,51 +392,51 @@ public final class NftMarketplaceRec {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.REC_STATS_IC)
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.REC_DO_STATS_IC)
     }
 
-    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.REC_STATS_IC)
-    private static final com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.REC_DO_STATS_IC)
+    private static final com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC();
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC();
     }
 
-    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC getDefaultInstance() {
+    public static com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<REC_STATS_IC>
-        PARSER = new com.google.protobuf.AbstractParser<REC_STATS_IC>() {
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<REC_DO_STATS_IC>
+        PARSER = new com.google.protobuf.AbstractParser<REC_DO_STATS_IC>() {
       @java.lang.Override
-      public REC_STATS_IC parsePartialFrom(
+      public REC_DO_STATS_IC parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new REC_STATS_IC(input, extensionRegistry);
+        return new REC_DO_STATS_IC(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<REC_STATS_IC> parser() {
+    public static com.google.protobuf.Parser<REC_DO_STATS_IC> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<REC_STATS_IC> getParserForType() {
+    public com.google.protobuf.Parser<REC_DO_STATS_IC> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.tenth.nft.protobuf.NftMarketplaceRec.REC_STATS_IC getDefaultInstanceForType() {
+    public com.tenth.nft.protobuf.NftMarketplaceRec.REC_DO_STATS_IC getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_descriptor;
+    internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_fieldAccessorTable;
+      internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -560,20 +447,19 @@ public final class NftMarketplaceRec {
   static {
     java.lang.String[] descriptorData = {
       "\n\025marketplace-rec.proto\022\033com.ruixi.tpuls" +
-      "e.convention\"\034\n\014REC_STATS_IC\022\014\n\004time\030\001 \002" +
-      "(\003B+\n\026com.tenth.nft.protobufB\021NftMarketp" +
-      "laceRec"
+      "e.convention\"\021\n\017REC_DO_STATS_ICB+\n\026com.t" +
+      "enth.nft.protobufB\021NftMarketplaceRec"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_descriptor =
+    internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_fieldAccessorTable = new
+    internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_ruixi_tpulse_convention_REC_STATS_IC_descriptor,
-        new java.lang.String[] { "Time", });
+        internal_static_com_ruixi_tpulse_convention_REC_DO_STATS_IC_descriptor,
+        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -3,8 +3,8 @@ package com.ruixi.tpulse.convention;
 option java_package="com.tenth.nft.protobuf";
 option java_outer_classname = "NftMarketplaceRec";
 
-message REC_STATS_IC{
-  required int64 time = 1;
+message REC_DO_STATS_IC{
+
 }
 
 

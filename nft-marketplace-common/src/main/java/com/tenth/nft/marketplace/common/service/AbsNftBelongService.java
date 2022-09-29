@@ -71,7 +71,7 @@ public abstract class AbsNftBelongService<T extends AbsNftBelong>{
                         .quantityInc(quantity)
                         .createdAtOnInsert()
                         .build(),
-                UpdateOptions.options().returnNew(true)
+                UpdateOptions.options().upsert(true).returnNew(true)
         );
         afterQuantityChange(nftBelong);
     }
@@ -87,7 +87,7 @@ public abstract class AbsNftBelongService<T extends AbsNftBelong>{
                         .quantityInc(-quantity)
                         .createdAtOnInsert()
                         .build(),
-                UpdateOptions.options().returnNew(true)
+                UpdateOptions.options().upsert(true).returnNew(true)
         );
         afterQuantityChange(nftBelong);
     }

@@ -2,6 +2,7 @@ package com.tenth.nft.marketplace.common.service;
 
 import com.google.common.base.Strings;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
+import com.tenth.nft.convention.routes.marketplace.stats.ExchangeLogRouteRequest;
 import com.tenth.nft.convention.utils.Times;
 import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.marketplace.common.dao.AbsNftOfferDao;
@@ -17,11 +18,14 @@ import com.tenth.nft.marketplace.common.vo.NftOfferCancelRequest;
 import com.tenth.nft.marketplace.common.vo.NftOfferListRequest;
 import com.tenth.nft.marketplace.common.wallet.WalletProviderFactory;
 import com.tenth.nft.protobuf.NftExchange;
+import com.tenth.nft.protobuf.NftMarketplaceStats;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.SimpleQuerySorts;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.router.client.RouteClient;
 import com.wallan.router.exception.BizException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -32,6 +36,8 @@ import java.util.List;
  * @author shijie
  */
 public abstract class AbsNftOfferService<T extends AbsNftOffer>{
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbsNftOfferService.class);
 
     private AbsNftOfferDao<T> nftOfferDao;
     private AbsNftAssetsService nftAssetsService;
@@ -296,6 +302,8 @@ public abstract class AbsNftOfferService<T extends AbsNftOffer>{
                     }else{
                         nftBuyOrderService.updateStatus(nftOrder.getAssetsId(), nftOrder.getId(), NftOrderStatus.COMPLETE);
                         doTransfer(nftOrder);
+                        //log
+                        pushExchangeLog(nftOrder);
                     }
 //                    removeListing(nftOrder.getAssetsId(), Long.valueOf(nftOrder.getOuterOrderId()));
 //                    refreshListingsBelongTo(nftOrder.getAssetsId(), nftOrder.getSeller());
@@ -339,6 +347,33 @@ public abstract class AbsNftOfferService<T extends AbsNftOffer>{
         //Send events to stats
         //TODO
         //sendExchangeRouteEventToStats(nftOrder.getAssetsId());
+    }
+
+    /**
+     * Push exchange log to stats service
+     * @param nftOrder
+     */
+    protected void pushExchangeLog(AbsNftOrder nftOrder) {
+        try{
+            AbsNftAssets assets = nftAssetsService.findOne(nftOrder.getAssetsId());
+            routeClient.send(
+                    NftMarketplaceStats.EXCHANGE_LOG_IC.newBuilder()
+                            .setLog(
+                                    NftMarketplaceStats.ExchangeLog.newBuilder()
+                                            .setBlockchain(assets.getBlockchain())
+                                            .setCollectionId(assets.getCollectionId())
+                                            .setAssetsId(assets.getId())
+                                            .setQuantity(nftOrder.getQuantity())
+                                            .setPrice(nftOrder.getPrice().toString())
+                                            .setExchangedAt(System.currentTimeMillis())
+                                            .build()
+                            )
+                            .build(),
+                    ExchangeLogRouteRequest.class
+            );
+        }catch (Exception e){
+            LOGGER.error("", e);
+        }
     }
 
 
