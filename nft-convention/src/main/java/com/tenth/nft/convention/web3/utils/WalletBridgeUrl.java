@@ -55,5 +55,10 @@ public class WalletBridgeUrl {
             params.put("cmd", 3);
             return this;
         }
+
+        public Builder personalSign(){
+            params.put("cmd", 4);
+            return this;
+        }
     }
 }

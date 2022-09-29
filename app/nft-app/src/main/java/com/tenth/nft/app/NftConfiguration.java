@@ -10,7 +10,6 @@ import com.tenth.nft.marketplace.stats.NftMarketplaceStatsConfiguration;
 import com.tenth.nft.marketplace.web3.Web3NftMarketpalceConfiguration;
 import com.tenth.nft.operation.NftOperationConfiguration;
 import com.tenth.nft.orm.NftOrmConfiguration;
-import com.tenth.nft.search.NftSearchConfiguration;
 import com.tenth.nft.wallet.BuildInWalletConfiguration;
 import com.tenth.nft.web3.Web3WalletConfiguration;
 import com.tpulse.gs.GsRoutesConfiguration;
@@ -40,7 +39,6 @@ import org.springframework.context.annotation.Import;
         NftCrawlerConfiguration.class,
         NftConventionConfiguration.class,
         NftOrmConfiguration.class,
-        NftSearchConfiguration.class,
         NftOperationConfiguration.class,
         BuildInWalletConfiguration.class,
         GsConfig2ClientConfiguration.class,

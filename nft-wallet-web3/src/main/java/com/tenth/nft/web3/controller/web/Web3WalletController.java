@@ -3,10 +3,12 @@ package com.tenth.nft.web3.controller.web;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.web3.Web3WalletPaths;
 import com.tenth.nft.web3.dto.Web3WalletBalance;
+import com.tenth.nft.web3.dto.Web3WalletBindSIgnTicket;
 import com.tenth.nft.web3.dto.Web3WalletProfile;
 import com.tenth.nft.web3.service.Web3WalletService;
 import com.tenth.nft.web3.vo.Web3ContractApprovalConfirmRequest;
 import com.tenth.nft.web3.vo.Web3ContractApprovalCreateRequest;
+import com.tenth.nft.web3.vo.Web3WalletBindPrepareRequest;
 import com.tenth.nft.web3.vo.Web3WalletBindRequest;
 import com.tpulse.commons.validation.Validations;
 import com.wallan.router.endpoint.core.security.HttpRoute;
@@ -47,7 +49,13 @@ public class Web3WalletController {
         return Response.successBuilder().data(balance).build();
     }
 
-    @RequestMapping(Web3WalletPaths.WALLET_BIND)
+    @RequestMapping(Web3WalletPaths.WALLET_BIND_PREPARE)
+    public Response bindPrepare(@RequestBody Web3WalletBindPrepareRequest request){
+        Web3WalletBindSIgnTicket ticket = web3WalletService.prepareBind(request);
+        return Response.successBuilder().data(ticket).build();
+    }
+
+    @RequestMapping(Web3WalletPaths.WALLET_BIND_CONFIRM)
     public Response bind(@RequestBody Web3WalletBindRequest request) throws Exception{
 
         Validations.check(request);

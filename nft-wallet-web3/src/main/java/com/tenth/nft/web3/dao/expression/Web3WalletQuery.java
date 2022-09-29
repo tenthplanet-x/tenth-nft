@@ -2,7 +2,6 @@ package com.tenth.nft.web3.dao.expression;
 
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
-import com.tpulse.gs.convention.dao.defination.QueryOpt;
 
 /**
  * @author gs-orm-generator
@@ -14,21 +13,19 @@ public class Web3WalletQuery extends SimplePageQuery {
     private Long id;
     @SimpleQueryParam
     private Long uid;
+    @SimpleQueryParam
+    private String walletAccountId;
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public String getWalletAccountId() {
+        return walletAccountId;
     }
 
     public static Builder newBuilder() {
@@ -51,6 +48,11 @@ public class Web3WalletQuery extends SimplePageQuery {
 
         public Builder uid(Long uid) {
             query.uid = uid;
+            return this;
+        }
+
+        public Builder walletAccountId(String walletAccountId) {
+            query.walletAccountId = walletAccountId;
             return this;
         }
     }

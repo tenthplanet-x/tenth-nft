@@ -6,6 +6,7 @@ import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.templates.WalletCurrencyConfig;
 import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
+import com.tenth.nft.convention.web3.sign.PersonalSignUtils;
 import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
@@ -13,9 +14,11 @@ import com.tenth.nft.web3.dao.Web3WalletDao;
 import com.tenth.nft.web3.dao.expression.Web3WalletQuery;
 import com.tenth.nft.web3.dao.expression.Web3WalletUpdate;
 import com.tenth.nft.web3.dto.Web3WalletBalance;
+import com.tenth.nft.web3.dto.Web3WalletBindSIgnTicket;
 import com.tenth.nft.web3.dto.Web3WalletProfile;
 import com.tenth.nft.web3.entity.Web3Wallet;
 import com.tenth.nft.web3.vo.Web3ContractApprovalConfirmRequest;
+import com.tenth.nft.web3.vo.Web3WalletBindPrepareRequest;
 import com.tenth.nft.web3.vo.Web3WalletBindRequest;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -34,6 +37,8 @@ import java.util.List;
  */
 @Service
 public class Web3WalletService {
+
+    public static final String BIND_MESSAGE = "BIND_ACCOUNT";
 
     @Autowired
     private Web3j web3j;
@@ -59,13 +64,20 @@ public class Web3WalletService {
     public void bind(Web3WalletBindRequest request) {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+        String address = PersonalSignUtils.recover(BIND_MESSAGE, request.getSignature(), request.getAccountId());
+
+        //remove address info bound with different accounts
+        walletDao.update(
+                Web3WalletQuery.newBuilder().walletAccountId(address).build(),
+                Web3WalletUpdate.newBuilder().walletAccountIdNull().build()
+        );
 
         walletDao.findAndModify(
                 Web3WalletQuery.newBuilder().uid(uid).build(),
                 Web3WalletUpdate.newBuilder()
                         .setBlockchain(blockchain)
                         .wallet(request.getWallet())
-                        .setWalletAccountId(request.getAccountId())
+                        .setWalletAccountId(address)
                         .setCreatedAtOnInsert()
                         .build(),
                 UpdateOptions.options().upsert(true)
@@ -201,5 +213,16 @@ public class Web3WalletService {
     public Web3Wallet findOne(Long uid) {
         Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
         return web3Wallet;
+    }
+
+    public Web3WalletBindSIgnTicket prepareBind(Web3WalletBindPrepareRequest request) {
+
+        Web3WalletBindSIgnTicket ticket = new Web3WalletBindSIgnTicket();
+        String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)
+                .personalSign()
+                .put("content", BIND_MESSAGE)
+                .build();
+        ticket.setWalletBridgeUrl(walletBridgeUrl);
+        return ticket;
     }
 }

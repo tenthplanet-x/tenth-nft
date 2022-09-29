@@ -7,7 +7,8 @@ public class Web3WalletPaths {
 
     public static final String WALLET_PROFILE = "/nft/web3wallet/profile";
     public static final String WALLET_CREATE_AUTH = "/nft/web3wallet/auth/create";
-    public static final String WALLET_BIND = "/nft/web3wallet/bind";
+    public static final String WALLET_BIND_PREPARE = "/nft/web3wallet/bind/prepare";
+    public static final String WALLET_BIND_CONFIRM = "/nft/web3wallet/bind";
     public static final String WALLET_UNBIND = "/nft/web3wallet/unbind";
     public static final String WALLET_CONTRACT_APPROVAL_CREATE = "/nft/web3wallet/contact/approval/create";
     public static final String WALLET_CONTRACT_APPROVAL_CONFIRM = "/nft/web3wallet/contact/approval/confirm";
