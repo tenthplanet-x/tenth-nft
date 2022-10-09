@@ -188,10 +188,16 @@ public class NftCollectionRecommendService {
                     NftBlockchainVolumeStats blockchainVolumeStats = blockchainGlobalVolumeStatsMap.get(recommend.getBlockchain());
                     NftBlockchainVolumeStats blockchainDateVolumeStats = blockchainDateVolumeStatsMap.get(recommend.getBlockchain());
                     //totalVolumeRate
-                    BigDecimal totalVolumeRate = BigNumberUtils.divide(recommend.getTotalVolume(), blockchainVolumeStats.getVolume());
+                    BigDecimal totalVolumeRate = BigDecimal.ZERO;
+                    if(null != blockchainVolumeStats){
+                        totalVolumeRate = BigNumberUtils.divide(recommend.getTotalVolume(), blockchainVolumeStats.getVolume());
+                    }
                     totalVolumeRate.setScale(8);
                     //dateVolumeRate
-                    BigDecimal dateVolumeRate = BigNumberUtils.divide(recommend.getDateVolume(), blockchainDateVolumeStats.getVolume());
+                    BigDecimal dateVolumeRate = BigDecimal.ZERO;
+                    if(null != blockchainDateVolumeStats){
+                        dateVolumeRate = BigNumberUtils.divide(recommend.getDateVolume(), blockchainDateVolumeStats.getVolume());
+                    }
                     dateVolumeRate.setScale(8);
                     //dateRate
                     double dayBetween = DateTimes.duration(date, recommend.getLastExchangedAt(), DateTimes.TimeDimension.DAY);

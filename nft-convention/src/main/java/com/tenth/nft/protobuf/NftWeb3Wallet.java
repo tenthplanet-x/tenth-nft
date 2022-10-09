@@ -2574,17 +2574,17 @@ public final class NftWeb3Wallet {
         getAddressBytes();
 
     /**
-     * <code>required string currency = 2;</code>
+     * <code>optional string currency = 2;</code>
      * @return Whether the currency field is set.
      */
     boolean hasCurrency();
     /**
-     * <code>required string currency = 2;</code>
+     * <code>optional string currency = 2;</code>
      * @return The currency.
      */
     java.lang.String getCurrency();
     /**
-     * <code>required string currency = 2;</code>
+     * <code>optional string currency = 2;</code>
      * @return The bytes for currency.
      */
     com.google.protobuf.ByteString
@@ -2606,6 +2606,17 @@ public final class NftWeb3Wallet {
      */
     com.google.protobuf.ByteString
         getValueBytes();
+
+    /**
+     * <code>required int64 uid = 4;</code>
+     * @return Whether the uid field is set.
+     */
+    boolean hasUid();
+    /**
+     * <code>required int64 uid = 4;</code>
+     * @return The uid.
+     */
+    long getUid();
   }
   /**
    * Protobuf type {@code com.ruixi.tpulse.convention.Web3WalletBalanceDTO}
@@ -2672,6 +2683,11 @@ public final class NftWeb3Wallet {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
               value_ = bs;
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              uid_ = input.readInt64();
               break;
             }
             default: {
@@ -2758,7 +2774,7 @@ public final class NftWeb3Wallet {
     public static final int CURRENCY_FIELD_NUMBER = 2;
     private volatile java.lang.Object currency_;
     /**
-     * <code>required string currency = 2;</code>
+     * <code>optional string currency = 2;</code>
      * @return Whether the currency field is set.
      */
     @java.lang.Override
@@ -2766,7 +2782,7 @@ public final class NftWeb3Wallet {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>required string currency = 2;</code>
+     * <code>optional string currency = 2;</code>
      * @return The currency.
      */
     @java.lang.Override
@@ -2785,7 +2801,7 @@ public final class NftWeb3Wallet {
       }
     }
     /**
-     * <code>required string currency = 2;</code>
+     * <code>optional string currency = 2;</code>
      * @return The bytes for currency.
      */
     @java.lang.Override
@@ -2851,6 +2867,25 @@ public final class NftWeb3Wallet {
       }
     }
 
+    public static final int UID_FIELD_NUMBER = 4;
+    private long uid_;
+    /**
+     * <code>required int64 uid = 4;</code>
+     * @return Whether the uid field is set.
+     */
+    @java.lang.Override
+    public boolean hasUid() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>required int64 uid = 4;</code>
+     * @return The uid.
+     */
+    @java.lang.Override
+    public long getUid() {
+      return uid_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2862,7 +2897,7 @@ public final class NftWeb3Wallet {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasCurrency()) {
+      if (!hasUid()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2882,6 +2917,9 @@ public final class NftWeb3Wallet {
       if (((bitField0_ & 0x00000004) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, value_);
       }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeInt64(4, uid_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2899,6 +2937,10 @@ public final class NftWeb3Wallet {
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, value_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, uid_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2930,6 +2972,11 @@ public final class NftWeb3Wallet {
         if (!getValue()
             .equals(other.getValue())) return false;
       }
+      if (hasUid() != other.hasUid()) return false;
+      if (hasUid()) {
+        if (getUid()
+            != other.getUid()) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2952,6 +2999,11 @@ public final class NftWeb3Wallet {
       if (hasValue()) {
         hash = (37 * hash) + VALUE_FIELD_NUMBER;
         hash = (53 * hash) + getValue().hashCode();
+      }
+      if (hasUid()) {
+        hash = (37 * hash) + UID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getUid());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -3092,6 +3144,8 @@ public final class NftWeb3Wallet {
         bitField0_ = (bitField0_ & ~0x00000002);
         value_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
+        uid_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -3132,6 +3186,10 @@ public final class NftWeb3Wallet {
           to_bitField0_ |= 0x00000004;
         }
         result.value_ = value_;
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.uid_ = uid_;
+          to_bitField0_ |= 0x00000008;
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3196,6 +3254,9 @@ public final class NftWeb3Wallet {
           value_ = other.value_;
           onChanged();
         }
+        if (other.hasUid()) {
+          setUid(other.getUid());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -3206,7 +3267,7 @@ public final class NftWeb3Wallet {
         if (!hasAddress()) {
           return false;
         }
-        if (!hasCurrency()) {
+        if (!hasUid()) {
           return false;
         }
         return true;
@@ -3318,14 +3379,14 @@ public final class NftWeb3Wallet {
 
       private java.lang.Object currency_ = "";
       /**
-       * <code>required string currency = 2;</code>
+       * <code>optional string currency = 2;</code>
        * @return Whether the currency field is set.
        */
       public boolean hasCurrency() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>required string currency = 2;</code>
+       * <code>optional string currency = 2;</code>
        * @return The currency.
        */
       public java.lang.String getCurrency() {
@@ -3343,7 +3404,7 @@ public final class NftWeb3Wallet {
         }
       }
       /**
-       * <code>required string currency = 2;</code>
+       * <code>optional string currency = 2;</code>
        * @return The bytes for currency.
        */
       public com.google.protobuf.ByteString
@@ -3360,7 +3421,7 @@ public final class NftWeb3Wallet {
         }
       }
       /**
-       * <code>required string currency = 2;</code>
+       * <code>optional string currency = 2;</code>
        * @param value The currency to set.
        * @return This builder for chaining.
        */
@@ -3375,7 +3436,7 @@ public final class NftWeb3Wallet {
         return this;
       }
       /**
-       * <code>required string currency = 2;</code>
+       * <code>optional string currency = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearCurrency() {
@@ -3385,7 +3446,7 @@ public final class NftWeb3Wallet {
         return this;
       }
       /**
-       * <code>required string currency = 2;</code>
+       * <code>optional string currency = 2;</code>
        * @param value The bytes for currency to set.
        * @return This builder for chaining.
        */
@@ -3483,6 +3544,45 @@ public final class NftWeb3Wallet {
         onChanged();
         return this;
       }
+
+      private long uid_ ;
+      /**
+       * <code>required int64 uid = 4;</code>
+       * @return Whether the uid field is set.
+       */
+      @java.lang.Override
+      public boolean hasUid() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>required int64 uid = 4;</code>
+       * @return The uid.
+       */
+      @java.lang.Override
+      public long getUid() {
+        return uid_;
+      }
+      /**
+       * <code>required int64 uid = 4;</code>
+       * @param value The uid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUid(long value) {
+        bitField0_ |= 0x00000008;
+        uid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 uid = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUid() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        uid_ = 0L;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -3531,6 +3631,726 @@ public final class NftWeb3Wallet {
 
     @java.lang.Override
     public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletBalanceDTO getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface Web3WalletProfileDTOOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.Web3WalletProfileDTO)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string address = 1;</code>
+     * @return Whether the address field is set.
+     */
+    boolean hasAddress();
+    /**
+     * <code>required string address = 1;</code>
+     * @return The address.
+     */
+    java.lang.String getAddress();
+    /**
+     * <code>required string address = 1;</code>
+     * @return The bytes for address.
+     */
+    com.google.protobuf.ByteString
+        getAddressBytes();
+
+    /**
+     * <code>required int64 uid = 2;</code>
+     * @return Whether the uid field is set.
+     */
+    boolean hasUid();
+    /**
+     * <code>required int64 uid = 2;</code>
+     * @return The uid.
+     */
+    long getUid();
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.Web3WalletProfileDTO}
+   */
+  public static final class Web3WalletProfileDTO extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.Web3WalletProfileDTO)
+      Web3WalletProfileDTOOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Web3WalletProfileDTO.newBuilder() to construct.
+    private Web3WalletProfileDTO(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Web3WalletProfileDTO() {
+      address_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Web3WalletProfileDTO();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Web3WalletProfileDTO(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              address_ = bs;
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              uid_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.class, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ADDRESS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object address_;
+    /**
+     * <code>required string address = 1;</code>
+     * @return Whether the address field is set.
+     */
+    @java.lang.Override
+    public boolean hasAddress() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required string address = 1;</code>
+     * @return The address.
+     */
+    @java.lang.Override
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          address_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string address = 1;</code>
+     * @return The bytes for address.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAddressBytes() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        address_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UID_FIELD_NUMBER = 2;
+    private long uid_;
+    /**
+     * <code>required int64 uid = 2;</code>
+     * @return Whether the uid field is set.
+     */
+    @java.lang.Override
+    public boolean hasUid() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required int64 uid = 2;</code>
+     * @return The uid.
+     */
+    @java.lang.Override
+    public long getUid() {
+      return uid_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasAddress()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, address_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeInt64(2, uid_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, address_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, uid_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO other = (com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO) obj;
+
+      if (hasAddress() != other.hasAddress()) return false;
+      if (hasAddress()) {
+        if (!getAddress()
+            .equals(other.getAddress())) return false;
+      }
+      if (hasUid() != other.hasUid()) return false;
+      if (hasUid()) {
+        if (getUid()
+            != other.getUid()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasAddress()) {
+        hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+        hash = (53 * hash) + getAddress().hashCode();
+      }
+      if (hasUid()) {
+        hash = (37 * hash) + UID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getUid());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.Web3WalletProfileDTO}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.Web3WalletProfileDTO)
+        com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.class, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        address_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        uid_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO build() {
+        com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO buildPartial() {
+        com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO result = new com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.address_ = address_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.uid_ = uid_;
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO) {
+          return mergeFrom((com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO other) {
+        if (other == com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.getDefaultInstance()) return this;
+        if (other.hasAddress()) {
+          bitField0_ |= 0x00000001;
+          address_ = other.address_;
+          onChanged();
+        }
+        if (other.hasUid()) {
+          setUid(other.getUid());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasAddress()) {
+          return false;
+        }
+        if (!hasUid()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object address_ = "";
+      /**
+       * <code>required string address = 1;</code>
+       * @return Whether the address field is set.
+       */
+      public boolean hasAddress() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required string address = 1;</code>
+       * @return The address.
+       */
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            address_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string address = 1;</code>
+       * @return The bytes for address.
+       */
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string address = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddress() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        address_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long uid_ ;
+      /**
+       * <code>required int64 uid = 2;</code>
+       * @return Whether the uid field is set.
+       */
+      @java.lang.Override
+      public boolean hasUid() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required int64 uid = 2;</code>
+       * @return The uid.
+       */
+      @java.lang.Override
+      public long getUid() {
+        return uid_;
+      }
+      /**
+       * <code>required int64 uid = 2;</code>
+       * @param value The uid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUid(long value) {
+        bitField0_ |= 0x00000002;
+        uid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 uid = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUid() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        uid_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.Web3WalletProfileDTO)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.Web3WalletProfileDTO)
+    private static final com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO();
+    }
+
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Web3WalletProfileDTO>
+        PARSER = new com.google.protobuf.AbstractParser<Web3WalletProfileDTO>() {
+      @java.lang.Override
+      public Web3WalletProfileDTO parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Web3WalletProfileDTO(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Web3WalletProfileDTO> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Web3WalletProfileDTO> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7506,6 +8326,1447 @@ public final class NftWeb3Wallet {
 
   }
 
+  public interface WEB3_WALLET_RPOFILE_ICOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IC)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string addresses = 1;</code>
+     * @return A list containing the addresses.
+     */
+    java.util.List<java.lang.String>
+        getAddressesList();
+    /**
+     * <code>repeated string addresses = 1;</code>
+     * @return The count of addresses.
+     */
+    int getAddressesCount();
+    /**
+     * <code>repeated string addresses = 1;</code>
+     * @param index The index of the element to return.
+     * @return The addresses at the given index.
+     */
+    java.lang.String getAddresses(int index);
+    /**
+     * <code>repeated string addresses = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the addresses at the given index.
+     */
+    com.google.protobuf.ByteString
+        getAddressesBytes(int index);
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IC}
+   */
+  public static final class WEB3_WALLET_RPOFILE_IC extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IC)
+      WEB3_WALLET_RPOFILE_ICOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use WEB3_WALLET_RPOFILE_IC.newBuilder() to construct.
+    private WEB3_WALLET_RPOFILE_IC(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private WEB3_WALLET_RPOFILE_IC() {
+      addresses_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new WEB3_WALLET_RPOFILE_IC();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private WEB3_WALLET_RPOFILE_IC(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                addresses_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              addresses_.add(bs);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          addresses_ = addresses_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC.class, com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC.Builder.class);
+    }
+
+    public static final int ADDRESSES_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList addresses_;
+    /**
+     * <code>repeated string addresses = 1;</code>
+     * @return A list containing the addresses.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getAddressesList() {
+      return addresses_;
+    }
+    /**
+     * <code>repeated string addresses = 1;</code>
+     * @return The count of addresses.
+     */
+    public int getAddressesCount() {
+      return addresses_.size();
+    }
+    /**
+     * <code>repeated string addresses = 1;</code>
+     * @param index The index of the element to return.
+     * @return The addresses at the given index.
+     */
+    public java.lang.String getAddresses(int index) {
+      return addresses_.get(index);
+    }
+    /**
+     * <code>repeated string addresses = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the addresses at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getAddressesBytes(int index) {
+      return addresses_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < addresses_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, addresses_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < addresses_.size(); i++) {
+          dataSize += computeStringSizeNoTag(addresses_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getAddressesList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC other = (com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC) obj;
+
+      if (!getAddressesList()
+          .equals(other.getAddressesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getAddressesCount() > 0) {
+        hash = (37 * hash) + ADDRESSES_FIELD_NUMBER;
+        hash = (53 * hash) + getAddressesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IC}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IC)
+        com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_ICOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC.class, com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        addresses_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC build() {
+        com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC buildPartial() {
+        com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC result = new com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          addresses_ = addresses_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.addresses_ = addresses_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC) {
+          return mergeFrom((com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC other) {
+        if (other == com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC.getDefaultInstance()) return this;
+        if (!other.addresses_.isEmpty()) {
+          if (addresses_.isEmpty()) {
+            addresses_ = other.addresses_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureAddressesIsMutable();
+            addresses_.addAll(other.addresses_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList addresses_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureAddressesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          addresses_ = new com.google.protobuf.LazyStringArrayList(addresses_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @return A list containing the addresses.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getAddressesList() {
+        return addresses_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @return The count of addresses.
+       */
+      public int getAddressesCount() {
+        return addresses_.size();
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @param index The index of the element to return.
+       * @return The addresses at the given index.
+       */
+      public java.lang.String getAddresses(int index) {
+        return addresses_.get(index);
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the addresses at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getAddressesBytes(int index) {
+        return addresses_.getByteString(index);
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The addresses to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddresses(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressesIsMutable();
+        addresses_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @param value The addresses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAddresses(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressesIsMutable();
+        addresses_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @param values The addresses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllAddresses(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureAddressesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, addresses_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddresses() {
+        addresses_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string addresses = 1;</code>
+       * @param value The bytes of the addresses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAddressesBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressesIsMutable();
+        addresses_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IC)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IC)
+    private static final com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC();
+    }
+
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<WEB3_WALLET_RPOFILE_IC>
+        PARSER = new com.google.protobuf.AbstractParser<WEB3_WALLET_RPOFILE_IC>() {
+      @java.lang.Override
+      public WEB3_WALLET_RPOFILE_IC parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new WEB3_WALLET_RPOFILE_IC(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<WEB3_WALLET_RPOFILE_IC> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WEB3_WALLET_RPOFILE_IC> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface WEB3_WALLET_RPOFILE_ISOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IS)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    java.util.List<com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO> 
+        getProfilesList();
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO getProfiles(int index);
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    int getProfilesCount();
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    java.util.List<? extends com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder> 
+        getProfilesOrBuilderList();
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder getProfilesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IS}
+   */
+  public static final class WEB3_WALLET_RPOFILE_IS extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IS)
+      WEB3_WALLET_RPOFILE_ISOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use WEB3_WALLET_RPOFILE_IS.newBuilder() to construct.
+    private WEB3_WALLET_RPOFILE_IS(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private WEB3_WALLET_RPOFILE_IS() {
+      profiles_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new WEB3_WALLET_RPOFILE_IS();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private WEB3_WALLET_RPOFILE_IS(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                profiles_ = new java.util.ArrayList<com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              profiles_.add(
+                  input.readMessage(com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          profiles_ = java.util.Collections.unmodifiableList(profiles_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.class, com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.Builder.class);
+    }
+
+    public static final int PROFILES_FIELD_NUMBER = 1;
+    private java.util.List<com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO> profiles_;
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO> getProfilesList() {
+      return profiles_;
+    }
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder> 
+        getProfilesOrBuilderList() {
+      return profiles_;
+    }
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    @java.lang.Override
+    public int getProfilesCount() {
+      return profiles_.size();
+    }
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO getProfiles(int index) {
+      return profiles_.get(index);
+    }
+    /**
+     * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+     */
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder getProfilesOrBuilder(
+        int index) {
+      return profiles_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getProfilesCount(); i++) {
+        if (!getProfiles(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < profiles_.size(); i++) {
+        output.writeMessage(1, profiles_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < profiles_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, profiles_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS)) {
+        return super.equals(obj);
+      }
+      com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS other = (com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS) obj;
+
+      if (!getProfilesList()
+          .equals(other.getProfilesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getProfilesCount() > 0) {
+        hash = (37 * hash) + PROFILES_FIELD_NUMBER;
+        hash = (53 * hash) + getProfilesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IS}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IS)
+        com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_ISOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.class, com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.Builder.class);
+      }
+
+      // Construct using com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getProfilesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (profilesBuilder_ == null) {
+          profiles_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          profilesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_descriptor;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS getDefaultInstanceForType() {
+        return com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS build() {
+        com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS buildPartial() {
+        com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS result = new com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS(this);
+        int from_bitField0_ = bitField0_;
+        if (profilesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            profiles_ = java.util.Collections.unmodifiableList(profiles_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.profiles_ = profiles_;
+        } else {
+          result.profiles_ = profilesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS) {
+          return mergeFrom((com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS other) {
+        if (other == com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.getDefaultInstance()) return this;
+        if (profilesBuilder_ == null) {
+          if (!other.profiles_.isEmpty()) {
+            if (profiles_.isEmpty()) {
+              profiles_ = other.profiles_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureProfilesIsMutable();
+              profiles_.addAll(other.profiles_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.profiles_.isEmpty()) {
+            if (profilesBuilder_.isEmpty()) {
+              profilesBuilder_.dispose();
+              profilesBuilder_ = null;
+              profiles_ = other.profiles_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              profilesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getProfilesFieldBuilder() : null;
+            } else {
+              profilesBuilder_.addAllMessages(other.profiles_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        for (int i = 0; i < getProfilesCount(); i++) {
+          if (!getProfiles(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO> profiles_ =
+        java.util.Collections.emptyList();
+      private void ensureProfilesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          profiles_ = new java.util.ArrayList<com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO>(profiles_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder> profilesBuilder_;
+
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public java.util.List<com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO> getProfilesList() {
+        if (profilesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(profiles_);
+        } else {
+          return profilesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public int getProfilesCount() {
+        if (profilesBuilder_ == null) {
+          return profiles_.size();
+        } else {
+          return profilesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO getProfiles(int index) {
+        if (profilesBuilder_ == null) {
+          return profiles_.get(index);
+        } else {
+          return profilesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder setProfiles(
+          int index, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO value) {
+        if (profilesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProfilesIsMutable();
+          profiles_.set(index, value);
+          onChanged();
+        } else {
+          profilesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder setProfiles(
+          int index, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder builderForValue) {
+        if (profilesBuilder_ == null) {
+          ensureProfilesIsMutable();
+          profiles_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          profilesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder addProfiles(com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO value) {
+        if (profilesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProfilesIsMutable();
+          profiles_.add(value);
+          onChanged();
+        } else {
+          profilesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder addProfiles(
+          int index, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO value) {
+        if (profilesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProfilesIsMutable();
+          profiles_.add(index, value);
+          onChanged();
+        } else {
+          profilesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder addProfiles(
+          com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder builderForValue) {
+        if (profilesBuilder_ == null) {
+          ensureProfilesIsMutable();
+          profiles_.add(builderForValue.build());
+          onChanged();
+        } else {
+          profilesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder addProfiles(
+          int index, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder builderForValue) {
+        if (profilesBuilder_ == null) {
+          ensureProfilesIsMutable();
+          profiles_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          profilesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder addAllProfiles(
+          java.lang.Iterable<? extends com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO> values) {
+        if (profilesBuilder_ == null) {
+          ensureProfilesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, profiles_);
+          onChanged();
+        } else {
+          profilesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder clearProfiles() {
+        if (profilesBuilder_ == null) {
+          profiles_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          profilesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public Builder removeProfiles(int index) {
+        if (profilesBuilder_ == null) {
+          ensureProfilesIsMutable();
+          profiles_.remove(index);
+          onChanged();
+        } else {
+          profilesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder getProfilesBuilder(
+          int index) {
+        return getProfilesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder getProfilesOrBuilder(
+          int index) {
+        if (profilesBuilder_ == null) {
+          return profiles_.get(index);  } else {
+          return profilesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public java.util.List<? extends com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder> 
+           getProfilesOrBuilderList() {
+        if (profilesBuilder_ != null) {
+          return profilesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(profiles_);
+        }
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder addProfilesBuilder() {
+        return getProfilesFieldBuilder().addBuilder(
+            com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder addProfilesBuilder(
+          int index) {
+        return getProfilesFieldBuilder().addBuilder(
+            index, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .com.ruixi.tpulse.convention.Web3WalletProfileDTO profiles = 1;</code>
+       */
+      public java.util.List<com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder> 
+           getProfilesBuilderList() {
+        return getProfilesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder> 
+          getProfilesFieldBuilder() {
+        if (profilesBuilder_ == null) {
+          profilesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTO.Builder, com.tenth.nft.protobuf.NftWeb3Wallet.Web3WalletProfileDTOOrBuilder>(
+                  profiles_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          profiles_ = null;
+        }
+        return profilesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IS)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ruixi.tpulse.convention.WEB3_WALLET_RPOFILE_IS)
+    private static final com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS();
+    }
+
+    public static com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<WEB3_WALLET_RPOFILE_IS>
+        PARSER = new com.google.protobuf.AbstractParser<WEB3_WALLET_RPOFILE_IS>() {
+      @java.lang.Override
+      public WEB3_WALLET_RPOFILE_IS parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new WEB3_WALLET_RPOFILE_IS(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<WEB3_WALLET_RPOFILE_IS> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WEB3_WALLET_RPOFILE_IS> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.tenth.nft.protobuf.NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ruixi_tpulse_convention_Web3BillDTO_descriptor;
   private static final 
@@ -7516,6 +9777,11 @@ public final class NftWeb3Wallet {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_ruixi_tpulse_convention_Web3WalletBalanceDTO_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_BALANCE_IC_descriptor;
   private static final 
@@ -7546,6 +9812,16 @@ public final class NftWeb3Wallet {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IS_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7562,19 +9838,24 @@ public final class NftWeb3Wallet {
       "productId\030\006 \002(\t\022\022\n\noutOrderId\030\007 \002(\t\022\r\n\005v" +
       "alue\030\010 \002(\t\022\020\n\010currency\030\t \002(\t\022\r\n\005state\030\n " +
       "\002(\t\022\021\n\tcreatedAt\030\013 \002(\003\022\024\n\014merchantType\030\014" +
-      " \001(\t\022\022\n\nmerchantId\030\r \001(\t\"H\n\024Web3WalletBa" +
+      " \001(\t\022\022\n\nmerchantId\030\r \001(\t\"U\n\024Web3WalletBa" +
       "lanceDTO\022\017\n\007address\030\001 \002(\t\022\020\n\010currency\030\002 " +
-      "\002(\t\022\r\n\005value\030\003 \001(\t\":\n\026WEB3_WALLET_BALANC" +
-      "E_IC\022\013\n\003uid\030\001 \002(\003\022\023\n\013needBalance\030\002 \001(\010\"\\" +
-      "\n\026WEB3_WALLET_BALANCE_IS\022B\n\007balance\030\001 \002(" +
-      "\01321.com.ruixi.tpulse.convention.Web3Wall" +
-      "etBalanceDTO\";\n\020WEB3_BILL_PAY_IC\022\013\n\003uid\030" +
-      "\001 \002(\003\022\r\n\005token\030\002 \002(\t\022\013\n\003txn\030\003 \002(\t\"J\n\020WEB" +
-      "3_BILL_PAY_IS\0226\n\004bill\030\001 \002(\0132(.com.ruixi." +
-      "tpulse.convention.Web3BillDTO\"4\n\021WEB3_TX" +
-      "N_CHECK_IC\022\017\n\007address\030\001 \002(\t\022\016\n\006billId\030\002 " +
-      "\002(\003\"\023\n\021WEB3_TXN_CHECK_ISB\'\n\026com.tenth.nf" +
-      "t.protobufB\rNftWeb3Wallet"
+      "\001(\t\022\r\n\005value\030\003 \001(\t\022\013\n\003uid\030\004 \002(\003\"4\n\024Web3W" +
+      "alletProfileDTO\022\017\n\007address\030\001 \002(\t\022\013\n\003uid\030" +
+      "\002 \002(\003\":\n\026WEB3_WALLET_BALANCE_IC\022\013\n\003uid\030\001" +
+      " \002(\003\022\023\n\013needBalance\030\002 \001(\010\"\\\n\026WEB3_WALLET" +
+      "_BALANCE_IS\022B\n\007balance\030\001 \002(\01321.com.ruixi" +
+      ".tpulse.convention.Web3WalletBalanceDTO\"" +
+      ";\n\020WEB3_BILL_PAY_IC\022\013\n\003uid\030\001 \002(\003\022\r\n\005toke" +
+      "n\030\002 \002(\t\022\013\n\003txn\030\003 \002(\t\"J\n\020WEB3_BILL_PAY_IS" +
+      "\0226\n\004bill\030\001 \002(\0132(.com.ruixi.tpulse.conven" +
+      "tion.Web3BillDTO\"4\n\021WEB3_TXN_CHECK_IC\022\017\n" +
+      "\007address\030\001 \002(\t\022\016\n\006billId\030\002 \002(\003\"\023\n\021WEB3_T" +
+      "XN_CHECK_IS\"+\n\026WEB3_WALLET_RPOFILE_IC\022\021\n" +
+      "\taddresses\030\001 \003(\t\"]\n\026WEB3_WALLET_RPOFILE_" +
+      "IS\022C\n\010profiles\030\001 \003(\01321.com.ruixi.tpulse." +
+      "convention.Web3WalletProfileDTOB\'\n\026com.t" +
+      "enth.nft.protobufB\rNftWeb3Wallet"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7591,43 +9872,61 @@ public final class NftWeb3Wallet {
     internal_static_com_ruixi_tpulse_convention_Web3WalletBalanceDTO_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_Web3WalletBalanceDTO_descriptor,
-        new java.lang.String[] { "Address", "Currency", "Value", });
-    internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_BALANCE_IC_descriptor =
+        new java.lang.String[] { "Address", "Currency", "Value", "Uid", });
+    internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_Web3WalletProfileDTO_descriptor,
+        new java.lang.String[] { "Address", "Uid", });
+    internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_BALANCE_IC_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_BALANCE_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_BALANCE_IC_descriptor,
         new java.lang.String[] { "Uid", "NeedBalance", });
     internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_BALANCE_IS_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_BALANCE_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_BALANCE_IS_descriptor,
         new java.lang.String[] { "Balance", });
     internal_static_com_ruixi_tpulse_convention_WEB3_BILL_PAY_IC_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_com_ruixi_tpulse_convention_WEB3_BILL_PAY_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_BILL_PAY_IC_descriptor,
         new java.lang.String[] { "Uid", "Token", "Txn", });
     internal_static_com_ruixi_tpulse_convention_WEB3_BILL_PAY_IS_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_com_ruixi_tpulse_convention_WEB3_BILL_PAY_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_BILL_PAY_IS_descriptor,
         new java.lang.String[] { "Bill", });
     internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IC_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IC_descriptor,
         new java.lang.String[] { "Address", "BillId", });
     internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IS_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ruixi_tpulse_convention_WEB3_TXN_CHECK_IS_descriptor,
         new java.lang.String[] { });
+    internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IC_descriptor,
+        new java.lang.String[] { "Addresses", });
+    internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ruixi_tpulse_convention_WEB3_WALLET_RPOFILE_IS_descriptor,
+        new java.lang.String[] { "Profiles", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

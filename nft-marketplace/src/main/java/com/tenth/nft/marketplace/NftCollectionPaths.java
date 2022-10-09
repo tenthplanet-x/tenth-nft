@@ -7,6 +7,5 @@ package com.tenth.nft.marketplace;
 public class NftCollectionPaths {
 
     public static final String NFTCOLLECTION_TOKEN = "/nft/collection/token";
-    public static final String NFTCOLLECTION_CREATE = "/nft/collection/create";
 
 }

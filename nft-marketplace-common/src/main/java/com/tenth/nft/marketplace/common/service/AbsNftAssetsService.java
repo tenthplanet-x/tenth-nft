@@ -13,6 +13,7 @@ import com.tenth.nft.marketplace.common.dao.AbsNftAssetsDao;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsQuery;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsUpdate;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftAssetsDetailDTO;
 import com.tenth.nft.marketplace.common.dto.NftListingDTO;
 import com.tenth.nft.marketplace.common.entity.AbsNftAssets;
 import com.tenth.nft.marketplace.common.entity.AbsNftCollection;
@@ -136,7 +137,7 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
         );
     }
 
-    public <DTO extends NftAssetsDTO> DTO detail(NftAssetsDetailRequest request, Class<DTO> dtoClass){
+    public <DTO extends NftAssetsDetailDTO> DTO detail(NftAssetsDetailRequest request, Class<DTO> dtoClass){
 
         //TODO current listing
 
@@ -156,6 +157,9 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
             listingDTO.setStartAt(_listingDTO.getStartAt());
             nftAssetsDTO.setCurrentListing(listingDTO);
         }
+
+        nftAssetsDTO.setOwners(nftBelongService.owners(request.getAssetsId()));
+
         return nftAssetsDTO;
     }
 

@@ -1,5 +1,6 @@
 package com.tenth.nft.marketplace.common.dto;
 
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -13,6 +14,7 @@ public class NftAseetsOwnerDTO implements SimpleResponse {
     @SimpleField(name = "quantity")
     private Integer quantity;
 
+    private NftUserProfileDTO userProfile;
 
     public String getUid() {
         return uid;
@@ -30,13 +32,13 @@ public class NftAseetsOwnerDTO implements SimpleResponse {
         this.quantity = quantity;
     }
 
-//    public UserProfileDTO getUserProfile() {
-//        return userProfile;
-//    }
-//
-//    public void setUserProfile(UserProfileDTO userProfile) {
-//        this.userProfile = userProfile;
-//    }
+    public NftUserProfileDTO getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(NftUserProfileDTO userProfile) {
+        this.userProfile = userProfile;
+    }
 
 //    public static NftOwnerDTO from(NftExchange.NftOwnerDTO nftOwnerDTO) {
 //        NftOwnerDTO ownerDTO = new NftOwnerDTO();

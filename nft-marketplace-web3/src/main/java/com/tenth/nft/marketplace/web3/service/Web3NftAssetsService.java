@@ -12,6 +12,7 @@ import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsQuery;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsUpdate;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftAssetsDetailDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftAssetsService;
 import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftAssetsDetailRequest;
@@ -19,6 +20,7 @@ import com.tenth.nft.marketplace.web3.dao.Web3NftAssetsDao;
 import com.tenth.nft.marketplace.web3.dao.expression.Web3NftAssetsUpdate;
 import com.tenth.nft.marketplace.web3.dto.Web3NftCreateSignTicket;
 import com.tenth.nft.marketplace.web3.entity.Web3NftAssets;
+import com.tenth.nft.marketplace.web3.entity.Web3NftBelong;
 import com.tenth.nft.marketplace.web3.entity.Web3NftCollection;
 import com.tenth.nft.marketplace.web3.vo.Web3NftAssetsCreateConfirmRequest;
 import com.tenth.nft.marketplace.web3.vo.Web3NftAssetsCreateRequest;
@@ -44,10 +46,15 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
     private Web3Properties web3Properties;
     @Autowired
     private TpulseContractHelper tpulseContractHelper;
+    @Autowired
+    private Web3UserProfileService web3UserProfileService;
 
     private Web3NftAssetsDao web3NftAssetsDao;
 
     private Web3NftCollectionService nftCollectionService;
+
+    private Web3NftBelongService nftBelongService;
+
 
     public Web3NftAssetsService(
             Web3NftAssetsDao nftAssetsDao,
@@ -59,6 +66,7 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
         super(nftAssetsDao, nftCollectionService, nftBelongService, nftUbtLogService, nftListingService);
         this.web3NftAssetsDao = nftAssetsDao;
         this.nftCollectionService = nftCollectionService;
+        this.nftBelongService = nftBelongService;
     }
 
     @Override
@@ -155,7 +163,15 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
         );
     }
 
-    public NftAssetsDTO detail(NftAssetsDetailRequest request) {
-        return detail(request, NftAssetsDTO.class);
+    public NftAssetsDetailDTO detail(NftAssetsDetailRequest request) {
+        NftAssetsDetailDTO dto = detail(request, NftAssetsDetailDTO.class);
+        dto.setCreatorProfile(web3UserProfileService.getUserProfile(dto.getCreator()));
+
+        if(dto.getOwners() == 1){
+            Web3NftBelong belong = nftBelongService.ownerList(request.getAssetsId()).get(0);
+            dto.setOwnerProfile(web3UserProfileService.getUserProfile(belong.getOwner()));
+        }
+
+        return dto;
     }
 }

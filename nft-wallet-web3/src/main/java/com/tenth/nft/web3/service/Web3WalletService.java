@@ -8,6 +8,7 @@ import com.tenth.nft.convention.templates.WalletCurrencyConfig;
 import com.tenth.nft.convention.templates.WalletCurrencyTemplate;
 import com.tenth.nft.convention.web3.sign.PersonalSignUtils;
 import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
+import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.web3.dao.Web3WalletDao;
@@ -224,5 +225,21 @@ public class Web3WalletService {
                 .build();
         ticket.setWalletBridgeUrl(walletBridgeUrl);
         return ticket;
+    }
+
+    public NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS walletProfile(NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC request) {
+
+        Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().walletAccountIdIn(request.getAddressesList()).build());
+
+        return NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.newBuilder()
+                .addProfiles(
+                        NftWeb3Wallet.Web3WalletProfileDTO.newBuilder()
+                                .setAddress(web3Wallet.getWethContractAddress())
+                                .setUid(web3Wallet.getUid())
+                                .build()
+                )
+                .build();
+
+
     }
 }

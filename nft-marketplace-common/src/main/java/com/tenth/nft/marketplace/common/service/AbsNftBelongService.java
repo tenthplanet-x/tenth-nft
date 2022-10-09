@@ -152,4 +152,12 @@ public abstract class AbsNftBelongService<T extends AbsNftBelong>{
 
         return new Page<>(0, null);
     }
+
+    public int owners(Long assetsId) {
+        return (int)nftBelongDao.count(AbsNftBelongQuery.newBuilder().assetsId(assetsId).build());
+    }
+
+    public List<T> ownerList(Long assetsId) {
+        return nftBelongDao.find(AbsNftBelongQuery.newBuilder().assetsId(assetsId).build());
+    }
 }

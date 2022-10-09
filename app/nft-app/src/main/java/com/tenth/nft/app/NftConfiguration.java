@@ -2,7 +2,6 @@ package com.tenth.nft.app;
 
 import com.tenth.nft.app.security.SimpleLockManger;
 import com.tenth.nft.convention.NftConventionConfiguration;
-import com.tenth.nft.crawler.NftCrawlerConfiguration;
 import com.tenth.nft.marketplace.NftMarketplaceConfiguration;
 import com.tenth.nft.marketplace.buildin.BuildInNftMarketplaceConfiguration;
 import com.tenth.nft.marketplace.common.NftMarketplaceCommonConfiguration;
@@ -36,19 +35,20 @@ import org.springframework.context.annotation.Import;
         GsSchedulerConfiguration.class,
         GsConventionConfiguration.class,
         GsRoutesConfiguration.class,
-        NftCrawlerConfiguration.class,
         NftConventionConfiguration.class,
         NftOrmConfiguration.class,
         NftOperationConfiguration.class,
         BuildInWalletConfiguration.class,
         GsConfig2ClientConfiguration.class,
         GsConfig2ServerConfiguration.class,
-        Web3WalletConfiguration.class,
+        NftMarketplaceConfiguration.class,
         BuildInNftMarketplaceConfiguration.class,
         Web3NftMarketpalceConfiguration.class,
         NftMarketplaceCommonConfiguration.class,
-        NftMarketplaceConfiguration.class,
-        NftMarketplaceStatsConfiguration.class
+        NftMarketplaceStatsConfiguration.class,
+        Web3WalletConfiguration.class,
+        BuildInWalletConfiguration.class,
+
 })
 public class NftConfiguration {
 

@@ -307,6 +307,7 @@ public class Web3WalletBillService {
         NftWeb3Wallet.Web3WalletBalanceDTO.Builder builder = NftWeb3Wallet.Web3WalletBalanceDTO.newBuilder();
         String address = web3Wallet.getWalletAccountId();
         builder.setAddress(address);
+        builder.setUid(request.getUid());
         builder.setCurrency(web3Properties.getMainCurrency());
 //        if(request.hasNeedBalance()){
 //            String balance = tpulseContractHelper.getBalance(web3Properties.getMainCurrency(), address).toString();
@@ -318,4 +319,6 @@ public class Web3WalletBillService {
                 .build();
 
     }
+
+
 }

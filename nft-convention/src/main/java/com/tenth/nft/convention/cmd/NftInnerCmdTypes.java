@@ -64,6 +64,7 @@ public enum NftInnerCmdTypes implements CmdType {
     WEB3_BILL_PAY_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_BILL_PAY_IC, NftWeb3Wallet.WEB3_BILL_PAY_IC.newBuilder()),
     WEB3_TXN_CHECK_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_TXN_CHECK_IC, NftWeb3Wallet.WEB3_TXN_CHECK_IC.newBuilder()),
     WEB3_WALLET_BALANCE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_WALLET_BALANCE_IC, NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()),
+    WEB3_WALLET_PROFILE_IC(NftCmdGroup.WEB3_WALLET, NftInnerCmds.WEB3_WALLET_PROFILE_IC, NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC.newBuilder()),
 
     //stats
     COLLECTION_VOLUME_STATS_IC(NftCmdGroup.MARKETPLACE_STATS, NftInnerCmds.COLLECTION_VOLUME_STATS_IC, NftMarketplaceStats.COLLECTION_VOLUME_STATS_IC.newBuilder()),

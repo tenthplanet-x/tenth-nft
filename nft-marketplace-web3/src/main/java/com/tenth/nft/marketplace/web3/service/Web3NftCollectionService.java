@@ -1,6 +1,7 @@
 package com.tenth.nft.marketplace.web3.service;
 
 import com.tenth.nft.convention.TpulseHeaders;
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.CollectionRebuildRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.marketplace.common.dao.AbsNftCollectionDao;
@@ -32,6 +33,8 @@ public class Web3NftCollectionService extends AbsNftCollectionService<Web3NftCol
 
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private Web3UserProfileService web3UserProfileService;
 
     public Web3NftCollectionService(
             Web3NftCollectionDao nftCollectionDao,
@@ -71,7 +74,15 @@ public class Web3NftCollectionService extends AbsNftCollectionService<Web3NftCol
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         String address = getUidAddress(uid);
 
-        return list(request, Optional.of(address), NftCollectionDTO.class);
+        Page<NftCollectionDTO> dataPage = list(request, Optional.of(address), NftCollectionDTO.class);
+        if(!dataPage.getData().isEmpty()){
+            NftUserProfileDTO creatorProfileDTO = web3UserProfileService.getUserProfile(uid);
+            dataPage.getData().forEach(dto -> {
+                dto.setCreatorProfile(creatorProfileDTO);
+            });
+        }
+
+        return dataPage;
     }
 
     public NftCollectionDTO detail(NftCollectionDetailRequest request) {

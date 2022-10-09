@@ -7,6 +7,7 @@ import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.marketplace.buildin.dao.BuildInNftAssetsDao;
 import com.tenth.nft.marketplace.buildin.entity.BuildInNftAssets;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftAssetsDetailDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftAssetsService;
 import com.tenth.nft.marketplace.common.service.AbsNftBelongService;
 import com.tenth.nft.marketplace.common.service.AbsNftUbtLogService;
@@ -27,6 +28,8 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
     @Autowired
     private RouteClient routeClient;
 
+    private BuildInNftBelongService nftBelongService;
+
     public BuildInNftAssetsService(
             BuildInNftAssetsDao nftAssetsDao,
             BuildInNftCollectionService nftCollectionService,
@@ -35,6 +38,7 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
             @Lazy BuildInNftListingService nftListingService
     ) {
         super(nftAssetsDao, nftCollectionService, nftBelongService, nftUbtLogService, nftListingService);
+        this.nftBelongService = nftBelongService;
     }
 
     @Override
@@ -52,9 +56,9 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
         return create(String.valueOf(uid), request);
     }
 
-    public NftAssetsDTO detail(NftAssetsDetailRequest request) {
+    public NftAssetsDetailDTO detail(NftAssetsDetailRequest request) {
 
-        NftAssetsDTO detail = detail(request, NftAssetsDTO.class);
+        NftAssetsDetailDTO detail = detail(request, NftAssetsDetailDTO.class);
 
         NftUserProfileDTO creatorProfileDTO = NftUserProfileDTO.from(
                 routeClient.send(
@@ -65,6 +69,22 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
                 ).getProfiles(0)
         );
         detail.setCreatorProfile(creatorProfileDTO);
+
+        if(detail.getOwners() == 1){
+
+            Long ownerUid = Long.valueOf(nftBelongService.ownerList(request.getAssetsId()).get(0).getOwner());
+            detail.setOwnerProfile(
+                    NftUserProfileDTO.from(
+                            routeClient.send(
+                                    Search.SEARCH_USER_PROFILE_IC.newBuilder()
+                                            .addUids(ownerUid)
+                                            .build(),
+                                    SearchUserProfileRouteRequest.class
+                            ).getProfiles(0)
+                    )
+            );
+        }
+
         return detail;
     }
 }

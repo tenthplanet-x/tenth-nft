@@ -68,6 +68,7 @@ public class NftInnerCmds {
     public static final int WEB3_PAYMENT_CREATE_IC = -70003;
     public static final int WEB3_TXN_CHECK_IC = -70005;
     public static final int WEB3_WALLET_BALANCE_IC = -70006;
+    public static final int WEB3_WALLET_PROFILE_IC = -70007;
 
     //marketplace stats
     public static final int COLLECTION_VOLUME_STATS_IC = -80001;

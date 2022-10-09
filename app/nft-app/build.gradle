@@ -3,7 +3,6 @@ dependencies {
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
-    implementation project(":nft-crawler")
     implementation project(":nft-marketplace")
     implementation project(":nft-operation")
     implementation project(":nft-marketplace")

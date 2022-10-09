@@ -1,5 +1,6 @@
 package com.tenth.nft.marketplace.web3.service;
 
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.marketplace.common.dto.NftAseetsOwnerDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
@@ -16,6 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * @author shijie
  */
@@ -24,6 +29,8 @@ public class Web3NftBelongService extends AbsNftBelongService<Web3NftBelong> {
 
     @Autowired
     private RouteClient routeClient;
+    @Autowired
+    private Web3UserProfileService web3UserProfileService;
 
     public Web3NftBelongService(
             Web3NftBelongDao nftBelongDao,
@@ -38,7 +45,19 @@ public class Web3NftBelongService extends AbsNftBelongService<Web3NftBelong> {
     }
 
     public Page<NftAseetsOwnerDTO> ownerList(NftOwnerListRequest request) {
-        return ownerList(request, NftAseetsOwnerDTO.class);
+
+        Page<NftAseetsOwnerDTO> dataPage = ownerList(request, NftAseetsOwnerDTO.class);
+        if(!dataPage.getData().isEmpty()){
+
+            Set<String> addresses = dataPage.getData().stream().map(dto -> dto.getUid()).collect(Collectors.toSet());
+            Map<String, NftUserProfileDTO> profileMap = web3UserProfileService.getUserProfiles(addresses);
+
+            dataPage.getData().stream().forEach(dto -> {
+                dto.setUserProfile(profileMap.get(dto.getUid()));
+            });
+        }
+
+        return dataPage;
     }
 
     public Page<NftAssetsDTO> myAssets(NftAssetsOwnRequest request) {
