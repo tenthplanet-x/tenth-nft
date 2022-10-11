@@ -1,6 +1,7 @@
 package com.tenth.nft.web3.service;
 
 import com.ruixi.tpulse.convention.TpulseHeaders;
+import com.tenth.nft.convention.BuildInProperties;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
@@ -16,11 +17,9 @@ import com.tenth.nft.web3.dao.expression.Web3WalletQuery;
 import com.tenth.nft.web3.dao.expression.Web3WalletUpdate;
 import com.tenth.nft.web3.dto.Web3WalletBalance;
 import com.tenth.nft.web3.dto.Web3WalletBindSIgnTicket;
-import com.tenth.nft.web3.dto.Web3WalletProfile;
+import com.tenth.nft.web3.dto.Web3WalletDetailDTO;
 import com.tenth.nft.web3.entity.Web3Wallet;
-import com.tenth.nft.web3.vo.Web3ContractApprovalConfirmRequest;
-import com.tenth.nft.web3.vo.Web3WalletBindPrepareRequest;
-import com.tenth.nft.web3.vo.Web3WalletBindRequest;
+import com.tenth.nft.web3.vo.*;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
@@ -55,6 +54,8 @@ public class Web3WalletService {
     private TpulseContractHelper tpulseContractHelper;
     @Autowired
     private I18nGsTemplates i18nGsTemplates;
+    @Autowired
+    private BuildInProperties buildInProperties;
 
     public String createAuth() {
         return WalletBridgeUrl.newBuilder(web3Properties)
@@ -169,12 +170,12 @@ public class Web3WalletService {
 
     }
 
-    public Web3WalletProfile profile() {
+    public Web3WalletDetailDTO profile() {
 
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
         Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
         if(null != web3Wallet){
-            Web3WalletProfile profile = new Web3WalletProfile();
+            Web3WalletDetailDTO profile = new Web3WalletDetailDTO();
             profile.setWallet(web3Wallet.getWallet());
             profile.setAddress(web3Wallet.getWalletAccountId());
             profile.setContractApproved(web3Wallet.isContractApproved());
@@ -185,6 +186,31 @@ public class Web3WalletService {
         return null;
     }
 
+    public List<Web3WalletProfile> profiles(Web3WalletProfilesRequest request) {
+
+        Long uid = request.getUid();
+
+        List<Web3WalletProfile> profiles = new ArrayList<>();
+        {
+            Web3WalletProfile profile = new Web3WalletProfile();
+            profile.setBlockchain(buildInProperties.getBlockchain());
+            profile.setAddress(String.valueOf(uid));
+            profiles.add(profile);
+        }
+
+        {
+
+            Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
+            if(null != web3Wallet){
+                Web3WalletProfile profile = new Web3WalletProfile();
+                profile.setBlockchain(web3Wallet.getBlockchain());
+                profile.setAddress(web3Wallet.getWalletAccountId());
+                profiles.add(profile);
+            }
+        }
+
+        return profiles;
+    }
 
     public void cancelApproval() {
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
@@ -242,4 +268,6 @@ public class Web3WalletService {
 
 
     }
+
+
 }

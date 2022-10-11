@@ -5,6 +5,7 @@ package com.tenth.nft.web3;
  */
 public class Web3WalletPaths {
 
+    public static final String WALLET_ACCOUNT = "/nft/web3wallet/account";
     public static final String WALLET_PROFILE = "/nft/web3wallet/profile";
     public static final String WALLET_CREATE_AUTH = "/nft/web3wallet/auth/create";
     public static final String WALLET_BIND_PREPARE = "/nft/web3wallet/bind/prepare";

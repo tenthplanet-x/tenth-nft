@@ -4,12 +4,9 @@ import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.web3.Web3WalletPaths;
 import com.tenth.nft.web3.dto.Web3WalletBalance;
 import com.tenth.nft.web3.dto.Web3WalletBindSIgnTicket;
-import com.tenth.nft.web3.dto.Web3WalletProfile;
+import com.tenth.nft.web3.dto.Web3WalletDetailDTO;
 import com.tenth.nft.web3.service.Web3WalletService;
-import com.tenth.nft.web3.vo.Web3ContractApprovalConfirmRequest;
-import com.tenth.nft.web3.vo.Web3ContractApprovalCreateRequest;
-import com.tenth.nft.web3.vo.Web3WalletBindPrepareRequest;
-import com.tenth.nft.web3.vo.Web3WalletBindRequest;
+import com.tenth.nft.web3.vo.*;
 import com.tpulse.commons.validation.Validations;
 import com.wallan.router.endpoint.core.security.HttpRoute;
 import com.wallan.router.vo.Response;
@@ -31,10 +28,17 @@ public class Web3WalletController {
     private Web3WalletService web3WalletService;
 
 
-    @RequestMapping(Web3WalletPaths.WALLET_PROFILE)
+    @RequestMapping(Web3WalletPaths.WALLET_ACCOUNT)
     public Response profile() throws Exception{
-        Web3WalletProfile profile = web3WalletService.profile();
+        Web3WalletDetailDTO profile = web3WalletService.profile();
         return Response.successBuilder().data(profile).build();
+    }
+
+    @RequestMapping(Web3WalletPaths.WALLET_PROFILE)
+    public Response profiles(@RequestBody Web3WalletProfilesRequest request) throws Exception{
+        Validations.check(request);
+        List<Web3WalletProfile> profiles = web3WalletService.profiles(request);
+        return Response.successBuilder().data(profiles).build();
     }
 
     @RequestMapping(Web3WalletPaths.WALLET_CREATE_AUTH)

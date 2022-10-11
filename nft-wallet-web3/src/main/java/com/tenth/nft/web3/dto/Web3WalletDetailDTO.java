@@ -3,7 +3,7 @@ package com.tenth.nft.web3.dto;
 /**
  * @author shijie
  */
-public class Web3WalletProfile {
+public class Web3WalletDetailDTO {
 
     private String wallet;
     private String address;

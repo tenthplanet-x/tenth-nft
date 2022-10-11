@@ -6,8 +6,6 @@ import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.convention.routes.marketplace.web3.Web3AcceptReceiptRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.web3.Web3BuyReceiptRouteRequest;
 import com.tenth.nft.convention.routes.web3wallet.Web3TxnCheckRouteRequest;
-import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
-import com.tenth.nft.convention.routes.web3wallet.Web3WalletPayRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.templates.NftTemplateTypes;
 import com.tenth.nft.convention.templates.WalletCurrencyConfig;
@@ -19,12 +17,10 @@ import com.tenth.nft.protobuf.NftWeb3Wallet;
 import com.tenth.nft.solidity.ContractTransactionReceipt;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.web3.dao.Web3WalletBillDao;
-import com.tenth.nft.web3.dao.Web3WalletDao;
 import com.tenth.nft.web3.dao.expression.Web3WalletBillQuery;
 import com.tenth.nft.web3.dao.expression.Web3WalletBillUpdate;
-import com.tenth.nft.web3.dao.expression.Web3WalletQuery;
 import com.tenth.nft.web3.dto.Web3WalletBillDTO;
-import com.tenth.nft.web3.dto.Web3WalletProfile;
+import com.tenth.nft.web3.dto.Web3WalletDetailDTO;
 import com.tenth.nft.web3.entity.Web3Wallet;
 import com.tenth.nft.web3.entity.Web3WalletBill;
 import com.tenth.nft.web3.entity.Web3WalletBillProfit;
@@ -167,7 +163,7 @@ public class Web3WalletBillService {
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
 
         //get web3 accountId
-        Web3WalletProfile profile = web3WalletService.profile();
+        Web3WalletDetailDTO profile = web3WalletService.profile();
         Web3WalletBill bill = web3WalletBillDao.findOne(
                 Web3WalletBillQuery.newBuilder()
                         .accountId(profile.getAddress())
