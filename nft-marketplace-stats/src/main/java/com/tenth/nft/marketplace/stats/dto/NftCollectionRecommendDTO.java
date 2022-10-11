@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class NftCollectionRecommendDTO implements SimpleResponse {
 
+    @SimpleField(name = "_id")
+    private Long id;
     @SimpleField
     private String blockchain;
     @SimpleField
@@ -31,6 +33,14 @@ public class NftCollectionRecommendDTO implements SimpleResponse {
     private String totalVolume;
     @SimpleField
     private String currency;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getBlockchain() {
         return blockchain;
