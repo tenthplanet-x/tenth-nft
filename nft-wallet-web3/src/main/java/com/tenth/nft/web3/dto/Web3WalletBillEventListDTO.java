@@ -9,6 +9,8 @@ public class Web3WalletBillEventListDTO {
 
     private Long id;
 
+    private String unionId;
+
     private String displayIcon;
 
     private String displayName;
@@ -31,6 +33,14 @@ public class Web3WalletBillEventListDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
     }
 
     public String getDisplayIcon() {

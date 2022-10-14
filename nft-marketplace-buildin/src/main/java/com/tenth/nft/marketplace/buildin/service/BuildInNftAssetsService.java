@@ -6,11 +6,10 @@ import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.marketplace.buildin.dao.BuildInNftAssetsDao;
 import com.tenth.nft.marketplace.buildin.entity.BuildInNftAssets;
+import com.tenth.nft.convention.UnionIds;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDetailDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftAssetsService;
-import com.tenth.nft.marketplace.common.service.AbsNftBelongService;
-import com.tenth.nft.marketplace.common.service.AbsNftUbtLogService;
 import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftAssetsDetailRequest;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
@@ -86,5 +85,10 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
         }
 
         return detail;
+    }
+
+    @Override
+    protected String getUnionId(Long id) {
+        return UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, id);
     }
 }

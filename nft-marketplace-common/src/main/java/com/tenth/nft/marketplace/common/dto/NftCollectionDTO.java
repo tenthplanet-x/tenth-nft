@@ -31,6 +31,8 @@ public class NftCollectionDTO implements SimpleResponse {
     @SimpleField
     private Integer items;
 
+    private String unionId;
+
     private NftUserProfileDTO creatorProfile;
 
     public NftUserProfileDTO getCreatorProfile() {
@@ -121,4 +123,11 @@ public class NftCollectionDTO implements SimpleResponse {
         this.items = items;
     }
 
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
+    }
 }

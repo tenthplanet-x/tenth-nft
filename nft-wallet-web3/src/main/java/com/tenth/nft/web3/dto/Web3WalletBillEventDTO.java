@@ -9,6 +9,8 @@ public class Web3WalletBillEventDTO {
 
     private Long id;
 
+    private String unionId;
+
     private String transaction;
 
     private String type;
@@ -145,6 +147,14 @@ public class Web3WalletBillEventDTO {
 
     public void setGasCurrency(String gasCurrency) {
         this.gasCurrency = gasCurrency;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
     }
 
     public static Web3WalletBillEventDTO from(Web3WalletBill entity) {

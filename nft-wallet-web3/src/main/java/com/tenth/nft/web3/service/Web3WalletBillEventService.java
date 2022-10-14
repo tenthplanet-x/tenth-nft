@@ -1,6 +1,7 @@
 package com.tenth.nft.web3.service;
 
 import com.tenth.nft.convention.TpulseHeaders;
+import com.tenth.nft.convention.UnionIds;
 import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
 import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.wallet.WalletProductCode;
@@ -68,6 +69,7 @@ public class Web3WalletBillEventService {
                     eventPage.getData().stream()
                             .map(entity -> {
                                 Web3WalletBillEventListDTO dto = Web3WalletBillEventListDTO.from(entity);
+                                dto.setUnionId(UnionIds.wrap(UnionIds.CHANNEL_WEB3, entity.getId()));
                                 String gasCurrency = i18nGsTemplates.get(NftTemplateTypes.wallet_currency, WalletCurrencyTemplate.class).findMainCurrency(entity.getBlockchain()).getCode();
                                 dto.setGasCurrency(gasCurrency);
 
@@ -104,6 +106,7 @@ public class Web3WalletBillEventService {
                         .build()
         );
         Web3WalletBillEventDTO eventDTO = Web3WalletBillEventDTO.from(entity);
+        eventDTO.setUnionId(UnionIds.wrap(UnionIds.CHANNEL_WEB3, entity.getId()));
         String gasCurrency = i18nGsTemplates.get(NftTemplateTypes.wallet_currency, WalletCurrencyTemplate.class).findMainCurrency(entity.getBlockchain()).getCode();
         eventDTO.setGasCurrency(gasCurrency);
 

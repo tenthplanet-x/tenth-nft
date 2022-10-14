@@ -165,16 +165,26 @@ public abstract class AbsNftCollectionService<T extends AbsNftCollection> {
                         .build(),
                 dtoClass
         );
+        if(!dataPage.getData().isEmpty()){
+            dataPage.getData().stream().forEach(dto -> {
+                dto.setUnionId(getUnionId(dto.getId()));
+            });
+        }
 
         return dataPage;
 
     }
 
+    protected abstract String getUnionId(Long id);
+
+
     public <DTO extends NftCollectionDTO> DTO detail(NftCollectionDetailRequest request, Class<DTO> dtoClass) {
-        return nftCollectionDao.findOne(
+        DTO dto = nftCollectionDao.findOne(
                 AbsNftCollectionQuery.newBuilder().id(request.getId()).build(),
                 dtoClass
         );
+        dto.setUnionId(getUnionId(dto.getId()));
+        return dto;
     }
 
 

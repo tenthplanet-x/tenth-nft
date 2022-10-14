@@ -7,6 +7,7 @@ import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.marketplace.stats.CollectionVolumeStatsRouteRequest;
 import com.tenth.nft.marketplace.buildin.dao.BuildInNftCollectionDao;
 import com.tenth.nft.marketplace.buildin.entity.BuildInNftCollection;
+import com.tenth.nft.convention.UnionIds;
 import com.tenth.nft.marketplace.common.dto.NftCollectionDTO;
 import com.tenth.nft.marketplace.common.dto.NftCollectionDetailDTO;
 import com.tenth.nft.marketplace.common.entity.AbsNftCollection;
@@ -137,5 +138,10 @@ public class BuildInNftCollectionService extends AbsNftCollectionService<BuildIn
 
     public Page<NftCollectionDTO> ownList(NftCollectionOwnListRequest request) {
         return list(request, Optional.of(String.valueOf(request.getOwner())), NftCollectionDTO.class);
+    }
+
+    @Override
+    protected String getUnionId(Long id) {
+        return UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, id);
     }
 }

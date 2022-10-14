@@ -9,8 +9,8 @@ import com.tenth.nft.convention.web3.sign.MintDataForSign;
 import com.tenth.nft.convention.web3.sign.StructContentHash;
 import com.tenth.nft.convention.web3.utils.TokenMintStatus;
 import com.tenth.nft.convention.web3.utils.WalletBridgeUrl;
+import com.tenth.nft.convention.UnionIds;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsQuery;
-import com.tenth.nft.marketplace.common.dao.expression.AbsNftAssetsUpdate;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDetailDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftAssetsService;
@@ -173,5 +173,10 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
         }
 
         return dto;
+    }
+
+    @Override
+    protected String getUnionId(Long id) {
+        return UnionIds.wrap(UnionIds.CHANNEL_WEB3, id);
     }
 }

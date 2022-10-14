@@ -4,6 +4,7 @@ import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
 import com.tenth.nft.convention.NftExchangeErrorCodes;
 import com.tenth.nft.convention.TpulseHeaders;
+import com.tenth.nft.convention.UnionIds;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
 import com.tenth.nft.convention.routes.marketplace.buildin.BuildInAcceptReceiptRouteRequest;
@@ -178,6 +179,7 @@ public class WalletBillService {
                 WalletBillQuery.newBuilder().uid(uid).id(request.getBillId()).build()
         );
         WalletBillDTO walletBillDTO = WalletBillDTO.from(walletBill);
+        walletBillDTO.setUnionId(UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, walletBill.getId()));
         if(null != walletBill.getMerchantId()){
             walletBillDTO.setUidProfile(
                     NftUserProfileDTO.from(
@@ -256,6 +258,7 @@ public class WalletBillService {
                     }
 
                     walletBillSimpleDTO.setId(bill.getId());
+                    walletBillSimpleDTO.setUnionId(UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, bill.getId()));
                     walletBillSimpleDTO.setCreatedAt(bill.getCreatedAt());
                     walletBillSimpleDTO.setCurrency(bill.getCurrency());
                     walletBillSimpleDTO.setValue(bill.getValue());

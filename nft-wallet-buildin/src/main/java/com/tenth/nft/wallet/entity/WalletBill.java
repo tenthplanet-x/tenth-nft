@@ -208,4 +208,5 @@ public class WalletBill {
     public void setRetry(int retry) {
         this.retry = retry;
     }
+
 }

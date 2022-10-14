@@ -125,7 +125,7 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
 
     public <DTO extends NftAssetsDTO> Page<DTO> list(NftAssetsListRequest request, Class<DTO> dtoClass){
 
-        return nftAssetsDao.findPage(
+        Page<DTO> page = nftAssetsDao.findPage(
             AbsNftAssetsQuery.newBuilder()
                     .setCollectionId(request.getCollectionId())
                     .setPage(request.getPage())
@@ -135,7 +135,17 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
                     .build(),
                 dtoClass
         );
+        if(!page.getData().isEmpty()){
+            page.getData().forEach(dto -> {
+                dto.setUnionId(getUnionId(dto.getId()));
+            });
+        }
+
+        return page;
     }
+
+    protected abstract String getUnionId(Long id);
+
 
     public <DTO extends NftAssetsDetailDTO> DTO detail(NftAssetsDetailRequest request, Class<DTO> dtoClass){
 
@@ -145,6 +155,7 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
                 AbsNftAssetsQuery.newBuilder().id(request.getAssetsId()).build(),
                 dtoClass
         );
+        nftAssetsDTO.setUnionId(getUnionId(nftAssetsDTO.getId()));
 
         NftListingDTO _listingDTO = nftListingService.getCurrentListing(request.getAssetsId());
         if(null != _listingDTO){

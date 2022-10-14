@@ -7,6 +7,8 @@ public class WalletBillSimpleDTO {
 
     private Long id;
 
+    private String unionId;
+
     private String displayIcon;
 
     private String displayName;
@@ -73,5 +75,13 @@ public class WalletBillSimpleDTO {
 
     public void setIncomeExpense(String incomeExpense) {
         this.incomeExpense = incomeExpense;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
     }
 }

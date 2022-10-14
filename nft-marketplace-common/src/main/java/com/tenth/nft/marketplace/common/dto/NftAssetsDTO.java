@@ -54,6 +54,8 @@ public class NftAssetsDTO implements SimpleResponse {
 
     private NftUserProfileDTO creatorProfile;
 
+    private String unionId;
+
     public Long getId() {
         return id;
     }
@@ -172,6 +174,14 @@ public class NftAssetsDTO implements SimpleResponse {
 
     public void setCreatorProfile(NftUserProfileDTO creatorProfile) {
         this.creatorProfile = creatorProfile;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
     }
 
     public static class ListingDTO{
