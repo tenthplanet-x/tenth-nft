@@ -224,4 +224,6 @@ public class Web3WalletBill {
     public void setUsedGasValue(String usedGasValue) {
         this.usedGasValue = usedGasValue;
     }
+
+
 }

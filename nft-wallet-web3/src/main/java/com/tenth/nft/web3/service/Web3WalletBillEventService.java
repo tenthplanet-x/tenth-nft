@@ -2,7 +2,7 @@ package com.tenth.nft.web3.service;
 
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.UnionIds;
-import com.tenth.nft.convention.routes.marketplace.AbsAssetsDetailRouteRequest;
+import com.tenth.nft.convention.routes.marketplace.web3.Web3AssetsDetailBatchRouteRequest;
 import com.tenth.nft.convention.templates.*;
 import com.tenth.nft.convention.wallet.WalletProductCode;
 import com.tenth.nft.protobuf.NftMarketplace;
@@ -124,11 +124,11 @@ public class Web3WalletBillEventService {
         ){
             eventDTO.setProductName(
                     routeClient.send(
-                            NftMarketplace.ASSETS_DETAIL_IC.newBuilder()
-                                    .setId(Long.valueOf(entity.getProductId()))
+                            NftMarketplace.ASSETS_DETAIL_BATCH_IC.newBuilder()
+                                    .addAssetsId(Long.valueOf(entity.getProductId()))
                                     .build(),
-                            AbsAssetsDetailRouteRequest.class
-                    ).getAssets().getName()
+                            Web3AssetsDetailBatchRouteRequest.class
+                    ).getAssets(0).getName()
             );
         }
 
