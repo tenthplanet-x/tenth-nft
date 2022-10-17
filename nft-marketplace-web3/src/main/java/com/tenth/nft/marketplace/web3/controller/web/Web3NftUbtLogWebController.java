@@ -7,6 +7,7 @@ import com.tenth.nft.marketplace.web3.service.Web3NftUbtLogService;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.wallan.router.endpoint.core.security.HttpRoute;
+import com.wallan.router.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,9 @@ public class Web3NftUbtLogWebController {
     private Web3NftUbtLogService web3NftUbtLogService;
 
     @RequestMapping(Web3NftAssetsPaths.NFT_UBT_LIST)
-    public Page<NftUbtLogDTO> list(@RequestBody NftUbtLogListRequest request){
+    public Response list(@RequestBody NftUbtLogListRequest request){
         Validations.check(request);
-        return web3NftUbtLogService.list(request);
+        return Response.successBuilder().data(web3NftUbtLogService.list(request)).build();
     }
 
 }

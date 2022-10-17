@@ -2,6 +2,7 @@ package com.tenth.nft.marketplace.buildin.service;
 
 import com.ruixi.tpulse.convention.protobuf.Search;
 import com.ruixi.tpulse.convention.routes.search.SearchUserProfileRouteRequest;
+import com.tenth.nft.convention.UnionIds;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.marketplace.buildin.dao.BuildInNftBelongDao;
 import com.tenth.nft.marketplace.buildin.dto.BuildInNftAssetsOwnerDTO;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -63,6 +65,20 @@ public class BuildInNftBelongService extends AbsNftBelongService<BuildInNftBelon
 
 
     public Page<NftAssetsDTO> myAssets(NftAssetsOwnRequest request) {
-        return myAssets(request, String.valueOf(request.getOwner()), NftAssetsDTO.class);
+
+        Page<NftAssetsDTO> dataPage = myAssets(request, String.valueOf(request.getOwner()), NftAssetsDTO.class);
+        if(null != dataPage.getData() && !dataPage.getData().isEmpty()){
+
+            Collection<Long> sellerUids = dataPage.getData().stream().map(dto -> Long.valueOf(dto.getCreator())).collect(Collectors.toSet());
+            Map<Long, NftUserProfileDTO> userProfileDTOMap = routeClient.send(
+                    Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(sellerUids).build(),
+                    SearchUserProfileRouteRequest.class
+            ).getProfilesList().stream().map(NftUserProfileDTO::from).collect(Collectors.toMap(NftUserProfileDTO::getUid, Function.identity()));
+            dataPage.getData().stream().forEach(dto -> {
+                dto.setCollectionUnionId(UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, dto.getCollectionId()));
+                dto.setCreatorProfile(userProfileDTOMap.get(Long.valueOf(dto.getCreator())));
+            });
+        }
+        return dataPage;
     }
 }

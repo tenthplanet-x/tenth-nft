@@ -25,6 +25,7 @@ import com.tenth.nft.protobuf.NftMarketplace;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.dao.id.service.GsCollectionIdService;
+import com.tpulse.gs.oss.qiniu.service.QiniuOSSService;
 import com.wallan.router.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,6 +41,8 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
     private I18nGsTemplates i18nGsTemplates;
     @Autowired
     private GsCollectionIdService gsCollectionIdService;
+    @Autowired
+    private QiniuOSSService qiniuOSSService;
 
     private AbsNftCollectionService nftCollectionService;
 
@@ -50,6 +53,8 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
     private AbsNftUbtLogService nftUbtLogService;
 
     private AbsNftListingService nftListingService;
+
+
 
 
     public AbsNftAssetsService(
@@ -146,7 +151,6 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
 
     protected abstract String getUnionId(Long id);
 
-
     public <DTO extends NftAssetsDetailDTO> DTO detail(NftAssetsDetailRequest request, Class<DTO> dtoClass){
 
         //TODO current listing
@@ -156,6 +160,7 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
                 dtoClass
         );
         nftAssetsDTO.setUnionId(getUnionId(nftAssetsDTO.getId()));
+        nftAssetsDTO.setCollectionUnionId(getUnionId(nftAssetsDTO.getCollectionId()));
 
         NftListingDTO _listingDTO = nftListingService.getCurrentListing(request.getAssetsId());
         if(null != _listingDTO){
@@ -187,7 +192,11 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
         T nftAssets = newNftAssets();
         nftAssets.setCollectionId(collection.getId());
         Long assetsId = gsCollectionIdService.incrementAndGet(NftModules.NFT_ASSETS);
-        String previewUrl = OssPaths.create(OssPaths.COLLECTION, assetsId, "preview");
+        String previewUrl = request.getPreviewUrl();
+        if(!Strings.isNullOrEmpty(previewUrl)){
+            String previewPath = OssPaths.create(OssPaths.COLLECTION, assetsId, "preview");
+            previewUrl = qiniuOSSService.copyToPath(previewUrl, previewPath);
+        }
 
         nftAssets.setId(assetsId);
         nftAssets.setType(request.getType());

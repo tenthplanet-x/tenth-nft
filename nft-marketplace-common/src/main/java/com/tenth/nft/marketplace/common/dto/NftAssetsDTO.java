@@ -56,6 +56,8 @@ public class NftAssetsDTO implements SimpleResponse {
 
     private String unionId;
 
+    private String collectionUnionId;
+
     public Long getId() {
         return id;
     }
@@ -182,6 +184,14 @@ public class NftAssetsDTO implements SimpleResponse {
 
     public void setUnionId(String unionId) {
         this.unionId = unionId;
+    }
+
+    public String getCollectionUnionId() {
+        return collectionUnionId;
+    }
+
+    public void setCollectionUnionId(String collectionUnionId) {
+        this.collectionUnionId = collectionUnionId;
     }
 
     public static class ListingDTO{

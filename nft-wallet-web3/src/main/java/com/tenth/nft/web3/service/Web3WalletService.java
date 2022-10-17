@@ -1,5 +1,6 @@
 package com.tenth.nft.web3.service;
 
+import com.google.common.base.Strings;
 import com.ruixi.tpulse.convention.TpulseHeaders;
 import com.tenth.nft.convention.BuildInProperties;
 import com.tenth.nft.convention.Web3Properties;
@@ -201,7 +202,7 @@ public class Web3WalletService {
         {
 
             Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().uid(uid).build());
-            if(null != web3Wallet){
+            if(null != web3Wallet && !Strings.isNullOrEmpty(web3Wallet.getWalletAccountId())){
                 Web3WalletProfile profile = new Web3WalletProfile();
                 profile.setBlockchain(web3Wallet.getBlockchain());
                 profile.setAddress(web3Wallet.getWalletAccountId());
@@ -255,18 +256,19 @@ public class Web3WalletService {
 
     public NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS walletProfile(NftWeb3Wallet.WEB3_WALLET_RPOFILE_IC request) {
 
+        NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.Builder builder = NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.newBuilder();
+
         Web3Wallet web3Wallet = walletDao.findOne(Web3WalletQuery.newBuilder().walletAccountIdIn(request.getAddressesList()).build());
+        if(null != web3Wallet){
+            builder.addProfiles(
+                    NftWeb3Wallet.Web3WalletProfileDTO.newBuilder()
+                            .setAddress(Strings.isNullOrEmpty(web3Wallet.getWalletAccountId())?"": web3Wallet.getWalletAccountId())
+                            .setUid(web3Wallet.getUid())
+                            .build()
+            );
+        }
 
-        return NftWeb3Wallet.WEB3_WALLET_RPOFILE_IS.newBuilder()
-                .addProfiles(
-                        NftWeb3Wallet.Web3WalletProfileDTO.newBuilder()
-                                .setAddress(web3Wallet.getWethContractAddress())
-                                .setUid(web3Wallet.getUid())
-                                .build()
-                )
-                .build();
-
-
+        return builder.build();
     }
 
 

@@ -31,27 +31,28 @@ public class BuildInNftListingWebController {
     private BuildInNftBuyOrderService nftBuyOrderService;
 
     @RequestMapping(BuildInNftAssetsPaths.NFT_LISTING_CREATE)
-    public NftListingDTO create(@RequestBody NftListingCreateRequest request){
+    public Response create(@RequestBody NftListingCreateRequest request){
         Validations.check(request);
-        return buildInNftListingService.create(request);
+        return Response.successBuilder().data(buildInNftListingService.create(request)).build();
     }
 
     @RequestMapping(BuildInNftAssetsPaths.NFT_LISTING_CANCEL)
-    public void cancel(@RequestBody NftListingCancelRequest request){
+    public Response cancel(@RequestBody NftListingCancelRequest request){
         Validations.check(request);
         buildInNftListingService.cancel(request);
+        return Response.successBuilder().build();
     }
 
     @RequestMapping(BuildInNftAssetsPaths.NFT_LISTING_LIST)
-    public Page<BuildInNftListingDTO> list(@RequestBody NftListingListRequest request){
+    public Response list(@RequestBody NftListingListRequest request){
         Validations.check(request);
-        return buildInNftListingService.list(request);
+        return Response.successBuilder().data(buildInNftListingService.list(request)).build();
     }
 
     @RequestMapping(BuildInNftAssetsPaths.NFT_LISTING_BUY)
-    public NftWalletPayTicket buy(@RequestBody NftListingBuyRequest request){
+    public Response buy(@RequestBody NftListingBuyRequest request){
         Validations.check(request);
-        return buildInNftListingService.buy(request);
+        return Response.successBuilder().data(buildInNftListingService.buy(request)).build();
     }
 
     @RequestMapping(BuildInNftAssetsPaths.NFT_LISTING_BUY_STATUS)

@@ -70,6 +70,15 @@ public class Web3NftBelongService extends AbsNftBelongService<Web3NftBelong> {
                 Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
 
-        return myAssets(request, creator, NftAssetsDTO.class);
+        Page<NftAssetsDTO> dataPage = myAssets(request, creator, NftAssetsDTO.class);
+        if(null != dataPage.getData() && !dataPage.getData().isEmpty()){
+
+            Set<String> addresses = dataPage.getData().stream().map(dto -> dto.getCreator()).collect(Collectors.toSet());
+            Map<String, NftUserProfileDTO> profileMap = web3UserProfileService.getUserProfiles(addresses);
+            dataPage.getData().stream().forEach(dto -> {
+                dto.setCreatorProfile(profileMap.get(dto.getCreator()));
+            });
+        }
+        return dataPage;
     }
 }

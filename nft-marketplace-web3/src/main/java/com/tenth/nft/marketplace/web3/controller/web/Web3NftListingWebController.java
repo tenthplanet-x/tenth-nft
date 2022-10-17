@@ -31,33 +31,34 @@ public class Web3NftListingWebController {
     private Web3NftBuyOrderService nftBuyOrderService;
 
     @RequestMapping(Web3NftAssetsPaths.NFT_LISTING_CREATE)
-    public WebListingSignTicket create(@RequestBody NftListingCreateRequest request) throws Exception{
+    public Response create(@RequestBody NftListingCreateRequest request) throws Exception{
         Validations.check(request);
-        return nftListingService.create(request);
+        return Response.successBuilder().data(nftListingService.create(request)).build();
     }
 
     @RequestMapping(Web3NftAssetsPaths.NFT_LISTING_CREATE_CONFIRM)
-    public NftListingDTO createConfirm(@RequestBody Web3NftAssetsCreateConfirmRequest request){
+    public Response createConfirm(@RequestBody Web3NftAssetsCreateConfirmRequest request){
         Validations.check(request);
-        return nftListingService.createConfirm(request);
+        return Response.successBuilder().data(nftListingService.createConfirm(request)).build();
     }
 
     @RequestMapping(Web3NftAssetsPaths.NFT_LISTING_CANCEL)
-    public void cancel(@RequestBody NftListingCancelRequest request){
+    public Response cancel(@RequestBody NftListingCancelRequest request){
         Validations.check(request);
         nftListingService.cancel(request);
+        return Response.successBuilder().build();
     }
 
     @RequestMapping(Web3NftAssetsPaths.NFT_LISTING_LIST)
-    public Page<NftListingDTO> list(@RequestBody NftListingListRequest request){
+    public Response list(@RequestBody NftListingListRequest request){
         Validations.check(request);
-        return nftListingService.list(request);
+        return Response.successBuilder().data(nftListingService.list(request)).build();
     }
 
     @RequestMapping(Web3NftAssetsPaths.NFT_LISTING_BUY)
-    public Web3SendTransactionTicket buy(@RequestBody NftListingBuyRequest request){
+    public Response buy(@RequestBody NftListingBuyRequest request){
         Validations.check(request);
-        return nftListingService.buy(request);
+        return Response.successBuilder().data(nftListingService.buy(request)).build();
     }
 
     @RequestMapping(Web3NftAssetsPaths.NFT_LISTING_BUY_STATUS)

@@ -12,11 +12,18 @@ import com.tenth.nft.marketplace.common.dto.NftAssetsDetailDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftAssetsService;
 import com.tenth.nft.marketplace.common.vo.NftAssetsCreateRequest;
 import com.tenth.nft.marketplace.common.vo.NftAssetsDetailRequest;
+import com.tenth.nft.marketplace.common.vo.NftAssetsListRequest;
+import com.tpulse.gs.convention.dao.dto.Page;
 import com.tpulse.gs.convention.gamecontext.GameUserContext;
 import com.tpulse.gs.router.client.RouteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author shijie
@@ -90,5 +97,24 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
     @Override
     protected String getUnionId(Long id) {
         return UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, id);
+    }
+
+    @Override
+    public <DTO extends NftAssetsDTO> Page<DTO> list(NftAssetsListRequest request, Class<DTO> dtoClass) {
+        Page<DTO> dataPage = super.list(request, dtoClass);
+        if(null != dataPage.getData() && !dataPage.getData().isEmpty()){
+
+            Collection<Long> sellerUids = dataPage.getData().stream().map(dto -> Long.valueOf(dto.getCreator())).collect(Collectors.toSet());
+            Map<Long, NftUserProfileDTO> userProfileDTOMap = routeClient.send(
+                    Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(sellerUids).build(),
+                    SearchUserProfileRouteRequest.class
+            ).getProfilesList().stream().map(NftUserProfileDTO::from).collect(Collectors.toMap(NftUserProfileDTO::getUid, Function.identity()));
+            dataPage.getData().stream().forEach(dto -> {
+                dto.setCollectionUnionId(UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, dto.getCollectionId()));
+                dto.setCreatorProfile(userProfileDTOMap.get(Long.valueOf(dto.getCreator())));
+            });
+        }
+
+        return dataPage;
     }
 }

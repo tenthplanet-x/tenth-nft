@@ -84,7 +84,9 @@ public class Web3NftCollectionService extends AbsNftCollectionService<Web3NftCol
     }
 
     public NftCollectionDTO detail(NftCollectionDetailRequest request) {
-        return detail(request, NftCollectionDTO.class);
+        NftCollectionDTO collectionDTO = detail(request, NftCollectionDTO.class);
+        collectionDTO.setCreatorProfile(web3UserProfileService.getUserProfile(collectionDTO.getCreator()));
+        return collectionDTO;
     }
 
     protected String getUidAddress(Long uid) {

@@ -146,7 +146,11 @@ public abstract class AbsNftBelongService<T extends AbsNftBelong>{
 
             return new Page<>(
                     dataPage.getTotal(),
-                    assetsIds.stream().map(id -> assetsMap.get(id)).filter(Objects::nonNull).collect(Collectors.toList())
+                    assetsIds.stream().map(id -> {
+                        DTO dto = assetsMap.get(id);
+                        dto.setUnionId(nftAssetsService.getUnionId(id));
+                        return dto;
+                    }).filter(Objects::nonNull).collect(Collectors.toList())
             );
         }
 
