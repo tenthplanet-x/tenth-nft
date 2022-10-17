@@ -208,6 +208,8 @@ public class NftAssetsDTO implements SimpleResponse {
 
         private Long expireAt;
 
+        private NftUserProfileDTO sellerProfile;
+
         public Long getId() {
             return id;
         }
@@ -256,7 +258,15 @@ public class NftAssetsDTO implements SimpleResponse {
             this.expireAt = expireAt;
         }
 
-//        public static ListingDTO from(NftExchange.NftListingDTO listing) {
+        public NftUserProfileDTO getSellerProfile() {
+            return sellerProfile;
+        }
+
+        public void setSellerProfile(NftUserProfileDTO sellerProfile) {
+            this.sellerProfile = sellerProfile;
+        }
+
+        //        public static ListingDTO from(NftExchange.NftListingDTO listing) {
 //            ListingDTO dto = new ListingDTO();
 //            dto.setId(listing.getId());
 //            dto.setCurrency(listing.getCurrency());

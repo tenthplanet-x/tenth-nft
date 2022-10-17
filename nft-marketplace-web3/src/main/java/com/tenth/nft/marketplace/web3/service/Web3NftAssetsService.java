@@ -172,6 +172,20 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
             dto.setOwnerProfile(web3UserProfileService.getUserProfile(belong.getOwner()));
         }
 
+        try{
+            Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+            String address = routeClient.send(
+                    NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
+                            .setUid(uid)
+                            .setNeedBalance(false)
+                            .build(),
+                    Web3WalletBalanceRouteRequest.class
+            ).getBalance().getAddress();
+            dto.setOwns(nftBelongService.owns(request.getAssetsId(), address));
+        }catch (Exception e){
+            //NO-OP
+        }
+
         return dto;
     }
 

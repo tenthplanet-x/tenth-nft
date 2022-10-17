@@ -13,7 +13,7 @@ public class WalletBillDTO {
 
     private Long id;
 
-    private String unionId;
+    private String productUnionId;
 
     @JsonIgnore
     private Integer activityCfgId;
@@ -46,12 +46,12 @@ public class WalletBillDTO {
         this.id = id;
     }
 
-    public String getUnionId() {
-        return unionId;
+    public String getProductUnionId() {
+        return productUnionId;
     }
 
-    public void setUnionId(String unionId) {
-        this.unionId = unionId;
+    public void setProductUnionId(String productUnionId) {
+        this.productUnionId = productUnionId;
     }
 
     public String getProductId() {

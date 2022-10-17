@@ -64,6 +64,8 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
 
     public NftAssetsDetailDTO detail(NftAssetsDetailRequest request) {
 
+        String uid = GameUserContext.get().get(TpulseHeaders.UID);
+
         NftAssetsDetailDTO detail = detail(request, NftAssetsDetailDTO.class);
 
         NftUserProfileDTO creatorProfileDTO = NftUserProfileDTO.from(
@@ -90,6 +92,8 @@ public class BuildInNftAssetsService extends AbsNftAssetsService<BuildInNftAsset
                     )
             );
         }
+
+        detail.setOwns(nftBelongService.owns(request.getAssetsId(), uid));
 
         return detail;
     }

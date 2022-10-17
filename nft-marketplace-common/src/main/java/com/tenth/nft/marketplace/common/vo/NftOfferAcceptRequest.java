@@ -29,4 +29,5 @@ public class NftOfferAcceptRequest {
     public void setOfferId(Long offerId) {
         this.offerId = offerId;
     }
+
 }

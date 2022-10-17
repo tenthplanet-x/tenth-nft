@@ -165,12 +165,13 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
         NftListingDTO _listingDTO = nftListingService.getCurrentListing(request.getAssetsId());
         if(null != _listingDTO){
             NftAssetsDTO.ListingDTO listingDTO = new NftAssetsDTO.ListingDTO();
-            listingDTO.setId(_listingDTO.getAssetsId());
+            listingDTO.setId(_listingDTO.getId());
             listingDTO.setCurrency(_listingDTO.getCurrency());
             listingDTO.setPrice(_listingDTO.getPrice());
             listingDTO.setExpireAt(_listingDTO.getExpireAt());
             listingDTO.setQuantity(_listingDTO.getQuantity());
             listingDTO.setStartAt(_listingDTO.getStartAt());
+            listingDTO.setSellerProfile(_listingDTO.getSellerProfile());
             nftAssetsDTO.setCurrentListing(listingDTO);
         }
 

@@ -179,7 +179,7 @@ public class WalletBillService {
                 WalletBillQuery.newBuilder().uid(uid).id(request.getBillId()).build()
         );
         WalletBillDTO walletBillDTO = WalletBillDTO.from(walletBill);
-        walletBillDTO.setUnionId(UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, walletBill.getId()));
+        walletBillDTO.setProductUnionId(UnionIds.wrap(UnionIds.CHANNEL_BUILDIN, Long.valueOf(walletBill.getProductId())));
         if(null != walletBill.getMerchantId()){
             walletBillDTO.setUidProfile(
                     NftUserProfileDTO.from(

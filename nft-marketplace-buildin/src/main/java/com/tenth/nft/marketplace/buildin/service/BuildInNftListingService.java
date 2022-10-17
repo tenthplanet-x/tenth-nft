@@ -98,7 +98,7 @@ public class BuildInNftListingService extends AbsNftListingService<BuildInNftLis
                     SearchUserProfileRouteRequest.class
             ).getProfilesList().stream().map(NftUserProfileDTO::from).collect(Collectors.toMap(NftUserProfileDTO::getUid, Function.identity()));
             dataPage.getData().stream().forEach(dto -> {
-                dto.setSellerProfile(userProfileDTOMap.get(dto.getSeller()));
+                dto.setSellerProfile(userProfileDTOMap.get(Long.valueOf(dto.getSeller())));
             });
         }
 
@@ -111,5 +111,20 @@ public class BuildInNftListingService extends AbsNftListingService<BuildInNftLis
         return super.buy(String.valueOf(uid), request);
     }
 
-
+    @Override
+    public NftListingDTO getCurrentListing(Long assetsId) {
+        NftListingDTO listingDTO = super.getCurrentListing(assetsId);
+        if(null != listingDTO){
+            listingDTO.setSellerProfile(
+                    NftUserProfileDTO.from(
+                            routeClient.send(
+                                    Search.SEARCH_USER_PROFILE_IC.newBuilder().addUids(Long.valueOf(listingDTO.getSeller())).build(),
+                                    SearchUserProfileRouteRequest.class
+                            ).getProfiles(0)
+                    )
+            );
+            return listingDTO;
+        }
+        return null;
+    }
 }

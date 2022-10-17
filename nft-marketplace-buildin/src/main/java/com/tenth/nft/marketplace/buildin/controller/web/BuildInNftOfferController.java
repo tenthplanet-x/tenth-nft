@@ -5,6 +5,8 @@ import com.tenth.nft.marketplace.buildin.BuildInNftAssetsPaths;
 import com.tenth.nft.marketplace.buildin.dto.BuildInNftOfferDTO;
 import com.tenth.nft.marketplace.buildin.service.BuildInNftAcceptOrderService;
 import com.tenth.nft.marketplace.buildin.service.BuildInNftOfferService;
+import com.tenth.nft.marketplace.buildin.vo.BuildinNftMakeOfferRequest;
+import com.tenth.nft.marketplace.buildin.vo.BuildinNftOfferAcceptRequest;
 import com.tenth.nft.marketplace.common.dto.NftOfferDTO;
 import com.tenth.nft.marketplace.common.vo.*;
 import com.tpulse.commons.validation.Validations;
@@ -36,7 +38,7 @@ public class BuildInNftOfferController {
     }
 
     @RequestMapping(BuildInNftAssetsPaths.OFFER_CREATE)
-    public Response makeOffer(@RequestBody NftMakeOfferRequest request){
+    public Response makeOffer(@RequestBody BuildinNftMakeOfferRequest request){
         Validations.check(request);
         NftOfferDTO nftOfferDTO = nftOfferService.makeOffer(request);
         return Response.successBuilder().data(nftOfferDTO).build();
@@ -50,7 +52,7 @@ public class BuildInNftOfferController {
     }
 
     @RequestMapping(BuildInNftAssetsPaths.OFFER_ACCEPT)
-    public Response acceptOffer(@RequestBody NftOfferAcceptRequest request){
+    public Response acceptOffer(@RequestBody BuildinNftOfferAcceptRequest request){
         Validations.check(request);
         Long outOrderId = nftOfferService.accept(request);
         return Response.successBuilder().data(outOrderId).build();

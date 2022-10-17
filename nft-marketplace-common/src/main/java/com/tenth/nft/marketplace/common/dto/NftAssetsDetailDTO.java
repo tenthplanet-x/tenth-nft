@@ -12,6 +12,8 @@ public class NftAssetsDetailDTO extends NftAssetsDTO {
 
     private NftUserProfileDTO ownerProfile;
 
+    private int owns;
+
     public int getOwners() {
         return owners;
     }
@@ -26,5 +28,13 @@ public class NftAssetsDetailDTO extends NftAssetsDTO {
 
     public void setOwnerProfile(NftUserProfileDTO ownerProfile) {
         this.ownerProfile = ownerProfile;
+    }
+
+    public int getOwns() {
+        return owns;
+    }
+
+    public void setOwns(int owns) {
+        this.owns = owns;
     }
 }

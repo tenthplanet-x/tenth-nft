@@ -12,6 +12,7 @@ import com.tenth.nft.convention.wallet.*;
 import com.tenth.nft.marketplace.buildin.dao.BuildInNftOfferDao;
 import com.tenth.nft.marketplace.buildin.dto.BuildInNftOfferDTO;
 import com.tenth.nft.marketplace.buildin.entity.BuildInNftOffer;
+import com.tenth.nft.marketplace.buildin.vo.BuildinNftOfferAcceptRequest;
 import com.tenth.nft.marketplace.common.dto.NftOfferDTO;
 import com.tenth.nft.marketplace.common.entity.AbsNftAssets;
 import com.tenth.nft.marketplace.common.entity.AbsNftOrder;
@@ -74,7 +75,7 @@ public class BuildInNftOfferService extends AbsNftOfferService<BuildInNftOffer> 
                     SearchUserProfileRouteRequest.class
             ).getProfilesList().stream().map(NftUserProfileDTO::from).collect(Collectors.toMap(NftUserProfileDTO::getUid, Function.identity()));
             dataPage.getData().stream().forEach(dto -> {
-                dto.setUserProfile(userProfileDTOMap.get(dto.getBuyer()));
+                dto.setUserProfile(userProfileDTOMap.get(Long.valueOf(dto.getBuyer())));
             });
         }
 
@@ -119,8 +120,21 @@ public class BuildInNftOfferService extends AbsNftOfferService<BuildInNftOffer> 
         cancel(String.valueOf(uid), request);
     }
 
-    public Long accept(NftOfferAcceptRequest request) {
+    public Long accept(BuildinNftOfferAcceptRequest request) {
         Long uid = GameUserContext.get().getLong(TpulseHeaders.UID);
+
+        //signature check
+        boolean success = routeClient.send(
+                NftWallet.PASSWORD_CHECK_IC.newBuilder()
+                        .setUid(uid)
+                        .setPassword(request.getSignature())
+                        .build(),
+                PasswordCheckRouteRequest.class
+        ).getSuccess();
+        if(!success){
+            throw BizException.newInstance(NftExchangeErrorCodes.LISTING_CREATE_EXCEPTION_ILLEGAL_SIGNATURE);
+        }
+
         String seller = String.valueOf(uid);
         AbsNftOrder order = accept(String.valueOf(uid), request);
         AbsNftAssets nftAssets = nftAssetsService.findOne(request.getAssetsId());
