@@ -26,6 +26,7 @@ import com.tpulse.gs.oss.IGsOssService;
 import com.tpulse.gs.oss.qiniu.service.QiniuOSSService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -194,5 +195,9 @@ public abstract class AbsNftCollectionService<T extends AbsNftCollection> {
         );
     }
 
-
+    public List<T> findBatchById(List<Long> collectionIds) {
+        return nftCollectionDao.find(
+                AbsNftCollectionQuery.newBuilder().idIn(collectionIds).build()
+        );
+    }
 }

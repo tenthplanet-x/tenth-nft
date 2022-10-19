@@ -1,9 +1,11 @@
 package com.tenth.nft.marketplace.web3.service;
 
+import com.tenth.nft.convention.UnionIds;
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.marketplace.common.dto.NftAseetsOwnerDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftMyAssetsDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftBelongService;
 import com.tenth.nft.marketplace.common.vo.NftAssetsDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftAssetsOwnRequest;
@@ -34,9 +36,10 @@ public class Web3NftBelongService extends AbsNftBelongService<Web3NftBelong> {
 
     public Web3NftBelongService(
             Web3NftBelongDao nftBelongDao,
-            @Lazy Web3NftAssetsService nftAssetsService
+            @Lazy Web3NftAssetsService nftAssetsService,
+            @Lazy Web3NftCollectionService web3NftCollectionService
             ) {
-        super(nftBelongDao, nftAssetsService);
+        super(nftBelongDao, nftAssetsService, web3NftCollectionService);
     }
 
     @Override
@@ -60,7 +63,7 @@ public class Web3NftBelongService extends AbsNftBelongService<Web3NftBelong> {
         return dataPage;
     }
 
-    public Page<NftAssetsDTO> myAssets(NftAssetsOwnRequest request) {
+    public Page<NftMyAssetsDTO> myAssets(NftAssetsOwnRequest request) {
 
         String creator = routeClient.send(
                 NftWeb3Wallet.WEB3_WALLET_BALANCE_IC.newBuilder()
@@ -70,7 +73,7 @@ public class Web3NftBelongService extends AbsNftBelongService<Web3NftBelong> {
                 Web3WalletBalanceRouteRequest.class
         ).getBalance().getAddress();
 
-        Page<NftAssetsDTO> dataPage = myAssets(request, creator, NftAssetsDTO.class);
+        Page<NftMyAssetsDTO> dataPage = myAssets(request, creator, NftMyAssetsDTO.class);
         if(null != dataPage.getData() && !dataPage.getData().isEmpty()){
 
             Set<String> addresses = dataPage.getData().stream().map(dto -> dto.getCreator()).collect(Collectors.toSet());

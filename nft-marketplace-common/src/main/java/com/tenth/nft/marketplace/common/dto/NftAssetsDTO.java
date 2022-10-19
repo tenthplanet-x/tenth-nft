@@ -1,6 +1,7 @@
 package com.tenth.nft.marketplace.common.dto;
 
 import com.tenth.nft.convention.dto.NftUserProfileDTO;
+import com.tenth.nft.marketplace.common.entity.AbsNftCollection;
 import com.tenth.nft.marketplace.common.entity.NftAssetsType;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
@@ -57,6 +58,7 @@ public class NftAssetsDTO implements SimpleResponse {
     private String unionId;
 
     private String collectionUnionId;
+    private String collectionName;
 
     public Long getId() {
         return id;
@@ -192,6 +194,14 @@ public class NftAssetsDTO implements SimpleResponse {
 
     public void setCollectionUnionId(String collectionUnionId) {
         this.collectionUnionId = collectionUnionId;
+    }
+
+    public void setCollectionName(String collectionName) {
+        this.collectionName = collectionName;
+    }
+
+    public String getCollectionName() {
+        return collectionName;
     }
 
     public static class ListingDTO{

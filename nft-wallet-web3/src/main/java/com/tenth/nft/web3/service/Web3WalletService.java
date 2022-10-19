@@ -243,7 +243,7 @@ public class Web3WalletService {
         return web3Wallet;
     }
 
-    public Web3WalletBindSIgnTicket prepareBind(Web3WalletBindPrepareRequest request) {
+    public Web3WalletBindSIgnTicket prepareBind() {
 
         Web3WalletBindSIgnTicket ticket = new Web3WalletBindSIgnTicket();
         String walletBridgeUrl = WalletBridgeUrl.newBuilder(web3Properties)

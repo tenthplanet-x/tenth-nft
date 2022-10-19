@@ -5,6 +5,7 @@ import com.tenth.nft.marketplace.buildin.dto.BuildInNftAssetsOwnerDTO;
 import com.tenth.nft.marketplace.buildin.service.BuildInNftAssetsService;
 import com.tenth.nft.marketplace.buildin.service.BuildInNftBelongService;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftMyAssetsDTO;
 import com.tenth.nft.marketplace.common.vo.*;
 import com.tpulse.commons.validation.Validations;
 import com.tpulse.gs.convention.dao.dto.Page;
@@ -59,7 +60,7 @@ public class BuildInNftAssetsWebController {
     @RequestMapping(BuildInNftAssetsPaths.NFT_ASSETS_OWN_LIST)
     public Response myAssets(@RequestBody NftAssetsOwnRequest request){
         Validations.check(request);
-        Page<NftAssetsDTO> dataPage = buildInNftBelongService.myAssets(request);
+        Page<NftMyAssetsDTO> dataPage = buildInNftBelongService.myAssets(request);
         return Response.successBuilder().data(dataPage).build();
     }
 

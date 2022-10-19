@@ -143,6 +143,8 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
         if(!page.getData().isEmpty()){
             page.getData().forEach(dto -> {
                 dto.setUnionId(getUnionId(dto.getId()));
+                dto.setCollectionUnionId(getUnionId(dto.getCollectionId()));
+                fillWithCurrentListing(dto, dto.getId());
             });
         }
 
@@ -161,8 +163,14 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
         );
         nftAssetsDTO.setUnionId(getUnionId(nftAssetsDTO.getId()));
         nftAssetsDTO.setCollectionUnionId(getUnionId(nftAssetsDTO.getCollectionId()));
+        nftAssetsDTO.setOwners(nftBelongService.owners(request.getAssetsId()));
 
-        NftListingDTO _listingDTO = nftListingService.getCurrentListing(request.getAssetsId());
+        fillWithCurrentListing(nftAssetsDTO, request.getAssetsId());
+        return nftAssetsDTO;
+    }
+
+    protected <DTO extends NftAssetsDTO> void fillWithCurrentListing(DTO nftAssetsDTO, Long assetsId){
+        NftListingDTO _listingDTO = nftListingService.getCurrentListing(assetsId);
         if(null != _listingDTO){
             NftAssetsDTO.ListingDTO listingDTO = new NftAssetsDTO.ListingDTO();
             listingDTO.setId(_listingDTO.getId());
@@ -174,10 +182,6 @@ public abstract class AbsNftAssetsService<T extends AbsNftAssets> {
             listingDTO.setSellerProfile(_listingDTO.getSellerProfile());
             nftAssetsDTO.setCurrentListing(listingDTO);
         }
-
-        nftAssetsDTO.setOwners(nftBelongService.owners(request.getAssetsId()));
-
-        return nftAssetsDTO;
     }
 
     public T findOne(Long assetsId) {

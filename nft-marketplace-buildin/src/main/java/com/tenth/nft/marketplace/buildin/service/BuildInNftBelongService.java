@@ -9,6 +9,7 @@ import com.tenth.nft.marketplace.buildin.dto.BuildInNftAssetsOwnerDTO;
 import com.tenth.nft.marketplace.buildin.entity.BuildInNftBelong;
 import com.tenth.nft.marketplace.common.dto.NftAseetsOwnerDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftMyAssetsDTO;
 import com.tenth.nft.marketplace.common.service.AbsNftBelongService;
 import com.tenth.nft.marketplace.common.vo.NftAssetsDetailRequest;
 import com.tenth.nft.marketplace.common.vo.NftAssetsOwnRequest;
@@ -37,9 +38,10 @@ public class BuildInNftBelongService extends AbsNftBelongService<BuildInNftBelon
 
     public BuildInNftBelongService(
             BuildInNftBelongDao nftBelongDao,
-            @Lazy BuildInNftAssetsService nftAssetsService
+            @Lazy BuildInNftAssetsService nftAssetsService,
+            @Lazy BuildInNftCollectionService nftCollectionService
             ) {
-        super(nftBelongDao, nftAssetsService);
+        super(nftBelongDao, nftAssetsService, nftCollectionService);
     }
 
     @Override
@@ -64,9 +66,9 @@ public class BuildInNftBelongService extends AbsNftBelongService<BuildInNftBelon
     }
 
 
-    public Page<NftAssetsDTO> myAssets(NftAssetsOwnRequest request) {
+    public Page<NftMyAssetsDTO> myAssets(NftAssetsOwnRequest request) {
 
-        Page<NftAssetsDTO> dataPage = myAssets(request, String.valueOf(request.getOwner()), NftAssetsDTO.class);
+        Page<NftMyAssetsDTO> dataPage = myAssets(request, String.valueOf(request.getOwner()), NftMyAssetsDTO.class);
         if(null != dataPage.getData() && !dataPage.getData().isEmpty()){
 
             Collection<Long> sellerUids = dataPage.getData().stream().map(dto -> Long.valueOf(dto.getCreator())).collect(Collectors.toSet());

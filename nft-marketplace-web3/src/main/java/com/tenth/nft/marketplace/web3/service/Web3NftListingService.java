@@ -2,6 +2,7 @@ package com.tenth.nft.marketplace.web3.service;
 
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.templates.I18nGsTemplates;
 import com.tenth.nft.convention.web3.sign.ListingDataForSign;
@@ -35,6 +36,9 @@ import org.springframework.stereotype.Service;
 import org.web3j.utils.Convert;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author shijie
@@ -50,6 +54,8 @@ public class Web3NftListingService extends AbsNftListingService<Web3NftListing> 
     private Web3Properties web3Properties;
     @Autowired
     private I18nGsTemplates i18nGsTemplates;
+    @Autowired
+    private Web3UserProfileService web3UserProfileService;
 
     private Web3NftAssetsService nftAssetsService;
     private Web3NftListingDao nftListingDao;
@@ -135,7 +141,18 @@ public class Web3NftListingService extends AbsNftListingService<Web3NftListing> 
     }
 
     public Page<NftListingDTO> list(NftListingListRequest request) {
-        return super.list(request, NftListingDTO.class);
+
+        Page<NftListingDTO> dataPage = super.list(request, NftListingDTO.class);
+
+        if(null != dataPage.getData() && !dataPage.getData().isEmpty()){
+            Set<String> sellerUids = dataPage.getData().stream().map(dto -> dto.getSeller()).collect(Collectors.toSet());
+            Map<String, NftUserProfileDTO> profiles = web3UserProfileService.getUserProfiles(sellerUids);
+            dataPage.getData().forEach(dto ->  {
+                dto.setSellerProfile(profiles.get(dto.getSeller()));
+            });
+        }
+
+        return dataPage;
     }
 
     public Web3SendTransactionTicket buy(NftListingBuyRequest request) {
@@ -208,5 +225,14 @@ public class Web3NftListingService extends AbsNftListingService<Web3NftListing> 
         );
 
         return res;
+    }
+
+    @Override
+    public NftListingDTO getCurrentListing(Long assetsId) {
+        NftListingDTO dto = super.getCurrentListing(assetsId);
+        if(null != dto){
+            dto.setSellerProfile(web3UserProfileService.getUserProfile(dto.getSeller()));
+        }
+        return dto;
     }
 }

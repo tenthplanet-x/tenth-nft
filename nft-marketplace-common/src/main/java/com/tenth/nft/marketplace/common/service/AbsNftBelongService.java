@@ -5,17 +5,16 @@ import com.tenth.nft.marketplace.common.dao.expression.AbsNftBelongQuery;
 import com.tenth.nft.marketplace.common.dao.expression.AbsNftBelongUpdate;
 import com.tenth.nft.marketplace.common.dto.NftAseetsOwnerDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftMyAssetsDTO;
 import com.tenth.nft.marketplace.common.entity.AbsNftBelong;
+import com.tenth.nft.marketplace.common.entity.AbsNftCollection;
 import com.tenth.nft.marketplace.common.vo.NftAssetsOwnRequest;
 import com.tenth.nft.marketplace.common.vo.NftOwnerListRequest;
 import com.tpulse.commons.biz.dto.PageRequest;
 import com.tpulse.gs.convention.dao.defination.UpdateOptions;
 import com.tpulse.gs.convention.dao.dto.Page;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -28,12 +27,16 @@ public abstract class AbsNftBelongService<T extends AbsNftBelong>{
 
     private AbsNftAssetsService nftAssetsService;
 
+    private AbsNftCollectionService nftCollectionService;
+
     public AbsNftBelongService(
             AbsNftBelongDao<T> nftBelongDao,
-            AbsNftAssetsService nftAssetsService
+            AbsNftAssetsService nftAssetsService,
+            AbsNftCollectionService nftCollectionService
     ) {
         this.nftBelongDao = nftBelongDao;
         this.nftAssetsService = nftAssetsService;
+        this.nftCollectionService = nftCollectionService;
     }
 
     /**
@@ -127,7 +130,7 @@ public abstract class AbsNftBelongService<T extends AbsNftBelong>{
         return dtos;
     }
 
-    public <DTO extends NftAssetsDTO> Page<DTO> myAssets(PageRequest request, String owner, Class<DTO> dtoClass) {
+    public <DTO extends NftMyAssetsDTO> Page<DTO> myAssets(PageRequest request, String owner, Class<DTO> dtoClass) {
 
         Page<T> dataPage = nftBelongDao.findPage(
                 AbsNftBelongQuery.newBuilder()
@@ -140,15 +143,26 @@ public abstract class AbsNftBelongService<T extends AbsNftBelong>{
         );
 
         if(!dataPage.getData().isEmpty()){
+
             List<Long> assetsIds = dataPage.getData().stream().map(dto -> dto.getAssetsId()).collect(Collectors.toList());
             List<DTO> assets = nftAssetsService.findByIds(assetsIds, dtoClass);
             Map<Long, DTO> assetsMap = assets.stream().collect(Collectors.toMap(DTO::getId, Function.identity()));
+
+            List<Long> collectionIds = assets.stream().map(asset -> asset.getCollectionId()).collect(Collectors.toSet()).stream().toList();
+            List<AbsNftCollection> collections = nftCollectionService.findBatchById(collectionIds);
+            Map<Long, AbsNftCollection> collectionMap = collections.stream().collect(Collectors.toMap(AbsNftCollection::getId, Function.identity()));
 
             return new Page<>(
                     dataPage.getTotal(),
                     assetsIds.stream().map(id -> {
                         DTO dto = assetsMap.get(id);
                         dto.setUnionId(nftAssetsService.getUnionId(id));
+                        dto.setCollectionUnionId(nftAssetsService.getUnionId(dto.getCollectionId()));
+                        dto.setCollectionName(collectionMap.get(dto.getCollectionId()).getName());
+                        nftAssetsService.fillWithCurrentListing(
+                                dto,
+                                id
+                        );
                         return dto;
                     }).filter(Objects::nonNull).collect(Collectors.toList())
             );

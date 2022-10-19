@@ -1,5 +1,6 @@
 package com.tenth.nft.marketplace.common.dto;
 
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tpulse.gs.convention.dao.SimpleResponse;
 import com.tpulse.gs.convention.dao.annotation.SimpleField;
 
@@ -26,7 +27,7 @@ public class NftOfferDTO implements SimpleResponse {
     @SimpleField
     private Long expireAt;
 
-//    private UserProfileDTO userProfile;
+    private NftUserProfileDTO userProfile;
 
     public Long getId() {
         return id;
@@ -92,8 +93,15 @@ public class NftOfferDTO implements SimpleResponse {
         this.expireAt = expireAt;
     }
 
+    public NftUserProfileDTO getUserProfile() {
+        return userProfile;
+    }
 
-//    public UserProfileDTO getUserProfile() {
+    public void setUserProfile(NftUserProfileDTO userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    //    public UserProfileDTO getUserProfile() {
 //        return userProfile;
 //    }
 //

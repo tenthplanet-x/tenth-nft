@@ -10,4 +10,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Web3NftCollection extends AbsNftCollection {
 
 
+
 }

@@ -24,7 +24,7 @@ public class NftListingCreateRequest {
     private Long startAt;
     @NotNull
     private Long expireAt;
-    @NotNull
+
     private String signature;
 
     public Long getAssetsId() {

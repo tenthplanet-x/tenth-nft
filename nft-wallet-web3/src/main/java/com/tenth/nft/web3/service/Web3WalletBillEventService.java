@@ -69,7 +69,11 @@ public class Web3WalletBillEventService {
                     eventPage.getData().stream()
                             .map(entity -> {
                                 Web3WalletBillEventListDTO dto = Web3WalletBillEventListDTO.from(entity);
-                                dto.setUnionId(UnionIds.wrap(UnionIds.CHANNEL_WEB3, entity.getId()));
+                                try{
+                                    dto.setProductUnionId(UnionIds.wrap(UnionIds.CHANNEL_WEB3, Long.valueOf(entity.getProductId())));
+                                }catch (Exception e){
+                                    //TODO NO-OP 不是特别合理在这里关联产品id
+                                }
                                 String gasCurrency = i18nGsTemplates.get(NftTemplateTypes.wallet_currency, WalletCurrencyTemplate.class).findMainCurrency(entity.getBlockchain()).getCode();
                                 dto.setGasCurrency(gasCurrency);
 
@@ -106,7 +110,7 @@ public class Web3WalletBillEventService {
                         .build()
         );
         Web3WalletBillEventDTO eventDTO = Web3WalletBillEventDTO.from(entity);
-        eventDTO.setUnionId(UnionIds.wrap(UnionIds.CHANNEL_WEB3, entity.getId()));
+        eventDTO.setProductUnionId(UnionIds.wrap(UnionIds.CHANNEL_WEB3, Long.valueOf(entity.getProductId())));
         String gasCurrency = i18nGsTemplates.get(NftTemplateTypes.wallet_currency, WalletCurrencyTemplate.class).findMainCurrency(entity.getBlockchain()).getCode();
         eventDTO.setGasCurrency(gasCurrency);
 

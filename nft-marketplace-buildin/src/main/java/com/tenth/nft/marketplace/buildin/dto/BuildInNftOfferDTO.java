@@ -8,13 +8,4 @@ import com.tenth.nft.marketplace.common.dto.NftOfferDTO;
  */
 public class BuildInNftOfferDTO extends NftOfferDTO {
 
-    private NftUserProfileDTO userProfile;
-
-    public NftUserProfileDTO getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(NftUserProfileDTO userProfile) {
-        this.userProfile = userProfile;
-    }
 }

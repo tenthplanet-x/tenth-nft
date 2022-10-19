@@ -3,6 +3,7 @@ package com.tenth.nft.marketplace.web3.service;
 
 import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
+import com.tenth.nft.convention.dto.NftUserProfileDTO;
 import com.tenth.nft.convention.routes.web3wallet.Web3WalletBalanceRouteRequest;
 import com.tenth.nft.convention.wallet.WalletMerchantType;
 import com.tenth.nft.convention.wallet.WalletOrderBizContent;
@@ -38,6 +39,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author shijie
@@ -53,6 +57,8 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
     private Web3Properties web3Properties;
     @Autowired
     private WalletProviderFactory walletProviderFactory;
+    @Autowired
+    private Web3UserProfileService web3UserProfileService;
 
     private Web3NftAssetsService nftAssetsService;
 
@@ -79,16 +85,13 @@ public class Web3NftOfferService extends AbsNftOfferService<Web3NftOffer> {
 
         Page<NftOfferDTO> dataPage = list(request, NftOfferDTO.class);
 
-//        if(!dataPage.getData().isEmpty()){
-//            Collection<Long> sellerUids = dataPage.getData().stream().map(dto -> Long.valueOf(dto.getBuyer())).collect(Collectors.toSet());
-//            Map<Long, NftUserProfileDTO> userProfileDTOMap = routeClient.send(
-//                    Search.SEARCH_USER_PROFILE_IC.newBuilder().addAllUids(sellerUids).build(),
-//                    SearchUserProfileRouteRequest.class
-//            ).getProfilesList().stream().map(NftUserProfileDTO::from).collect(Collectors.toMap(NftUserProfileDTO::getUid, Function.identity()));
-//            dataPage.getData().stream().forEach(dto -> {
-//                dto.setUserProfile(userProfileDTOMap.get(dto.getBuyer()));
-//            });
-//        }
+        if(!dataPage.getData().isEmpty()){
+            Collection<String> buyerAddresses = dataPage.getData().stream().map(dto -> dto.getBuyer()).collect(Collectors.toSet());
+            Map<String, NftUserProfileDTO> userProfileDTOMap = web3UserProfileService.getUserProfiles(buyerAddresses);
+            dataPage.getData().stream().forEach(dto -> {
+                dto.setUserProfile(userProfileDTOMap.get(dto.getBuyer()));
+            });
+        }
 
         return dataPage;
 

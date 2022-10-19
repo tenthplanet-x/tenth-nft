@@ -193,4 +193,6 @@ public class Web3NftAssetsService extends AbsNftAssetsService<Web3NftAssets> {
     protected String getUnionId(Long id) {
         return UnionIds.wrap(UnionIds.CHANNEL_WEB3, id);
     }
+
+
 }

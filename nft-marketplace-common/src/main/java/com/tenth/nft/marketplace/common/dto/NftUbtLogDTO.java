@@ -1,5 +1,7 @@
 package com.tenth.nft.marketplace.common.dto;
 
+import com.tenth.nft.convention.blockchain.NullAddress;
+
 /**
  * @author shijie
  */
@@ -9,9 +11,9 @@ public class NftUbtLogDTO {
 
     private String event;
 
-    private String from;
+    private String from = NullAddress.TOKEN;
 
-    private String to;
+    private String to = NullAddress.TOKEN;
 
     private String price;
 

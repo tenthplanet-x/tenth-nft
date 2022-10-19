@@ -2,6 +2,7 @@ package com.tenth.nft.marketplace.web3.controller.web;
 
 import com.tenth.nft.marketplace.common.dto.NftAseetsOwnerDTO;
 import com.tenth.nft.marketplace.common.dto.NftAssetsDTO;
+import com.tenth.nft.marketplace.common.dto.NftMyAssetsDTO;
 import com.tenth.nft.marketplace.common.vo.*;
 import com.tenth.nft.marketplace.web3.Web3NftAssetsPaths;
 import com.tenth.nft.marketplace.web3.dto.Web3NftCreateSignTicket;
@@ -69,7 +70,7 @@ public class Web3NftAssetsWebController {
     @RequestMapping(Web3NftAssetsPaths.NFT_ASSETS_OWN_LIST)
     public Response myAssets(@RequestBody NftAssetsOwnRequest request){
         Validations.check(request);
-        Page<NftAssetsDTO> dataPage = web3NftBelongService.myAssets(request);
+        Page<NftMyAssetsDTO> dataPage = web3NftBelongService.myAssets(request);
         return Response.successBuilder().data(dataPage).build();
     }
 

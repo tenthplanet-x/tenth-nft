@@ -54,8 +54,8 @@ public class Web3WalletController {
     }
 
     @RequestMapping(Web3WalletPaths.WALLET_BIND_PREPARE)
-    public Response bindPrepare(@RequestBody Web3WalletBindPrepareRequest request){
-        Web3WalletBindSIgnTicket ticket = web3WalletService.prepareBind(request);
+    public Response bindPrepare(){
+        Web3WalletBindSIgnTicket ticket = web3WalletService.prepareBind();
         return Response.successBuilder().data(ticket).build();
     }
 

@@ -14,5 +14,8 @@ dependencies {
     implementation libs.tpulse_convention
     implementation libs.starter_web
     implementation libs.gs_config
+    implementation libs.gs_router
+    implementation libs.gs_scheduler
+    implementation libs.gs_convention_routes
 
 }
