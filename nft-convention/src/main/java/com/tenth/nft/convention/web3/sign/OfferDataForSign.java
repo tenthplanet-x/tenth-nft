@@ -12,10 +12,10 @@ public class OfferDataForSign extends DataForSign{
     static {
 
         messageTypeDefine = DataForSignTypeDefine.newBuilder()
-                .add("assetsId", "uint64")
-                .add("quantity", "uint32")
-                .add("price", "uint256")
-                .add("expireAt", "uint64")
+                .add("assetsId", "uint256")
+                .add("quantity", "uint256")
+                .add("price", "string")
+                .add("expireAt", "uint256")
                 .build();
     }
 
@@ -70,7 +70,6 @@ public class OfferDataForSign extends DataForSign{
 
     @Override
     protected Object getMessage() {
-        Map<String, Object> output = new HashMap<>();
 
         Map<String, Object> message = new HashMap<>();
         message.put("assetsId", assetsId);
@@ -78,7 +77,7 @@ public class OfferDataForSign extends DataForSign{
         message.put("price", price);
         message.put("expireAt", expireAt);
 
-        return output;
+        return message;
     }
 
     @Override

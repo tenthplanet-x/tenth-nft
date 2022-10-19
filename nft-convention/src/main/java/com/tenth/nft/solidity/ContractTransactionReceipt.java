@@ -26,11 +26,11 @@ public class ContractTransactionReceipt {
 
 
     public boolean isFail() {
-        return FAIL.equals(new BigInteger(receipt.getStatus().substring(2), 16));
+        return null != receipt && FAIL.equals(new BigInteger(receipt.getStatus().substring(2), 16));
     }
 
     public boolean isSuccess() {
-        return SUCCESS.equals(new BigInteger(receipt.getStatus().substring(2), 16));
+        return null != receipt && SUCCESS.equals(new BigInteger(receipt.getStatus().substring(2), 16));
     }
 
     public String getUsedGasValue() {

@@ -31,4 +31,12 @@ public class BigNumberUtils {
         BigDecimal _delta = new BigDecimal(delta);
         return _current.subtract(_delta).toString();
     }
+
+    public static BigDecimal divide(BigDecimal divider, BigDecimal divided) {
+        if(divided.compareTo(BigDecimal.ZERO) == 0){
+            return BigDecimal.ZERO;
+        }else{
+            return divider.divide(divided);
+        }
+    }
 }

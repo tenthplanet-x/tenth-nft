@@ -3,40 +3,40 @@ package com.ruixi.tpulse.convention;
 option java_package="com.tenth.nft.protobuf";
 option java_outer_classname = "NftWeb3Exchange";
 
-message WEB3_LISTING_CREATE_IC{
-  required int64 uid = 1;
-  required int64 assetsId = 2;
-  required string currency = 3;
-  required int32 quantity = 4;
-  required string price = 5;
-  required int64 startAt = 6;
-  required int64 expireAt = 7;
-}
-message WEB3_LISTING_CREATE_IS{
-  required string dataForSign = 1;
-  required string token = 2;
-}
+//message WEB3_LISTING_CREATE_IC{
+//  required int64 uid = 1;
+//  required int64 assetsId = 2;
+//  required string currency = 3;
+//  required int32 quantity = 4;
+//  required string price = 5;
+//  required int64 startAt = 6;
+//  required int64 expireAt = 7;
+//}
+//message WEB3_LISTING_CREATE_IS{
+//  required string dataForSign = 1;
+//  required string token = 2;
+//}
 
-message WEB3_LISTING_CONFIRM_IC{
-  required int64 uid = 1;
-  required string token = 3;
-  required string signature = 4;
-}
-message WEB3_LISTING_CONFIRM_IS{
+//message WEB3_LISTING_CONFIRM_IC{
+//  required int64 uid = 1;
+//  required string token = 3;
+//  required string signature = 4;
+//}
+//message WEB3_LISTING_CONFIRM_IS{
+//
+//}
 
-}
-
-message WEB3_PAYMENT_CREATE_IC{
-  required int64 uid = 1;
-  required int64 assetsId = 2;
-  required int64 listingId = 3;
-}
-message WEB3_PAYMENT_CREATE_IS{
-  required string token = 1;
-  required string txnTo = 2;
-  required string txnData = 3;
-  required string txnValue = 4;
-}
+//message WEB3_PAYMENT_CREATE_IC{
+//  required int64 uid = 1;
+//  required int64 assetsId = 2;
+//  required int64 listingId = 3;
+//}
+//message WEB3_PAYMENT_CREATE_IS{
+//  required string token = 1;
+//  required string txnTo = 2;
+//  required string txnData = 3;
+//  required string txnValue = 4;
+//}
 
 message WEB3_PAYMENT_CONFIRM_IC{
   required int64 assetsId = 1;

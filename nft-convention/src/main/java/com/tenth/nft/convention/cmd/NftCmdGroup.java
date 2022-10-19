@@ -1,5 +1,6 @@
 package com.tenth.nft.convention.cmd;
 
+import com.tpulse.gs.GsCmdLbsTypes;
 import com.tpulse.gs.convention.cmd.CmdGroup;
 
 /**
@@ -11,6 +12,7 @@ public enum NftCmdGroup implements CmdGroup {
     EXCHANGE,
     PLAYER,
     WALLET,
-    WEB3_WALLET
+    WEB3_WALLET,
+    MARKETPLACE_STATS
 
 }

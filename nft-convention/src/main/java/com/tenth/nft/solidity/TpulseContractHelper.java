@@ -12,11 +12,13 @@ import org.springframework.stereotype.Component;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Convert;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -38,8 +40,14 @@ public class TpulseContractHelper {
     private String contractOwner;
     private WETHContract wethContract;
 
-    public TpulseContractHelper(Web3Properties web3Properties) throws Exception{
+    public TpulseContractHelper(Web3Properties web3Properties){
         this.web3Properties = web3Properties;
+
+    }
+
+    @PostConstruct
+    public void init() throws Exception{
+
         web3j = Web3j.build(new HttpService(web3Properties.getNetwork()));
         EthGasPrice gasPrice = web3j.ethGasPrice().send();
         EthBlockNumber ethBlockNumber = web3j.ethBlockNumber().send();
@@ -113,7 +121,12 @@ public class TpulseContractHelper {
      * @return
      */
     public String createAcceptTransactionData(String uidAddress, Long assetsId, Integer quantity, String price, Long expireAt, String uidSignature) {
-        throw new UnsupportedOperationException();
+        return tpulseContract.accept(
+                uidAddress,
+                BigInteger.valueOf(assetsId),
+                BigInteger.valueOf(quantity),
+                Convert.toWei(price, Convert.Unit.ETHER).toBigInteger()
+        ).encodeFunctionCall();
     }
 
     public DataForSign.EIP712Domain getDomain() {
@@ -136,7 +149,7 @@ public class TpulseContractHelper {
             boolean isMain = walletCurrencyTemplate.findOne(currency).getMain();
 
             if(isMain){
-                BigInteger balanceUseWei = web3j.ethGetBalance(address, DefaultBlockParameter.valueOf(blockNumber)).send().getBalance();
+                BigInteger balanceUseWei = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send().getBalance();
                 return Convert.fromWei(new BigDecimal(balanceUseWei), Convert.Unit.WEI);
             }else{
                 //TODO
@@ -202,7 +215,7 @@ public class TpulseContractHelper {
 
     public static class ApprovalTxn{
 
-        private String gateway;
+        private String walletBridgeUrl;
         private String from;
         private String txnTo;
         private String txnData;
@@ -231,12 +244,12 @@ public class TpulseContractHelper {
             this.txnData = txnData;
         }
 
-        public String getGateway() {
-            return gateway;
+        public String getWalletBridgeUrl() {
+            return walletBridgeUrl;
         }
 
-        public void setGateway(String gateway) {
-            this.gateway = gateway;
+        public void setWalletBridgeUrl(String walletBridgeUrl) {
+            this.walletBridgeUrl = walletBridgeUrl;
         }
     }
 }

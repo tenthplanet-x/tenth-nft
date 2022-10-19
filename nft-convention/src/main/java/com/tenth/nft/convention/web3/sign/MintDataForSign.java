@@ -72,7 +72,6 @@ public class MintDataForSign extends DataForSign{
 
     @Override
     protected Object getMessage() {
-        Map<String, Object> output = new HashMap<>();
 
         Map<String, Object> message = new HashMap<>();
         message.put("name", name);
@@ -81,7 +80,7 @@ public class MintDataForSign extends DataForSign{
         message.put("creatorFeeRate", creatorFeeRate);
         message.put("creatorFeeRatePrecision", creatorFeeRatePrecision);
 
-        return output;
+        return message;
     }
 
     @Override

@@ -18,6 +18,10 @@ public class BlockchainConfig {
 
     private WalletPayChannel channel;
 
+    private String contractAddress;
+
+    private String tokenStandard;
+
     public String getId() {
         return id;
     }
@@ -33,6 +37,15 @@ public class BlockchainConfig {
     public WalletPayChannel getChannel() {
         return channel;
     }
+
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public String getTokenStandard() {
+        return tokenStandard;
+    }
+
 
     @JsonPOJOBuilder(withPrefix = "set")
     public static final class Builder{
@@ -53,6 +66,14 @@ public class BlockchainConfig {
 
         public void setChannel(WalletPayChannel channel) {
             config.channel = channel;
+        }
+
+        public void setContractAddress(String contractAddress) {
+            config.contractAddress = contractAddress;
+        }
+
+        public void setTokenStandard(String tokenStandard) {
+            config.tokenStandard = tokenStandard;
         }
 
         public BlockchainConfig build(){

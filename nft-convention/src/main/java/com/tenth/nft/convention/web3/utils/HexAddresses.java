@@ -11,7 +11,7 @@ public class HexAddresses {
 
     public static String of(Long id) {
         String hex = BigInteger.valueOf(id).toString(16);
-        return String.format("0x%s", Strings.padStart(hex, 16, '0'));
+        return String.format("0x%s", Strings.padStart(hex, 40, '0'));
     }
 
 

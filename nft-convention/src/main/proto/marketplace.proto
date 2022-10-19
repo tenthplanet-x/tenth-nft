@@ -5,7 +5,7 @@ option java_outer_classname = "NftMarketplace";
 
 message CollectionDTO{
   required int64 id = 1;
-  required int64 creator = 2;
+  required string creator = 2;
   required string name = 3;
   optional string desc = 4;
   optional string logoImage = 5;
@@ -31,9 +31,8 @@ message AssetsDTO{
   optional string contractAddress = 11;
   optional string tokenStandard = 12;
   optional string token = 13;
-  required int64 creator = 14;
+  required string creator = 14;
   optional string creatorFeeRate = 15;
-  optional string creatorAddress = 16;
   optional string signature = 17;
   optional bool mint = 18;
 }
@@ -68,5 +67,12 @@ message ASSETS_MINT_IC{
 }
 message ASSETS_MINT_IS{
 
+}
+
+message ASSETS_DETAIL_BATCH_IC{
+  repeated int64 assetsId = 1;
+}
+message ASSETS_DETAIL_BATCH_IS{
+  repeated AssetsDTO assets = 1;
 }
 

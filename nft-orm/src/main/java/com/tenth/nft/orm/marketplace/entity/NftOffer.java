@@ -2,6 +2,7 @@ package com.tenth.nft.orm.marketplace.entity;
 
 import com.tpulse.gs.convention.dao.annotation.SimpleCache;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -16,6 +17,7 @@ public class NftOffer {
 
     private Long uid;
 
+    @Indexed
     private Long assetsId;
 
     private Integer quantity;

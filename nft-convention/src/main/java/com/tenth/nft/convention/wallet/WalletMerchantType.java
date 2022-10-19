@@ -5,7 +5,8 @@ package com.tenth.nft.convention.wallet;
  */
 public enum WalletMerchantType {
 
-    PERSONAL
+    PERSONAL,
+    WETH
 
     ;
 }

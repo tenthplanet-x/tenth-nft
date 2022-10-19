@@ -1,9 +1,16 @@
 package web3;
 
 import com.tenth.nft.app.NftApplicationTest;
+import com.tenth.nft.convention.TpulseHeaders;
 import com.tenth.nft.convention.Web3Properties;
 import com.tenth.nft.solidity.TpulseContractHelper;
 import com.tenth.nft.solidity.WETHContract;
+import com.tenth.nft.web3.service.Web3WETHService;
+import com.tenth.nft.web3.vo.WETHWithDrawRequest;
+import com.tenth.nft.web3.vo.WETHWithDrawResponse;
+import com.tpulse.gs.convention.gamecontext.GameUserContext;
+import com.wallan.json.JsonUtil;
+import net.minidev.json.JSONUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +22,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.tx.gas.StaticGasProvider;
 import org.web3j.utils.Convert;
 
 import java.math.BigInteger;
@@ -30,6 +38,8 @@ public class WETHContractTest {
     private TpulseContractHelper tpulseContractHelper;
     @Autowired
     private Web3Properties web3Properties;
+    @Autowired
+    private Web3WETHService web3WETHService;
 
     @Test
     public void deploy() throws Exception{
@@ -51,8 +61,7 @@ public class WETHContractTest {
         WETHContract contract = WETHContract.deploy(
                 web3j,
                 credentials,
-                //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit()),
-                new DefaultGasProvider()
+                new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit())
         ).send();
         System.out.println(contract.getContractAddress());
     }
@@ -133,6 +142,27 @@ public class WETHContractTest {
         BigInteger weth = new BigInteger("1000000000000000");
         TransactionReceipt transactionReceipt = wethContract.transferFrom("0xcc98Cf60b156a28625Ef3669f69Abc18F8cebcdc", "0xab22314aa31e881070f3572313e88886af353DAA", weth).send();
         System.out.println(transactionReceipt.getTransactionHash());
+    }
+
+    @Test
+    public void withDraw() throws Exception{
+
+//        String csjPrivateKey = "7df802b5f7181422facce5b25c0eef9f86edb1d6c0960dbedaae8cb682ce7046";
+//
+//        Credentials credentials = Credentials.create(csjPrivateKey);//Credentials.create(web3Properties.getContract().getOwnerPrivateKey());
+//        WETHContract wethContract = WETHContract.load(
+//                CONTRACT_ADDRESS,
+//                tpulseContractHelper.getWeb3j(),
+//                credentials,
+//                new DefaultGasProvider()
+//        );
+
+        WETHWithDrawRequest request = new WETHWithDrawRequest();
+        request.setValue("0.1");
+        GameUserContext.get().getBuilder().setAttr(TpulseHeaders.UID, "18000");
+        WETHWithDrawResponse response = web3WETHService.createWithDraw(request);
+        System.out.println(JsonUtil.toJson(response));
+
     }
 
     @Test
