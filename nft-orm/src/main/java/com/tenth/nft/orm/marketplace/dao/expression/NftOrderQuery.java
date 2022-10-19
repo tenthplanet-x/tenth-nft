@@ -1,12 +1,8 @@
 package com.tenth.nft.orm.marketplace.dao.expression;
 
-import com.tenth.nft.orm.external.dao.expression.ExternalNftCategoryUpdate;
 import com.tenth.nft.orm.marketplace.entity.NftOrderStatus;
 import com.tpulse.gs.convention.dao.SimplePageQuery;
 import com.tpulse.gs.convention.dao.annotation.SimpleQueryParam;
-import com.tpulse.gs.convention.dao.defination.QueryOpt;
-
-import java.awt.image.PixelGrabber;
 
 /**
  * @author gs-orm-generator

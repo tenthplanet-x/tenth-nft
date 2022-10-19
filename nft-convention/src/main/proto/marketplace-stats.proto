@@ -1,0 +1,32 @@
+syntax = "proto2";
+package com.ruixi.tpulse.convention;
+option java_package="com.tenth.nft.protobuf";
+option java_outer_classname = "NftMarketplaceStats";
+
+message ExchangeLog{
+  required string blockchain = 1;
+  required int64 collectionId = 2;
+  required int64 assetsId = 3;
+  required int64 quantity = 4;
+  required string price = 5;
+  required int64 exchangedAt = 6;
+}
+
+message CollectionVolumeStatsDTO{
+  required int64 collectionId = 1;
+  required string totalVolume = 2;
+  required string currency = 3;
+}
+
+message COLLECTION_VOLUME_STATS_IC{
+  required int64 collectionId = 1;
+}
+message COLLECTION_VOLUME_STATS_IS{
+  optional CollectionVolumeStatsDTO stats = 1;
+}
+
+
+message EXCHANGE_LOG_IC{
+  required ExchangeLog log = 1;
+}
+

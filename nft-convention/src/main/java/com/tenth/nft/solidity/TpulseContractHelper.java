@@ -18,6 +18,7 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Convert;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -39,8 +40,14 @@ public class TpulseContractHelper {
     private String contractOwner;
     private WETHContract wethContract;
 
-    public TpulseContractHelper(Web3Properties web3Properties) throws Exception{
+    public TpulseContractHelper(Web3Properties web3Properties){
         this.web3Properties = web3Properties;
+
+    }
+
+    @PostConstruct
+    public void init() throws Exception{
+
         web3j = Web3j.build(new HttpService(web3Properties.getNetwork()));
         EthGasPrice gasPrice = web3j.ethGasPrice().send();
         EthBlockNumber ethBlockNumber = web3j.ethBlockNumber().send();

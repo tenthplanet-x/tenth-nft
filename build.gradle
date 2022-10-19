@@ -32,7 +32,7 @@ ext {
         springboot: '2.1.6.RELEASE',
         commons: '0.4.0_003-SNAPSHOT',
         operation: '0.3.0_20220804_001-SNAPSHOT',
-        gs: '0.14.0_20220809_001-SNAPSHOT',
+        gs: '0.14.0_20221017_002-SNAPSHOT',
         tpulse: '0.0.20220805_002-SNAPSHOT'
     ]
     libs = [
@@ -93,7 +93,7 @@ ext {
 
 allprojects{
     group 'com.tenth.nft'
-    version "0.0.1_20220913_005-SNAPSHOT"
+    version "0.1.0_20220913_005-SNAPSHOT"
 
     repositories {
         maven {

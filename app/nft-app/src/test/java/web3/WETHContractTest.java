@@ -22,6 +22,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.tx.gas.StaticGasProvider;
 import org.web3j.utils.Convert;
 
 import java.math.BigInteger;
@@ -60,8 +61,7 @@ public class WETHContractTest {
         WETHContract contract = WETHContract.deploy(
                 web3j,
                 credentials,
-                //new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit()),
-                new DefaultGasProvider()
+                new StaticGasProvider(gasPrice.getGasPrice(), ethBlock.getBlock().getGasLimit())
         ).send();
         System.out.println(contract.getContractAddress());
     }

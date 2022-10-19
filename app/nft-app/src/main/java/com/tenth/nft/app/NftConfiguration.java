@@ -1,16 +1,15 @@
 package com.tenth.nft.app;
 
 import com.tenth.nft.app.security.SimpleLockManger;
-import com.tenth.nft.blockchain.NftBlockchainConfiguration;
 import com.tenth.nft.convention.NftConventionConfiguration;
-import com.tenth.nft.crawler.NftCrawlerConfiguration;
-import com.tenth.nft.exchange.buildin.NftExchangeConfiguration;
-import com.tenth.nft.NftMarketplaceConfiguration;
-import com.tenth.nft.marketplace.NftPlayerConfiguration;
+import com.tenth.nft.marketplace.NftMarketplaceConfiguration;
+import com.tenth.nft.marketplace.buildin.BuildInNftMarketplaceConfiguration;
+import com.tenth.nft.marketplace.common.NftMarketplaceCommonConfiguration;
+import com.tenth.nft.marketplace.stats.NftMarketplaceStatsConfiguration;
+import com.tenth.nft.marketplace.web3.Web3NftMarketpalceConfiguration;
 import com.tenth.nft.operation.NftOperationConfiguration;
 import com.tenth.nft.orm.NftOrmConfiguration;
-import com.tenth.nft.search.NftSearchConfiguration;
-import com.tenth.nft.wallet.NftWalletConfiguration;
+import com.tenth.nft.wallet.BuildInWalletConfiguration;
 import com.tenth.nft.web3.Web3WalletConfiguration;
 import com.tpulse.gs.GsRoutesConfiguration;
 import com.tpulse.gs.config2.client.GsConfig2ClientConfiguration;
@@ -36,19 +35,20 @@ import org.springframework.context.annotation.Import;
         GsSchedulerConfiguration.class,
         GsConventionConfiguration.class,
         GsRoutesConfiguration.class,
-        NftCrawlerConfiguration.class,
         NftConventionConfiguration.class,
-        NftMarketplaceConfiguration.class,
         NftOrmConfiguration.class,
-        NftSearchConfiguration.class,
-        NftBlockchainConfiguration.class,
-        NftExchangeConfiguration.class,
         NftOperationConfiguration.class,
-        NftWalletConfiguration.class,
+        BuildInWalletConfiguration.class,
         GsConfig2ClientConfiguration.class,
         GsConfig2ServerConfiguration.class,
+        NftMarketplaceConfiguration.class,
+        BuildInNftMarketplaceConfiguration.class,
+        Web3NftMarketpalceConfiguration.class,
+        NftMarketplaceCommonConfiguration.class,
+        NftMarketplaceStatsConfiguration.class,
         Web3WalletConfiguration.class,
-        NftPlayerConfiguration.class
+        BuildInWalletConfiguration.class,
+
 })
 public class NftConfiguration {
 
